@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +10,19 @@ use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\MedecineController;
+use App\Http\Controllers\DoctorsNotesController;
+use App\Http\Controllers\InfoMedecineController;
+use App\Http\Controllers\InfoResultsController;
+use App\Http\Controllers\LabResultController;
+use App\Http\Controllers\PatientHealthRecordController;
+use App\Http\Controllers\PatientHistoryController;
+use App\Http\Controllers\PatientInfoController;
+use App\Http\Controllers\PatientLogController;
+use App\Http\Controllers\PhysicalExamController;
+use App\Http\Controllers\ResultController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\VitalController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,9 +44,23 @@ Route::get('/', function () {
 });
 
 
+
+
+
 Route::apiResource('departments', DepartmentController::class);
 Route::apiResource('ResAssRooms', ResidentAssignedRoomController::class);
 Route::apiResource('residents', ResidentController::class);
 Route::apiResource('patients', PatientController::class);
 Route::apiResource('floors', FloorController::class);
 Route::apiResource('medecine', MedecineController::class);
+Route::apiResource('doctorsNotes', DoctorsNotesController::class);
+Route::apiResource('doctorsNotes', InfoMedecineController::class);
+Route::apiResource('doctorsNotes', InfoResultsController::class);
+Route::apiResource('doctorsNotes', LabResultController::class);
+Route::apiResource('doctorsNotes', PatientHealthRecordController::class);
+Route::apiResource('doctorsNotes', PatientHistoryController::class);
+Route::apiResource('doctorsNotes', PatientInfoController::class);
+Route::apiResource('doctorsNotes', PatientLogController::class);
+Route::apiResource('doctorsNotes', PhysicalExamController::class);
+Route::apiResource('doctorsNotes', ResultController::class);
+Route::apiResource('doctorsNotes', VitalController::class);

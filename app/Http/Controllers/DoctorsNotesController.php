@@ -58,8 +58,10 @@ class DoctorsNotesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(doctors_notes $doctors_notes)
+    public function destroy($id)
     {
-        //
+        doctors_notes::destroy($id);
+
+        return redirect(route('doctors_notes.index'))->with('message','dep has been deleted');
     }
 }
