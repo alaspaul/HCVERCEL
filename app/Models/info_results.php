@@ -10,8 +10,6 @@ class info_results extends Model
 {
     use HasFactory;
 
-    const CREATED_AT = 'creation_date';
-    const UPDATED_AT = 'updated_date';
     protected $fillable = [
         'pInfo_id',
         'results_id',

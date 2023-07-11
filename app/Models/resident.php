@@ -16,8 +16,6 @@ class resident extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    const CREATED_AT = 'creation_date';
-    const UPDATED_AT = 'updated_date';
     protected $fillable = [
         'resident_id',
         'resident_userName',

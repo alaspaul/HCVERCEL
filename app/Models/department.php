@@ -13,9 +13,6 @@ class department extends Model
     
     public $incrementing = false;
     protected $keyType = 'string';
-
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';
     protected $fillable = [
         'department_id',
         'department_name'

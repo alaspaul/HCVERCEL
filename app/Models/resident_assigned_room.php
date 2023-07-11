@@ -19,8 +19,7 @@ class resident_assigned_room extends Model
         'isFinished',
     ];
 
-    const CREATED_AT = 'started_date';
-    const UPDATED_AT = 'finished_date';
+
 
     public function resident(): HasOneOrMany
     {
