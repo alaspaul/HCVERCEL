@@ -44,7 +44,7 @@ class MedecineController extends Controller
             'updated_at' => now(),
         ]);
 
-        return view('practiceDep');
+        return redirect(route('medecine.index'));
     }
 
     /**

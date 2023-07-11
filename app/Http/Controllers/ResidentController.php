@@ -46,7 +46,7 @@ class ResidentController extends Controller
             'updated_at' => now(),
         ]);
 
-        return view('practiceDep');
+        return redirect(route('residents.index'));
     }
 
     /**

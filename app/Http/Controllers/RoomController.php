@@ -42,7 +42,7 @@ class RoomController extends Controller
             'updated_at' => now(),
         ]);
 
-        return view('practiceDep');
+        return redirect(route('room.index'));
     }
 
     /**
@@ -83,7 +83,7 @@ class RoomController extends Controller
 
         );
 
-        return redirect(route('rooms.index'))->with('message','dep has been updated');
+        return redirect(route('room.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -93,7 +93,7 @@ class RoomController extends Controller
     {
        room::destroy($id);
 
-       return redirect(route('rooms.index'))->with('message','dep has been deleted');
+       return redirect(route('room.index'))->with('message','dep has been deleted');
     }
 
 
@@ -115,7 +115,7 @@ class RoomController extends Controller
 
         );
 
-        return redirect(route('rooms.index'))->with('message','dep has been updated');
+        return redirect(route('room.index'))->with('message','dep has been updated');
     }
 
 

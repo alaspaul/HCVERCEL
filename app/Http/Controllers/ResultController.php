@@ -37,7 +37,7 @@ class ResultController extends Controller
             'updated_at' => now(),
         ]);
 
-        return view('practiceDep');
+        return redirect(route('result.index'));
     }
 
     /**
@@ -64,7 +64,7 @@ class ResultController extends Controller
     {
         result::where('result_id', $id)->update(['results' => $request['results'],          'updated_at' => now(),]);
 
-        return redirect(route('results.index'))->with('message','dep has been updated');
+        return redirect(route('result.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -74,7 +74,7 @@ class ResultController extends Controller
     {
        result::destroy($id);
 
-       return redirect(route('results.index'))->with('message','dep has been deleted');
+       return redirect(route('result.index'))->with('message','dep has been deleted');
     }
 
 

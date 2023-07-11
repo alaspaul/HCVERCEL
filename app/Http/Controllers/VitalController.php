@@ -42,7 +42,7 @@ class VitalController extends Controller
             'updated_at' => now(),
         ]);
 
-        return view('practiceDep');
+        return redirect(route('vital.index'));
     }
 
     /**
@@ -83,7 +83,7 @@ class VitalController extends Controller
 
         );
 
-        return redirect(route('vitals.index'))->with('message','dep has been updated');
+        return redirect(route('vital.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -93,7 +93,7 @@ class VitalController extends Controller
     {
        vital::destroy($id);
 
-       return redirect(route('vitals.index'))->with('message','dep has been deleted');
+       return redirect(route('vital.index'))->with('message','dep has been deleted');
     }
 
 
@@ -115,7 +115,7 @@ class VitalController extends Controller
                 ]
         );
 
-        return redirect(route('vitals.index'))->with('message','dep has been updated');
+        return redirect(route('vital.index'))->with('message','dep has been updated');
     }
 
 

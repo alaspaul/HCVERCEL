@@ -72,8 +72,8 @@ Route::POST('departments/updateDep{department}', [DepartmentController::class, '
 Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
 Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
-Route::POST('medecines/edit{medecine}', [medecineController::class, 'edit'])->name('medecines.edit');
-Route::POST('medecines/updateMeds{medecine}', [medecineController::class, 'updateMeds'])->name('medecines.updateMeds');
+Route::POST('medecine/edit{medecine}', [medecineController::class, 'edit'])->name('medecine.edit');
+Route::POST('medecine/updateMeds{medecine}', [medecineController::class, 'updateMeds'])->name('medecine.updateMeds');
 
 Route::POST('patients/edit{patient}', [patientController::class, 'edit'])->name('patients.edit');
 Route::POST('patients/updatePatient{patient}', [patientController::class, 'updatePatient'])->name('patients.updatePatient');
@@ -81,8 +81,12 @@ Route::POST('patients/updatePatient{patient}', [patientController::class, 'updat
 Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
 Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');
 
-Route::POST('results/edit{result}', [resultController::class, 'edit'])->name('results.edit');
-Route::POST('results/updateResult{result}', [resultController::class, 'updateResult'])->name('results.updateResults');
+Route::POST('result/edit{result}', [resultController::class, 'edit'])->name('result.edit');
+Route::POST('result/updateResult{result}', [resultController::class, 'updateResult'])->name('result.updateResults');
 
-Route::POST('vitals/edit{vital}', [vitalController::class, 'edit'])->name('vitals.edit');
-Route::POST('vitals/updateVital{vital}', [vitalController::class, 'updateVital'])->name('vitals.updateVital');
+Route::POST('vital/edit{vital}', [vitalController::class, 'edit'])->name('vital.edit');
+Route::POST('vital/updateVital{vital}', [vitalController::class, 'updateVital'])->name('vital.updateVital');
+
+
+Route::POST('room/edit{room}', [roomController::class, 'edit'])->name('room.edit');
+Route::POST('room/updateRoom{room}', [roomController::class, 'updateRoom'])->name('room.updateRoom');
