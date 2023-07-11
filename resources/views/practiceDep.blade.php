@@ -49,6 +49,15 @@
         <button type="submit">delete
         </button>
     </form>
+    <form action="{{ route('departments.edit', $dep->department_id) }}" method="POST">
+        @csrf
+        
+        <h1>edit department</h1>
+  
+
+        <button type="submit">edit
+        </button>
+    </form>
       @endforeach
         
         </div>

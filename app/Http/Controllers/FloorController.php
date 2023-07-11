@@ -34,6 +34,10 @@ class FloorController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+
+        
+        return view('practiceFloor');
     }
 
     /**

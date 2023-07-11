@@ -66,3 +66,5 @@ Route::apiResource('Result', ResultController::class);
 Route::apiResource('Vital', VitalController::class);
 Route::apiResource('Room', RoomController::class);
 
+Route::POST('departments/edit{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
+Route::POST('departments/updateDep{department}', [DepartmentController::class, 'updateDep'])->name('departments.updateDep');

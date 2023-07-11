@@ -14,7 +14,7 @@ class DepartmentController extends Controller
     {
         $dep = department::all();
 
-        return view('practice')->with('deps' , $dep);
+        return view('practiceDep')->with('deps' , $dep);
     }
 
     /**
@@ -37,7 +37,7 @@ class DepartmentController extends Controller
             'updated_at' => now(),
         ]);
 
-        return view('practice');
+        return view('practiceDep');
     }
 
     /**
@@ -51,17 +51,22 @@ class DepartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(department $department)
-    {
-        //
+    public function edit($id)
+    {   
+        $department = department::where('department_id', $id)->get();
+        return view('editDep')->with('department', $department);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, department $department)
+    public function update(Request $request, $id)
     {
-        //
+       
+        
+        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
+
+        return redirect(route('departments.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -73,4 +78,16 @@ class DepartmentController extends Controller
 
        return redirect(route('departments.index'))->with('message','dep has been deleted');
     }
+
+
+    public function updateDep(Request $request, $id)
+    {
+       
+        
+        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
+
+        return redirect(route('departments.index'))->with('message','dep has been updated');
+    }
+
+
 }
