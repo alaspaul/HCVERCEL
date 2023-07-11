@@ -14,7 +14,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resident_assigned_rooms', function (Blueprint $table) {
-      
+            
+            $table->string('resAssRoom_id')->primary();
+            
             $table->string('room_id');
             $table->string('resident_id');
             $table->boolean('isFinished');

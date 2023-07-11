@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 class VitalController extends Controller
 {
-    /**
+       /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $dep = vital::all();
+
+        return view('practiceDep')->with('deps' , $dep);
     }
 
     /**
@@ -28,7 +30,19 @@ class VitalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        vital::insert([
+            'patientVital_id' => $request['patientVital_id'],
+            'patientVital_Bp' => $request['patientVital_Bp'],
+            'patientVital_temp' => $request['patientVital_temp'],
+            'patientVital_pulseRate' => $request['patientVital_pulseRate'],
+            'patientVital_breathingRate' => $request['patientVital_breathingRate'],
+            'patient_id' => $request['patient_id'],
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return view('practiceDep');
     }
 
     /**
@@ -42,24 +56,67 @@ class VitalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(vital $vital)
-    {
-        //
+    public function edit($id)
+    {   
+        $vital = vital::where('vital_id', $id)->get();
+        return view('editDep')->with('vital', $vital);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, vital $vital)
+    public function update(Request $request, $id)
     {
-        //
+       
+        
+        vital::where('vital_id', $id)->update(
+            [
+                'vital_name' => $request['vital_name'],
+                'vital_building' => $request['vital_building'],
+                'vital_type' => $request['vital_type'],
+                'vital_price' => $request['vital_price'],
+                'floor_id' => $request['floor_id'],
+                
+
+                'updated_at' => now(),
+                ]
+
+        );
+
+        return redirect(route('vitals.index'))->with('message','dep has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(vital $vital)
+    public function destroy($id)
     {
-        //
+       vital::destroy($id);
+
+       return redirect(route('vitals.index'))->with('message','dep has been deleted');
     }
+
+
+    public function updateDep(Request $request, $id)
+    {
+       
+        
+        vital::where('vital_id', $id)->update(
+            [
+
+                'patientVital_Bp' => $request['patientVital_Bp'],
+                'patientVital_temp' => $request['patientVital_temp'],
+                'patientVital_pulseRate' => $request['patientVital_pulseRate'],
+                'patientVital_breathingRate' => $request['patientVital_breathingRate'],
+                'patient_id' => $request['patient_id'],
+    
+        
+                'updated_at' => now(),
+                ]
+        );
+
+        return redirect(route('vitals.index'))->with('message','dep has been updated');
+    }
+
+
 }

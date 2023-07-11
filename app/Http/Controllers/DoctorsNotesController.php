@@ -12,7 +12,7 @@ class DoctorsNotesController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -28,7 +28,7 @@ class DoctorsNotesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -60,8 +60,6 @@ class DoctorsNotesController extends Controller
      */
     public function destroy($id)
     {
-        doctors_notes::destroy($id);
-
-        return redirect(route('doctors_notes.index'))->with('message','docNotes has been deleted');
+        
     }
 }

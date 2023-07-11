@@ -11,9 +11,13 @@ class resident_assigned_room extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'resAssRoom_id';
 
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
 
+        'resAssRoom_id',
         'resident_id',
         'room_id',
         'isFinished',

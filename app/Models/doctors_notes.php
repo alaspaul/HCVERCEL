@@ -10,7 +10,12 @@ use Laravel\Sanctum\HasApiTokens;
 class doctors_notes extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'docNotes_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
+        'docNotes_id',
         'notes',
         'pInfo_id',
         'resident_id',

@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 class RoomController extends Controller
 {
-    /**
+      /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $dep = room::all();
+
+        return view('practiceDep')->with('deps' , $dep);
     }
 
     /**
@@ -28,7 +30,19 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        room::insert([
+            'room_id' => $request['room_id'],
+            'room_name' => $request['room_name'],
+            'room_building' => $request['room_building'],
+            'room_type' => $request['room_type'],
+            'room_price' => $request['room_price'],
+            'floor_id' => $request['floor_id'],
+            
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return view('practiceDep');
     }
 
     /**
@@ -42,24 +56,55 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(room $room)
-    {
-        //
+    public function edit($id)
+    {   
+        $room = room::where('room_id', $id)->get();
+        return view('editDep')->with('room', $room);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, room $room)
+    public function update(Request $request, $id)
     {
-        //
+       
+        
+        room::where('room_id', $id)->update(
+            [
+                'room_name' => $request['room_name'],
+                'room_building' => $request['room_building'],
+                'room_type' => $request['room_type'],
+                'room_price' => $request['room_price'],
+                'floor_id' => $request['floor_id'],
+                
+
+                'updated_at' => now(),
+                ]
+
+        );
+
+        return redirect(route('rooms.index'))->with('message','dep has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(room $room)
+    public function destroy($id)
     {
-        //
+       room::destroy($id);
+
+       return redirect(route('rooms.index'))->with('message','dep has been deleted');
     }
+
+
+    public function updateDep(Request $request, $id)
+    {
+       
+        
+        room::where('room_id', $id)->update(['room_name' => $request['room_name']]);
+
+        return redirect(route('rooms.index'))->with('message','dep has been updated');
+    }
+
+
 }

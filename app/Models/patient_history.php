@@ -17,11 +17,11 @@ class patient_history extends Model
 
 
     protected $fillable = [
-        'patientLog_id',
+        'patientHistory_id',
         'patientLog_id',
     ];
 
-    public function patient_info(): HasOneOrMany
+    public function patient_log(): HasOneOrMany
     {
         return $this->hasOne(resident::class, 'foreign_key', 'patientLog_id');
     }

@@ -64,7 +64,7 @@ class DepartmentController extends Controller
     {
        
         
-        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
+        department::where('department_id', $id)->update(['department_name' => $request['department_name'],          'updated_at' => now(),]);
 
         return redirect(route('departments.index'))->with('message','dep has been updated');
     }

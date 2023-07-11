@@ -10,7 +10,12 @@ class info_results extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'infoResults_id';
+
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
+        'infoResults_id',
         'pInfo_id',
         'results_id',
     ];

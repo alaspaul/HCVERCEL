@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 class FloorController extends Controller
 {
-    /**
+       /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $dep = floor::all();
+
+        return view('practiceDep')->with('deps' , $dep);
     }
 
     /**
@@ -35,9 +37,7 @@ class FloorController extends Controller
             'updated_at' => now(),
         ]);
 
-
-        
-        return view('practiceFloor');
+        return view('practiceDep');
     }
 
     /**
@@ -51,24 +51,42 @@ class FloorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(floor $floor)
-    {
-        //
+    public function edit($id)
+    {   
+        $floor = floor::where('floor_id', $id)->get();
+        return view('editDep')->with('floor', $floor);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, floor $floor)
+    public function update(Request $request, $id)
     {
-        //
+       
+        
+        floor::where('floor_id', $id)->update(['floor_name' => $request['floor_name'],          'updated_at' => now(),]);
+
+        return redirect(route('floors.index'))->with('message','dep has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(floor $floor)
+    public function destroy($id)
     {
-        //
+       floor::destroy($id);
+
+       return redirect(route('floors.index'))->with('message','dep has been deleted');
     }
+
+
+    public function updateDep(Request $request, $id)
+    {
+       
+        
+        floor::where('floor_id', $id)->update(['floor_name' => $request['floor_name']]);
+
+        return redirect(route('floors.index'))->with('message','dep has been updated');
+    }
+
 }

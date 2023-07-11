@@ -166,7 +166,7 @@ class patient_healthRecord extends Model
 
 
     
-    public function floor(): HasOneOrMany
+    public function patient(): HasOneOrMany
     {
         return $this->hasOne(floor::class, 'foreign_key', 'patient_id');
     }
