@@ -80,11 +80,11 @@ class FloorController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateFloor(Request $request, $id)
     {
        
         
-        floor::where('floor_id', $id)->update(['floor_name' => $request['floor_name']]);
+        floor::where('floor_id', $id)->update(['floor_name' => $request['floor_name'],          'updated_at' => now(),]);
 
         return redirect(route('floors.index'))->with('message','dep has been updated');
     }

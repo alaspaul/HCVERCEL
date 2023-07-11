@@ -100,11 +100,23 @@ class PatientController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updatePatient(Request $request, $id)
     {
        
         
-        patient::where('patient_id', $id)->update(['patient_name' => $request['patient_name']]);
+        
+        patient::where('patient_id', $id)->update(
+            [            
+            'patient_fName' => $request['patient_fName'],
+            'patient_lName' => $request['patient_fName'],
+            'patient_mName' => $request['patient_fName'],
+            'patient_age' => $request['patient_age'],
+            'patient_sex' => $request['patient_sex'],
+            'patient_vaccine_stat' => $request['patient_vaccine_stat'],
+
+            'updated_at' => now(),
+            ]
+        );
 
         return redirect(route('patients.index'))->with('message','dep has been updated');
     }

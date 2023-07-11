@@ -101,11 +101,24 @@ class ResidentController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateResident(Request $request, $id)
     {
        
         
-        resident::where('resident_id', $id)->update(['resident_name' => $request['resident_name']]);
+        resident::where('resident_id', $id)->update(
+            [
+                'resident_userName' => $request['resident_userName'],
+                'resident_fName' => $request['resident_fName'],
+                'resident_lName' => $request['resident_lName'],
+                'resident_mName' => $request['resident_mName'],
+                'resident_password' => $request['resident_password'],
+                'department_id' => $request['department_id'],
+    
+         
+                'updated_at' => now(),
+                ]
+        );
+
 
         return redirect(route('residents.index'))->with('message','dep has been updated');
     }

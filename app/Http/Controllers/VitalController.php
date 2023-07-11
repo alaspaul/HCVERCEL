@@ -97,7 +97,7 @@ class VitalController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateVital(Request $request, $id)
     {
        
         

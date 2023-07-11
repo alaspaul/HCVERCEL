@@ -62,8 +62,6 @@ class ResultController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
-        
         result::where('result_id', $id)->update(['results' => $request['results'],          'updated_at' => now(),]);
 
         return redirect(route('results.index'))->with('message','dep has been updated');
@@ -80,11 +78,9 @@ class ResultController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateResult(Request $request, $id)
     {
-       
-        
-        result::where('result_id', $id)->update(['result_name' => $request['result_name']]);
+        result::where('result_id', $id)->update(['results' => $request['results'],          'updated_at' => now(),]);
 
         return redirect(route('results.index'))->with('message','dep has been updated');
     }
