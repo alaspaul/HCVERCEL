@@ -37,7 +37,7 @@ class DepartmentController extends Controller
             'updated_at' => now(),
         ]);
 
-        return view('practiceDep');
+        return redirect(route('departments.index'));
     }
 
     /**
