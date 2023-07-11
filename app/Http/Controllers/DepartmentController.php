@@ -14,7 +14,7 @@ class DepartmentController extends Controller
     {
         $dep = department::all();
 
-        return view('practice')->with('dep' , $dep);
+        return view('practice')->with('deps' , $dep);
     }
 
     /**
@@ -67,8 +67,10 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(department $department)
+    public function destroy($id)
     {
-       department::destroy($department->department_id);
+       department::destroy($id);
+
+       return redirect(route('departments.index'))->with('message','dep has been deleted');
     }
 }

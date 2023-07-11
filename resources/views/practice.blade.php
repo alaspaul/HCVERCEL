@@ -9,6 +9,15 @@
 </head>
 <body>
     <div>
+        @if (isset($message)){
+            <div>
+                <h1><center>@php
+                    echo($message);
+                @endphp
+                </center></h1>
+            </div>
+        }
+        @endif
     <form action="{{ route('departments.store') }}" method="post">
         @csrf
         <h1>add in department</h1>
@@ -25,15 +34,23 @@
     <br><br><br>
 
     <div>
-      
-        <form action="{{ route('departments.destroy, $dep') }}" method="DELETE">
-            @csrf
-            <h1>delete department</h1>
-      
-    
-            <button type="submit">delete
-            </button>
-        </form>
+      @foreach ($deps as $dep)
+      <form action="{{ route('departments.destroy', $dep->department_id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <h1>department ID: @php
+                                echo($dep->department_id);
+                            @endphp
+        </h1>
+        
+        <h1>delete department</h1>
+  
+
+        <button type="submit">delete
+        </button>
+    </form>
+      @endforeach
+        
         </div>
 </body>
 </html>
