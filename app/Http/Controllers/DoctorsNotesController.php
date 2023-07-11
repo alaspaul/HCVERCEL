@@ -62,6 +62,6 @@ class DoctorsNotesController extends Controller
     {
         doctors_notes::destroy($id);
 
-        return redirect(route('doctors_notes.index'))->with('message','dep has been deleted');
+        return redirect(route('doctors_notes.index'))->with('message','docNotes has been deleted');
     }
 }
