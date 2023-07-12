@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+
 use App\Models\department;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens; 
 
-class resident extends Model
-{ 
-    use HasFactory;
+class resident extends Authenticatable
+{   use HasApiTokens, HasFactory, Notifiable;
 
     protected $primaryKey = 'resident_id';
 
@@ -24,6 +25,11 @@ class resident extends Model
         'resident_mName',
         'resident_password',
         'department_id',
+    ];
+
+    protected $hidden = [
+        'resident_password',
+        'remember_token',
     ];
 
     public function department(): HasOneOrMany

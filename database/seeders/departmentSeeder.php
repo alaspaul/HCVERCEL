@@ -15,15 +15,12 @@ class departmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $count = 0;
-        
-        do{
+       
         department::insert([
             'department_id' => 'D01',
             'department_name' => str::random(10). ' dep',
         ]);
 
-        $count++;
-    }while($count < 10);
+    
     }
 }

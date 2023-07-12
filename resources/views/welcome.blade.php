@@ -16,6 +16,17 @@
         </style>
     </head>
     <body class="antialiased">
-        <button><a href="{{route('departments.index')}}">go to departments</a></button>
+      <h1>LOGIN PLEASE</h1>
+      @if(Session::get('fail'))
+      <div>
+        {{Session::get('fail')}}
+      </div>
+      @endif
+        <form action="{{ route('loginRes') }}" method="post">
+            @csrf
+      <input type="text" name="resident_userName" id="" placeholder="USERNAME">
+      <input type="password" name="resident_password" id="" placeholder="PASSWORD">
+      <button type="submit">login</button>
+    </form>
     </body>
 </html>

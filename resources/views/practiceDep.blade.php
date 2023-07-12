@@ -18,6 +18,18 @@
             </div>
         }
         @endif
+
+      
+            <div>
+                <h1><center>
+                welcome user {{ $ResUserInfo['resident_fName']}}    
+                </center></h1>
+            </div>
+           
+      
+       <div>
+        <a href="{{route('logout')}}">logout</a>
+       </div>
     <form action="{{ route('departments.store') }}" method="post">
         @csrf
         <h1>add in department</h1>

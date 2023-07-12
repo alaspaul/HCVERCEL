@@ -34,23 +34,29 @@ use App\Http\Controllers\VitalController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 
 
 
-Route::apiResource('departments', DepartmentController::class);
-Route::apiResource('ResAssRooms', ResidentAssignedRoomController::class);
+
+Route::post('/loginResident', [residentController::class, 'loginResident'])->name('loginRes');
+
+
+
+
 Route::apiResource('residents', ResidentController::class);
-Route::apiResource('patients', PatientController::class);
+
+
+
+
+
+Route::group(['middleware' => ['authCheck']], function(){
+    Route::get('/logoutResident', [residentController::class, 'logoutRes'])->name('logout');
+    Route::apiResource('ResAssRooms', ResidentAssignedRoomController::class);
+    Route::apiResource('patients', PatientController::class);
+    Route::apiResource('departments', DepartmentController::class);
+
 Route::apiResource('floors', FloorController::class);
 Route::apiResource('medecine', MedecineController::class);
 Route::apiResource('doctorsNotes', DoctorsNotesController::class);
@@ -90,3 +96,11 @@ Route::POST('vital/updateVital{vital}', [vitalController::class, 'updateVital'])
 
 Route::POST('room/edit{room}', [roomController::class, 'edit'])->name('room.edit');
 Route::POST('room/updateRoom{room}', [roomController::class, 'updateRoom'])->name('room.updateRoom');
+
+
+
+
+});
+
+
+

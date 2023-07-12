@@ -19,16 +19,17 @@ return new class extends Migration
             $table->string('resident_lName');
             $table->string('resident_mName');
             $table->string('resident_password');
+            $table->rememberToken();
             $table->string('department_id');
             $table->timestamps();
+
+            $table->foreign('department_id')->references('department_id')->on('departments')     
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
 
 
-        Schema::table('residents', function (Blueprint $table) {
-            $table->foreign('department_id')->references('department_id')->on('departments')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-          });
+ 
     }
 
 

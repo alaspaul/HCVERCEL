@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\department;
 use Illuminate\Http\Request;
-
+use App\Models\resident;
 class DepartmentController extends Controller
 {
     /**
@@ -12,9 +12,10 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        $data = ['ResUserInfo' => resident::where('resident_id', Session('loggedUser'))->first()];
         $dep = department::all();
 
-        return view('practiceDep')->with('deps' , $dep);
+        return view('practiceDep', $data)->with('deps' , $dep);
     }
 
     /**
