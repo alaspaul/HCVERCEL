@@ -12,9 +12,9 @@ class VitalController extends Controller
      */
     public function index()
     {
-        $dep = vital::all();
+        $data = vital::all();
 
-        return view('practiceDep')->with('deps' , $dep);
+        return $data;
     }
 
     /**

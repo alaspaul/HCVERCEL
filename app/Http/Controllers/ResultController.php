@@ -12,9 +12,9 @@ class ResultController extends Controller
      */
     public function index()
     {
-        $dep = result::all();
+        $data = result::all();
 
-        return view('practiceDep')->with('deps' , $dep);
+        return $data;
     }
 
     /**
@@ -37,7 +37,7 @@ class ResultController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect(route('result.index'));
+        return response('store');
     }
 
     /**
@@ -53,8 +53,7 @@ class ResultController extends Controller
      */
     public function edit($id)
     {   
-        $result = result::where('result_id', $id)->get();
-        return view('editDep')->with('result', $result);
+       
     }
 
     /**
@@ -62,9 +61,7 @@ class ResultController extends Controller
      */
     public function update(Request $request, $id)
     {
-        result::where('result_id', $id)->update(['results' => $request['results'],          'updated_at' => now(),]);
-
-        return redirect(route('result.index'))->with('message','dep has been updated');
+        
     }
 
     /**
@@ -74,7 +71,7 @@ class ResultController extends Controller
     {
        result::destroy($id);
 
-       return redirect(route('result.index'))->with('message','dep has been deleted');
+       return response('deleted');
     }
 
 
@@ -82,7 +79,7 @@ class ResultController extends Controller
     {
         result::where('result_id', $id)->update(['results' => $request['results'],          'updated_at' => now(),]);
 
-        return redirect(route('results.index'))->with('message','dep has been updated');
+        return response('updated');
     }
 
 }

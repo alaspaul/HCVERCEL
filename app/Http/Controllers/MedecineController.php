@@ -15,9 +15,9 @@ class MedecineController extends Controller
      */
     public function index()
     {
-        $dep = medecine::all();
+        $data = medecine::all();
 
-        return view('practiceDep')->with('deps' , $dep);
+        return $data;
     }
 
     /**
@@ -38,13 +38,15 @@ class MedecineController extends Controller
             'medecine_name' => $request['medecine_name'],
             'medecine_brand' => $request['medecine_brand'],
             'medecine_dosage' => $request['medecine_dosage'],
+            'medecine_type' => $request['medecine_type'],
             'medecine_price' => $request['medecine_price'],
 
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        return redirect(route('medecine.index'));
+        
+        return response('stored');
     }
 
     /**
@@ -60,8 +62,7 @@ class MedecineController extends Controller
      */
     public function edit($id)
     {   
-        $medecine = medecine::where('medecine_id', $id)->get();
-        return view('editDep')->with('medecine', $medecine);
+
     }
 
     /**
@@ -71,17 +72,6 @@ class MedecineController extends Controller
     {
        
         
-        medecine::where('medecine_id', $id)->update(
-            [        
-            'medecine_name' => $request['medecine_name'],
-            'medecine_brand' => $request['medecine_brand'],
-            'medecine_dosage' => $request['medecine_dosage'],
-            'medecine_price' => $request['medecine_price'],
-
-            'updated_at' => now(),
-            ]);
-
-        return redirect(route('medecines.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -91,7 +81,8 @@ class MedecineController extends Controller
     {
        medecine::destroy($id);
 
-       return redirect(route('medecines.index'))->with('message','dep has been deleted');
+       
+       return response('deleted');
     }
 
 
@@ -101,15 +92,19 @@ class MedecineController extends Controller
         
         medecine::where('medecine_id', $id)->update(
             [        
-            'medecine_name' => $request['medecine_name'],
-            'medecine_brand' => $request['medecine_brand'],
-            'medecine_dosage' => $request['medecine_dosage'],
-            'medecine_price' => $request['medecine_price'],
+                'medecine_id' => $request[' medecine_id'],
+                'medecine_name' => $request['medecine_name'],
+                'medecine_brand' => $request['medecine_brand'],
+                'medecine_dosage' => $request['medecine_dosage'],
+                'medecine_type' => $request['medecine_type'],
+                'medecine_price' => $request['medecine_price'],
+    
 
             'updated_at' => now(),
             ]);
             
-        return redirect(route('medecines.index'))->with('message','dep has been updated');
+        
+            return response('updated');
     }
 
 }

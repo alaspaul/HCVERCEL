@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class FloorController extends Controller
 {
-       /**
+        /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dep = floor::all();
-
-        return view('practiceDep')->with('deps' , $dep);
+        
+        $data = floor::all();
+        return $data;
     }
 
     /**
@@ -33,11 +33,12 @@ class FloorController extends Controller
         floor::insert([
             'floor_id' => $request['floor_id'],
             'floor_name' => $request['floor_name'],
+
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        return redirect(route('floors.index'));
+        return response('stored');
     }
 
     /**
@@ -53,8 +54,7 @@ class FloorController extends Controller
      */
     public function edit($id)
     {   
-        $floor = floor::where('floor_id', $id)->get();
-        return view('editDep')->with('floor', $floor);
+
     }
 
     /**
@@ -64,9 +64,6 @@ class FloorController extends Controller
     {
        
         
-        floor::where('floor_id', $id)->update(['floor_name' => $request['floor_name'],          'updated_at' => now(),]);
-
-        return redirect(route('floors.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -76,17 +73,24 @@ class FloorController extends Controller
     {
        floor::destroy($id);
 
-       return redirect(route('floors.index'))->with('message','dep has been deleted');
+       
+       return response('deleted');
     }
 
 
-    public function updateFloor(Request $request, $id)
+    public function updateDep(Request $request, $id)
     {
        
         
-        floor::where('floor_id', $id)->update(['floor_name' => $request['floor_name'],          'updated_at' => now(),]);
+        floor::where('floor_id', $id)->update(
+            [
+                'floor_id' => $request['floor_id'],
+                'floor_name' => $request['floor_name'],
 
-        return redirect(route('floors.index'))->with('message','dep has been updated');
+                'updated_at' => now(),
+            ]);
+
+        return response('updated');
     }
-
+    
 }

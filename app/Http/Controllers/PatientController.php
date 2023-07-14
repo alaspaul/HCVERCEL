@@ -15,9 +15,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $dep = patient::all();
+        $data = patient::all();
 
-        return view('practiceDep')->with('deps' , $dep);
+        return $data;
     }
 
     /**
@@ -46,7 +46,7 @@ class PatientController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect(route('patients.index'));
+        return response('stored');
     }
 
     /**
@@ -63,7 +63,8 @@ class PatientController extends Controller
     public function edit($id)
     {   
         $patient = patient::where('patient_id', $id)->get();
-        return view('editDep')->with('patient', $patient);
+
+        return response('edit');
     }
 
     /**
@@ -72,21 +73,6 @@ class PatientController extends Controller
     public function update(Request $request, $id)
     {
        
-        
-        patient::where('patient_id', $id)->update(
-            [            
-            'patient_fName' => $request['patient_fName'],
-            'patient_lName' => $request['patient_fName'],
-            'patient_mName' => $request['patient_fName'],
-            'patient_age' => $request['patient_age'],
-            'patient_sex' => $request['patient_sex'],
-            'patient_vaccine_stat' => $request['patient_vaccine_stat'],
-
-            'updated_at' => now(),
-            ]
-        );
-
-        return redirect(route('patients.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -118,7 +104,7 @@ class PatientController extends Controller
             ]
         );
 
-        return redirect(route('patients.index'))->with('message','dep has been updated');
+        return response('updated');
     }
 
 }

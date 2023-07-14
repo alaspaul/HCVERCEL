@@ -12,10 +12,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $data = ['ResUserInfo' => resident::where('resident_id', Session('loggedUser'))->first()];
-        $dep = department::all();
-
-        return view('practiceDep', $data)->with('deps' , $dep);
+        
+        $data = department::all();
+        return $data;
     }
 
     /**
@@ -38,7 +37,8 @@ class DepartmentController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect(route('departments.index'));
+ 
+        return response('stored');
     }
 
     /**
@@ -54,8 +54,7 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {   
-        $department = department::where('department_id', $id)->get();
-        return view('editDep')->with('department', $department);
+        
     }
 
     /**
@@ -65,9 +64,6 @@ class DepartmentController extends Controller
     {
        
         
-        department::where('department_id', $id)->update(['department_name' => $request['department_name'],          'updated_at' => now(),]);
-
-        return redirect(route('departments.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -77,7 +73,8 @@ class DepartmentController extends Controller
     {
        department::destroy($id);
 
-       return redirect(route('departments.index'))->with('message','dep has been deleted');
+       
+       return response('deleted');
     }
 
 
@@ -87,7 +84,7 @@ class DepartmentController extends Controller
         
         department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
 
-        return redirect(route('departments.index'))->with('message','dep has been updated');
+        return response('done');
     }
 
 

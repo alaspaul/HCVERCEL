@@ -12,9 +12,9 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $dep = room::all();
+        $data = room::all();
 
-        return view('practiceDep')->with('deps' , $dep);
+        return $data;
     }
 
     /**
@@ -42,7 +42,7 @@ class RoomController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect(route('room.index'));
+        return response('stored');
     }
 
     /**
@@ -58,8 +58,7 @@ class RoomController extends Controller
      */
     public function edit($id)
     {   
-        $room = room::where('room_id', $id)->get();
-        return view('editDep')->with('room', $room);
+        
     }
 
     /**
@@ -69,21 +68,7 @@ class RoomController extends Controller
     {
        
         
-        room::where('room_id', $id)->update(
-            [
-                'room_name' => $request['room_name'],
-                'room_building' => $request['room_building'],
-                'room_type' => $request['room_type'],
-                'room_price' => $request['room_price'],
-                'floor_id' => $request['floor_id'],
-                
-
-                'updated_at' => now(),
-                ]
-
-        );
-
-        return redirect(route('room.index'))->with('message','dep has been updated');
+        
     }
 
     /**
@@ -93,7 +78,7 @@ class RoomController extends Controller
     {
        room::destroy($id);
 
-       return redirect(route('room.index'))->with('message','dep has been deleted');
+       return response('deleted');
     }
 
 
@@ -115,7 +100,7 @@ class RoomController extends Controller
 
         );
 
-        return redirect(route('room.index'))->with('message','dep has been updated');
+        return response('updated');
     }
 
 

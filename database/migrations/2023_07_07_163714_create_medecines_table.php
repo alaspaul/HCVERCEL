@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('medecine_name');
             $table->string('medecine_brand');
             $table->string('medecine_dosage');
+            $table->string('medecine_type');
             $table->string('medecine_price');
 
             $table->timestamps();

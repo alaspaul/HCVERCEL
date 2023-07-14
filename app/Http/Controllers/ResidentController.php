@@ -20,9 +20,9 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        $dep = resident::all();
+        $data = resident::all();
 
-        return view('practiceDep')->with('deps' , $dep);
+        return $data;
     }
 
     /**
@@ -51,7 +51,7 @@ class ResidentController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect(route('residents.index'));
+        return response('store');
     }
 
     /**
@@ -67,8 +67,7 @@ class ResidentController extends Controller
      */
     public function edit($id)
     {   
-        $resident = resident::where('resident_id', $id)->get();
-        return view('editDep')->with('resident', $resident);
+
     }
 
     /**
@@ -78,21 +77,7 @@ class ResidentController extends Controller
     {
        
         
-        resident::where('resident_id', $id)->update(
-            [
-                'resident_userName' => $request['resident_userName'],
-                'resident_fName' => $request['resident_fName'],
-                'resident_lName' => $request['resident_lName'],
-                'resident_mName' => $request['resident_mName'],
-                'resident_password' => $request['resident_password'],
-                'department_id' => $request['department_id'],
-    
-         
-                'updated_at' => now(),
-                ]
-        );
-
-        return redirect(route('residents.index'))->with('message','dep has been updated');
+     
     }
 
     /**
@@ -102,7 +87,7 @@ class ResidentController extends Controller
     {
        resident::destroy($id);
 
-       return redirect(route('residents.index'))->with('message','dep has been deleted');
+       return response('deleted');
     }
 
 
@@ -125,7 +110,7 @@ class ResidentController extends Controller
         );
 
 
-        return redirect(route('residents.index'))->with('message','dep has been updated');
+        return response('updated');
     }
 
     public function loginResident(request $request){

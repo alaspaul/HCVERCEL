@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 class DoctorsNotesController extends Controller
 {
-    /**
+       /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       
+        
+        $data = doctors_notes::all();
+        return $data;
     }
 
     /**
@@ -28,7 +30,18 @@ class DoctorsNotesController extends Controller
      */
     public function store(Request $request)
     {
-       
+        doctors_notes::insert([
+            'docNotes_id' => $request['docNotes_id'],
+            'notes' => $request['notes'],
+            'pInfo_id' => $request['pInfo_id'],
+            'resident_id' => $request['resident_id'],
+
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response('stored');
     }
 
     /**
@@ -42,17 +55,18 @@ class DoctorsNotesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(doctors_notes $doctors_notes)
-    {
-        //
+    public function edit($id)
+    {   
+      
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, doctors_notes $doctors_notes)
+    public function update(Request $request, $id)
     {
-        //
+       
+        
     }
 
     /**
@@ -60,6 +74,27 @@ class DoctorsNotesController extends Controller
      */
     public function destroy($id)
     {
-        
+       doctors_notes::destroy($id);
+
+       
+       return response('deleted');
     }
+
+
+    public function updateDep(Request $request, $id)
+    {
+       
+        
+        doctors_notes::where('docNotes_id', $id)->update(
+            [
+                'notes' => $request['notes'],
+                'pInfo_id' => $request['pInfo_id'],
+                'resident_id' => $request['resident_id'],
+
+                'updated_at' => now(),
+            ]);
+
+        return response('updated');
+    }
+
 }
