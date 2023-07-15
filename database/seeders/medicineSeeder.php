@@ -127,7 +127,7 @@ class MedicineSeeder extends Seeder
 
 
             [
-                'medicine_id' => 'M01',
+                'medicine_id' => 'M11',
                 'medicine_name' => 'ACETYLCYSTEINE',
                 'medicine_brand' => 'FLUIMUCIL GRANULES',
                 'medicine_dosage' => '100MG',
@@ -138,7 +138,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M02',
+                'medicine_id' => 'M12',
                 'medicine_name' => 'ACETYLCYSTEINE',
                 'medicine_brand' => 'FLUIMUCIL AMP',
                 'medicine_dosage' => '100MG/ml-3ML',
@@ -149,7 +149,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M03',
+                'medicine_id' => 'M13',
                 'medicine_name' => 'ACETYLCYSTEINE',
                 'medicine_brand' => 'FLUIMUCIL AMP',
                 'medicine_dosage' => '100MG/ML-3ML ',
@@ -160,7 +160,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M04',
+                'medicine_id' => 'M14',
                 'medicine_name' => 'ACETYLCYSTEINE',
                 'medicine_brand' => 'FLUIMUCIL GRANULES',
                 'medicine_dosage' => '200MG',
@@ -171,7 +171,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M05',
+                'medicine_id' => 'M15',
                 'medicine_name' => 'ACETYLCYSTEINE',
                 'medicine_brand' => 'FLUIMUCIL EFF',
                 'medicine_dosage' => '600MG',
@@ -182,7 +182,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M06',
+                'medicine_id' => 'M16',
                 'medicine_name' => 'ACETYLCYSTEINE',
                 'medicine_brand' => 'SOLUFLEM',
                 'medicine_dosage' => '600MG',
@@ -193,7 +193,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M07',
+                'medicine_id' => 'M17',
                 'medicine_name' => 'ACETYLYCYSTEINE',
                 'medicine_brand' => 'FLUIMUCIL ',
                 'medicine_dosage' => '100MG/5ML',
@@ -204,7 +204,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M08',
+                'medicine_id' => 'M18',
                 'medicine_name' => 'ACYCLOVIR',
                 'medicine_brand' => 'ZOVIRAX  ',
                 'medicine_dosage' => '800MG',
@@ -215,7 +215,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M09',
+                'medicine_id' => 'M19',
                 'medicine_name' => 'ACYCLOVIR',
                 'medicine_brand' => 'ZOVIRAX CREAM ',
                 'medicine_dosage' => '100MG/2G',
@@ -226,7 +226,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M10',
+                'medicine_id' => 'M20',
                 'medicine_name' => 'ADEMETIONINE BUTANEDISULFONATE',
                 'medicine_brand' => 'TRANSMETIL',
                 'medicine_dosage' => '500mg',
@@ -245,7 +245,7 @@ class MedicineSeeder extends Seeder
 
 
             [
-                'medicine_id' => 'M01',
+                'medicine_id' => 'M21',
                 'medicine_name' => 'ADENOSINE',
                 'medicine_brand' => 'ADESAN',
                 'medicine_dosage' => '3MG/ML',
@@ -256,7 +256,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M02',
+                'medicine_id' => 'M22',
                 'medicine_name' => 'ALBUMIN (HUMAN) USP 20%',
                 'medicine_brand' => 'ALBUREL 20% VL',
                 'medicine_dosage' => '50ML',
@@ -267,7 +267,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M03',
+                'medicine_id' => 'M23',
                 'medicine_name' => 'ALBUMIN (HUMAN) USP 25%',
                 'medicine_brand' => 'ALBUMINAR 25% VL',
                 'medicine_dosage' => '50ML',
@@ -278,7 +278,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M04',
+                'medicine_id' => 'M24',
                 'medicine_name' => 'ALENDRONIC ACID',
                 'medicine_brand' => 'REVENTA ',
                 'medicine_dosage' => '70MG',
@@ -289,7 +289,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M05',
+                'medicine_id' => 'M25',
                 'medicine_name' => 'ALLOPURINOL',
                 'medicine_brand' => 'LLANOL ',
                 'medicine_dosage' => '100MG',
@@ -300,7 +300,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M06',
+                'medicine_id' => 'M26',
                 'medicine_name' => 'ALLOPURINOL',
                 'medicine_brand' => 'LLANOL',
                 'medicine_dosage' => '300MG',
@@ -311,7 +311,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M07',
+                'medicine_id' => 'M27',
                 'medicine_name' => 'ALPRAZOLAM',
                 'medicine_brand' => 'ALTROX',
                 'medicine_dosage' => '500MCG',
@@ -322,7 +322,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M08',
+                'medicine_id' => 'M28',
                 'medicine_name' => 'ALPRAZOLAM',
                 'medicine_brand' => 'XANOR',
                 'medicine_dosage' => '500MCG',
@@ -333,7 +333,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M09',
+                'medicine_id' => 'M29',
                 'medicine_name' => 'ALUMINUM HYDROXIDE, MG HYDROXIDE, SIMETICONE',
                 'medicine_brand' => 'KREMIL-S',
                 'medicine_dosage' => '',
@@ -344,7 +344,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M10',
+                'medicine_id' => 'M30',
                 'medicine_name' => 'AMBROXOL',
                 'medicine_brand' => 'MUCOSOLVAN RET ',
                 'medicine_dosage' => '75MG',
@@ -362,7 +362,7 @@ class MedicineSeeder extends Seeder
 
 
             [
-                'medicine_id' => 'M01',
+                'medicine_id' => 'M31',
                 'medicine_name' => 'AMBROXOL',
                 'medicine_brand' => 'ZOBRIXOL 15/5 ',
                 'medicine_dosage' => '60ML',
@@ -373,7 +373,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M02',
+                'medicine_id' => 'M32',
                 'medicine_name' => 'AMIKACIN SULFATE',
                 'medicine_brand' => 'AMIKACIDE',
                 'medicine_dosage' => '100MG/2ML',
@@ -384,7 +384,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M03',
+                'medicine_id' => 'M33',
                 'medicine_name' => 'AMIKACIN SULFATE',
                 'medicine_brand' => 'AMIKACIDE AMP',
                 'medicine_dosage' => '250MG/2ML',
@@ -395,7 +395,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M04',
+                'medicine_id' => 'M34',
                 'medicine_name' => 'AMIKACIN SULFATE',
                 'medicine_brand' => 'AMIKACIDE AMP',
                 'medicine_dosage' => '500MG/2ML',
@@ -406,7 +406,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M05',
+                'medicine_id' => 'M35',
                 'medicine_name' => 'AMIKACIN SULFATE',
                 'medicine_brand' => 'AMIKACIN SULFATE  ',
                 'medicine_dosage' => '100MG',
@@ -417,7 +417,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M06',
+                'medicine_id' => 'M36',
                 'medicine_name' => 'AMIKACIN SULFATE',
                 'medicine_brand' => 'AMIKACIN SULFATE',
                 'medicine_dosage' => '250mg',
@@ -428,7 +428,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M07',
+                'medicine_id' => 'M37',
                 'medicine_name' => 'AMINO ACIDS',
                 'medicine_brand' => 'AMINOLEBAN SOLN',
                 'medicine_dosage' => '500ML',
@@ -439,7 +439,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M08',
+                'medicine_id' => 'M38',
                 'medicine_name' => 'AMINO ACID + SORBITOL',
                 'medicine_brand' => 'PROTEMIN SOLN',
                 'medicine_dosage' => '500ML',
@@ -450,7 +450,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M09',
+                'medicine_id' => 'M39',
                 'medicine_name' => 'AMINO ACID + SORBITOL',
                 'medicine_brand' => 'EVAMIN SN5',
                 'medicine_dosage' => '500MG',
@@ -461,7 +461,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M10',
+                'medicine_id' => 'M40',
                 'medicine_name' => 'AMINO ACID +5% SORBITOL',
                 'medicine_brand' => 'PHARMINE',
                 'medicine_dosage' => '500ML',
@@ -478,7 +478,7 @@ class MedicineSeeder extends Seeder
 
 
             [
-                'medicine_id' => 'M01',
+                'medicine_id' => 'M41',
                 'medicine_name' => 'AMINO ACIDS',
                 'medicine_brand' => 'AMINOSTERIL INFANT 6%  SOLN',
                 'medicine_dosage' => '100ML',
@@ -489,7 +489,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M02',
+                'medicine_id' => 'M42',
                 'medicine_name' => 'AMINO ACIDS',
                 'medicine_brand' => 'NEPHROSTERIL 7%',
                 'medicine_dosage' => '100ML',
@@ -500,7 +500,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M03',
+                'medicine_id' => 'M43',
                 'medicine_name' => 'AMINO ACIDS + SORBITOL',
                 'medicine_brand' => 'AMINOGEN-S  SOLN',
                 'medicine_dosage' => '500ML',
@@ -511,7 +511,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M04',
+                'medicine_id' => 'M44',
                 'medicine_name' => 'AMINO ACIDS+VITS+MINERALS',
                 'medicine_brand' => 'AMINOLEBAN EN PWDR',
                 'medicine_dosage' => '50G',
@@ -522,7 +522,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M05',
+                'medicine_id' => 'M45',
                 'medicine_name' => 'AMINOPHYLLINE',
                 'medicine_brand' => 'AMINOPHYLLINE AMP',
                 'medicine_dosage' => '25MG',
@@ -533,7 +533,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M05',
+                'medicine_id' => 'M46',
                 'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
                 'medicine_brand' => 'VASOCAR',
                 'medicine_dosage' => '10MG',
@@ -544,7 +544,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M07',
+                'medicine_id' => 'M47',
                 'medicine_name' => 'AMIODARONE HCL',
                 'medicine_brand' => 'ANOION',
                 'medicine_dosage' => '200MG',
@@ -555,7 +555,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M08',
+                'medicine_id' => 'M48',
                 'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
                 'medicine_brand' => 'CORDARONE',
                 'medicine_dosage' => '200MG',
@@ -566,7 +566,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M09',
+                'medicine_id' => 'M49',
                 'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
                 'medicine_brand' => 'CORDARONE  ',
                 'medicine_dosage' => '50MG',
@@ -577,7 +577,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M10',
+                'medicine_id' => 'M50',
                 'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
                 'medicine_brand' => 'RYTHMA ',
                 'medicine_dosage' => '50mg',
