@@ -11,20 +11,331 @@ class MedicineSeeder extends Seeder
     {
         $medicines = [
             [
-                'medicine_id' => '1',
-                'medicine_name' => 'BABYHALER (GSK)',
-                'medicine_brand' => '',
+                'medicine_id' => 'M01',
+                'medicine_name' => ' SILIBININ + PHOSPHATIDYLCHOLINE',
+                'medicine_brand' => 'LIVER PRIME',
                 'medicine_dosage' => '',
                 'medicine_price' => 0.0,
-                'medicine_type' => 'INHALER',
-                
+                'medicine_type' => 'CAPSULE',
+
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => '2',
-                'medicine_name' => 'BEARSE FC',
-                'medicine_brand' => '',
+                'medicine_id' => 'M02',
+                'medicine_name' => '0.9% SODIUM CHLORIDE',
+                'medicine_brand' => 'P NSS (ENDURE)',
+                'medicine_dosage' => '1L',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M03',
+                'medicine_name' => '100% SEA WATER NASAL SPRAY',
+                'medicine_brand' => 'HUMER BLOCKED NOSE ',
+                'medicine_dosage' => '50ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SPRAY',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M04',
+                'medicine_name' => '100% SEA WATER NASAL SPRAY',
+                'medicine_brand' => 'HUMER INFANT/CHILD NASAL HYGIENE',
+                'medicine_dosage' => '150ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SPRAY',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M05',
+                'medicine_name' => 'SOLUTION FOR IV INFUSION',
+                'medicine_brand' => 'PARANOVA',
+                'medicine_dosage' => '1G/100ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'I.V. FLUID',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M06',
+                'medicine_name' => '5% DEXTROSE IN 0.9% SODIUM CHLORIDE',
+                'medicine_brand' => 'D5 NSS ENDURE',
+                'medicine_dosage' => '1L',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M07',
+                'medicine_name' => 'ACETAZOLAMIDE',
+                'medicine_brand' => 'CETAMID',
+                'medicine_dosage' => '250MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M08',
+                'medicine_name' => 'ACETATED RINGERS SOLUTION (AR)',
+                'medicine_brand' => 'ACETATED RINGERS SOLUTION (AR)',
+                'medicine_dosage' => '1L',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M09',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'EXFLEM GRANULES',
+                'medicine_dosage' => '600MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SACHET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M10',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'EXFLEM EFF ',
+                'medicine_dosage' => '600MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
+
+
+
+
+            [
+                'medicine_id' => 'M01',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'FLUIMUCIL GRANULES',
+                'medicine_dosage' => '100MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SACHET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M02',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'FLUIMUCIL AMP',
+                'medicine_dosage' => '100MG/ml-3ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'INJECTION',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M03',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'FLUIMUCIL AMP',
+                'medicine_dosage' => '100MG/ML-3ML ',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'AMPULE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M04',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'FLUIMUCIL GRANULES',
+                'medicine_dosage' => '200MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SACHET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M05',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'FLUIMUCIL EFF',
+                'medicine_dosage' => '600MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M06',
+                'medicine_name' => 'ACETYLCYSTEINE',
+                'medicine_brand' => 'SOLUFLEM',
+                'medicine_dosage' => '600MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SACHET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M07',
+                'medicine_name' => 'ACETYLYCYSTEINE',
+                'medicine_brand' => 'FLUIMUCIL ',
+                'medicine_dosage' => '100MG/5ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SYRUP',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M08',
+                'medicine_name' => 'ACYCLOVIR',
+                'medicine_brand' => 'ZOVIRAX  ',
+                'medicine_dosage' => '800MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M09',
+                'medicine_name' => 'ACYCLOVIR',
+                'medicine_brand' => 'ZOVIRAX CREAM ',
+                'medicine_dosage' => '100MG/2G',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TUBE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M10',
+                'medicine_name' => 'ADEMETIONINE BUTANEDISULFONATE',
+                'medicine_brand' => 'TRANSMETIL',
+                'medicine_dosage' => '500mg',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
+
+
+
+
+
+
+            [
+                'medicine_id' => 'M01',
+                'medicine_name' => 'ADENOSINE',
+                'medicine_brand' => 'ADESAN',
+                'medicine_dosage' => '3MG/ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'SACHET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M02',
+                'medicine_name' => 'ALBUMIN (HUMAN) USP 20%',
+                'medicine_brand' => 'ALBUREL 20% VL',
+                'medicine_dosage' => '50ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'VIAL',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M03',
+                'medicine_name' => 'ALBUMIN (HUMAN) USP 25%',
+                'medicine_brand' => 'ALBUMINAR 25% VL',
+                'medicine_dosage' => '50ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'VIAL',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M04',
+                'medicine_name' => 'ALENDRONIC ACID',
+                'medicine_brand' => 'REVENTA ',
+                'medicine_dosage' => '70MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M05',
+                'medicine_name' => 'ALLOPURINOL',
+                'medicine_brand' => 'LLANOL ',
+                'medicine_dosage' => '100MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M06',
+                'medicine_name' => 'ALLOPURINOL',
+                'medicine_brand' => 'LLANOL',
+                'medicine_dosage' => '300MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M07',
+                'medicine_name' => 'ALPRAZOLAM',
+                'medicine_brand' => 'ALTROX',
+                'medicine_dosage' => '500MCG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M08',
+                'medicine_name' => 'ALPRAZOLAM',
+                'medicine_brand' => 'XANOR',
+                'medicine_dosage' => '500MCG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M09',
+                'medicine_name' => 'ALUMINUM HYDROXIDE, MG HYDROXIDE, SIMETICONE',
+                'medicine_brand' => 'KREMIL-S',
                 'medicine_dosage' => '',
                 'medicine_price' => 0.0,
                 'medicine_type' => 'TABLET',
@@ -33,9 +344,27 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => '3',
-                'medicine_name' => 'CASTOR OIL',
-                'medicine_brand' => '',
+                'medicine_id' => 'M10',
+                'medicine_name' => 'AMBROXOL',
+                'medicine_brand' => 'MUCOSOLVAN RET ',
+                'medicine_dosage' => '75MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'CAPSULE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
+
+
+
+
+
+            [
+                'medicine_id' => 'M01',
+                'medicine_name' => 'AMBROXOL',
+                'medicine_brand' => 'ZOBRIXOL 15/5 ',
                 'medicine_dosage' => '60ML',
                 'medicine_price' => 0.0,
                 'medicine_type' => 'BOTTLE',
@@ -43,7 +372,221 @@ class MedicineSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'medicine_id' => 'M02',
+                'medicine_name' => 'AMIKACIN SULFATE',
+                'medicine_brand' => 'AMIKACIDE',
+                'medicine_dosage' => '100MG/2ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'AMPULE',
 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M03',
+                'medicine_name' => 'AMIKACIN SULFATE',
+                'medicine_brand' => 'AMIKACIDE AMP',
+                'medicine_dosage' => '250MG/2ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'AMPULE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M04',
+                'medicine_name' => 'AMIKACIN SULFATE',
+                'medicine_brand' => 'AMIKACIDE AMP',
+                'medicine_dosage' => '500MG/2ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'AMPULE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M05',
+                'medicine_name' => 'AMIKACIN SULFATE',
+                'medicine_brand' => 'AMIKACIN SULFATE  ',
+                'medicine_dosage' => '100MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'VIAL',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M06',
+                'medicine_name' => 'AMIKACIN SULFATE',
+                'medicine_brand' => 'AMIKACIN SULFATE',
+                'medicine_dosage' => '250mg',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'VIAL',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M07',
+                'medicine_name' => 'AMINO ACIDS',
+                'medicine_brand' => 'AMINOLEBAN SOLN',
+                'medicine_dosage' => '500ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M08',
+                'medicine_name' => 'AMINO ACID + SORBITOL',
+                'medicine_brand' => 'PROTEMIN SOLN',
+                'medicine_dosage' => '500ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'VIAL',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M09',
+                'medicine_name' => 'AMINO ACID + SORBITOL',
+                'medicine_brand' => 'EVAMIN SN5',
+                'medicine_dosage' => '500MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M10',
+                'medicine_name' => 'AMINO ACID +5% SORBITOL',
+                'medicine_brand' => 'PHARMINE',
+                'medicine_dosage' => '500ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+
+
+
+
+
+            [
+                'medicine_id' => 'M01',
+                'medicine_name' => 'AMINO ACIDS',
+                'medicine_brand' => 'AMINOSTERIL INFANT 6%  SOLN',
+                'medicine_dosage' => '100ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M02',
+                'medicine_name' => 'AMINO ACIDS',
+                'medicine_brand' => 'NEPHROSTERIL 7%',
+                'medicine_dosage' => '100ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M03',
+                'medicine_name' => 'AMINO ACIDS + SORBITOL',
+                'medicine_brand' => 'AMINOGEN-S  SOLN',
+                'medicine_dosage' => '500ML',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'BOTTLE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M04',
+                'medicine_name' => 'AMINO ACIDS+VITS+MINERALS',
+                'medicine_brand' => 'AMINOLEBAN EN PWDR',
+                'medicine_dosage' => '50G',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'PACK',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M05',
+                'medicine_name' => 'AMINOPHYLLINE',
+                'medicine_brand' => 'AMINOPHYLLINE AMP',
+                'medicine_dosage' => '25MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'AMPULE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M05',
+                'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
+                'medicine_brand' => 'VASOCAR',
+                'medicine_dosage' => '10MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M07',
+                'medicine_name' => 'AMIODARONE HCL',
+                'medicine_brand' => 'ANOION',
+                'medicine_dosage' => '200MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M08',
+                'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
+                'medicine_brand' => 'CORDARONE',
+                'medicine_dosage' => '200MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'TABLET',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M09',
+                'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
+                'medicine_brand' => 'CORDARONE  ',
+                'medicine_dosage' => '50MG',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'AMPULE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'medicine_id' => 'M10',
+                'medicine_name' => 'AMIODARONE HYDROCHLORIDE',
+                'medicine_brand' => 'RYTHMA ',
+                'medicine_dosage' => '50mg',
+                'medicine_price' => 0.0,
+                'medicine_type' => 'AMPULE',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         Medicine::insert($medicines);
