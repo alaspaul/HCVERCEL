@@ -12,7 +12,7 @@ class MedicineSeeder extends Seeder
         $medicines = [
             [
                 'medicine_id' => 'M01',
-                'medicine_name' => ' SILIBININ + PHOSPHATIDYLCHOLINE',
+                'medicine_name' => 'SILIBININ + PHOSPHATIDYLCHOLINE',
                 'medicine_brand' => 'LIVER PRIME',
                 'medicine_dosage' => '',
                 'medicine_price' => 0.0,
