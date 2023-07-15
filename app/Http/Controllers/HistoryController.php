@@ -12,7 +12,9 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+            
+        $data = history::all();
+        return $data;
     }
 
     /**
@@ -28,7 +30,12 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        history::insert([
+            'history_id' => $request['history_id'],
+            
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
@@ -58,8 +65,19 @@ class HistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(history $history)
+    public function destroy($id)
     {
-        //
+        history::destroy($id);
+
+       
+       return response('deleted');
+    }
+
+    public function updateHistory(Request $request, $id)
+    {
+       
+        
+    
+        return response('done');
     }
 }

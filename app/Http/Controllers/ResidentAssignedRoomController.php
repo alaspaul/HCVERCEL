@@ -12,7 +12,9 @@ class ResidentAssignedRoomController extends Controller
      */
     public function index()
     {
-        //
+           
+        $data = resident_assigned_room::all();
+        return $data;
     }
 
     /**

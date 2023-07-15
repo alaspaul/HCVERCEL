@@ -12,7 +12,9 @@ class InfoHistoryController extends Controller
      */
     public function index()
     {
-        //
+            
+        $data = info_history::all();
+        return $data;
     }
 
     /**
@@ -28,7 +30,14 @@ class InfoHistoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        info_history::insert([
+            'infoHistory_id' => $request['infoHistory_id'],
+            'history_id' => $request['history_id'],
+            'pInfo_id' => $request['pInfo_id'],
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
@@ -58,8 +67,27 @@ class InfoHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(info_history $info_history)
+    public function destroy($id)
     {
-        //
+        info_history::destroy($id);
+
+       
+        return response('deleted');
+    }
+
+
+    public function updateInfoHistory(Request $request, $id)
+    {
+       
+        
+        info_history::where('infoHistory_id', $id)->update(
+            [
+                'history_id' => $request['history_id'],
+                'pInfo_id' => $request['pInfo_id'],
+                
+                'updated_at' => now(),
+        ]);
+
+        return response('done');
     }
 }

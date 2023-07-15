@@ -12,7 +12,9 @@ class PatientHistoryController extends Controller
      */
     public function index()
     {
-        //
+            
+        $data = patient_history::all();
+        return $data;
     }
 
     /**
@@ -28,7 +30,14 @@ class PatientHistoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        patient_history::insert([
+            'patientHistory_id' => $request['patientHistory_id'],
+            'history_id' => $request['history_id'],
+            'patient_id' => $request['patient_id'],
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
@@ -58,8 +67,27 @@ class PatientHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(patient_history $patient_history)
+    public function destroy($id)
     {
-        //
+        patient_history::destroy($id);
+
+       
+        return response('deleted');
+    }
+
+    public function updatePatientHistory(Request $request, $id)
+    {
+       
+        
+        patient_history::where('patientHistory_id', $id)->update(
+            [
+                'history_id' => $request['history_id'],
+                'patient_id' => $request['patient_id'],
+    
+
+                'updated_at' => now(),
+        ]);
+
+        return response('done');
     }
 }
