@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\info_medecine;
+use App\Models\info_medicine;
 use Illuminate\Http\Request;
 
-class InfoMedecineController extends Controller
+class InfomedicineController extends Controller
 {
          /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class InfoMedecineController extends Controller
     public function index()
     {
         
-        $data = info_medecine::all();
+        $data = info_medicine::all();
         return $data;
     }
 
@@ -30,11 +30,11 @@ class InfoMedecineController extends Controller
      */
     public function store(Request $request)
     {
-        info_medecine::insert([
-            'infoMedecine_id' => $request['infoMedecine_id'],
-            'medecineFrequency' => $request['medecineFrequency'],
+        info_medicine::insert([
+            'infomedicine_id' => $request['infomedicine_id'],
+            'medicineFrequency' => $request['medicineFrequency'],
             'pInfo_id' => $request['pInfo_id'],
-            'medecine_id' => $request['medecine_id'],
+            'medicine_id' => $request['medicine_id'],
             
 
             'created_at' => now(),
@@ -47,7 +47,7 @@ class InfoMedecineController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(info_medecine $info_medecine)
+    public function show(info_medicine $info_medicine)
     {
         //
     }
@@ -74,23 +74,24 @@ class InfoMedecineController extends Controller
      */
     public function destroy($id)
     {
-       info_medecine::destroy($id);
+       info_medicine::destroy($id);
 
        
        return response('deleted');
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateInfomedicine(Request $request, $id)
     {
        
+
         
-        info_medecine::where('infoMedecine_id', $id)->update(
+        info_medicine::where('infomedicine_id', $id)->update(
             [
-                'infoMedecine_id' => $request['infomMedecine_id'],
-                'medecineFrequency' => $request['medecineFrequency'],
+                'infomedicine_id' => $request['infommedicine_id'],
+                'medicineFrequency' => $request['medicineFrequency'],
                 'pInfo_id' => $request['pInfo_id'],
-                'medecine_id' => $request['medecine_id'],
+                'medicine_id' => $request['medicine_id'],
                 
 
                 'updated_at' => now(),

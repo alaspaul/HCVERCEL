@@ -5,21 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class medecine extends Model
+class history extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'medecine_id';
+    protected $primaryKey = 'history_id';
     
     public $incrementing = false;
     protected $keyType = 'string';
-
     protected $fillable = [
-        'medecine_id',
-        'medecine_name',
-        'medecine_brand',
-        'medecine_dosage',
-        'medecine_price',
+        'history_id',
     ];
-    
 }

@@ -81,7 +81,7 @@ class DoctorsNotesController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateDocNotes(Request $request, $id)
     {
        
         

@@ -9,9 +9,9 @@ use App\Http\Controllers\ResidentAssignedRoomController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\FloorController;
-use App\Http\Controllers\MedecineController;
+use App\Http\Controllers\medicineController;
 use App\Http\Controllers\DoctorsNotesController;
-use App\Http\Controllers\InfoMedecineController;
+use App\Http\Controllers\InfomedicineController;
 use App\Http\Controllers\InfoResultsController;
 use App\Http\Controllers\LabResultController;
 use App\Http\Controllers\PatientHealthRecordController;
@@ -58,15 +58,13 @@ Route::group(['middleware' => ['authCheck']], function(){
     Route::apiResource('departments', DepartmentController::class);
 
 Route::apiResource('floors', FloorController::class);
-Route::apiResource('medecine', MedecineController::class);
+Route::apiResource('medicine', medicineController::class);
 Route::apiResource('doctorsNotes', DoctorsNotesController::class);
-Route::apiResource('InfoMedecine', InfoMedecineController::class);
+Route::apiResource('Infomedicine', InfomedicineController::class);
 Route::apiResource('InfoResults', InfoResultsController::class);
 Route::apiResource('LabResult', LabResultController::class);
 Route::apiResource('PatientHealthRecord', PatientHealthRecordController::class);
-Route::apiResource('PatientHistory', PatientHistoryController::class);
 Route::apiResource('PatientInfo', PatientInfoController::class);
-Route::apiResource('PatientLog', PatientLogController::class);
 Route::apiResource('PhysicalExam', PhysicalExamController::class);
 Route::apiResource('Result', ResultController::class);
 Route::apiResource('Vital', VitalController::class);
@@ -78,8 +76,8 @@ Route::POST('departments/updateDep{department}', [DepartmentController::class, '
 Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
 Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
-Route::POST('medecine/edit{medecine}', [medecineController::class, 'edit'])->name('medecine.edit');
-Route::POST('medecine/updateMeds{medecine}', [medecineController::class, 'updateMeds'])->name('medecine.updateMeds');
+Route::POST('medicine/edit{medicine}', [medicineController::class, 'edit'])->name('medicine.edit');
+Route::POST('medicine/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicine.updateMeds');
 
 Route::POST('patients/edit{patient}', [patientController::class, 'edit'])->name('patients.edit');
 Route::POST('patients/updatePatient{patient}', [patientController::class, 'updatePatient'])->name('patients.updatePatient');

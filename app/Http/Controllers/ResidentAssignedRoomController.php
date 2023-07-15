@@ -58,15 +58,37 @@ class ResidentAssignedRoomController extends Controller
      */
     public function update(Request $request, resident_assigned_room $resident_assigned_room)
     {
-        $resident_assigned_room['updated_at'] = now();
-        $resident_assigned_room['isFinished'] = $request['isFinished'];
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(resident_assigned_room $resident_assigned_room)
+    public function destroy($id)
     {
-        //
+        resident_assigned_room::destroy($id);
+
+       
+       return response('deleted');
     }
+
+    public function updatePInfo(Request $request, $id)
+    {
+       
+        
+        resident_assigned_room::where('ressAssRoom_id', $id)->update(
+            [
+
+            'room_id' => $request['room_id'],
+            'resident_id' => $request['resident_id'],
+            'isFinished' => $request['isFinished'],
+
+
+
+            'updated_at' => now(),
+        ]);
+
+        return response('done');
+    }
+
 }

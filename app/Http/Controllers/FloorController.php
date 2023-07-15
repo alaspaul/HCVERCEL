@@ -78,7 +78,7 @@ class FloorController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateFloor(Request $request, $id)
     {
        
         

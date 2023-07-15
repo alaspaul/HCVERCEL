@@ -14,16 +14,19 @@ class patient_history extends Model
     
     public $incrementing = false;
     protected $keyType = 'string';
-
-
     protected $fillable = [
         'patientHistory_id',
-        'patientLog_id',
+        'patient_id',
+        'history_id',
     ];
 
-    public function patient_log(): HasOneOrMany
+    public function patient_info(): HasOneOrMany
     {
-        return $this->hasOne(resident::class, 'foreign_key', 'patientLog_id');
+        return $this->hasOne(resident::class, 'foreign_key', 'patient_id');
     }
 
+    public function history(): HasOneOrMany
+    {
+        return $this->hasOne(room::class, 'foreign_key', 'history_id');
+    }
 }

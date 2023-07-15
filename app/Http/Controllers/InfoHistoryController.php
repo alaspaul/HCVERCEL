@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patient_log;
+use App\Models\info_history;
 use Illuminate\Http\Request;
 
-class PatientLogController extends Controller
+class InfoHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class PatientLogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(patient_log $patient_log)
+    public function show(info_history $info_history)
     {
         //
     }
@@ -42,7 +42,7 @@ class PatientLogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(patient_log $patient_log)
+    public function edit(info_history $info_history)
     {
         //
     }
@@ -50,7 +50,7 @@ class PatientLogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, patient_log $patient_log)
+    public function update(Request $request, info_history $info_history)
     {
         //
     }
@@ -58,7 +58,7 @@ class PatientLogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(patient_log $patient_log)
+    public function destroy(info_history $info_history)
     {
         //
     }

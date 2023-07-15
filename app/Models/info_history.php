@@ -6,21 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class patient_log extends Model
+class info_history extends Model
 {
     use HasFactory;
 
     
-    protected $primaryKey = 'patientLog_id';
+    protected $primaryKey = 'infoHistory_id';
     
     public $incrementing = false;
     protected $keyType = 'string';
-
-
     protected $fillable = [
-        'patientLog_id',
+        'infoHistory_id',
         'pInfo_id',
-        'patient_id',
+        'history_id',
     ];
 
     public function patient_info(): HasOneOrMany
@@ -28,8 +26,8 @@ class patient_log extends Model
         return $this->hasOne(resident::class, 'foreign_key', 'pInfo_id');
     }
 
-    public function resident(): HasOneOrMany
+    public function history(): HasOneOrMany
     {
-        return $this->hasOne(room::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(room::class, 'foreign_key', 'history_id');
     }
 }

@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('patient_histories', function (Blueprint $table) {
             $table->string('patientHistory_id')->primary();
-     
-            $table->timestamps(); 
-
-            $table->string('patientLog_id');
+            $table->string('history_id');
             $table->string('patient_id');
+            $table->timestamps();
 
-            $table->foreign('patientLog_id')->references('patientLog_id')->on('patient_logs');
+            
+            $table->foreign('patient_id')->references('patient_id')->on('patients');
+            $table->foreign('history_id')->references('history_id')->on('histories');
         });
     }
 
-    /**    
+    /**
      * Reverse the migrations.
      */
     public function down(): void

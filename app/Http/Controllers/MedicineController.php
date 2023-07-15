@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\medecine;
+use App\Models\medicine;
 use Illuminate\Http\Request;
 
-class MedecineController extends Controller
+class medicineController extends Controller
 {
     
 
@@ -15,7 +15,7 @@ class MedecineController extends Controller
      */
     public function index()
     {
-        $data = medecine::all();
+        $data = medicine::all();
 
         return $data;
     }
@@ -33,13 +33,13 @@ class MedecineController extends Controller
      */
     public function store(Request $request)
     {
-        medecine::insert([
-            'medecine_id' => $request[' medecine_id'],
-            'medecine_name' => $request['medecine_name'],
-            'medecine_brand' => $request['medecine_brand'],
-            'medecine_dosage' => $request['medecine_dosage'],
-            'medecine_type' => $request['medecine_type'],
-            'medecine_price' => $request['medecine_price'],
+        medicine::insert([
+            'medicine_id' => $request[' medicine_id'],
+            'medicine_name' => $request['medicine_name'],
+            'medicine_brand' => $request['medicine_brand'],
+            'medicine_dosage' => $request['medicine_dosage'],
+            'medicine_type' => $request['medicine_type'],
+            'medicine_price' => $request['medicine_price'],
 
             'created_at' => now(),
             'updated_at' => now(),
@@ -52,7 +52,7 @@ class MedecineController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(medecine $medecine)
+    public function show(medicine $medicine)
     {
         //
     }
@@ -79,7 +79,7 @@ class MedecineController extends Controller
      */
     public function destroy($id)
     {
-       medecine::destroy($id);
+       medicine::destroy($id);
 
        
        return response('deleted');
@@ -90,14 +90,14 @@ class MedecineController extends Controller
     {
        
         
-        medecine::where('medecine_id', $id)->update(
+        medicine::where('medicine_id', $id)->update(
             [        
-                'medecine_id' => $request[' medecine_id'],
-                'medecine_name' => $request['medecine_name'],
-                'medecine_brand' => $request['medecine_brand'],
-                'medecine_dosage' => $request['medecine_dosage'],
-                'medecine_type' => $request['medecine_type'],
-                'medecine_price' => $request['medecine_price'],
+                'medicine_id' => $request[' medicine_id'],
+                'medicine_name' => $request['medicine_name'],
+                'medicine_brand' => $request['medicine_brand'],
+                'medicine_dosage' => $request['medicine_dosage'],
+                'medicine_type' => $request['medicine_type'],
+                'medicine_price' => $request['medicine_price'],
     
 
             'updated_at' => now(),

@@ -12,7 +12,9 @@ class PatientInfoController extends Controller
      */
     public function index()
     {
-        //
+       $data = patient_info::all();
+
+        return $data;
     }
 
     /**
@@ -28,7 +30,17 @@ class PatientInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        patient_info::insert([
+            'pInfo_id' => $request['pInfo_id'],
+            'room_id' => $request['room_id'],
+            'patient_id' => $request['patient_id'],
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+ 
+        return response('stored');
     }
 
     /**
@@ -58,8 +70,30 @@ class PatientInfoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(patient_info $patient_info)
+    public function destroy($id)
     {
-        //
+        patient_info::destroy($id);
+
+       
+       return response('deleted');
     }
+
+    
+    public function updatePInfo(Request $request, $id)
+    {
+       
+        
+        patient_info::where('pInfo_id', $id)->update(
+            [
+
+            'room_id' => $request['room_id'],
+            'patient_id' => $request['patient_id'],
+
+
+            'updated_at' => now(),
+        ]);
+
+        return response('done');
+    }
+
 }

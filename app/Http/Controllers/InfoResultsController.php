@@ -81,7 +81,7 @@ class InfoResultsController extends Controller
     }
 
 
-    public function updateDep(Request $request, $id)
+    public function updateInfoResults(Request $request, $id)
     {
        
         
