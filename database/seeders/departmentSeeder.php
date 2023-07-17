@@ -15,11 +15,43 @@ class departmentSeeder extends Seeder
      */
     public function run(): void
     {
-       
-        department::insert([
-            'department_id' => 'D01',
-            'department_name' => str::random(10). ' dep',
-        ]);
+        $department = [   
+            
+            [
+                'department_id' => 'D01', 'department_name' => 'dept of Internal Medicine'
+                
+
+                , 'created_at' => now(), 'updated_at' => now(),
+            ],
+            [
+                'department_id' => 'D02', 'department_name' => 'dept of Family and Community Medicine'
+                
+
+                , 'created_at' => now(), 'updated_at' => now(),
+            ],
+            [
+                'department_id' => 'D03', 'department_name' => 'Dept of Obstetrics and Gynecology'
+                
+
+                , 'created_at' => now(), 'updated_at' => now(),
+            ],
+            [
+                'department_id' => 'D04', 'department_name' => 'Dept of Pediatrics'
+                
+
+                , 'created_at' => now(), 'updated_at' => now(),
+            ],
+            [
+                'department_id' => 'D05', 'department_name' => 'Dept of General Surgery'
+                
+
+                , 'created_at' => now(), 'updated_at' => now(),
+            ],
+
+       ];
+
+       department::insert($department);
+
 
     
     }
