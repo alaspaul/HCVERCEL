@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('resident_lName');
             $table->string('resident_mName');
             $table->string('resident_password');
+            $table->boolean('isChief');
             $table->rememberToken();
             $table->string('department_id');
             $table->timestamps();

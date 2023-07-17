@@ -24,6 +24,7 @@ class resident extends Authenticatable
         'resident_lName',
         'resident_mName',
         'resident_password',
+        'isChief',
         'department_id',
     ];
 

@@ -46,7 +46,8 @@ class ResidentController extends Controller
             'resident_mName' => $request['resident_mName'],
             'resident_password' => $request['resident_password'],
             'department_id' => $request['department_id'],
-
+            'isChief' => $request['isChief'],
+            
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -103,7 +104,7 @@ class ResidentController extends Controller
                 'resident_mName' => $request['resident_mName'],
                 'resident_password' => $request['resident_password'],
                 'department_id' => $request['department_id'],
-    
+                'isChief' => $request['isChief'],
          
                 'updated_at' => now(),
                 ]
