@@ -15,38 +15,38 @@ return new class extends Migration
             $table->string('phr_id')->primary(); 
 
             $table->string('phr_historyOfPresentIllness');
-            $table->string('phr_nonVerbalPatient',10);
-            $table->string('phr_HxFrom',10);
-            $table->string('phr_medRecAvailable',10);
-            $table->string('phr_allergies',10);
+            $table->string('phr_nonVerbalPatient');
+            $table->string('phr_HxFrom');
+            $table->boolean('phr_medRecAvailable');
+            $table->boolean('phr_allergies');
             $table->string('phr_specifyAllergies');
-            $table->string('phr_PMH_Asthma',10);
-            $table->string('phr_PMH_HTN',10);
-            $table->string('phr_PMH_Thyroid',10);
-            $table->string('phr_PMH_Diabetes',10);
-            $table->string('phr_PMH_HepaticRenal',10);
-            $table->string('phr_PMH_Tuberculosis',10);
-            $table->string('phr_PMH_Psychiatric',10);
-            $table->string('phr_PMH_CAD',10);
-            $table->string('phr_PMH_CHF',10);
-            $table->string('phr_PMH_otherIllness',10);
+            $table->boolean('phr_PMH_Asthma');
+            $table->boolean('phr_PMH_HTN');
+            $table->boolean('phr_PMH_Thyroid');
+            $table->boolean('phr_PMH_Diabetes');
+            $table->boolean('phr_PMH_HepaticRenal');
+            $table->boolean('phr_PMH_Tuberculosis');
+            $table->boolean('phr_PMH_Psychiatric');
+            $table->boolean('phr_PMH_CAD');
+            $table->boolean('phr_PMH_CHF');
+            $table->boolean('phr_PMH_otherIllness');
             $table->string('phr_PMH_specifyOtherIllness');
             $table->string('phr_specifyPrevHospitalization');
 
-            $table->string('phr_maintenanceMeds',10);
+            $table->boolean('phr_maintenanceMeds');
             $table->string('phr_specifyMaintenanceMeds');
-            $table->string('phr_malignancy',10);
+            $table->boolean('phr_malignancy');
             $table->string('phr_specifyMalignancy');
-            $table->string('phr_surgeries',10);
+            $table->boolean('phr_surgeries');
             $table->string('phr_specifySurgeries');
             $table->string('phr_vaccinationHistory');
-            $table->string('phr_tobacco',10);
+            $table->boolean('phr_tobacco');
             $table->integer('phr_tobaccoPacks');
             $table->dateTime('phr_tobaccoQuit');
-            $table->string('phr_recDrugs',10);
+            $table->boolean('phr_recDrugs');
             $table->string('phr_specifyRecDrugs');
-            $table->string('phr_alcohol',10);
-            $table->string('phr_alcoholDrinksFrequency',10);
+            $table->boolean('phr_alcohol');
+            $table->string('phr_alcoholDrinksFrequency');
             $table->integer('phr_noOfAlcoholDrinks');
             $table->string('phr_specifyFamilialDisease');
             $table->string('phr_specifyCivilStatus');
@@ -59,103 +59,103 @@ return new class extends Migration
             $table->integer('phr_respiratoryRate');
             $table->integer('phr_oxygenSaturation');
 
-            $table->string('phr_bodyHabitusWNL',10);
-            $table->string('phr_bodyHabitusCathetic',10);
-            $table->string('phr_bodyHabitusObese',10);
+            $table->boolean('phr_bodyHabitusWNL');
+            $table->boolean('phr_bodyHabitusCathetic');
+            $table->boolean('phr_bodyHabitusObese');
 
             $table->integer('phr_heightCM');
             $table->integer('phr_weightKG');
             $table->integer('phr_BMI');
 
-            $table->string('phr_nasalMucosaSeptumTurbinatesWNL',10);
-            $table->string('phr_nasalMucosaSeptumTurbinatesEdeOrEryPresent',10);
+            $table->boolean('phr_nasalMucosaSeptumTurbinatesWNL');
+            $table->boolean('phr_nasalMucosaSeptumTurbinatesEdeOrEryPresent');
 
-            $table->string('phr_dentionAndGumsWNL',10);
-            $table->string('phr_dentionAndGumsDentalCanes',10);
-            $table->string('phr_dentionAndGumsGingivitis',10);
+            $table->boolean('phr_dentionAndGumsWNL');
+            $table->boolean('phr_dentionAndGumsDentalCanes');
+            $table->boolean('phr_dentionAndGumsGingivitis');
 
-            $table->string('phr_oropharynxWNL',10);
-            $table->string('phr_oropharynxEdeOrEryPresent',10);
-            $table->string('phr_oropharynxOralUlcers',10);
-            $table->string('phr_oropharynxOralPetachie',10);
+            $table->boolean('phr_oropharynxWNL');
+            $table->boolean('phr_oropharynxEdeOrEryPresent');
+            $table->boolean('phr_oropharynxOralUlcers');
+            $table->boolean('phr_oropharynxOralPetachie');
 
-            $table->string('phr_mallampati1',10);
-            $table->string('phr_mallampati2',10);
-            $table->string('phr_mallampati3',10);
-            $table->string('phr_mallampati4',10);
+            $table->boolean('phr_mallampati1');
+            $table->boolean('phr_mallampati2');
+            $table->boolean('phr_mallampati3');
+            $table->boolean('phr_mallampati4');
 
-            $table->string('phr_neckWNL',10);
-            $table->string('phr_neckLymphadenopathy',10);
+            $table->boolean('phr_neckWNL');
+            $table->boolean('phr_neckLymphadenopathy');
 
-            $table->string('phr_thyroidWNL',10);
-            $table->string('phr_thyroidThyromegaly',10);
-            $table->string('phr_thyroidNodulesPalpable',10);
-            $table->string('phr_thyroidNeckMass',10);
+            $table->boolean('phr_thyroidWNL');
+            $table->boolean('phr_thyroidThyromegaly');
+            $table->boolean('phr_thyroidNodulesPalpable');
+            $table->boolean('phr_thyroidNeckMass');
 
-            $table->string('phr_jugularVeinsWNL',10);
-            $table->string('phr_jugularVeinsEngorged');
+            $table->boolean('phr_jugularVeinsWNL');
+            $table->boolean('phr_jugularVeinsEngorged');
 
-            $table->string('phr_respiratoryEffortWNL',10);
-            $table->string('phr_respiratoryEffortAccessoryMuscleUse',10);
-            $table->string('phr_respiratoryEffortIntercostalRetractions',10);
-            $table->string('phr_respiratoryEffortParadoxicMovements',10);
+            $table->boolean('phr_respiratoryEffortWNL');
+            $table->boolean('phr_respiratoryEffortAccessoryMuscleUse');
+            $table->boolean('phr_respiratoryEffortIntercostalRetractions');
+            $table->boolean('phr_respiratoryEffortParadoxicMovements');
 
-            $table->string('phr_tactileFremitusWNL',10);
-            $table->string('phr_tactileFremitusIncreased',10);
-            $table->string('phr_tactileFremitusDecreased',10);
+            $table->boolean('phr_tactileFremitusWNL');
+            $table->boolean('phr_tactileFremitusIncreased');
+            $table->boolean('phr_tactileFremitusDecreased');
 
 
-            $table->string('phr_chestPercussionWNL',10);
-            $table->string('phr_chestPercussionDullnessToPercussion',10);
-            $table->string('phr_chestPercussionHyperResonance',10);
+            $table->boolean('phr_chestPercussionWNL');
+            $table->boolean('phr_chestPercussionDullnessToPercussion');
+            $table->boolean('phr_chestPercussionHyperResonance');
 
             
-            $table->string('phr_AuscultationWNL',10);
-            $table->string('phr_AuscultationBronchialBreathSounds',10);
-            $table->string('phr_AuscultationEgophony',10);
-            $table->string('phr_AuscultationRhonchi',10);
-            $table->string('phr_AuscultationRales',10);
-            $table->string('phr_AuscultationWheezes',10);
-            $table->string('phr_AuscultationRub',10);
-            $table->string('phr_RespiratoryAdditionalFindings',10);
+            $table->boolean('phr_AuscultationWNL');
+            $table->boolean('phr_AuscultationBronchialBreathSounds');
+            $table->boolean('phr_AuscultationEgophony');
+            $table->boolean('phr_AuscultationRhonchi');
+            $table->boolean('phr_AuscultationRales');
+            $table->boolean('phr_AuscultationWheezes');
+            $table->boolean('phr_AuscultationRub');
+            $table->boolean('phr_RespiratoryAdditionalFindings');
 
-            $table->string('phr_heartSoundsClearS1',10);
-            $table->string('phr_heartSoundsClearS2',10);
-            $table->string('phr_heartSoundsNoMurmur',10);
-            $table->string('phr_heartSoundsGallopAudible',10);
-            $table->string('phr_heartSoundsRubAudible',10);
-            $table->string('phr_heartSoundsMurmursPresent',10);
-            $table->string('phr_heartSoundsSystolic',10);
-            $table->string('phr_heartSoundsDiastolic',10);
+            $table->boolean('phr_heartSoundsClearS1');
+            $table->boolean('phr_heartSoundsClearS2');
+            $table->boolean('phr_heartSoundsNoMurmur');
+            $table->boolean('phr_heartSoundsGallopAudible');
+            $table->boolean('phr_heartSoundsRubAudible');
+            $table->boolean('phr_heartSoundsMurmursPresent');
+            $table->boolean('phr_heartSoundsSystolic');
+            $table->boolean('phr_heartSoundsDiastolic');
 
             $table->integer('phr_grade');
-            $table->string('phr_CardiovascularAdditionalFindings',10);
+            $table->boolean('phr_CardiovascularAdditionalFindings');
 
-            $table->string('phr_massPresent',10);
-            $table->string('phr_bowelSoundsNormaoactive',10);
-            $table->string('phr_bowelSoundsUp',10);
-            $table->string('phr_bowelSoundsDown',10);
-            $table->string('phr_unableToPalpateLiver',10);
-            $table->string('phr_unableToPalpateSpleen',10);
-            $table->string('phr_organomegalyLiver',10);
-            $table->string('phr_organomegalySpleen',10);
-            $table->string('phr_DREFindings',10);
+            $table->boolean('phr_massPresent');
+            $table->boolean('phr_bowelSoundsNormaoactive');
+            $table->boolean('phr_bowelSoundsUp');
+            $table->boolean('phr_bowelSoundsDown');
+            $table->boolean('phr_unableToPalpateLiver');
+            $table->boolean('phr_unableToPalpateSpleen');
+            $table->boolean('phr_organomegalyLiver');
+            $table->boolean('phr_organomegalySpleen');
+            $table->boolean('phr_DREFindings');
 
-            $table->string('phr_kidneyPunchSignNegative',10);
-            $table->string('phr_kidneyPunchSignPositive',10);
-            $table->string('phr_IfPositiveR',10);
-            $table->string('phr_IfPositiveL',10);
-            $table->string('phr_extremitiesWNL',10);
-            $table->string('phr_extremitiesClubbing',10);
-            $table->string('phr_extremitiesCyanosis',10);
-            $table->string('phr_extremitiesPetachiae',10);
-            $table->string('phr_capillaryRefillTime',10);
+            $table->boolean('phr_kidneyPunchSignNegative');
+            $table->boolean('phr_kidneyPunchSignPositive');
+            $table->boolean('phr_IfPositiveR');
+            $table->boolean('phr_IfPositiveL');
+            $table->boolean('phr_extremitiesWNL');
+            $table->boolean('phr_extremitiesClubbing');
+            $table->boolean('phr_extremitiesCyanosis');
+            $table->boolean('phr_extremitiesPetachiae');
+            $table->boolean('phr_capillaryRefillTime');
 
-            $table->string('phr_skinWNL',10);
-            $table->string('phr_skinRash',10);
-            $table->string('phr_skinEccymosis',10);
-            $table->string('phr_skinNodules',10);
-            $table->string('phr_skinUlcer',10);
+            $table->boolean('phr_skinWNL');
+            $table->boolean('phr_skinRash');
+            $table->boolean('phr_skinEccymosis');
+            $table->boolean('phr_skinNodules');
+            $table->boolean('phr_skinUlcer');
 
             $table->string('phr_Assessment');
 
