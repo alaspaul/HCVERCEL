@@ -55,9 +55,14 @@ class ResidentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(resident $resident)
+    public function show($residentId)
     {
-        //
+        try{
+            $resident = Resident::findOrFail($residentId);
+            return response()->json($resident);
+        }catch(\Exception $e){
+            return response()->json(['error'=>'resident not found'], 404);
+        }
     }
 
     /**

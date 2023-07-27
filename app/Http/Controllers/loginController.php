@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 use App\Models\resident;
 
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Http\Response;
 use Auth;
+use PhpParser\Node\Stmt\TryCatch;
 use Validator;
 class loginController extends Controller
 {
@@ -16,21 +18,22 @@ class loginController extends Controller
             'resident_password' => 'required',
         ]);
 
-        $resInfo = resident::where('resident_userName', $request->resident_userName)->first();
-
-        if(!$resInfo){
-            return back()->with('fail', 'unknown username');
-        }else{
-            if(Hash::check($request->resident_password, $resInfo->resident_password)){
-                    $request->session()->put('loggedUser', $resInfo->resident_id);
-                    return redirect(route('departments.index'));
+        $username = $request['resident_userName'];
+        $password = $request['resident_password'];
 
 
-            }else{
-                return back()->with('fail', 'wrong password');
+        try {
+            $resident = resident::where('resident_userName', $username)->first();
+
+            if($resident && Hash::check($password, $resident->resident_password)){
+                $token = bin2hex(random_bytes(10));
+                return response()->json(['token'=>'R-'. $token, 'resident' => $resident],200);
             }
+        } catch (ValidationException $e) {
+            return response()->json(['error'=> 'login error'], 422);
         }
 
+        return response()->json(['error' => 'invalid credentials'],401);
     }
 
 

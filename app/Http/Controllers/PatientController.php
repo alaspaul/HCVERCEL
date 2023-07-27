@@ -54,7 +54,12 @@ class PatientController extends Controller
      */
     public function show(patient $patient)
     {
-        //
+        try{
+            $patient = Patient::findOrFail($patient->patient_id);
+            return response()->json($patient);
+        }catch(\Exception $e){
+            return response()->json(['error'=>'resident not found'], 404);
+        }
     }
 
     /**
