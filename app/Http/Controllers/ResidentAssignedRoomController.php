@@ -43,12 +43,13 @@ class ResidentAssignedRoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($resident_id)
+    public function show(resident_assigned_room $resident_assigned_room)
     {
-        $rooms = resident_assigned_room::where('resident_id', $resident_id)->get();
+        $rooms = resident_assigned_room::where('resident_id', $resident_assigned_room->resident_id)->get();
 
 
         return response()->json($rooms);
+    
     }
 
     /**
