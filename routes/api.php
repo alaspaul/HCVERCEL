@@ -63,19 +63,15 @@ Route::group(['middleware' => ['authCheck']], function(){
 
 Route::apiResource('floors', FloorController::class);
 Route::apiResource('medicines', medicineController::class);
-Route::apiResource('doctorsNotes', DoctorsNotesController::class);
-Route::apiResource('Infomedicine', InfomedicineController::class);
-Route::apiResource('InfoResults', InfoResultsController::class);
-Route::apiResource('LabResults', LabResultController::class);
+
+
+
 Route::apiResource('PatientHealthRecord', PatientHealthRecordController::class);
-Route::apiResource('PatientInfos', PatientInfoController::class);
+
 Route::apiResource('PhysicalExams', PhysicalExamController::class);
-Route::apiResource('Results', ResultController::class);
+
 Route::apiResource('Vitals', VitalController::class);
 Route::apiResource('Rooms', RoomController::class);
-Route::apiResource('histories', historyController::class);
-Route::apiResource('patientHistories', patientHistoryController::class);
-Route::apiResource('infoHistories', infoHistoryController::class);
 
 Route::POST('departments/edit{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
 Route::POST('departments/updateDep{department}', [DepartmentController::class, 'updateDep'])->name('departments.updateDep');
@@ -92,15 +88,12 @@ Route::POST('patients/updatePatient{patient}', [patientController::class, 'updat
 Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
 Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');
 
-Route::POST('results/edit{result}', [resultController::class, 'edit'])->name('results.edit');
-Route::POST('results/updateResult{result}', [resultController::class, 'updateResult'])->name('results.updateResults');
-
 Route::POST('vitals/edit{vital}', [vitalController::class, 'edit'])->name('vitals.edit');
 Route::POST('vitals/updateVital{vital}', [vitalController::class, 'updateVital'])->name('vitals.updateVital');
 
-
 Route::POST('rooms/edit{room}', [roomController::class, 'edit'])->name('rooms.edit');
 Route::POST('rooms/updateRoom{room}', [roomController::class, 'updateRoom'])->name('rooms.updateRoom');
+Route::POST('rooms/getrooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
 
 
 

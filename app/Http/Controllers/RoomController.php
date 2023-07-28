@@ -104,4 +104,10 @@ class RoomController extends Controller
     }
 
 
+    public function getRoom($room_id){
+        $room = room::where('room_id', $room_id)->first();
+        return response()->json($room);
+    }
+
+
 }
