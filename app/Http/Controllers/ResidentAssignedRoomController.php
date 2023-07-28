@@ -98,4 +98,15 @@ class ResidentAssignedRoomController extends Controller
         return response('done');
     }
 
+
+
+    public function showRessAssRoom($id)
+    {
+        $rooms = resident_assigned_room::where('resident_id', $id)->get();
+
+
+        return response()->json($rooms);
+    
+    }
+
 }

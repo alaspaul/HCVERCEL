@@ -73,6 +73,9 @@ Route::apiResource('PhysicalExams', PhysicalExamController::class);
 Route::apiResource('Vitals', VitalController::class);
 Route::apiResource('Rooms', RoomController::class);
 
+
+Route::GET('resAssRoom/rooms', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
+
 Route::POST('departments/edit{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
 Route::POST('departments/updateDep{department}', [DepartmentController::class, 'updateDep'])->name('departments.updateDep');
 
