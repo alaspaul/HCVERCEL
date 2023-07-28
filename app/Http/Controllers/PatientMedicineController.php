@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patientHistory;
+use App\Models\patient_medicine;
 use Illuminate\Http\Request;
 
-class PatientHistoryController extends Controller
+class PatientMedicineController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class PatientHistoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(patientHistory $patientHistory)
+    public function show(patient_medicine $patient_medicine)
     {
         //
     }
@@ -42,7 +42,7 @@ class PatientHistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(patientHistory $patientHistory)
+    public function edit(patient_medicine $patient_medicine)
     {
         //
     }
@@ -50,7 +50,7 @@ class PatientHistoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, patientHistory $patientHistory)
+    public function update(Request $request, patient_medicine $patient_medicine)
     {
         //
     }
@@ -58,7 +58,7 @@ class PatientHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(patientHistory $patientHistory)
+    public function destroy(patient_medicine $patient_medicine)
     {
         //
     }

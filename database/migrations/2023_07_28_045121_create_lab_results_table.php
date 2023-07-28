@@ -11,19 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('results', function (Blueprint $table) {
-            $table->string('result_id')->primary();
+        Schema::create('lab_results', function (Blueprint $table) {
+            $table->string('labResults_id')->primary();
+            $table->dateTime('labResultDate');
             $table->string('results');
-
+            $table->string('patient_id');
             $table->timestamps();
+
+
+            $table->foreign('patient_id')->references('patient_id')->on('patients');
         });
     }
-
+ 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('results');
+        Schema::dropIfExists('lab_results');
     }
 };

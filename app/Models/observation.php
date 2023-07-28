@@ -5,32 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
-use Laravel\Sanctum\HasApiTokens;
 
-class patient_info extends Model
+class observation extends Model
 {
     use HasFactory;
 
-    
-    protected $primaryKey = 'pInfo_id';
-    
+    protected $primaryKey = 'observation_id';
+
     public $incrementing = false;
     protected $keyType = 'string';
 
 
     protected $fillable = [
-        'pInfo_id',
-        'room_id',
+        'observation_id',
+        'observationDate',
+        'observation',
         'patient_id',
     ];
 
-    public function room(): HasOneOrMany
-    {
-        return $this->hasOne(resident::class, 'foreign_key', 'room_id');
-    }
-
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(room::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
     }
 }

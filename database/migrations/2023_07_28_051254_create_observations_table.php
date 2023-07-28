@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_histories', function (Blueprint $table) {
-            $table->string('patientHistory_id')->primary();
-            $table->string('history_id');
-            $table->string('patient_id');
+        Schema::create('observations', function (Blueprint $table) {
+            $table->string('observation_id')->primary();
+            $table->string('observationDate');
+            $table->string('observation');
             $table->timestamps();
 
-            
+            $table->string('patient_id');
+
             $table->foreign('patient_id')->references('patient_id')->on('patients');
-            $table->foreign('history_id')->references('history_id')->on('histories');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_histories');
+        Schema::dropIfExists('observations');
     }
 };

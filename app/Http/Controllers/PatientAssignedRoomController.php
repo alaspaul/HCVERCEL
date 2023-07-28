@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\lab_result;
+use App\Models\patientAssignedRoom;
 use Illuminate\Http\Request;
 
-class LabResultController extends Controller
+class PatientAssignedRoomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class LabResultController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(lab_result $lab_result)
+    public function show(patientAssignedRoom $patientAssignedRoom)
     {
         //
     }
@@ -42,7 +42,7 @@ class LabResultController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(lab_result $lab_result)
+    public function edit(patientAssignedRoom $patientAssignedRoom)
     {
         //
     }
@@ -50,7 +50,7 @@ class LabResultController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, lab_result $lab_result)
+    public function update(Request $request, patientAssignedRoom $patientAssignedRoom)
     {
         //
     }
@@ -58,7 +58,7 @@ class LabResultController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(lab_result $lab_result)
+    public function destroy(patientAssignedRoom $patientAssignedRoom)
     {
         //
     }
