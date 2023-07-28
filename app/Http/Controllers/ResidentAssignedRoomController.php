@@ -31,6 +31,7 @@ class ResidentAssignedRoomController extends Controller
     public function store(Request $request)
     {
         resident_assigned_room::insert([
+            'resAssRoom_id' => $request['resAssRoom_id'],
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
             'isFinished' => $request['isFinished'],
@@ -42,9 +43,12 @@ class ResidentAssignedRoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(resident_assigned_room $resident_assigned_room)
+    public function show($resident_id)
     {
-        //
+        $rooms = resident_assigned_room::where('resident_id', $resident_id)->get();
+
+
+        return response()->json($rooms);
     }
 
     /**
