@@ -12,7 +12,8 @@ class ObservationController extends Controller
      */
     public function index()
     {
-        //
+        $data = observation::all();
+        return $data;
     }
 
     /**
@@ -28,7 +29,16 @@ class ObservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        observation::insert([
+            'observation_id' => $request['observation_id'],
+            'observationDate' => $request['observationDate'],
+            'observation' => $request['observation'],
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response('stored');
     }
 
     /**
@@ -50,16 +60,28 @@ class ObservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, observation $observation)
+    public function update(Request $request, $id)
     {
-        //
+        observation::where('observation_id', $id)->update(
+            [
+                'observation_id' => $request['observation_id'],
+                'observationDate' => $request['observationDate'],
+                'observation' => $request['observation'],
+
+                'updated_at' => now(),
+            ]);
+
+        return response('updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(observation $observation)
+    public function destroy($id)
     {
-        //
+        observation::destroy($id);
+
+       
+        return response('deleted');
     }
 }

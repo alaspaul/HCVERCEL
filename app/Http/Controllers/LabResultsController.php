@@ -12,7 +12,8 @@ class LabResultsController extends Controller
      */
     public function index()
     {
-        //
+        $data = lab_results::all();
+        return $data;
     }
 
     /**
@@ -28,7 +29,16 @@ class LabResultsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        lab_results::insert([
+            'labResults_id' => $request['labResults_id'],
+            'labResultDate' => $request['labResultDate'],
+            'results' => $request['results'],
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response('stored');
     }
 
     /**
@@ -50,16 +60,28 @@ class LabResultsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, lab_results $lab_results)
+    public function update(Request $request, $id)
     {
-        //
+        lab_results::where('labResults_id', $id)->update(
+            [
+                'labResults_id' => $request['labResults_id'],
+                'labResultDate' => $request['labResultDate'],
+                'results' => $request['results'],
+
+                'updated_at' => now(),
+            ]);
+
+        return response('updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(lab_results $lab_results)
+    public function destroy($id)
     {
-        //
+        lab_results::destroy($id);
+
+       
+        return response('deleted');
     }
 }

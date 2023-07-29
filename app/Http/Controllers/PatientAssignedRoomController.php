@@ -35,6 +35,7 @@ class PatientAssignedRoomController extends Controller
             'dateAdmitted' => $request['dateAdmitted'],
             'room_id' => $request['room_id'],
             'patient_id' => $request['patient_id'],
+
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -62,9 +63,19 @@ class PatientAssignedRoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, patientAssignedRoom $patientAssignedRoom)
+    public function update(Request $request, $id)
     {
-        //
+        patientAssignedRoom::where('patAssRoom_id', $id)->update(
+            [
+                'patAssRoom_id' => $request['patAssRoom_id'],
+                'dateAdmitted' => $request['dateAdmitted'],
+                'room_id' => $request['room_id'],
+                'patient_id' => $request['patient_id'],
+    
+                'updated_at' => now(),
+            ]);
+
+        return response('updated');
     }
 
     /**
