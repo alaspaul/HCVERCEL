@@ -2,6 +2,7 @@
 
 
 
+use App\Http\Controllers\PatientAssignedRoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -67,12 +68,14 @@ Route::apiResource('medicines', medicineController::class);
 
 
 Route::apiResource('PatientHealthRecord', PatientHealthRecordController::class);
-
+Route::apiResource('PatAssRooms', PatientAssignedRoomController::class);
 Route::apiResource('PhysicalExams', PhysicalExamController::class);
 
 Route::apiResource('Vitals', VitalController::class);
 Route::apiResource('Rooms', RoomController::class);
 
+Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);
+Route::get('showpatAssRoom/{patient_id}', [PatientAssignedRoomController::class, 'show']);
 
 Route::GET('resAssRoom/rooms', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
 

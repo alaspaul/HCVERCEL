@@ -12,8 +12,9 @@ class PatientAssignedRoomController extends Controller
      */
     public function index()
     {
-        //
-    }
+      
+        $data = patientAssignedRoom::all();
+        return $data;    }
 
     /**
      * Show the form for creating a new resource.
@@ -28,15 +29,26 @@ class PatientAssignedRoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        patientAssignedRoom::insert([
+            'patAssRoom_id' => $request['patAssRoom_id'],
+            'dateAdmitted' => $request['dateAdmitted'],
+            'room_id' => $request['room_id'],
+            'patient_id' => $request['patient_id'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(patientAssignedRoom $patientAssignedRoom)
+    public function show($resident_id)
     {
-        //
+        $assignedRooms = patientAssignedRoom::where('resident_id', $resident_id)->get();
+
+
+        return response()->json($assignedRooms);
     }
 
     /**
@@ -58,8 +70,11 @@ class PatientAssignedRoomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(patientAssignedRoom $patientAssignedRoom)
+    public function destroy($id)
     {
-        //
+        patientAssignedRoom::destroy($id);
+
+       
+       return response('deleted');
     }
 }
