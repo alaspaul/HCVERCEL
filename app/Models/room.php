@@ -32,4 +32,8 @@ class room extends Model
     {
         return $this->hasOne(floor::class, 'foreign_key', 'floor_id');
     }
+
+
+
 }
+
