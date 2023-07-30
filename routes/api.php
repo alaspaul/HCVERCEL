@@ -3,7 +3,6 @@
 
 
 use App\Http\Controllers\PatientAssignedRoomController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DepartmentController;
@@ -12,20 +11,12 @@ use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\medicineController;
-use App\Http\Controllers\DoctorsNotesController;
-use App\Http\Controllers\InfomedicineController;
-use App\Http\Controllers\InfoResultsController;
-use App\Http\Controllers\LabResultController;
 use App\Http\Controllers\PatientHealthRecordController;
-use App\Http\Controllers\PatientHistoryController;
-use App\Http\Controllers\PatientInfoController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\PhysicalExamController;
-use App\Http\Controllers\ResultController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VitalController;
-use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\infoHistoryController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,23 +35,16 @@ use App\Http\Controllers\infoHistoryController;
 
 
 Route::post('/login', [loginController::class, 'loginResident'])->name('loginRes');
-
-
-
-
 Route::apiResource('residents', ResidentController::class);
 
 
-
-
-
-Route::group(['middleware' => ['authCheck']], function(){
+Route::group(['middleware' => 'auth:sanctum'],function(){
     Route::get('/logout', [loginController::class, 'logoutRes'])->name('logout');
 
     
-    Route::apiResource('ResAssRooms', ResidentAssignedRoomController::class);
-    Route::apiResource('patients', PatientController::class);
-    Route::apiResource('departments', DepartmentController::class);
+Route::apiResource('ResAssRooms', ResidentAssignedRoomController::class);
+Route::apiResource('patients', PatientController::class);
+Route::apiResource('departments', DepartmentController::class);
 
 Route::apiResource('floors', FloorController::class);
 Route::apiResource('medicines', medicineController::class);
@@ -73,6 +57,9 @@ Route::apiResource('PhysicalExams', PhysicalExamController::class);
 
 Route::apiResource('Vitals', VitalController::class);
 Route::apiResource('Rooms', RoomController::class);
+
+
+Route::post('Rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
 Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);
 Route::get('showpatAssRoom/{patient_id}', [PatientAssignedRoomController::class, 'show']);
