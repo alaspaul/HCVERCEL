@@ -20,7 +20,11 @@ class loginController extends Controller
         $username = $request['resident_userName'];
         $password = $request['resident_password'];
 
-        $credentials = $request->only('resident_userName', 'resident_password');
+        $credentials = [
+            'resident_userName' => $request['resident_userName'],
+            'resident_password' =>  $request['resident_password']
+
+        ];
         try {
             
     
