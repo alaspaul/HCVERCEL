@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'api',
+        'guard' => 'custom',
         'passwords' => 'residents',
     ],
 
@@ -41,10 +41,10 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
+        'custom' => [
             'driver' => 'session',
-            'provider' => 'resident',
-           ],
+            'provider' => 'residents',
+        ],
     ],
 
     /*
@@ -67,13 +67,19 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Resident::class,
+            'username' => 'resident_userName', // Use the correct username field
+            'password' => 'resident_password', // Use the correct password field
+     
         ],
 
-        'resident' => [
+        'residents' => [
             'driver' => 'eloquent',
-           'model' => App\Models\resident::class,
-           ],
+            'model' => App\Models\Resident::class,
+            'username' => 'resident_userName', // Use the correct username field
+            'password' => 'resident_password', // Use the correct password field
+           
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

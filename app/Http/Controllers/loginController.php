@@ -11,27 +11,28 @@ use Illuminate\Http\Response;
 use Auth;
 class loginController extends Controller
 {
+    public function username()
+{
+    return 'resident_userName';
+}
+
     public function loginResident(request $request){
         $request->validate([
             'resident_userName' => 'required',
             'resident_password' => 'required',
         ]);
 
-        $username = $request['resident_userName'];
-        $password = $request['resident_password'];
 
         $credentials = [
-            'resident_userName' => $request['resident_userName'],
-            'resident_password' =>  $request['resident_password']
-
+            'resident_userName' => $request->input('resident_userName'),
+            'password' => $request->input('resident_password'),
         ];
         try {
             
     
-            if (Auth::attempt($credentials)){
-                $resident = resident::where('resident_userName', $username)->first();
-                $user = Auth::user();
-                $token = $user->createToken('authToken')->plainTextToken;
+            if (Auth::guard('custom')->attempt($credentials)){
+                $resident = resident::where('resident_userName', $request['resident_userName'])->first();
+                $token = bin2hex(random_bytes(10));
                 return response()->json(['token'=>'R-'. $token, 'resident' => $resident],200);
             }
         } catch (ValidationException $e) {

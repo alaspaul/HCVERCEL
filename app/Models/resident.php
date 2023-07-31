@@ -47,7 +47,7 @@ class resident extends Model implements Authenticatable
 
     public function getAuthPassword()
     {
-        return 'resident_password';
+        return $this->resident_password;
     }
 
     public function getAuthIdentifier()
