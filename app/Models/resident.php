@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Models\department;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; 
 
-class resident extends Authenticatable
+class resident extends Model implements Authenticatable
 {   use HasApiTokens, HasFactory, Notifiable;
 
     protected $primaryKey = 'resident_id';
@@ -37,6 +39,39 @@ class resident extends Authenticatable
     {
         return $this->hasOne(department::class, 'foreign_key', 'department_id');
     }
+
+    public function getAuthIdentifierName()
+    {
+        return 'resident_userName';
+    }
+
+    public function getAuthPassword()
+    {
+        return 'resident_password';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return 'resident_id';
+    }
+
+    public function getRememberToken()
+    {
+        return 'remember_token';
+    }
+
+
+    public function setRememberToken($value)
+    {
+        return 'remember_token';
+    }
+
+
+    public function getRememberTokenName()
+    {
+
+    }
+
 
    
 }
