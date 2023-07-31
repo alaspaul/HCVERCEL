@@ -32,8 +32,9 @@ class loginController extends Controller
     
             if (Auth::guard('custom')->attempt($credentials)){
                 $resident = resident::where('resident_userName', $request['resident_userName'])->first();
-                $token = bin2hex(random_bytes(10));
-                return response()->json(['token'=>'R-'. $token, 'resident' => $resident],200);
+                $user = Auth::user();
+                $token = $user->createToken('api_token')->plainTextToken;
+                return response()->json(['token'=> $token, 'resident' => $resident],200);
             }
         } catch (ValidationException $e) {
             return response()->json(['error'=> 'login error'], 422);
