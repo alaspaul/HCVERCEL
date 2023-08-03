@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\patientAssignedRoom;
 use App\Models\patient_healthRecord;
+use App\Models\room;
 use Illuminate\Http\Request;
 
 class PatientHealthRecordController extends Controller
@@ -30,9 +32,27 @@ class PatientHealthRecordController extends Controller
      */
     public function store(Request $request)
     {
-        patient_healthRecord::insert([
-        'phr_id' => $request['phr_id'],
+        $room = room::where([
+            ['room_name','like',  '%' . $request['room_name'] . '%'],
+            ['room_floor','like',  '%' . $request['room_floor'] . '%'],
+        ])->get();
 
+
+        patient_healthRecord::insert([
+
+            'patient_id' => $request['patient_id'],
+            'patient_fName' => $request['patient_fName'],
+            'patient_lName' => $request['patient_lName'],
+            'patient_mName' => $request['patient_mName'],
+            'patient_age' => $request['patient_age'],
+            'patient_sex' => $request['patient_sex'],
+            'patient_vaccine_stat' => $request['patient_vaccine_stat'],
+
+            'phr_chiefComaplaint' => $request['phr_chiefComaplaint'],
+            'phr_startTime' => $request['phr_startTime'],
+            'phr_endTime' => $request['phr_endTime'],
+            'room_id' => $room['room_id'],
+            
         'phr_historyOfPresentIllness' => $request['phr_historyOfPresentIllness'],
         'phr_nonVerbalPatient' => $request['phr_nonVerbalPatient'],
         'phr_HxFrom' => $request['phr_HxFrom'],
@@ -177,8 +197,7 @@ class PatientHealthRecordController extends Controller
         'phr_skinUlcer' => $request['phr_skinUlcer'],
 
         'phr_Assessment' => $request['phr_Assessment'],    
-        'patient_id' => $request['patient_id'],
-
+      
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -190,7 +209,12 @@ class PatientHealthRecordController extends Controller
      */
     public function show(patient_healthRecord $patient_healthRecord)
     {
-        //
+        try{
+            $patient = patient_healthRecord::findOrFail($patient_healthRecord->patient_id);
+            return response()->json($patient);
+        }catch(\Exception $e){
+            return response()->json(['error'=>'resident not found'], 404);
+        }
     }
 
     /**
@@ -226,6 +250,14 @@ class PatientHealthRecordController extends Controller
         
         patient_healthRecord::where('phr_id', $id)->update(
             [
+
+                'patient_id' => $request['patient_id'],
+                'patient_fName' => $request['patient_fName'],
+                'patient_lName' => $request['patient_lName'],
+                'patient_mName' => $request['patient_mName'],
+                'patient_age' => $request['patient_age'],
+                'patient_sex' => $request['patient_sex'],
+                'patient_vaccine_stat' => $request['patient_vaccine_stat'],
 
                 'phr_historyOfPresentIllness' => $request['phr_historyOfPresentIllness'],
                 'phr_nonVerbalPatient' => $request['phr_nonVerbalPatient'],
@@ -316,7 +348,11 @@ class PatientHealthRecordController extends Controller
                 'phr_tactileFremitusWNL' => $request['phr_tactileFremitusWNL'],
                 'phr_tactileFremitusIncreased' => $request['phr_tactileFremitusIncreased'],
                 'phr_tactileFremitusDecreased' => $request['phr_tactileFremitusDecreased'],
-        
+
+                'phr_chiefComaplaint' => $request['phr_chiefComaplaint'],
+                'phr_startTime' => $request['phr_startTime'],
+                'phr_endTime' => $request['phr_endTime'],
+    
         
                 'phr_chestPercussionWNL' => $request['phr_chestPercussionWNL'],
                 'phr_chestPercussionDullnessToPercussion' => $request['phr_chestPercussionDullnessToPercussion'],
@@ -371,7 +407,7 @@ class PatientHealthRecordController extends Controller
                 'phr_skinUlcer' => $request['phr_skinUlcer'],
         
                 'phr_Assessment' => $request['phr_Assessment'],    
-                'patient_id' => $request['patient_id'],
+        
     
 
                 'updated_at' => now(),

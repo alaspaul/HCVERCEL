@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->string('room_id')->primary();
             $table->string('room_name');
-            $table->string('room_building');
+            $table->string('room_floor');
             $table->string('room_type');
             $table->string('floor_id');
-            $table->string('room_price');
+            $table->integer('room_price');
 
             $table->timestamps();
 
 
-            $table->foreign('floor_id')->references('floor_id')->on('floors');
+            $table->foreign('floor_id')->references('floor_id')->on('floors')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

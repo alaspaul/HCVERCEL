@@ -22,8 +22,12 @@ return new class extends Migration
             $table->boolean('isFinished');
             $table->timestamps();
             
-            $table->foreign('room_id')->references('room_id')->on('rooms');
-            $table->foreign('resident_id')->references('resident_id')->on('residents');
+            $table->foreign('room_id')->references('room_id')->on('rooms')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->foreign('resident_id')->references('resident_id')->on('residents')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');;
            
         });
 

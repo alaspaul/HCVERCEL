@@ -30,6 +30,8 @@ class FloorController extends Controller
      */
     public function store(Request $request)
     {
+
+
         floor::insert([
             'floor_id' => $request['floor_id'],
             'floor_name' => $request['floor_name'],

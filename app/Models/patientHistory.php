@@ -24,7 +24,7 @@ class patientHistory extends Model
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(patient_healthRecord::class, 'foreign_key', 'patient_id');
     }
 
    

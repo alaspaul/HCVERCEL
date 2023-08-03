@@ -89,7 +89,7 @@ class RoomController extends Controller
         room::where('room_id', $id)->update(
             [
                 'room_name' => $request['room_name'],
-                'room_building' => $request['room_building'],
+                'room_floor' => $request['room_floor'],
                 'room_type' => $request['room_type'],
                 'room_price' => $request['room_price'],
                 'floor_id' => $request['floor_id'],

@@ -78,9 +78,27 @@ class ResidentController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
-        
-     
+        $dataToUpdate = [
+            'resident_userName' => $request['resident_userName'],
+            'resident_fName' => $request['resident_fName'],
+            'resident_lName' => $request['resident_lName'],
+            'resident_mName' => $request['resident_mName'],
+            'department_id' => $request['department_id'],
+            'isChief' => $request['isChief'],
+            'updated_at' => now(),
+        ];
+
+        // Check if the password field is empty, if so, remove it from the update array
+        if (empty($request['resident_password'])) {
+            unset($dataToUpdate['resident_password']);
+        } else {
+            // If the password is not empty, update it in the array
+            $dataToUpdate['resident_password'] = $request['resident_password'];
+        }
+
+        resident::where('resident_id', $id)->update($dataToUpdate);
+
+        return response('updated');
     }
 
     /**

@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('lab_results', function (Blueprint $table) {
             $table->string('labResults_id')->primary();
             $table->dateTime('labResultDate');
-            $table->string('results');
+            $table->string('results', 1000);
             $table->string('patient_id');
             $table->timestamps();
 
-
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
+            $table->foreign('patient_id')->references('patient_id')->on('patient_health_records')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
  

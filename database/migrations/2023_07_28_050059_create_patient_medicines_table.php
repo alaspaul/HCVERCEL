@@ -19,8 +19,13 @@ return new class extends Migration
             $table->string('patient_id');
             $table->timestamps();
 
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
-            $table->foreign('medicine_id')->references('medicine_id')->on('medicines');
+            $table->foreign('patient_id')->references('patient_id')->on('patient_health_records')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            
+            $table->foreign('medicine_id')->references('medicine_id')->on('medicines')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

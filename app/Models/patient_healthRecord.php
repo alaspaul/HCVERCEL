@@ -16,7 +16,17 @@ class patient_healthRecord extends Model
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
-        'phr_id',
+        'patient_id',
+        'patient_fName',
+        'patient_lName',
+        'patient_mName',
+        'patient_age',
+        'patient_sex',
+        'patient_vaccination_stat',
+        'phr_chiefComaplaint',
+
+        'phr_startTime',
+        'phr_endTime',
         'phr_historyOfPresentIllness',
         'phr_nonVerbalPatient',
         'phr_HxFrom',
@@ -165,9 +175,5 @@ class patient_healthRecord extends Model
     ]; 
 
 
-    
-    public function patient(): HasOneOrMany
-    {
-        return $this->hasOne(floor::class, 'foreign_key', 'patient_id');
-    }
+
 }

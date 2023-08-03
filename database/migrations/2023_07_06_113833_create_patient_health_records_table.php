@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('patient_health_records', function (Blueprint $table) {
-            $table->string('phr_id')->primary(); 
+            $table->string('patient_id')->primary();
+            $table->string('patient_fName');
+            $table->string('patient_lName');
+            $table->string('patient_mName');
+            $table->string('patient_age');
+            $table->string('patient_sex');
+            $table->string('patient_vaccination_stat');
 
             $table->string('phr_historyOfPresentIllness');
             $table->string('phr_nonVerbalPatient');
@@ -51,6 +57,11 @@ return new class extends Migration
             $table->string('phr_specifyFamilialDisease');
             $table->string('phr_specifyCivilStatus');
             $table->string('phr_specifyPertinentHistory');
+            
+            $table->string('phr_chiefComaplaint');
+
+            $table->time('phr_startTime');
+            $table->time('phr_endTime');
 
             $table->integer('phr_bpSitting');
             $table->integer('phr_bpStanding');
@@ -159,12 +170,12 @@ return new class extends Migration
 
             $table->string('phr_Assessment');
 
+            $table->string('room_id');
             $table->timestamps();
 
-            
-            $table->string('patient_id');
-
-            $table->foreign('patient_id')->references('patient_id')->on('patients');
+            $table->foreign('room_id')->references('room_id')->on('rooms')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 
