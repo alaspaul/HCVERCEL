@@ -19,122 +19,73 @@ class roomSeeder extends Seeder
         $rooms = [   
             
             [
-                'room_id' => 'RAA01' , 'room_name' => 'Room 1', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA01' , 'room_name' => '001', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA02' , 'room_name' => 'Room 2', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA02' , 'room_name' => '002', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA03' , 'room_name' => 'Room 3', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA03' , 'room_name' => '003', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA04' , 'room_name' => 'Room 4', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA04' , 'room_name' => '004', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA05' , 'room_name' => 'Room 5', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA05' , 'room_name' => '005', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA06' , 'room_name' => 'Room 6', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA06' , 'room_name' => '006', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA07' , 'room_name' => 'Room 7', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA07' , 'room_name' => '007', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA08' , 'room_name' => 'Room 8', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA08' , 'room_name' => '008', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA09' , 'room_name' => 'Room 9', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA09' , 'room_name' => '009', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA10' , 'room_name' => 'Room 10', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA10' , 'room_name' => '010', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA11' , 'room_name' => 'Room 11', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA11' , 'room_name' => '011', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA12' , 'room_name' => 'Room 12', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA12' , 'room_name' => '012', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA13' , 'room_name' => 'Room 13', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA13' , 'room_name' => '013', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA14' , 'room_name' => 'Room 14', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA14' , 'room_name' => '014', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA15' , 'room_name' => 'Room 15', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA15' , 'room_name' => '015', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA16' , 'room_name' => 'Room 16', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA16' , 'room_name' => '016', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA17' , 'room_name' => 'Room 17', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA17' , 'room_name' => '017', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA18' , 'room_name' => 'Room 18', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA18' , 'room_name' => '018', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA19' , 'room_name' => 'Room 19', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA19' , 'room_name' => '019', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA20' , 'room_name' => 'Room 20', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA20' , 'room_name' => '020', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA21' , 'room_name' => 'Room 21', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA21' , 'room_name' => '021', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA22' , 'room_name' => 'Room 22', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA22' , 'room_name' => '022', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAA23' , 'room_name' => 'Room 23', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-
-
-
-
-
-
-
-            [
-                'room_id' => 'RAB01' , 'room_name' => 'Room 1', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB02' , 'room_name' => 'Room 2', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB03' , 'room_name' => 'Room 3', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB04' , 'room_name' => 'Room 4', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB05' , 'room_name' => 'Room 5', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB06' , 'room_name' => 'Room 6', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB07' , 'room_name' => 'Room 7', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB08' , 'room_name' => 'Room 8', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB09' , 'room_name' => 'Room 9', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB10' , 'room_name' => 'Room 10', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB11' , 'room_name' => 'Room 11', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB12' , 'room_name' => 'Room 12', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB13' , 'room_name' => 'Room 13', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAB14' , 'room_name' => 'Room 14', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAA23' , 'room_name' => '023', 'room_floor' => 'Annex A', 'room_type' => 'Semi-Private', 'floor_id' => 'F01', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
 
 
@@ -143,236 +94,285 @@ class roomSeeder extends Seeder
 
 
 
-
             [
-                'room_id' => 'RAC101' , 'room_name' => 'Room 1', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB01' , 'room_name' => '101', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC102' , 'room_name' => 'Room 2', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB02' , 'room_name' => '102', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC103' , 'room_name' => 'Room 3', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB03' , 'room_name' => '103', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC104' , 'room_name' => 'Room 4', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB04' , 'room_name' => '104', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC105' , 'room_name' => 'Room 5', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB05' , 'room_name' => '105', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC106' , 'room_name' => 'Room 6', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB06' , 'room_name' => '106', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC107' , 'room_name' => 'Room 7', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB07' , 'room_name' => '107', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC108' , 'room_name' => 'Room 8', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB08' , 'room_name' => '108', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC109' , 'room_name' => 'Room 9', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB09' , 'room_name' => '109', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC110' , 'room_name' => 'Room 10', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB10' , 'room_name' => '110', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC111' , 'room_name' => 'Room 11', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB11' , 'room_name' => '111', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC112' , 'room_name' => 'Room 12', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB12' , 'room_name' => '112', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC113' , 'room_name' => 'Room 13', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB13' , 'room_name' => '113', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC114' , 'room_name' => 'Room 14', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC115' , 'room_name' => 'Room 15', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC116' , 'room_name' => 'Room 16', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAB14' , 'room_name' => '114', 'room_floor' => 'Annex B', 'room_type' => 'Semi-Private', 'floor_id' => 'F02', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
             ],
 
 
 
 
 
-            [
-                'room_id' => 'RAC201' , 'room_name' => 'Room 1', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC202' , 'room_name' => 'Room 2', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC203' , 'room_name' => 'Room 3', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC204' , 'room_name' => 'Room 4', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC205' , 'room_name' => 'Room 5', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC206' , 'room_name' => 'Room 6', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC207' , 'room_name' => 'Room 7', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC208' , 'room_name' => 'Room 8', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC209' , 'room_name' => 'Room 9', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC210' , 'room_name' => 'Room 10', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC211' , 'room_name' => 'Room 11', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC212' , 'room_name' => 'Room 12', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC213' , 'room_name' => 'Room 13', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC214' , 'room_name' => 'Room 14', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC215' , 'room_name' => 'Room 15', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC216' , 'room_name' => 'Room 16', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC217' , 'room_name' => 'Room 17', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC218' , 'room_name' => 'Room 18', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC219' , 'room_name' => 'Room 19', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
-            [
-                'room_id' => 'RAC220' , 'room_name' => 'Room 20', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
-            ],
+
 
 
             [
-                'room_id' => 'RAC301' , 'room_name' => 'room 1 - A', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC101' , 'room_name' => '201', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC302' , 'room_name' => 'room 1 - B', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC102' , 'room_name' => '202', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC303' , 'room_name' => 'room 1 - C', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC103' , 'room_name' => '203', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC304' , 'room_name' => 'room 2', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC104' , 'room_name' => '204', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC305' , 'room_name' => 'room 3', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC105' , 'room_name' => '205', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC306' , 'room_name' => 'room 4 - A', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC106' , 'room_name' => '206', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC307' , 'room_name' => 'room 4 - B', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC107' , 'room_name' => '207', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC308' , 'room_name' => 'room 4 - C', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC108' , 'room_name' => '208', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC309' , 'room_name' => 'room 5 - A', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC109' , 'room_name' => '209', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC310' , 'room_name' => 'room 5 - B', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC110' , 'room_name' => '210', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC311' , 'room_name' => 'room 5 - C', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC111' , 'room_name' => '211', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC312' , 'room_name' => 'room 6', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC112' , 'room_name' => '212', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC313' , 'room_name' => 'room 7', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC113' , 'room_name' => '213', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC314' , 'room_name' => 'room 8', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC114' , 'room_name' => '214', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAC315' , 'room_name' => 'room 9', 'room_floor' => 'Annex C3', 'room_type' => 'Private', 'floor_id' => 'F05', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC115' , 'room_name' => '215', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC116' , 'room_name' => '216', 'room_floor' => 'Annex C1', 'room_type' => 'Semi-Private', 'floor_id' => 'F03', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
 
 
 
 
+
             [
-                'room_id' => 'RAD101' , 'room_name' => 'room 1', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC201' , 'room_name' => 'sr1', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD102' , 'room_name' => 'room 2', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC202' , 'room_name' => 'sr2', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD103' , 'room_name' => 'room 3', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC203' , 'room_name' => 'sr3', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD104' , 'room_name' => 'room 4', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC204' , 'room_name' => 'sr4', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD105' , 'room_name' => 'room 5', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC205' , 'room_name' => 'sr5', 'room_floor' => 'Annex C2', 'room_type' => 'Private', 'floor_id' => 'F04', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD106' , 'room_name' => 'room 6', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC206' , 'room_name' => '217', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD107' , 'room_name' => 'room 7', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC207' , 'room_name' => '218', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD108' , 'room_name' => 'room 8', 'room_floor' => 'Annex D1', 'room_type' => 'Private', 'floor_id' => 'F05', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC208' , 'room_name' => '219', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD109' , 'room_name' => 'room 9', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC209' , 'room_name' => '220', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD110' , 'room_name' => 'room 10', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC210' , 'room_name' => '221', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD111' , 'room_name' => 'room 11', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC211' , 'room_name' => '222', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD112' , 'room_name' => 'room 12', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC212' , 'room_name' => '223', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD113' , 'room_name' => 'room 13', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC213' , 'room_name' => '224', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD114' , 'room_name' => 'room 14', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC214' , 'room_name' => '225', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD115' , 'room_name' => 'room 15', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC215' , 'room_name' => '226', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD116' , 'room_name' => 'room 16', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC216' , 'room_name' => '227', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD117' , 'room_name' => 'room 17', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC217' , 'room_name' => '228', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD118' , 'room_name' => 'room 18', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC218' , 'room_name' => '229', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD119' , 'room_name' => 'room 19', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC219' , 'room_name' => '230', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD120' , 'room_name' => 'room 20', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC220' , 'room_name' => '231', 'room_floor' => 'Annex C2', 'room_type' => 'Semi-Private', 'floor_id' => 'F04', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+
+
+            [
+                'room_id' => 'RAC301' , 'room_name' => '232 - A', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD121' , 'room_name' => 'room 21', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC302' , 'room_name' => '232 - B', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'room_id' => 'RAD122' , 'room_name' => 'room 22', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+                'room_id' => 'RAC303' , 'room_name' => '232 - C', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC304' , 'room_name' => '233', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC305' , 'room_name' => '234', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC306' , 'room_name' => '235 - A', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC307' , 'room_name' => '235 - B', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC308' , 'room_name' => '235 - C', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC309' , 'room_name' => '236 - A', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC310' , 'room_name' => '236 - B', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC311' , 'room_name' => '326 - C', 'room_floor' => 'Annex C3', 'room_type' => 'Ward', 'floor_id' => 'F05', 'room_price' => '1100', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC312' , 'room_name' => '237', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC313' , 'room_name' => '238', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC314' , 'room_name' => '239', 'room_floor' => 'Annex C3', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2400', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAC315' , 'room_name' => 'sr7', 'room_floor' => 'Annex C3', 'room_type' => 'Private', 'floor_id' => 'F05', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
+            ],
+
+
+
+
+            [
+                'room_id' => 'RAD101' , 'room_name' => '301', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD102' , 'room_name' => '302', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD103' , 'room_name' => '303', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD104' , 'room_name' => '304', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD105' , 'room_name' => '305', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD106' , 'room_name' => '306', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD107' , 'room_name' => '307', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD108' , 'room_name' => '308', 'room_floor' => 'Annex D1', 'room_type' => 'Private', 'floor_id' => 'F05', 'room_price' => '3200', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD109' , 'room_name' => '309', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD110' , 'room_name' => '310', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD111' , 'room_name' => '311', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD112' , 'room_name' => '312', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD113' , 'room_name' => '313', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD114' , 'room_name' => '314', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD115' , 'room_name' => '315', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD116' , 'room_name' => '316', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD117' , 'room_name' => '317', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD118' , 'room_name' => '318', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD119' , 'room_name' => '319', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD120' , 'room_name' => '320', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD121' , 'room_name' => '321', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
+            ],
+            [
+                'room_id' => 'RAD122' , 'room_name' => '322', 'room_floor' => 'Annex D1', 'room_type' => 'Semi-Private', 'floor_id' => 'F05', 'room_price' => '2300', "created_at"=> now(), "updated_at"=> now()
             ],
 
             

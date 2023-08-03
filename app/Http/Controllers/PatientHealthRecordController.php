@@ -32,10 +32,7 @@ class PatientHealthRecordController extends Controller
      */
     public function store(Request $request)
     {
-        $room = room::where([
-            ['room_name','like',  '%' . $request['room_name'] . '%'],
-            ['room_floor','like',  '%' . $request['room_floor'] . '%'],
-        ])->get();
+        $room = room::where('room_name', $request['room_name'] )->first()->get();
 
 
         patient_healthRecord::insert([
