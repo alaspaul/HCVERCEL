@@ -19,26 +19,8 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        $time = now();
-        $date = new Carbon( $time ); 
-        $depId = department::select('department_id')->where('department_id', 'D1' )->first()->department_id;
-
-        $latestorder = resident::where('department_id', $depId)->count();
-        $last_id = resident::select('resident_id')->orderBy('created_at', 'desc')->first()->resident_id;
-        $currentId = $date->year . $depId . 'R' . $latestorder;
-
-
-        if( !empty(resident::select('resident_id')->where('resident_id', $currentId)->first()->resident_id)){
-        do{
-            $latestorder++;
-            $residentId = $date->year . $depId . 'R' . $latestorder;
-            $id = resident::select('resident_id')->where('resident_id', $residentId)->first();
-         
-        }while(!empty($id));
-        }
-         $newId = $date->year . $depId . 'R' . $latestorder;
-        return response()->json($newId);
-
+        $data = resident::all();
+        return $data;
 
 
 

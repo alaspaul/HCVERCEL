@@ -19,26 +19,8 @@ class PatientHealthRecordController extends Controller
       
 
 
-        $time = now();
-        $date = new Carbon( $time ); 
-        $roomId = room::select('room_id')->where('room_id', 'RAA2' )->first()->room_id;
-
-        $latestorder = patient_healthRecord::where('room_id', $roomId)->count();
-        $last_id = patient_healthRecord::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
-        $currentId = $date->year . $roomId . 'P' . $latestorder;
-
-        if( !empty( patient_healthRecord::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)){
-        do{
-            $latestorder++;
-            $floorId = $date->year . $roomId . 'P' . $latestorder;
-            $id = patient_healthRecord::select('patient_id')->where('patient_id', $floorId)->first();
-         
-        }while(!empty($id));
-        }
-        
-        
-        $newId = $date->year . $roomId . 'P' . $latestorder;
-        return response()->json($latestorder);
+        $data = patient_healthRecord::all();
+        return $data;
 
     }
 

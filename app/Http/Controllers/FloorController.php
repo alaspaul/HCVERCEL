@@ -12,21 +12,9 @@ class FloorController extends Controller
      */
     public function index()
     {
-        $latestorder = floor::all()->count();
-        $last_id = floor::select('floor_id')->orderBy('created_at', 'desc')->first()->floor_id;
-        $currentId = 'F' . $latestorder;
-        $id = floor::select('floor_id')->where('floor_id', $currentId)->first()->floor_id;
-
-        if( !empty($id)){
-        do{
-            $latestorder++;
-            $floorId = 'F'. $latestorder;
-            $id = floor::select('floor_id')->where('floor_id', $floorId)->first();
-         
-        }while(!empty($id));
-    }
-    $newId = 'F'. $latestorder;
-    return response()->json($newId);
+      
+        $data = floor::all();
+        return $data;
     }
     /**
      * Show the form for creating a new resource.

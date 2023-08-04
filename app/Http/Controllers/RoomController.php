@@ -12,39 +12,11 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $floorId = 'F1';
-       
-        if($floorId  == 'F1'){
-            $floorName = 'RAA';
-         }elseif($floorId  == 'F2'){
-            $floorName = 'RAC1';
-         }elseif($floorId  == 'F3'){
-            $floorName = 'RAC2';
-         }elseif($floorId  == 'F4'){
-            $floorName = 'RAC3';
-         }elseif($floorId  == 'F5'){
-            $floorName = 'RAD1';
-         }elseif($floorId  == 'F6'){
-            $floorName = 'RAE';
-         }
-
-        $latestorder = room::where('floor_id', $floorId )->count();
-        $last_id = room::select('room_id')->orderBy('created_at', 'desc')->first()->room_id;
-        $currentId = $floorName . $latestorder;
-        
-        if( !empty(room::select('room_id')->where('room_id', $currentId)->first()->room_id)){
-        do{
-            $latestorder++;
-            $depId = $floorName  . $latestorder;
-            $id = room::select('room_id')->where('room_id', $depId)->first();
-         
-        }while(!empty($id));
-    }
-
-        $newId = $floorName  . $latestorder;
+        $data = room::all();
+        return $data;
 
 
-        return response()->json($newId);
+
 
     }
 

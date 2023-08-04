@@ -13,22 +13,8 @@ class DepartmentController extends Controller
     public function index()
     {
 
-        $latestorder = department::all()->count();
-        $last_id = department::select('department_id')->orderBy('created_at', 'desc')->first()->department_id;
-        $currentId = 'D' . $latestorder;
-        $id = department::select('department_id')->where('department_id', $currentId)->first()->department_id;
-
-        if( !empty($id)){
-        do{
-            $latestorder++;
-            $depId = 'D'. $latestorder;
-            $id = department::select('department_id')->where('department_id', $depId)->first();
-         
-        }while(!empty($id));
-    }
-
-        $newId = 'D' . $latestorder;
-        return response()->json($newId);
+        $data = department::all();
+        return $data;
     }
 
     /**
