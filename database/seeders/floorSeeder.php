@@ -19,22 +19,22 @@ class floorSeeder extends Seeder
         $floors = [   
 
             [
-                'floor_id' => 'F01' , 'floor_name' => 'Annex A', "created_at"=> now(), "updated_at"=> now()
+                'floor_id' => 'F1' , 'floor_name' => 'Annex A', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'floor_id' => 'F02' , 'floor_name' => 'Annex C1', "created_at"=> now(), "updated_at"=> now()
+                'floor_id' => 'F2' , 'floor_name' => 'Annex C1', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'floor_id' => 'F03' , 'floor_name' => 'Annex C2', "created_at"=> now(), "updated_at"=> now()
+                'floor_id' => 'F3' , 'floor_name' => 'Annex C2', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'floor_id' => 'F04' , 'floor_name' => 'Annex C3', "created_at"=> now(), "updated_at"=> now()
+                'floor_id' => 'F4' , 'floor_name' => 'Annex C3', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'floor_id' => 'F05' , 'floor_name' => 'Annex D1', "created_at"=> now(), "updated_at"=> now()
+                'floor_id' => 'F5' , 'floor_name' => 'Annex D1', "created_at"=> now(), "updated_at"=> now()
             ],
             [
-                'floor_id' => 'F06' , 'floor_name' => 'Annex E', "created_at"=> now(), "updated_at"=> now()
+                'floor_id' => 'F6' , 'floor_name' => 'Annex E', "created_at"=> now(), "updated_at"=> now()
             ],
 
        ];

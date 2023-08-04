@@ -11,7 +11,7 @@ class MedicineSeeder extends Seeder
     {
         $medicines = [
             [
-                'medicine_id' => 'M01',
+                'medicine_id' => 'M1',
                 'medicine_name' => 'SILIBININ + PHOSPHATIDYLCHOLINE',
                 'medicine_brand' => 'LIVER PRIME',
                 'medicine_dosage' => '',
@@ -22,7 +22,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M02',
+                'medicine_id' => 'M2',
                 'medicine_name' => '0.9% SODIUM CHLORIDE',
                 'medicine_brand' => 'P NSS (ENDURE)',
                 'medicine_dosage' => '1L',
@@ -33,7 +33,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M03',
+                'medicine_id' => 'M3',
                 'medicine_name' => '100% SEA WATER NASAL SPRAY',
                 'medicine_brand' => 'HUMER BLOCKED NOSE ',
                 'medicine_dosage' => '50ML',
@@ -44,7 +44,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M04',
+                'medicine_id' => 'M4',
                 'medicine_name' => '100% SEA WATER NASAL SPRAY',
                 'medicine_brand' => 'HUMER INFANT/CHILD NASAL HYGIENE',
                 'medicine_dosage' => '150ML',
@@ -55,7 +55,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M05',
+                'medicine_id' => 'M5',
                 'medicine_name' => 'SOLUTION FOR IV INFUSION',
                 'medicine_brand' => 'PARANOVA',
                 'medicine_dosage' => '1G/100ML',
@@ -66,7 +66,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M06',
+                'medicine_id' => 'M6',
                 'medicine_name' => '5% DEXTROSE IN 0.9% SODIUM CHLORIDE',
                 'medicine_brand' => 'D5 NSS ENDURE',
                 'medicine_dosage' => '1L',
@@ -77,7 +77,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M07',
+                'medicine_id' => 'M7',
                 'medicine_name' => 'ACETAZOLAMIDE',
                 'medicine_brand' => 'CETAMID',
                 'medicine_dosage' => '250MG',
@@ -88,7 +88,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M08',
+                'medicine_id' => 'M8',
                 'medicine_name' => 'ACETATED RINGERS SOLUTION (AR)',
                 'medicine_brand' => 'ACETATED RINGERS SOLUTION (AR)',
                 'medicine_dosage' => '1L',
@@ -99,7 +99,7 @@ class MedicineSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'medicine_id' => 'M09',
+                'medicine_id' => 'M9',
                 'medicine_name' => 'ACETYLCYSTEINE',
                 'medicine_brand' => 'EXFLEM GRANULES',
                 'medicine_dosage' => '600MG',

@@ -30,7 +30,21 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $last_id = department::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $latestorder = department::all()->count();
+        $latestorder++;
+
+        $newId = 'D'. $latestorder;
+        if($last_id == $newId){
+
+            $currentId = 'D'. $latestorder;
+            while($last_id == $currentId){
+                $latestorder++;
+            }
+            $currentId = 'D'. $latestorder;
+        }
+        $newId = 'D'. $latestorder;
+
         department::insert([
             'department_id' => 'D'. $latestorder,
             'department_name' => $request['department_name'],

@@ -14,11 +14,21 @@ class PatientHealthRecordController extends Controller
      */
     public function index()
     {
-        // $last_id = patient_healthRecord::select('patient_id')->orderBy('patient_id', 'desc')->first()->patient_id;
-        // $last_id = $last_id++;
+        $last_id = patient_healthRecord::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $latestorder = patient_healthRecord::all()->count();
-        $lastId = 'P'. $latestorder;
-        return response()->json($lastId);
+        $latestorder++;
+
+        $newId = 'P'. $latestorder;
+        if($last_id == $newId){
+
+            $currentId = 'P'. $latestorder;
+            while($last_id == $currentId){
+                $latestorder++;
+            }
+            $currentId = 'P'. $latestorder;
+        }
+        $newId = 'P'. $latestorder;
+        return response()->json($newId);
     }
 
     /**
@@ -37,11 +47,24 @@ class PatientHealthRecordController extends Controller
         $room = room::where('room_name', $request['room_name'] )->first()->get();
 
 
+        $last_id = patient_healthRecord::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $latestorder = patient_healthRecord::all()->count();
+        $latestorder++;
+
+        $newId = 'P'. $latestorder;
+        if($last_id == $newId){
+
+            $currentId = 'P'. $latestorder;
+            while($last_id == $currentId){
+                $latestorder++;
+            }
+            $currentId = 'P'. $latestorder;
+        }
+        $newId = 'P'. $latestorder;
 
         patient_healthRecord::insert([
 
-            'patient_id' => 'P' . $latestorder,
+            'patient_id' =>  $currentId,
             'patient_fName' => $request['patient_fName'],
             'patient_lName' => $request['patient_lName'],
             'patient_mName' => $request['patient_mName'],

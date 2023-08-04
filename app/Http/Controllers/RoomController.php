@@ -32,7 +32,23 @@ class RoomController extends Controller
 
     { 
         $floorId = '';
-         $latestorder = room::where('floor_id', $request['floor_id'])->count();
+       
+        $last_id = room::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
+        $latestorder = room::all()->count();
+        $latestorder++;
+
+        $currentId =  $latestorder;
+        if($last_id == $currentId){
+
+            $newId =  $latestorder;
+            while($last_id == $newId){
+                $latestorder++;
+            }
+            $newId =  $latestorder;
+        }
+        $currentId =  $latestorder;
+
+
          if($request['floor_id'] == 'F01'){
             $floorId = 'RAA';
          }elseif($request['floor_id'] == 'F02'){

@@ -36,9 +36,24 @@ class ResidentController extends Controller
     public function store(Request $request)
     {
         
+        
+        $last_id = resident::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $latestorder = resident::all()->count();
+        $latestorder++;
+
+        $newId = 'R'. $latestorder;
+        if($last_id == $newId){
+
+            $currentId = 'R'. $latestorder;
+            while($last_id == $currentId){
+                $latestorder++;
+            }
+            $currentId = 'R'. $latestorder;
+        }
+        $newId = 'R'. $latestorder;
+
         resident::insert([
-            'resident_id' => 'R' . $latestorder,
+            'resident_id' => $newId,
             'resident_userName' => $request['resident_userName'],
             'resident_fName' => $request['resident_fName'],
             'resident_lName' => $request['resident_lName'],

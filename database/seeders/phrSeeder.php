@@ -172,8 +172,10 @@ class phrSeeder extends Seeder
                 'phr_skinNodules' => 0 ,
                 'phr_skinUlcer' => 0 ,
     
+                
+                'created_at' => now(),
                 'phr_Assessment' => 0 ,
-                'patient_id' => 'P01' ,
+                'patient_id' => 'P1' ,
                 'room_id' => 'RAA01' ,
             ],
             
@@ -334,8 +336,9 @@ class phrSeeder extends Seeder
                 'phr_skinNodules' => 0 ,
                 'phr_skinUlcer' => 0 ,
     
+                'created_at' => now(),
                 'phr_Assessment' => 0 ,
-                'patient_id' => 'P02' ,
+                'patient_id' => 'P2' ,
                 'room_id' => 'RAA02' ,
             ],
 
@@ -496,8 +499,10 @@ class phrSeeder extends Seeder
                 'phr_skinNodules' => 0 ,
                 'phr_skinUlcer' => 0 ,
     
+
+                'created_at' => now() ,
                 'phr_Assessment' => 0 ,
-                'patient_id' => 'P03' ,
+                'patient_id' => 'P3' ,
                 'room_id' => 'RAA03' ,
             ],
 

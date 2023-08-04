@@ -31,9 +31,23 @@ class FloorController extends Controller
     public function store(Request $request)
     {
 
+        $last_id = floor::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $latestorder = floor::all()->count();
+        $latestorder++;
+
+        $newId = 'F'. $latestorder;
+        if($last_id == $newId){
+
+            $currentId = 'F'. $latestorder;
+            while($last_id == $currentId){
+                $latestorder++;
+            }
+            $currentId = 'F'. $latestorder;
+        }
+        $newId = 'F'. $latestorder;
+
         floor::insert([
-            'floor_id' => 'F' .  $latestorder,
+            'floor_id' => $newId,
             'floor_name' => $request['floor_name'],
 
             'created_at' => now(),

@@ -33,8 +33,24 @@ class medicineController extends Controller
      */
     public function store(Request $request)
     {
+        $last_id = medicine::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
+        $latestorder = medicine::all()->count();
+        $latestorder++;
+
+        $newId = 'M'. $latestorder;
+        if($last_id == $newId){
+
+            $currentId = 'M'. $latestorder;
+            while($last_id == $currentId){
+                $latestorder++;
+            }
+            $currentId = 'M'. $latestorder;
+        }
+        $newId = 'M'. $latestorder;
+
+        
         medicine::insert([
-            'medicine_id' => $request[' medicine_id'],
+            'medicine_id' =>  $newId,
             'medicine_name' => $request['medicine_name'],
             'medicine_brand' => $request['medicine_brand'],
             'medicine_dosage' => $request['medicine_dosage'],
