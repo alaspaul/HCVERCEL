@@ -12,9 +12,23 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        
-        $data = department::all();
-        return $data;
+
+        $latestorder = department::all()->count();
+        $last_id = department::select('department_id')->orderBy('created_at', 'desc')->first()->department_id;
+        $currentId = 'D' . $latestorder;
+        $id = department::select('department_id')->where('department_id', $currentId)->first()->department_id;
+
+        if( !empty($id)){
+        do{
+            $latestorder++;
+            $depId = 'D'. $latestorder;
+            $id = department::select('department_id')->where('department_id', $depId)->first();
+         
+        }while(!empty($id));
+    }
+
+        $newId = 'D' . $latestorder;
+        return response()->json($newId);
     }
 
     /**
@@ -30,23 +44,24 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $last_id = department::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $latestorder = department::all()->count();
-        $latestorder++;
+        $last_id = department::select('department_id')->orderBy('created_at', 'desc')->first()->department_id;
+        $currentId = 'D' . $latestorder;
+        $id = department::select('department_id')->where('department_id', $currentId)->first()->department_id;
 
-        $newId = 'D'. $latestorder;
-        if($last_id == $newId){
+        if( !empty($id)){
+        do{
+            $latestorder++;
+            $depId = 'D'. $latestorder;
+            $id = department::select('department_id')->where('department_id', $depId)->first();
+         
+        }while(!empty($id));
+    }
 
-            $currentId = 'D'. $latestorder;
-            while($last_id == $currentId){
-                $latestorder++;
-            }
-            $currentId = 'D'. $latestorder;
-        }
-        $newId = 'D'. $latestorder;
+        $newId = 'D' . $latestorder;
 
         department::insert([
-            'department_id' => 'D'. $latestorder,
+            'department_id' => $newId,
             'department_name' => $request['department_name'],
             'created_at' => now(),
             'updated_at' => now(),

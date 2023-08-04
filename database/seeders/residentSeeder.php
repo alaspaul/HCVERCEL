@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,55 +17,59 @@ class residentSeeder extends Seeder
      */
     public function run(): void
     {
+        $time = now();
+        $date = new Carbon( $time ); 
+
+
         $residents = [   
 
             [
-                'resident_id' => 'R1' ,
-                'resident_userName' => 'userTest',
+                'resident_id' =>  $date->year . 'D1' . 'R5' ,
+                'resident_userName' => 'userTests',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
-                'department_id' => 'D01',
+                'department_id' => 'D1',
                 'isChief' => 1,
                 
                 "created_at"=> now(), "updated_at"=> now()
             ],
             
             [
-                'resident_id' => 'R2' ,
-                'resident_userName' => 'userTest2',
+                'resident_id' =>  $date->year . 'D1' . 'R6' ,
+                'resident_userName' => 'userTest2s',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
-                'department_id' => 'D01',
+                'department_id' => 'D1',
                 'isChief' => 1,
                 
                 "created_at"=> now(), "updated_at"=> now()
             ],
 
             [
-                'resident_id' => 'R3' ,
-                'resident_userName' => 'userTest3',
+                'resident_id' =>  $date->year . 'D1' . 'R7' ,
+                'resident_userName' => 'userTest3s',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
-                'department_id' => 'D01',
+                'department_id' => 'D1',
                 'isChief' => 0,
                 
                 "created_at"=> now(), "updated_at"=> now()
             ],
 
             [
-                'resident_id' => 'R4' ,
-                'resident_userName' => 'userTest4',
+                'resident_id' =>  $date->year . 'D1' . 'R8' ,
+                'resident_userName' => 'userTest4s',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
-                'department_id' => 'D01',
+                'department_id' => 'D1',
                 'isChief' => 0,
                 
                 "created_at"=> now(), "updated_at"=> now()

@@ -12,9 +12,40 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $data = room::all();
+        $floorId = 'F1';
+       
+        if($floorId  == 'F1'){
+            $floorName = 'RAA';
+         }elseif($floorId  == 'F2'){
+            $floorName = 'RAC1';
+         }elseif($floorId  == 'F3'){
+            $floorName = 'RAC2';
+         }elseif($floorId  == 'F4'){
+            $floorName = 'RAC3';
+         }elseif($floorId  == 'F5'){
+            $floorName = 'RAD1';
+         }elseif($floorId  == 'F6'){
+            $floorName = 'RAE';
+         }
 
-        return $data;
+        $latestorder = room::where('floor_id', $floorId )->count();
+        $last_id = room::select('room_id')->orderBy('created_at', 'desc')->first()->room_id;
+        $currentId = $floorName . $latestorder;
+        
+        if( !empty(room::select('room_id')->where('room_id', $currentId)->first()->room_id)){
+        do{
+            $latestorder++;
+            $depId = $floorName  . $latestorder;
+            $id = room::select('room_id')->where('room_id', $depId)->first();
+         
+        }while(!empty($id));
+    }
+
+        $newId = $floorName  . $latestorder;
+
+
+        return response()->json($newId);
+
     }
 
     /**
@@ -31,39 +62,43 @@ class RoomController extends Controller
     public function store(Request $request)
 
     { 
-        $floorId = '';
+        $floorId = 'F1';
        
-        $last_id = room::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
-        $latestorder = room::all()->count();
-        $latestorder++;
+        if($floorId  == 'F1'){
+            $floorName = 'RAA';
+         }elseif($floorId  == 'F2'){
+            $floorName = 'RAC1';
+         }elseif($floorId  == 'F3'){
+            $floorName = 'RAC2';
+         }elseif($floorId  == 'F4'){
+            $floorName = 'RAC3';
+         }elseif($floorId  == 'F5'){
+            $floorName = 'RAD1';
+         }elseif($floorId  == 'F6'){
+            $floorName = 'RAE';
+         }
 
-        $currentId =  $latestorder;
-        if($last_id == $currentId){
+        $latestorder = room::where('floor_id', $floorId )->count();
+        $last_id = room::select('room_id')->orderBy('created_at', 'desc')->first()->room_id;
+        $currentId = $floorName . $latestorder;
+        
+        if( !empty(room::select('room_id')->where('room_id', $currentId)->first()->room_id)){
+        do{
+            $latestorder++;
+            $depId = $floorName  . $latestorder;
+            $id = room::select('room_id')->where('room_id', $depId)->first();
+         
+        }while(!empty($id));
+    }
 
-            $newId =  $latestorder;
-            while($last_id == $newId){
-                $latestorder++;
-            }
-            $newId =  $latestorder;
-        }
-        $currentId =  $latestorder;
+        $newId = $floorName  . $latestorder;
 
 
-         if($request['floor_id'] == 'F01'){
-            $floorId = 'RAA';
-         }elseif($request['floor_id'] == 'F02'){
-            $floorId = 'RAC1';
-         }elseif($request['floor_id'] == 'F03'){
-            $floorId = 'RAC2';
-         }elseif($request['floor_id'] == 'F04'){
-            $floorId = 'RAC3';
-         }elseif($request['floor_id'] == 'F05'){
-            $floorId = 'RAD1';
-         }elseif($request['floor_id'] == 'F06'){
-            $floorId = 'RAE';
-         }else
+
+
+
         room::insert([
-            'room_id' => $floorId . $latestorder,
+            'room_id' => $newId,
             'room_name' => $request['room_name'],
             'room_building' => $request['room_building'],
             'room_type' => $request['room_type'],

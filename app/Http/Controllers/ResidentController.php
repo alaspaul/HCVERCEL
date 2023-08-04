@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\department;
 use App\Models\resident;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,9 +19,30 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        $data = resident::all();
+        $time = now();
+        $date = new Carbon( $time ); 
+        $depId = department::select('department_id')->where('department_id', 'D1' )->first()->department_id;
 
-        return $data;
+        $latestorder = resident::where('department_id', $depId)->count();
+        $last_id = resident::select('resident_id')->orderBy('created_at', 'desc')->first()->resident_id;
+        $currentId = $date->year . $depId . 'R' . $latestorder;
+
+
+        if( !empty(resident::select('resident_id')->where('resident_id', $currentId)->first()->resident_id)){
+        do{
+            $latestorder++;
+            $residentId = $date->year . $depId . 'R' . $latestorder;
+            $id = resident::select('resident_id')->where('resident_id', $residentId)->first();
+         
+        }while(!empty($id));
+        }
+         $newId = $date->year . $depId . 'R' . $latestorder;
+        return response()->json($newId);
+
+
+
+
+
     }
 
     /**
@@ -35,25 +58,28 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
-        $last_id = resident::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
-        $latestorder = resident::all()->count();
-        $latestorder++;
+        $time = now();
+        $date = new Carbon( $time ); 
+        $depId = department::select('department_id')->where('department_id',  $request['department_id'] )->first()->department_id;
 
-        $newId = 'R'. $latestorder;
-        if($last_id == $newId){
+        $latestorder = resident::where('department_id', $depId)->count();
+        $last_id = resident::select('resident_id')->orderBy('created_at', 'desc')->first()->resident_id;
+        $currentId = $date->year . $depId . 'R' . $latestorder;
+        
 
-            $currentId = 'R'. $latestorder;
-            while($last_id == $currentId){
-                $latestorder++;
-            }
-            $currentId = 'R'. $latestorder;
+        if( !empty(resident::select('resident_id')->where('resident_id', $currentId)->first()->resident_id)){
+        do{
+            $latestorder++;
+            $residentId = $date->year . $depId . 'R' . $latestorder;
+            $id = resident::select('resident_id')->where('resident_id', $residentId)->first();
+         
+        }while(!empty($id));
         }
-        $newId = 'R'. $latestorder;
+         $newId = $date->year . $depId . 'R' . $latestorder;
+
 
         resident::insert([
-            'resident_id' => $newId,
+            'resident_id' =>  $newId,
             'resident_userName' => $request['resident_userName'],
             'resident_fName' => $request['resident_fName'],
             'resident_lName' => $request['resident_lName'],

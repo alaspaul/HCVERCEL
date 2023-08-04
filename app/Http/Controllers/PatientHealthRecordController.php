@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\patientAssignedRoom;
 use App\Models\patient_healthRecord;
 use App\Models\room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PatientHealthRecordController extends Controller
@@ -14,21 +15,31 @@ class PatientHealthRecordController extends Controller
      */
     public function index()
     {
+
+      
+
+
+        $time = now();
+        $date = new Carbon( $time ); 
+        $roomId = room::select('room_id')->where('room_id', 'RAA2' )->first()->room_id;
+
+        $latestorder = patient_healthRecord::where('room_id', $roomId)->count();
         $last_id = patient_healthRecord::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
-        $latestorder = patient_healthRecord::all()->count();
-        $latestorder++;
+        $currentId = $date->year . $roomId . 'P' . $latestorder;
 
-        $newId = 'P'. $latestorder;
-        if($last_id == $newId){
-
-            $currentId = 'P'. $latestorder;
-            while($last_id == $currentId){
-                $latestorder++;
-            }
-            $currentId = 'P'. $latestorder;
+        if( !empty( patient_healthRecord::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)){
+        do{
+            $latestorder++;
+            $floorId = $date->year . $roomId . 'P' . $latestorder;
+            $id = patient_healthRecord::select('patient_id')->where('patient_id', $floorId)->first();
+         
+        }while(!empty($id));
         }
-        $newId = 'P'. $latestorder;
-        return response()->json($newId);
+        
+        
+        $newId = $date->year . $roomId . 'P' . $latestorder;
+        return response()->json($latestorder);
+
     }
 
     /**
@@ -44,27 +55,29 @@ class PatientHealthRecordController extends Controller
      */
     public function store(Request $request)
     {
-        $room = room::where('room_name', $request['room_name'] )->first()->get();
+        
+        $time = now();
+        $date = new Carbon( $time ); 
+        $roomId = room::select('room_id')->where('room_name', $request['room_name'] )->first()->room_id;
 
-
+        $latestorder = patient_healthRecord::where('room_id', $roomId)->count();
         $last_id = patient_healthRecord::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
-        $latestorder = patient_healthRecord::all()->count();
-        $latestorder++;
+        $currentId = $date->year . $roomId . 'P' . $latestorder;
 
-        $newId = 'P'. $latestorder;
-        if($last_id == $newId){
-
-            $currentId = 'P'. $latestorder;
-            while($last_id == $currentId){
-                $latestorder++;
-            }
-            $currentId = 'P'. $latestorder;
+        if( !empty(patient_healthRecord::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)){
+        do{
+            $latestorder++;
+            $patientId = $date->year . $roomId . 'P' . $latestorder;
+            $id = patient_healthRecord::select('patient_id')->where('patient_id', $patientId)->first();
+         
+        }while(!empty($id));
         }
-        $newId = 'P'. $latestorder;
+         $newId = $date->year . $roomId . 'P' . $latestorder;
+  
 
         patient_healthRecord::insert([
 
-            'patient_id' =>  $currentId,
+            'patient_id' =>  $newId,
             'patient_fName' => $request['patient_fName'],
             'patient_lName' => $request['patient_lName'],
             'patient_mName' => $request['patient_mName'],
@@ -75,7 +88,7 @@ class PatientHealthRecordController extends Controller
             'phr_chiefComaplaint' => $request['phr_chiefComaplaint'],
             'phr_startTime' => $request['phr_startTime'],
             'phr_endTime' => $request['phr_endTime'],
-            'room_id' => $room['room_id'],
+            'room_id' => $roomId,
             
         'phr_historyOfPresentIllness' => $request['phr_historyOfPresentIllness'],
         'phr_nonVerbalPatient' => $request['phr_nonVerbalPatient'],

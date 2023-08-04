@@ -12,11 +12,22 @@ class FloorController extends Controller
      */
     public function index()
     {
-        
-        $data = floor::all();
-        return $data;
-    }
+        $latestorder = floor::all()->count();
+        $last_id = floor::select('floor_id')->orderBy('created_at', 'desc')->first()->floor_id;
+        $currentId = 'F' . $latestorder;
+        $id = floor::select('floor_id')->where('floor_id', $currentId)->first()->floor_id;
 
+        if( !empty($id)){
+        do{
+            $latestorder++;
+            $floorId = 'F'. $latestorder;
+            $id = floor::select('floor_id')->where('floor_id', $floorId)->first();
+         
+        }while(!empty($id));
+    }
+    $newId = 'F'. $latestorder;
+    return response()->json($newId);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -30,21 +41,20 @@ class FloorController extends Controller
      */
     public function store(Request $request)
     {
-
-        $last_id = floor::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $latestorder = floor::all()->count();
-        $latestorder++;
+        $last_id = floor::select('floor_id')->orderBy('created_at', 'desc')->first()->floor_id;
+        $currentId = 'F' . $latestorder;
+        $id = floor::select('floor_id')->where('floor_id', $currentId)->first()->floor_id;
 
-        $newId = 'F'. $latestorder;
-        if($last_id == $newId){
-
-            $currentId = 'F'. $latestorder;
-            while($last_id == $currentId){
-                $latestorder++;
-            }
-            $currentId = 'F'. $latestorder;
-        }
-        $newId = 'F'. $latestorder;
+        if( !empty($id)){
+        do{
+            $latestorder++;
+            $floorId = 'F'. $latestorder;
+            $id = floor::select('floor_id')->where('floor_id', $floorId)->first();
+         
+        }while(!empty($id));
+    }
+    $newId = 'F'. $latestorder;
 
         floor::insert([
             'floor_id' => $newId,

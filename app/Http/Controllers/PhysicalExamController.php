@@ -29,6 +29,7 @@ class PhysicalExamController extends Controller
      */
     public function store(Request $request)
     {
+
         physicalExam::insert([
             'physicExam_id' => $request['physicExam_id'],
             'patient_id' => $request['patient_id'],
@@ -173,7 +174,7 @@ class PhysicalExamController extends Controller
 
     public function updatePhysicalExam(Request $request, $id)
     {
-       
+
         
         physicalExam::where('physicExam_id', $id)->update(
             [
