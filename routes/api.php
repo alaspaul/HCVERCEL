@@ -2,13 +2,12 @@
 
 
 
-use App\Http\Controllers\PatientAssignedRoomController;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ResidentAssignedRoomController;
 use App\Http\Controllers\ResidentController;
-use App\Http\Controllers\PatientController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\medicineController;
 use App\Http\Controllers\PatientHealthRecordController;
@@ -43,7 +42,6 @@ Route::group(['middleware' => 'auth:sanctum'],function(){
 
     
 Route::apiResource('ResAssRooms', ResidentAssignedRoomController::class);
-Route::apiResource('patients', PatientController::class);
 Route::apiResource('departments', DepartmentController::class);
 
 Route::apiResource('floors', FloorController::class);
@@ -52,7 +50,6 @@ Route::apiResource('medicines', medicineController::class);
 
 
 Route::apiResource('PatientHealthRecord', PatientHealthRecordController::class);
-Route::apiResource('PatAssRooms', PatientAssignedRoomController::class);
 Route::apiResource('PhysicalExams', PhysicalExamController::class);
 
 Route::apiResource('Vitals', VitalController::class);
@@ -62,10 +59,8 @@ Route::apiResource('Rooms', RoomController::class);
 Route::post('Rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
 
-Route::post('patients/getPatient/{patient_Id}', [PatientController::class, 'getPatient'])->name('patient.getPatient');
-
 Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);
-Route::get('showpatAssRoom/{patient_id}', [PatientAssignedRoomController::class, 'show']);
+
 
 Route::GET('resAssRoom/rooms', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
 
@@ -78,8 +73,6 @@ Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor']
 Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
 Route::POST('medicines/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicines.updateMeds');
 
-Route::POST('patients/edit{patient}', [patientController::class, 'edit'])->name('patients.edit');
-Route::POST('patients/updatePatient{patient}', [patientController::class, 'updatePatient'])->name('patients.updatePatient');
 
 Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
 Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');

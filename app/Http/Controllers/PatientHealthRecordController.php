@@ -14,9 +14,11 @@ class PatientHealthRecordController extends Controller
      */
     public function index()
     {
-                
-        $data = patient_healthRecord::all();
-        return $data;
+        // $last_id = patient_healthRecord::select('patient_id')->orderBy('patient_id', 'desc')->first()->patient_id;
+        // $last_id = $last_id++;
+        $latestorder = patient_healthRecord::all()->count();
+        $lastId = 'P'. $latestorder;
+        return response()->json($lastId);
     }
 
     /**
@@ -24,7 +26,7 @@ class PatientHealthRecordController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,9 +37,11 @@ class PatientHealthRecordController extends Controller
         $room = room::where('room_name', $request['room_name'] )->first()->get();
 
 
+        $latestorder = patient_healthRecord::all()->count();
+
         patient_healthRecord::insert([
 
-            'patient_id' => $request['patient_id'],
+            'patient_id' => 'P' . $latestorder,
             'patient_fName' => $request['patient_fName'],
             'patient_lName' => $request['patient_lName'],
             'patient_mName' => $request['patient_mName'],

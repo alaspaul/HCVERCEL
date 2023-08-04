@@ -31,9 +31,9 @@ class FloorController extends Controller
     public function store(Request $request)
     {
 
-
+        $latestorder = floor::all()->count();
         floor::insert([
-            'floor_id' => $request['floor_id'],
+            'floor_id' => 'F' .  $latestorder,
             'floor_name' => $request['floor_name'],
 
             'created_at' => now(),

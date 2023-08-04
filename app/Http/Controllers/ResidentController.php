@@ -35,8 +35,10 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $latestorder = resident::all()->count();
         resident::insert([
-            'resident_id' => $request['resident_id'],
+            'resident_id' => 'R' . $latestorder,
             'resident_userName' => $request['resident_userName'],
             'resident_fName' => $request['resident_fName'],
             'resident_lName' => $request['resident_lName'],

@@ -30,8 +30,9 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        $latestorder = department::all()->count();
         department::insert([
-            'department_id' => $request['department_id'],
+            'department_id' => 'D'. $latestorder,
             'department_name' => $request['department_name'],
             'created_at' => now(),
             'updated_at' => now(),

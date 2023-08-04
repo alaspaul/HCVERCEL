@@ -29,9 +29,25 @@ class RoomController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+
+    { 
+        $floorId = '';
+         $latestorder = room::where('floor_id', $request['floor_id'])->count();
+         if($request['floor_id'] == 'F01'){
+            $floorId = 'RAA';
+         }elseif($request['floor_id'] == 'F02'){
+            $floorId = 'RAC1';
+         }elseif($request['floor_id'] == 'F03'){
+            $floorId = 'RAC2';
+         }elseif($request['floor_id'] == 'F04'){
+            $floorId = 'RAC3';
+         }elseif($request['floor_id'] == 'F05'){
+            $floorId = 'RAD1';
+         }elseif($request['floor_id'] == 'F06'){
+            $floorId = 'RAE';
+         }else
         room::insert([
-            'room_id' => $request['room_id'],
+            'room_id' => $floorId . $latestorder,
             'room_name' => $request['room_name'],
             'room_building' => $request['room_building'],
             'room_type' => $request['room_type'],
