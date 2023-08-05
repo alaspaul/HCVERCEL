@@ -24,7 +24,7 @@ class residentSeeder extends Seeder
         $residents = [   
 
             [
-                'resident_id' =>  $date->year . 'D1' . 'R5' ,
+                'resident_id' =>  $date->year . 'D1' . 'R1' ,
                 'resident_userName' => 'userTests',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
@@ -37,7 +37,7 @@ class residentSeeder extends Seeder
             ],
             
             [
-                'resident_id' =>  $date->year . 'D1' . 'R6' ,
+                'resident_id' =>  $date->year . 'D1' . 'R2' ,
                 'resident_userName' => 'userTest2s',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
@@ -50,7 +50,7 @@ class residentSeeder extends Seeder
             ],
 
             [
-                'resident_id' =>  $date->year . 'D1' . 'R7' ,
+                'resident_id' =>  $date->year . 'D1' . 'R3' ,
                 'resident_userName' => 'userTest3s',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
@@ -63,7 +63,7 @@ class residentSeeder extends Seeder
             ],
 
             [
-                'resident_id' =>  $date->year . 'D1' . 'R8' ,
+                'resident_id' =>  $date->year . 'D1' . 'R4' ,
                 'resident_userName' => 'userTest4s',
                 'resident_fName' => 'fnameTest',
                 'resident_lName' => 'lnameTest',
