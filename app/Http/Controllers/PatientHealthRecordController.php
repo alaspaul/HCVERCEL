@@ -230,10 +230,10 @@ class PatientHealthRecordController extends Controller
     public function show($patient_id)
     {
         try{
-            $patient = patient_healthRecord::where('patient',$patient_id)->first()->get();
+            $patient = patient_healthRecord::where('patient_id',$patient_id)->first()->get();
             return response()->json($patient);
         }catch(\Exception $e){
-            return response()->json(['error'=>'resident not found'], 404);
+            return response()->json(['error'=>'patient not found'], 404);
         }
     }
 
