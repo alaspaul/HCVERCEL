@@ -16,9 +16,6 @@ class PatientHealthRecordController extends Controller
     public function index()
     {
 
-      
-
-
         $data = patient_healthRecord::all();
         return $data;
 
@@ -230,10 +227,10 @@ class PatientHealthRecordController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(patient_healthRecord $patient_healthRecord)
+    public function show($patient_id)
     {
         try{
-            $patient = patient_healthRecord::findOrFail($patient_healthRecord->patient_id);
+            $patient = patient_healthRecord::where('patient',$patient_id)->first()->get();
             return response()->json($patient);
         }catch(\Exception $e){
             return response()->json(['error'=>'resident not found'], 404);
@@ -437,5 +434,15 @@ class PatientHealthRecordController extends Controller
         ]);
 
         return response('done');
+    }
+
+
+
+    public function getPatientbyRoom($room_id){
+
+        $patient = patient_healthRecord::where('room_id', $room_id)->first()->get();
+
+
+        return response()->json($patient);
     }
 }

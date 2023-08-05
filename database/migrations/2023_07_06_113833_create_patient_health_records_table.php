@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('patient_health_records', function (Blueprint $table) {
             $table->string('patient_id')->primary();
-            $table->string('room_id');
+            $table->string('room_id')->nullable();
 
 
             $table->string('patient_fName');

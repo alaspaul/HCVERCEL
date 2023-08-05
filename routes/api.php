@@ -58,6 +58,8 @@ Route::apiResource('Rooms', RoomController::class);
 
 Route::post('Rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
+Route::get('PatientHealthRecord/getPatientbyRoom/{room_id}', [PatientHealthRecordController::class, 'getPatientbyRoom'])->name('phr.getPatientbyRoom');
+
 
 Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);
 
