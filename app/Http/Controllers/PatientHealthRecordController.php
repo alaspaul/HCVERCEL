@@ -60,6 +60,9 @@ class PatientHealthRecordController extends Controller
         patient_healthRecord::insert([
 
             'patient_id' =>  $newId,
+            'room_id' => $roomId,
+
+            
             'patient_fName' => $request['patient_fName'],
             'patient_lName' => $request['patient_lName'],
             'patient_mName' => $request['patient_mName'],
@@ -68,9 +71,10 @@ class PatientHealthRecordController extends Controller
             'patient_vaccine_stat' => $request['patient_vaccine_stat'],
 
             'phr_chiefComaplaint' => $request['phr_chiefComaplaint'],
+            
             'phr_startTime' => $request['phr_startTime'],
             'phr_endTime' => $request['phr_endTime'],
-            'room_id' => $roomId,
+      
             
         'phr_historyOfPresentIllness' => $request['phr_historyOfPresentIllness'],
         'phr_nonVerbalPatient' => $request['phr_nonVerbalPatient'],

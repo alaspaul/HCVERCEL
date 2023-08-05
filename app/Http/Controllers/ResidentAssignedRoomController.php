@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\resident_assigned_room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ResidentAssignedRoomController extends Controller
@@ -29,9 +30,12 @@ class ResidentAssignedRoomController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   $time = now();
+        $date = new Carbon( $time ); 
+
+
         resident_assigned_room::insert([
-            'resAssRoom_id' => $request['resAssRoom_id'],
+            'resAssRoom_id' => $date->year . $request['resident_id'] .  $request['room_id'],
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
             'isFinished' => $request['isFinished'],

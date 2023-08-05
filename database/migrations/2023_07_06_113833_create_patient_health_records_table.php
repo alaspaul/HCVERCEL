@@ -13,12 +13,20 @@ return new class extends Migration
     {
         Schema::create('patient_health_records', function (Blueprint $table) {
             $table->string('patient_id')->primary();
+            $table->string('room_id');
+
+
             $table->string('patient_fName');
             $table->string('patient_lName');
             $table->string('patient_mName');
-            $table->string('patient_age');
+            $table->integer('patient_age');
             $table->string('patient_sex');
             $table->string('patient_vaccination_stat');
+
+            $table->string('phr_chiefComaplaint');
+            $table->time('phr_startTime');
+            $table->time('phr_endTime');
+
 
             $table->string('phr_historyOfPresentIllness');
             $table->string('phr_nonVerbalPatient');
@@ -58,10 +66,8 @@ return new class extends Migration
             $table->string('phr_specifyCivilStatus');
             $table->string('phr_specifyPertinentHistory');
             
-            $table->string('phr_chiefComaplaint');
-
-            $table->time('phr_startTime');
-            $table->time('phr_endTime');
+   
+            
 
             $table->integer('phr_bpSitting');
             $table->integer('phr_bpStanding');
@@ -128,7 +134,7 @@ return new class extends Migration
             $table->boolean('phr_AuscultationRales');
             $table->boolean('phr_AuscultationWheezes');
             $table->boolean('phr_AuscultationRub');
-            $table->boolean('phr_RespiratoryAdditionalFindings');
+            $table->string('phr_RespiratoryAdditionalFindings');
 
             $table->boolean('phr_heartSoundsClearS1');
             $table->boolean('phr_heartSoundsClearS2');
@@ -140,7 +146,7 @@ return new class extends Migration
             $table->boolean('phr_heartSoundsDiastolic');
 
             $table->integer('phr_grade');
-            $table->boolean('phr_CardiovascularAdditionalFindings');
+            $table->string('phr_CardiovascularAdditionalFindings');
 
             $table->boolean('phr_massPresent');
             $table->boolean('phr_bowelSoundsNormaoactive');
@@ -170,7 +176,7 @@ return new class extends Migration
 
             $table->string('phr_Assessment');
 
-            $table->string('room_id');
+      
             $table->timestamps();
 
             $table->foreign('room_id')->references('room_id')->on('rooms')
