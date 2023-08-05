@@ -14,23 +14,23 @@ class resAssRoomSeeder extends Seeder
         $ressAssRooms = [   
             
             [
-                'resAssRoom_id' => 'RAR1', 'room_id' => 'RAA1', 'resident_id' => 'R1', 'isFinished' => '0'
+                'resAssRoom_id' => 'RAR1', 'room_id' => 'RAA1', 'resident_id' => '2023D1R1', 'isFinished' => '0'
                 
 
                 , 'created_at' => now(), 'updated_at' => now(),
             ],
             [
-                'resAssRoom_id' => 'RAR2', 'room_id' => 'RAA2',  'resident_id' => 'R2', 'isFinished' => '0'
+                'resAssRoom_id' => 'RAR2', 'room_id' => 'RAA2',  'resident_id' => '2023D1R2', 'isFinished' => '0'
 
                 , 'created_at' => now(), 'updated_at' => now(),
             ],
             [
-                'resAssRoom_id' => 'RAR3', 'room_id' => 'RAA3',  'resident_id' => 'R3', 'isFinished' => '0'
+                'resAssRoom_id' => 'RAR3', 'room_id' => 'RAA3',  'resident_id' => '2023D1R3', 'isFinished' => '0'
 
                 , 'created_at' => now(), 'updated_at' => now(),
             ],
             [
-                'resAssRoom_id' => 'RAR4', 'room_id' => 'RAA4',  'resident_id' => 'R4', 'isFinished' => '0'
+                'resAssRoom_id' => 'RAR4', 'room_id' => 'RAA4',  'resident_id' => '2023D1R4', 'isFinished' => '0'
                 
 
                 , 'created_at' => now(), 'updated_at' => now(),
