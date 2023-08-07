@@ -28,12 +28,13 @@ return new class extends Migration
             $table->time('phr_endTime');
 
 
-            $table->string('phr_historyOfPresentIllness');
-            $table->string('phr_nonVerbalPatient');
-            $table->string('phr_HxFrom');
+            $table->string('phr_historyOfPresentIllness')->nullable();
+            $table->string('phr_nonVerbalPatient')->nullable();
+            $table->boolean('phr_HxFromParent');
+            $table->boolean('phr_HxFromFamily');
             $table->boolean('phr_medRecAvailable');
             $table->boolean('phr_allergies');
-            $table->string('phr_specifyAllergies');
+            $table->string('phr_specifyAllergies')->nullable();
             $table->boolean('phr_PMH_Asthma');
             $table->boolean('phr_PMH_HTN');
             $table->boolean('phr_PMH_Thyroid');
@@ -44,27 +45,28 @@ return new class extends Migration
             $table->boolean('phr_PMH_CAD');
             $table->boolean('phr_PMH_CHF');
             $table->boolean('phr_PMH_otherIllness');
-            $table->string('phr_PMH_specifyOtherIllness');
-            $table->string('phr_specifyPrevHospitalization');
+            $table->string('phr_PMH_specifyOtherIllness')->nullable();
+            $table->string('phr_specifyPrevHospitalization')->nullable();
 
             $table->boolean('phr_maintenanceMeds');
-            $table->string('phr_specifyMaintenanceMeds');
+            $table->string('phr_specifyMaintenanceMeds')->nullable();
             $table->boolean('phr_malignancy');
-            $table->string('phr_specifyMalignancy');
+            $table->string('phr_specifyMalignancy')->nullable();
             $table->boolean('phr_surgeries');
-            $table->string('phr_specifySurgeries');
-            $table->string('phr_vaccinationHistory');
+            $table->string('phr_specifySurgeries')->nullable();
+            $table->string('phr_vaccinationHistory')->nullable();
             $table->boolean('phr_tobacco');
             $table->integer('phr_tobaccoPacks');
             $table->dateTime('phr_tobaccoQuit');
             $table->boolean('phr_recDrugs');
-            $table->string('phr_specifyRecDrugs');
+            $table->string('phr_specifyRecDrugs')->nullable();
             $table->boolean('phr_alcohol');
-            $table->string('phr_alcoholDrinksFrequency');
+            $table->boolean('phr_alcoholDrinksFrequencyDay');
+            $table->boolean('phr_alcoholDrinksFrequencyWeek');
             $table->integer('phr_noOfAlcoholDrinks');
-            $table->string('phr_specifyFamilialDisease');
-            $table->string('phr_specifyCivilStatus');
-            $table->string('phr_specifyPertinentHistory');
+            $table->string('phr_specifyFamilialDisease')->nullable();
+            $table->string('phr_specifyCivilStatus')->nullable();
+            $table->string('phr_specifyPertinentHistory')->nullable();
             
    
             
@@ -72,9 +74,11 @@ return new class extends Migration
             $table->integer('phr_bpSitting');
             $table->integer('phr_bpStanding');
             $table->integer('phr_bpLying');
-            $table->integer('phr_heartRate');
-            $table->integer('phr_respiratoryRate');
-            $table->integer('phr_oxygenSaturation');
+            $table->boolean('phr_heartRate');
+            $table->integer('phr_rr');
+            $table->integer('phr_T*');
+            $table->integer('phr_Sp-02');
+
 
             $table->boolean('phr_bodyHabitusWNL');
             $table->boolean('phr_bodyHabitusCathetic');
@@ -112,6 +116,8 @@ return new class extends Migration
             $table->boolean('phr_jugularVeinsWNL');
             $table->boolean('phr_jugularVeinsEngorged');
 
+            $table->boolean('phr_chestExpansionAndSymmetrical');
+
             $table->boolean('phr_respiratoryEffortWNL');
             $table->boolean('phr_respiratoryEffortAccessoryMuscleUse');
             $table->boolean('phr_respiratoryEffortIntercostalRetractions');
@@ -134,7 +140,7 @@ return new class extends Migration
             $table->boolean('phr_AuscultationRales');
             $table->boolean('phr_AuscultationWheezes');
             $table->boolean('phr_AuscultationRub');
-            $table->string('phr_RespiratoryAdditionalFindings');
+            $table->string('phr_RespiratoryAdditionalFindings')->nullable();
 
             $table->boolean('phr_heartSoundsClearS1');
             $table->boolean('phr_heartSoundsClearS2');
@@ -146,9 +152,12 @@ return new class extends Migration
             $table->boolean('phr_heartSoundsDiastolic');
 
             $table->integer('phr_grade');
-            $table->string('phr_CardiovascularAdditionalFindings');
+            $table->string('phr_CardiovascularAdditionalFindings')->nullable();
 
+            $table->boolean('phr_abdomenWNL');
             $table->boolean('phr_massPresent');
+            $table->string('phr_specifyMassPresent');
+
             $table->boolean('phr_bowelSoundsNormaoactive');
             $table->boolean('phr_bowelSoundsUp');
             $table->boolean('phr_bowelSoundsDown');
@@ -156,7 +165,7 @@ return new class extends Migration
             $table->boolean('phr_unableToPalpateSpleen');
             $table->boolean('phr_organomegalyLiver');
             $table->boolean('phr_organomegalySpleen');
-            $table->boolean('phr_DREFindings');
+            $table->string('phr_DREFindings')->nullable();
 
             $table->boolean('phr_kidneyPunchSignNegative');
             $table->boolean('phr_kidneyPunchSignPositive');
@@ -166,7 +175,7 @@ return new class extends Migration
             $table->boolean('phr_extremitiesClubbing');
             $table->boolean('phr_extremitiesCyanosis');
             $table->boolean('phr_extremitiesPetachiae');
-            $table->boolean('phr_capillaryRefillTime');
+            $table->integer('phr_capillaryRefillTime');
 
             $table->boolean('phr_skinWNL');
             $table->boolean('phr_skinRash');
