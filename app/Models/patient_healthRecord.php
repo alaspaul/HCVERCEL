@@ -11,25 +11,31 @@ class patient_healthRecord extends Model
     use HasFactory;
 
     
-    protected $primaryKey = 'phr_id';
+    protected $primaryKey = 'patient_id';
 
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
         'patient_id',
+        'room_id',
+
+
         'patient_fName',
         'patient_lName',
         'patient_mName',
         'patient_age',
         'patient_sex',
         'patient_vaccination_stat',
-        'phr_chiefComaplaint',
 
+        'phr_chiefComaplaint',
         'phr_startTime',
         'phr_endTime',
+
+
         'phr_historyOfPresentIllness',
         'phr_nonVerbalPatient',
-        'phr_HxFrom',
+        'phr_HxFromParent',
+        'phr_HxFromFamily',
         'phr_medRecAvailable',
         'phr_allergies',
         'phr_specifyAllergies',
@@ -59,18 +65,25 @@ class patient_healthRecord extends Model
         'phr_recDrugs',
         'phr_specifyRecDrugs',
         'phr_alcohol',
-        'phr_alcoholDrinksFrequency',
+        'phr_alcoholDrinksFrequencyDay',
+        'phr_alcoholDrinksFrequencyWeek',
         'phr_noOfAlcoholDrinks',
         'phr_specifyFamilialDisease',
         'phr_specifyCivilStatus',
         'phr_specifyPertinentHistory',
+        
+
+        
 
         'phr_bpSitting',
         'phr_bpStanding',
         'phr_bpLying',
-        'phr_heartRate',
-        'phr_respiratoryRate',
-        'phr_oxygenSaturation',
+        'phr_hrRegular',
+        'phr_hrIrregular',
+        'phr_rr',
+        'phr_T*',
+        'phr_Sp-02',
+
 
         'phr_bodyHabitusWNL',
         'phr_bodyHabitusCathetic',
@@ -108,6 +121,8 @@ class patient_healthRecord extends Model
         'phr_jugularVeinsWNL',
         'phr_jugularVeinsEngorged',
 
+        'phr_chestExpansionAndSymmetrical',
+
         'phr_respiratoryEffortWNL',
         'phr_respiratoryEffortAccessoryMuscleUse',
         'phr_respiratoryEffortIntercostalRetractions',
@@ -144,7 +159,10 @@ class patient_healthRecord extends Model
         'phr_grade',
         'phr_CardiovascularAdditionalFindings',
 
+        'phr_abdomenWNL',
         'phr_massPresent',
+        'phr_specifyMassPresent',
+
         'phr_bowelSoundsNormaoactive',
         'phr_bowelSoundsUp',
         'phr_bowelSoundsDown',
@@ -171,7 +189,6 @@ class patient_healthRecord extends Model
         'phr_skinUlcer',
 
         'phr_Assessment',
-        'patient_id'
     ]; 
 
 
