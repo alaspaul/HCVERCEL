@@ -74,7 +74,8 @@ return new class extends Migration
             $table->integer('phr_bpSitting');
             $table->integer('phr_bpStanding');
             $table->integer('phr_bpLying');
-            $table->boolean('phr_heartRate');
+            $table->boolean('phr_hrRegular');
+            $table->boolean('phr_hrIrregular');
             $table->integer('phr_rr');
             $table->integer('phr_T*');
             $table->integer('phr_Sp-02');
@@ -100,10 +101,10 @@ return new class extends Migration
             $table->boolean('phr_oropharynxOralUlcers');
             $table->boolean('phr_oropharynxOralPetachie');
 
-            $table->boolean('phr_mallampati1');
-            $table->boolean('phr_mallampati2');
-            $table->boolean('phr_mallampati3');
-            $table->boolean('phr_mallampati4');
+            $table->boolean('phr_mallampati1')->nullable();
+            $table->boolean('phr_mallampati2')->nullable();
+            $table->boolean('phr_mallampati3')->nullable();
+            $table->boolean('phr_mallampati4')->nullable();
 
             $table->boolean('phr_neckWNL');
             $table->boolean('phr_neckLymphadenopathy');
