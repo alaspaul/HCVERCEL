@@ -22,7 +22,7 @@ class phrSeeder extends Seeder
 
             [
 
-                'patient_id' => $date->year . 'RAA1' . 'P2' ,
+                'patient_id' => $date->year . 'RAA1' . 'P1' ,
                 'room_id' => null,
 
 
