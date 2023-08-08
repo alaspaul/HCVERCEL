@@ -162,7 +162,7 @@ class PatientHealthRecordController extends Controller
 
             'phr_chestExpansionAndSymmetrical' => $request['phr_chestExpansionAndSymmetrical'],
 
-            'phr_respiratoryEffortWNL' => $request['phr_respiratoryEffortWNL '],
+            'phr_respiratoryEffortWNL' => $request['phr_respiratoryEffortWNL'],
             'phr_respiratoryEffortAccessoryMuscleUse' => $request['phr_respiratoryEffortAccessoryMuscleUse'],
             'phr_respiratoryEffortIntercostalRetractions' => $request['phr_respiratoryEffortIntercostalRetractions'],
             'phr_respiratoryEffortParadoxicMovements' => $request['phr_respiratoryEffortParadoxicMovements'],
@@ -471,7 +471,7 @@ class PatientHealthRecordController extends Controller
 
     public function getPatientbyRoom($room_id){
 
-        $patient = patient_healthRecord::where('room_id', $room_id)->first()->get();
+        $patient = patient_healthRecord::where('room_id', $room_id)->get();
 
 
         return response()->json($patient);
