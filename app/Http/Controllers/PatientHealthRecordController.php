@@ -494,7 +494,11 @@ class PatientHealthRecordController extends Controller
 
         patient_healthRecord::where('patient_id', $patient_id)->update($dataToUpdate);
         return response()->json('checked out');
+        
     }
+
+
+
 
 
 }
