@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\patient_medicine;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PatientMedicineController extends Controller
@@ -32,8 +33,12 @@ class PatientMedicineController extends Controller
      */
     public function store(Request $request)
     {
+        $time = now();
+        $date = new Carbon( $time ); 
+
+        $id = $time->year . $request['patient_id'] . $request['medicine_id'];
         patient_medicine::insert([
-            'patientMedicine_id' => $request['patientMedicine_id'],
+            'patientMedicine_id' => $id,
             'patientMedicineDate' => $request['patientMedicineDate'],
             'patientMedicine_frequency' => $request['patientMedicine_frequency'],
             'patient_id' => $request['patient_id'],

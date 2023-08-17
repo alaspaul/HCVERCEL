@@ -14,23 +14,10 @@ class medicineController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {$latestorder = medicine::all()->count();
-        $last_id = medicine::select('medicine_id')->orderBy('created_at', 'desc')->first()->medicine_id;
-        $currentId = 'M' . $latestorder;
-        
+    {
+        $data = medicine::all();
 
-  
-        if( !empty( medicine::select('medicine_id')->where('medicine_id', $currentId)->first()->medicine_id )){
-        do{
-            $latestorder++;
-            $depId = 'M'. $latestorder;
-            $id = medicine::select('medicine_id')->where('medicine_id', $depId)->first();
-         
-        }while(!empty($id));
-    }
-
-        $newId = 'M' . $latestorder;
-        return response()->json( $newId);
+        return response()->json($data);
     }
 
     /**
