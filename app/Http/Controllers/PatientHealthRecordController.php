@@ -505,7 +505,7 @@ class PatientHealthRecordController extends Controller
 
     
         $occupiedRooms = patient_healthRecord::where('room_id','!=',null)->pluck('room_id');
-        $rooms = DB::table('rooms')->whereNotIn('room_id',  $occupiedRooms)->get();
+        $rooms = DB::table('rooms')->whereNotIn('room_id',  $occupiedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
         return response()->json($rooms);
         
     }

@@ -12,7 +12,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $data = room::all();
+        $data = room::orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
         return $data;
 
 
@@ -34,19 +34,21 @@ class RoomController extends Controller
     public function store(Request $request)
 
     { 
-        $floorId = 'F1';
+        $floorId = $request['floor_id'];
        
         if($floorId  == 'F1'){
             $floorName = 'RAA';
          }elseif($floorId  == 'F2'){
-            $floorName = 'RAC1';
+            $floorName = 'RAB';
          }elseif($floorId  == 'F3'){
-            $floorName = 'RAC2';
+            $floorName = 'RAC1';
          }elseif($floorId  == 'F4'){
-            $floorName = 'RAC3';
+            $floorName = 'RAC2';
          }elseif($floorId  == 'F5'){
-            $floorName = 'RAD1';
+            $floorName = 'RAC3';
          }elseif($floorId  == 'F6'){
+            $floorName = 'RAD1';
+         }elseif($floorId  == 'F7'){
             $floorName = 'RAE';
          }
 
@@ -72,7 +74,7 @@ class RoomController extends Controller
         room::insert([
             'room_id' => $newId,
             'room_name' => $request['room_name'],
-            'room_building' => $request['room_building'],
+            'room_floor' => $request['room_floor'],
             'room_type' => $request['room_type'],
             'room_price' => $request['room_price'],
             'floor_id' => $request['floor_id'],
@@ -150,8 +152,7 @@ class RoomController extends Controller
 
 
     public function getRoomByFloor($floorId){
-
-        $rooms = room::where('floor_Id', $floorId)->get();
+        $rooms = room::where('floor_Id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
         return response()->json($rooms);
     }
