@@ -23,7 +23,7 @@ class phrSeeder extends Seeder
             [
 
                 'patient_id' => $date->year . 'RAA1' . 'P1' ,
-                'room_id' => null,
+                'room_id' => 'RAA1',
 
 
 
@@ -37,7 +37,7 @@ class phrSeeder extends Seeder
                 'phr_chiefComaplaint' => 'none',
                 'phr_startTime' =>Carbon::createFromTime(12, 30, 0)->format('H:i:s') ,
                 'phr_endTime' => Carbon::createFromTime(12, 30, 0)->format('H:i:s') ,
-    
+                'date' => $date,
     
                 'phr_historyOfPresentIllness' => 'none',
                 'phr_nonVerbalPatient' => 'none',

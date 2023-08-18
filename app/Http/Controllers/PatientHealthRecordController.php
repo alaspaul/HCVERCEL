@@ -7,6 +7,7 @@ use App\Models\patient_healthRecord;
 use App\Models\room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use DB;
 
 class PatientHealthRecordController extends Controller
 {
@@ -252,6 +253,9 @@ class PatientHealthRecordController extends Controller
     {
         try{
             $patient = patient_healthRecord::where('patient_id',$patient_id)->first()->get();
+            if($patient == null){
+                return 'no matches';
+            }
             return response()->json($patient);
         }catch(\Exception $e){
             return response()->json(['error'=>'patient not found'], 404);
@@ -494,6 +498,15 @@ class PatientHealthRecordController extends Controller
 
         patient_healthRecord::where('patient_id', $patient_id)->update($dataToUpdate);
         return response()->json('checked out');
+        
+    }
+
+    public function getAvailableRooms(){
+
+    
+        $occupiedRooms = patient_healthRecord::where('room_id','!=',null)->pluck('room_id');
+        $rooms = DB::table('rooms')->whereNotIn('room_id',  $occupiedRooms)->get();
+        return response()->json($rooms);
         
     }
 

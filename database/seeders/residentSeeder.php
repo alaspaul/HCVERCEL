@@ -31,7 +31,7 @@ class residentSeeder extends Seeder
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
-                'isChief' => 1,
+                'role' => 'chiefResident',
                 
                 "created_at"=> now(), "updated_at"=> now()
             ],
@@ -44,7 +44,7 @@ class residentSeeder extends Seeder
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
-                'isChief' => 1,
+                'role' => 'chiefResident',
                 
                 "created_at"=> now(), "updated_at"=> now()
             ],
@@ -57,7 +57,7 @@ class residentSeeder extends Seeder
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
-                'isChief' => 0,
+                'role' => 'resident',
                 
                 "created_at"=> now(), "updated_at"=> now()
             ],
@@ -70,7 +70,7 @@ class residentSeeder extends Seeder
                 'resident_mName' => 'mnameTest',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
-                'isChief' => 0,
+                'role' => 'resident',
                 
                 "created_at"=> now(), "updated_at"=> now()
             ],

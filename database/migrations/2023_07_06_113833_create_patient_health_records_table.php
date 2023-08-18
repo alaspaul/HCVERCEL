@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('phr_chiefComaplaint');
             $table->time('phr_startTime');
             $table->time('phr_endTime');
-
+            $table->date('date');
 
             $table->string('phr_historyOfPresentIllness')->nullable();
             $table->string('phr_nonVerbalPatient')->nullable();

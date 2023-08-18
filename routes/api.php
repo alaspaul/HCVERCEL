@@ -58,8 +58,8 @@ Route::apiResource('Rooms', RoomController::class);
 
 Route::post('Rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
+Route::get('PatientHealthRecord/get/AvailableRooms', [PatientHealthRecordController::class, 'getAvailableRooms'])->name('phr.getAvailableRooms');
 Route::get('PatientHealthRecord/checkoutPatient/{patient_id}', [PatientHealthRecordController::class, 'checkoutPatient'])->name('phr.checkoutPatient');
-
 Route::get('PatientHealthRecord/getPatientbyRoom/{room_id}', [PatientHealthRecordController::class, 'getPatientbyRoom'])->name('phr.getPatientbyRoom');
 
 
