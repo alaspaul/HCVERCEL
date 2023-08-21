@@ -58,10 +58,11 @@ Route::group(['middleware' => 'auth:adminApi'],function(){
     Route::POST('medicines/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicines.updateMeds');
 
 
-    Route::apiResource('Rooms', RoomController::class);
+    Route::apiResource('rooms', RoomController::class);
     Route::POST('rooms/edit{room}', [roomController::class, 'edit'])->name('rooms.edit');
     Route::POST('rooms/updateRoom{room}', [roomController::class, 'updateRoom'])->name('rooms.updateRoom');
-    Route::POST('rooms/getrooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::POST('rooms/getRooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::post('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
 });
 
@@ -76,7 +77,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
 
 
-    Route::apiResource('ResAssRooms', ResidentAssignedRoomController::class);
+    Route::apiResource('resAssRooms', ResidentAssignedRoomController::class);
     Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);
     Route::GET('resAssRoom/rooms', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
 
@@ -84,29 +85,39 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
     Route::POST('medicines/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicines.updateMeds');
 
-    Route::apiResource('PatientHealthRecord', PatientHealthRecordController::class);
-    Route::post('PatientHealthRecord/transferPatient/{patient_id}', [PatientHealthRecordController::class, 'transferPatient'])->name('phr.transferPatient');
-    Route::get('PatientHealthRecord/get/AvailableRooms', [PatientHealthRecordController::class, 'getAvailableRooms'])->name('phr.getAvailableRooms');
-    Route::get('PatientHealthRecord/checkoutPatient/{patient_id}', [PatientHealthRecordController::class, 'checkoutPatient'])->name('phr.checkoutPatient');
-    Route::get('PatientHealthRecord/getPatientbyRoom/{room_id}', [PatientHealthRecordController::class, 'getPatientbyRoom'])->name('phr.getPatientbyRoom');
+    Route::apiResource('patientHealthRecord', PatientHealthRecordController::class);
+    Route::post('patientHealthRecord/transferPatient/{patient_id}', [PatientHealthRecordController::class, 'transferPatient'])->name('phr.transferPatient');
+    Route::get('patientHealthRecord/get/AvailableRooms', [PatientHealthRecordController::class, 'getAvailableRooms'])->name('phr.getAvailableRooms');
+    Route::get('patientHealthRecord/checkoutPatient/{patient_id}', [PatientHealthRecordController::class, 'checkoutPatient'])->name('phr.checkoutPatient');
+    Route::get('patientHealthRecord/getPatientbyRoom/{room_id}', [PatientHealthRecordController::class, 'getPatientbyRoom'])->name('phr.getPatientbyRoom');
 
     
-    Route::apiResource('PhysicalExams', PhysicalExamController::class);
+    Route::apiResource('physicalExams', PhysicalExamController::class);
 
 
-    Route::apiResource('Vitals', VitalController::class);
+    Route::apiResource('residents', ResidentController::class);
+    Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
+    Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');
+
+
+    Route::apiResource('vitals', VitalController::class);
     Route::POST('vitals/edit{vital}', [vitalController::class, 'edit'])->name('vitals.edit');
     Route::POST('vitals/updateVital{vital}', [vitalController::class, 'updateVital'])->name('vitals.updateVital');
+  
 
-
-    Route::apiResource('Rooms', RoomController::class);
+    Route::apiResource('rooms', RoomController::class);
+    Route::POST('Rooms/getRooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::post('Rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
 
-    Route::apiResource('Rooms', RoomController::class);
-    Route::POST('rooms/edit{room}', [roomController::class, 'edit'])->name('rooms.edit');
-    Route::POST('rooms/updateRoom{room}', [roomController::class, 'updateRoom'])->name('rooms.updateRoom');
-    Route::POST('rooms/getrooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::apiResource('departments', DepartmentController::class);
+    Route::POST('departments/edit{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
+    Route::POST('departments/updateDep{department}', [DepartmentController::class, 'updateDep'])->name('departments.updateDep');
+
+
+    Route::apiResource('floors', FloorController::class);
+    Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
+    Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
 });
 
