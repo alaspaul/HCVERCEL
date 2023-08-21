@@ -15,7 +15,7 @@ class resident extends Model implements Authenticatable
 {   use HasApiTokens, HasFactory, Notifiable;
 
     protected $primaryKey = 'resident_id';
-
+    protected $guard = 'custom';
     public $incrementing = false;
     protected $keyType = 'string';
 

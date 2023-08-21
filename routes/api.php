@@ -5,6 +5,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ResidentAssignedRoomController;
 use App\Http\Controllers\ResidentController;
@@ -30,14 +31,22 @@ use App\Http\Controllers\VitalController;
 
 
 
+Route::post('/admin/Login', [UserController::class, 'loginAdmin'])->name('loginAdmin');
+
+Route::group(['middleware' => 'auth:adminApi'],function(){
+    Route::get('/admin/Check', [UserController::class, 'checker'])->name('checker');
+    Route::get('/admin/Logout', [UserController::class, 'logoutAdmin'])->name('logoutAdmin');
+});
+
 
 
 
 Route::post('/login', [loginController::class, 'loginResident'])->name('loginRes');
+
 Route::apiResource('residents', ResidentController::class);
 
 
-Route::group(['middleware' => 'auth:sanctum'],function(){
+Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('/logout', [loginController::class, 'logoutRes'])->name('logout');
 
     
@@ -58,6 +67,7 @@ Route::apiResource('Rooms', RoomController::class);
 
 Route::post('Rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
+Route::post('PatientHealthRecord/transferPatient/{patient_id}', [PatientHealthRecordController::class, 'transferPatient'])->name('phr.transferPatient');
 Route::get('PatientHealthRecord/get/AvailableRooms', [PatientHealthRecordController::class, 'getAvailableRooms'])->name('phr.getAvailableRooms');
 Route::get('PatientHealthRecord/checkoutPatient/{patient_id}', [PatientHealthRecordController::class, 'checkoutPatient'])->name('phr.checkoutPatient');
 Route::get('PatientHealthRecord/getPatientbyRoom/{room_id}', [PatientHealthRecordController::class, 'getPatientbyRoom'])->name('phr.getPatientbyRoom');

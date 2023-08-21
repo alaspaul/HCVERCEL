@@ -45,6 +45,22 @@ return [
             'driver' => 'session',
             'provider' => 'residents',
         ],
+
+        'customApi' => [
+            'driver' => 'sanctum',
+            'provider' => 'residents',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'adminApi' => [
+            'driver' => 'sanctum',
+            'provider' => 'admins',
+        ],
+
     ],
 
     /*
@@ -67,10 +83,8 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Resident::class,
-            'username' => 'resident_userName', // Use the correct username field
-            'password' => 'resident_password', // Use the correct password field
-     
+            'model' => App\Models\User::class,
+           
         ],
 
         'residents' => [
@@ -79,6 +93,11 @@ return [
             'username' => 'resident_userName', // Use the correct username field
             'password' => 'resident_password', // Use the correct password field
            
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // Replace with your admin model
         ],
         // 'users' => [
         //     'driver' => 'database',
@@ -114,6 +133,12 @@ return [
         ],
         'residents' => [
             'provider' => 'resident',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admin' => [
+            'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

@@ -511,6 +511,17 @@ class PatientHealthRecordController extends Controller
     }
 
 
+    public function transferPatient($patient_id, request $request){
+        $dataToUpdate = [
+            'room_id' =>  $request['room_id'],
+         ];
+ 
+         patient_healthRecord::where('patient_id', $patient_id)->update($dataToUpdate);
+         return response()->json('patient Transfered');
+        
+    }
+
+
 
 
 

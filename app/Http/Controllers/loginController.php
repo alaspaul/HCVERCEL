@@ -46,11 +46,11 @@ class loginController extends Controller
     
 
     
-    public function logoutRes() {
-        auth('web')->logout();
+    public function logoutRes(request $request) {
+        auth('custom')->logout();
+        $request->user()->currentAccessToken()->delete();
 
-
-        return redirect('login')->withSuccess('Logged out successfully.');
+        return response()->json('logged out');
   
     }
 }

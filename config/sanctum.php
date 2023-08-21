@@ -33,7 +33,10 @@ return [
     |
     */
 
-    'guard' => ['custom'],
+    'guard' => [
+        'custom',
+        'admin'
+    ],
 
 
     /*
