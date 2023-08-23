@@ -31,12 +31,13 @@ use App\Http\Controllers\VitalController;
 
 
 
-Route::post('/admin/Login', [UserController::class, 'loginAdmin'])->name('loginAdmin');
+Route::post('/admin/Login', [UserController::class, 'loginAdmin'])->name('admin.login');
 
 
 Route::group(['middleware' => 'auth:adminApi'],function(){
     Route::get('/admin/Check', [UserController::class, 'checker'])->name('checker');
-    Route::get('/admin/Logout', [UserController::class, 'logoutAdmin'])->name('logoutAdmin');
+    Route::get('/admin/Logout', [UserController::class, 'logoutAdmin'])->name('admin.logout');
+    Route::apiResource('admin', UserController::class);
 
     Route::apiResource('residents', ResidentController::class);
     Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');

@@ -20,7 +20,12 @@ class User extends Authenticatable
 
      protected $guard = 'admin';
      protected $table = 'users';
+
+
+     public $incrementing = false;
+     protected $keyType = 'string';
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -44,6 +49,5 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 }

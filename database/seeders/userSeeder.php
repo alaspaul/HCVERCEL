@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class userSeeder extends Seeder
@@ -12,11 +13,13 @@ class userSeeder extends Seeder
      */
     public function run(): void
     {
-        
+        $time = now();
+        $date = new Carbon($time);
+
         $User = [   
 
             [
-               'id' => 1,
+               'id' => $date->year . 'A' . 1 ,
                'name' => 'paul',
                'email' => 'paul@gmail.com',
                'password' => bcrypt(123),

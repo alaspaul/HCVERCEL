@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 class UserController extends Controller
 {
@@ -43,8 +45,85 @@ class UserController extends Controller
         return response()->json('logged out');
     }
 
-
     public function checker(){
         return response()->json('u are logged in admin');
     }
+
+
+
+    public function store(Request $request)
+    {   
+        $time = now();
+        $date = new Carbon( $time ); 
+
+        $latestorder = User::all()->count();
+        $last_id = User::select('id')->orderBy('created_at', 'desc')->first()->id;
+        $currentId =  $date->year . 'A' . $latestorder;
+        
+
+        if( !empty( User::select('id')->where('id', $currentId)->first()->id )){
+        do{
+            $latestorder++;
+            $depId = $date->year. 'A'. $latestorder;
+            $id = User::select('id')->where('id', $depId)->first();
+         
+        }while(!empty($id));
+    }
+
+        $newId = $date->year . 'A' . $latestorder;
+        User::insert([
+            'id' => $newId,
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+            'role' => $request['role'],
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json($id . 'has been added to the system');
+    }
+
+
+    public function update(Request $request, $id)
+    {
+       
+        
+        User::where('id', $id)->update(
+            [
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => bcrypt($request['password']),
+                'role' => $request['role'],
+                
+
+                'updated_at' => now(),
+                ]
+
+        );
+
+        return response()->json($id . 'has been updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {   
+  
+        User::destroy($id);
+
+        return response()->json($id . 'has been deleted');
+
+    }
+
+
+    public function index()
+    {
+        $data = User::all();
+
+        return response()->json($data);
+    }
+
 }
