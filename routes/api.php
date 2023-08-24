@@ -3,6 +3,8 @@
 
 
 
+use App\Http\Controllers\FileUploadController;
+use App\Models\fileUpload;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
@@ -76,7 +78,7 @@ Route::post('/login', [loginController::class, 'loginResident'])->name('loginRes
 Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('/logout', [loginController::class, 'logoutRes'])->name('logout');
 
-
+    Route::apiResource('fileUpload', FileUploadController::class);
 
     Route::apiResource('resAssRooms', ResidentAssignedRoomController::class);
     Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);
