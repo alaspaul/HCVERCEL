@@ -26,7 +26,7 @@ class UserController extends Controller
             $admin = User::where('email', $request['email'])->first();
             $user = Auth::guard('admin')->user();
             $token = $user->createToken('admin-token')->plainTextToken;
-            return response()->json(['token'=> $token, 'admin' => $admin],200);
+            return response()->json(['token'=> $token, 'admin' => $admin, 'role' => $admin['role']],200);
         }
     } catch (ValidationException $e) {
         return response()->json(['error'=> 'login error'], 422);
