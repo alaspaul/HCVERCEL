@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('/logout', [loginController::class, 'logoutRes'])->name('logout');
 
     Route::apiResource('fileUpload', FileUploadController::class);
+    Route::GET('fileUpload/download/{file_id}', [FileUploadController::class, 'download'])->name('fileUpload.download');
 
     Route::apiResource('resAssRooms', ResidentAssignedRoomController::class);
     Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);

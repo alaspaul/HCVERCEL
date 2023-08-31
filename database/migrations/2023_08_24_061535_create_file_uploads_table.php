@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('file_uploads', function (Blueprint $table) {
             $table->string('file_id')->primary();
             $table->string('file_path');
-            $table->string('file_name');
+            $table->string('file_name')->unique();
             $table->string('file_size');
             $table->string('file_ext');
 

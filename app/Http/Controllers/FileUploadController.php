@@ -91,4 +91,15 @@ class FileUploadController extends Controller
 
         return response()->json($file . ' has been Deleted');
     }
+
+    public function download($file_id)
+    {
+      
+
+        $file = fileUpload::select('file_name')->where('file_id', $file_id)->first()->file_name;
+       
+        $pathToFile = storage_path('app/file/' . $file);
+      
+        return response()->download($pathToFile);
+    }
 }
