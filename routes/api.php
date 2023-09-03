@@ -4,7 +4,10 @@
 
 
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\LabResultsController;
+use App\Http\Controllers\PatientMedicineController;
 use App\Models\fileUpload;
+use App\Models\patient_medicine;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
@@ -89,6 +92,10 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
     Route::POST('medicines/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicines.updateMeds');
 
+    Route::apiResource('patientMedicines', PatientMedicineController::class);
+
+    Route::apiResource('results', LabResultsController::class);
+    
     Route::apiResource('patientHealthRecord', PatientHealthRecordController::class);
     Route::post('patientHealthRecord/transferPatient/{patient_id}', [PatientHealthRecordController::class, 'transferPatient'])->name('phr.transferPatient');
     Route::get('patientHealthRecord/get/AvailableRooms', [PatientHealthRecordController::class, 'getAvailableRooms'])->name('phr.getAvailableRooms');
@@ -97,6 +104,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
     
     Route::apiResource('physicalExams', PhysicalExamController::class);
+
 
 
     Route::apiResource('residents', ResidentController::class);

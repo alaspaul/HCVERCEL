@@ -47,7 +47,7 @@ class PatientHealthRecordController extends Controller
         $date = new Carbon( $time ); 
         $roomId = room::select('room_id')->where('room_name', $request['room_name'] )->first()->room_id;
 
-        $latestorder = patient_healthRecord::where('room_id', $roomId)->count();
+        $latestorder = patient_healthRecord::all()->count();
         $last_id = patient_healthRecord::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $currentId = $date->year . $roomId . 'P' . $latestorder;
 

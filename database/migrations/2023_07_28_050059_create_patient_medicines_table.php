@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('patient_medicines', function (Blueprint $table) {
             $table->string('patientMedicine_id')->primary();
             $table->datetime('patientMedicineDate');
-            $table->string('medincine_frequency');
+            $table->string('medicine_frequency');
             $table->string('medicine_id');
             $table->string('patient_id');
             $table->timestamps();

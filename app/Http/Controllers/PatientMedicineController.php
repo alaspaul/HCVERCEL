@@ -36,11 +36,26 @@ class PatientMedicineController extends Controller
         $time = now();
         $date = new Carbon( $time ); 
 
-        $id = $time->year . $request['patient_id'] . $request['medicine_id'];
+        $latestorder = patient_medicine::where('patient_id', $request['patient_id'])->where('medicine_id', $request['medicine_id'])->count();
+       
+        $currentId = $time->year . $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
+
+
+        if( !empty( patient_medicine::select('patientMedicine_id')->where('patientMedicine_id', $currentId)->first()->patientMedicine_id )){
+        do{
+            $latestorder++;
+            $depId = $time->year . $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
+            $id = patient_medicine::select('patientMedicine_id')->where('patientMedicine_id', $depId)->first();
+         
+        }while(!empty($id));
+    }
+
+        $newId = $time->year . $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
+
         patient_medicine::insert([
-            'patientMedicine_id' => $id,
+            'patientMedicine_id' =>  $newId,
             'patientMedicineDate' => $request['patientMedicineDate'],
-            'patientMedicine_frequency' => $request['patientMedicine_frequency'],
+            'medicine_frequency' => $request['medicine_frequency'],
             'patient_id' => $request['patient_id'],
             'medicine_id' => $request['medicine_id'],
 

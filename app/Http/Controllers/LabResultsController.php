@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\lab_results;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class LabResultsController extends Controller
 {
@@ -29,10 +30,28 @@ class LabResultsController extends Controller
      */
     public function store(Request $request)
     {
+        $time = now();
+        $date = new Carbon( $time ); 
+        $latestorder = lab_results::where('patient_id', $request['patient_id'])->count();
+        $currentId = $time->year .  $request['patient_id'] . 'L' . $latestorder;
+
+
+        if( !empty( lab_results::select('labResults_id')->where('labResults_id', $currentId)->first()->labResults_id )){
+        do{
+            $latestorder++;
+            $depId = $time->year .  $request['patient_id'] . 'L' . $latestorder;
+            $id = lab_results::select('labResults_id')->where('labResults_id', $depId)->first();
+         
+        }while(!empty($id));
+    }
+
+        $newId = $time->year .  $request['patient_id'] . 'L' . $latestorder;
+
         lab_results::insert([
-            'labResults_id' => $request['labResults_id'],
+            'labResults_id' => $newId,
             'labResultDate' => $request['labResultDate'],
             'results' => $request['results'],
+            'patient_id' => $request['patient_id'],
 
             'created_at' => now(),
             'updated_at' => now(),
