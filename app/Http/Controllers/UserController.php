@@ -17,7 +17,10 @@ class UserController extends Controller
         ]);
 
 
-        $credentials = $request->only('email', 'password');
+        $credentials = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
         
         try {
             
