@@ -104,9 +104,9 @@ class ResidentAssignedRoomController extends Controller
 
 
 
-    public function showRessAssRoom($id)
+    public function showRessAssRoom($resident_id)
     {
-        $rooms = resident_assigned_room::where('resident_id', $id)->get();
+        $rooms = resident_assigned_room::where('resident_id', $resident_id)->get();
 
 
         return response()->json($rooms);

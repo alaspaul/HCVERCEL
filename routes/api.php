@@ -85,8 +85,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::GET('fileUpload/download/{file_id}', [FileUploadController::class, 'download'])->name('fileUpload.download');
 
     Route::apiResource('resAssRooms', ResidentAssignedRoomController::class);
-    Route::get('showResAssRoom/{resident_id}', [ResidentAssignedRoomController::class, 'show']);
-    Route::GET('resAssRoom/rooms', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
+    Route::GET('resAssRooms/rooms/{resident_id}', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
 
     Route::apiResource('medicines', medicineController::class);
     Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
