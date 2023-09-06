@@ -484,6 +484,8 @@ class PatientHealthRecordController extends Controller
                 'updated_at' => now(),
         ]);
 
+
+
         return response('done');
     }
 
