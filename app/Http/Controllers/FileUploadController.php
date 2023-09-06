@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use File;
 use App\Models\fileUpload;
+use App\Http\Controllers\ResActionLogController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\TryCatch;
 class FileUploadController extends Controller
 {
     /**
@@ -22,9 +24,13 @@ class FileUploadController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('file');
-        $path = Storage::putFileAs(
-            'file',  $file,  $file->getClientOriginalName()
-        );
+        if(empty(fileUpload::where('file_name', $file->getClientOriginalName())->first())){
+            $path = Storage::putFileAs(
+                'file',  $file,  $file->getClientOriginalName()
+            );
+        }else{
+            return response()->json('file with filename ' . $file->getClientOriginalName() . ' already exist');
+        }
 
 
 
@@ -57,6 +63,8 @@ class FileUploadController extends Controller
             'created_at' => now(),
         ]);
 
+        $action ='uploaded a file ' . $file->getClientOriginalName() .' for ' . $request['patient_id'];
+        app('App\Http\Controllers\resActionLogController')->store($request['user_id'], $request['role'], $action);
 
         return response()->json($file->getClientOriginalName().' file uploaded');
 
@@ -83,11 +91,12 @@ class FileUploadController extends Controller
      */
     public function destroy($id)
     {
-      
+
 
         $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
         Storage::delete('file/'.  $file);
         fileUpload::destroy($id);
+
 
         return response()->json($file . ' has been Deleted');
     }
