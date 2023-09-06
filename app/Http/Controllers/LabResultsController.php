@@ -33,19 +33,19 @@ class LabResultsController extends Controller
         $time = now();
         $date = new Carbon( $time ); 
         $latestorder = lab_results::where('patient_id', $request['patient_id'])->count();
-        $currentId = $time->year .  $request['patient_id'] . 'L' . $latestorder;
+        $currentId =  $request['patient_id'] . 'L' . $latestorder;
 
 
         if( !empty( lab_results::select('labResults_id')->where('labResults_id', $currentId)->first()->labResults_id )){
         do{
             $latestorder++;
-            $depId = $time->year .  $request['patient_id'] . 'L' . $latestorder;
+            $depId =  $request['patient_id'] . 'L' . $latestorder;
             $id = lab_results::select('labResults_id')->where('labResults_id', $depId)->first();
          
         }while(!empty($id));
     }
 
-        $newId = $time->year .  $request['patient_id'] . 'L' . $latestorder;
+        $newId =  $request['patient_id'] . 'L' . $latestorder;
 
         lab_results::insert([
             'labResults_id' => $newId,

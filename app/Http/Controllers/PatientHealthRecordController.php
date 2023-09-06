@@ -21,6 +21,15 @@ class PatientHealthRecordController extends Controller
             return $variable;
         }
     }
+
+    public function  isNULLString($variable){
+        if($variable == NULL){
+            return 'none';
+        }else{
+            return $variable;
+        }
+    }
+
     public function index()
     {
 
@@ -72,20 +81,20 @@ class PatientHealthRecordController extends Controller
             'patient_mName' => $request['patient_mName'],
             'patient_age' => $this->isNull($request['patient_age']),
             'patient_sex' => $this->isNull($request['patient_sex']),
-            'patient_vaccination_stat' => $this->isNull($request['patient_vaccination_stat']),
+            'patient_vaccination_stat' => $this->isNULLString($request['patient_vaccination_stat']),
 
-            'phr_chiefComaplaint' => $this->isNull($request['phr_chiefComaplaint']),
+            'phr_chiefComaplaint' => $this->isNULLString($request['phr_chiefComaplaint']),
             'phr_startTime' => $this->isNull($request['phr_startTime']),
             'phr_endTime' => $this->isNull($request['phr_endTime']),
 
 
-            'phr_historyOfPresentIllness' => $this->isNull($request['phr_historyOfPresentIllness']),
-            'phr_nonVerbalPatient' => $this->isNull($request['phr_nonVerbalPatient']),
+            'phr_historyOfPresentIllness' => $this->isNULLString($request['phr_historyOfPresentIllness']),
+            'phr_nonVerbalPatient' => $this->isNULLString($request['phr_nonVerbalPatient']),
             'phr_HxFromParent' => $this->isNull($request['phr_HxFromParent']),
             'phr_HxFromFamily' => $this->isNull($request['phr_HxFromFamily']),
             'phr_medRecAvailable' => $this->isNull($request['phr_medRecAvailable']),
             'phr_allergies' => $this->isNull($request['phr_allergies']),
-            'phr_specifyAllergies' => $this->isNull($request['phr_specifyAllergies']),
+            'phr_specifyAllergies' => $this->isNULLString($request['phr_specifyAllergies']),
             'phr_PMH_Asthma' => $this->isNull($request['phr_PMH_Asthma']),
             'phr_PMH_HTN' => $this->isNull($request['phr_PMH_HTN']),
             'phr_PMH_Thyroid' => $this->isNull($request['phr_PMH_Thyroid']),
@@ -96,21 +105,21 @@ class PatientHealthRecordController extends Controller
             'phr_PMH_CAD' => $this->isNull($request['phr_PMH_CAD']),
             'phr_PMH_CHF' => $this->isNull($request['phr_PMH_CHF']),
             'phr_PMH_otherIllness' => $this->isNull($request['phr_PMH_otherIllness']),
-            'phr_PMH_specifyOtherIllness' => $this->isNull($request['phr_PMH_specifyOtherIllness']),
-            'phr_specifyPrevHospitalization' => $this->isNull($request['phr_specifyPrevHospitalization']),
+            'phr_PMH_specifyOtherIllness' => $this->isNULLString($request['phr_PMH_specifyOtherIllness']),
+            'phr_specifyPrevHospitalization' => $this->isNULLString($request['phr_specifyPrevHospitalization']),
 
             'phr_maintenanceMeds' => $this->isNull($request['phr_maintenanceMeds']),
-            'phr_specifyMaintenanceMeds' => $this->isNull($request['phr_specifyMaintenanceMeds']),
+            'phr_specifyMaintenanceMeds' => $this->isNULLString($request['phr_specifyMaintenanceMeds']),
             'phr_malignancy' => $this->isNull($request['phr_malignancy']),
-            'phr_specifyMalignancy' => $this->isNull($request['phr_specifyMalignancy']),
+            'phr_specifyMalignancy' => $this->isNULLString($request['phr_specifyMalignancy']),
             'phr_surgeries' => $this->isNull($request['phr_surgeries']),
-            'phr_specifySurgeries' => $this->isNull($request['phr_specifySurgeries']),
-            'phr_vaccinationHistory' => $this->isNull($request['phr_vaccinationHistory']),
+            'phr_specifySurgeries' => $this->isNULLString($request['phr_specifySurgeries']),
+            'phr_vaccinationHistory' => $this->isNULLString($request['phr_vaccinationHistory']),
             'phr_tobacco' => $this->isNull($request['phr_tobacco']),
             'phr_tobaccoPacks' => $this->isNull($request['phr_tobaccoPacks']),
             'phr_tobaccoQuit' => $this->isNull($request['phr_tobaccoQuit']),
             'phr_recDrugs' => $this->isNull($request['phr_recDrugs']),
-            'phr_specifyRecDrugs' => $this->isNull($request['phr_specifyRecDrugs']),
+            'phr_specifyRecDrugs' => $this->isNULLString($request['phr_specifyRecDrugs']),
             'phr_alcohol' => $this->isNull($request['phr_alcohol']),
             'phr_alcoholDrinksFrequencyDay' => $this->isNull($request['phr_alcoholDrinksFrequencyDay']),
             'phr_alcoholDrinksFrequencyWeek' => $this->isNull($request['phr_alcoholDrinksFrequencyWeek']),
@@ -204,7 +213,7 @@ class PatientHealthRecordController extends Controller
             'phr_heartSoundsDiastolic' => $this->isNull($request['phr_heartSoundsDiastolic']),
 
             'phr_grade' => $this->isNull($request['phr_grade']),
-            'phr_CardiovascularAdditionalFindings' => $this->isNull($request['phr_CardiovascularAdditionalFindings ']),
+            'phr_CardiovascularAdditionalFindings' => $this->isNULLString($request['phr_CardiovascularAdditionalFindings ']),
 
             'phr_abdomenWNL' => $this->isNull($request['phr_abdomenWNL']),
             'phr_massPresent' => $this->isNull($request['phr_massPresent']),
@@ -217,7 +226,7 @@ class PatientHealthRecordController extends Controller
             'phr_unableToPalpateSpleen' => $this->isNull($request['phr_unableToPalpateSpleen']),
             'phr_organomegalyLiver' => $this->isNull($request['phr_organomegalyLiver']),
             'phr_organomegalySpleen' => $this->isNull($request['phr_organomegalySpleen']),
-            'phr_DREFindings' => $this->isNull($request['phr_DREFindings']),
+            'phr_DREFindings' => $this->isNULLString($request['phr_DREFindings']),
 
             'phr_kidneyPunchSignNegative' => $this->isNull($request['phr_kidneyPunchSignNegative']),
             'phr_kidneyPunchSignPositive' => $this->isNull($request['phr_kidneyPunchSignPositive']),
@@ -235,7 +244,7 @@ class PatientHealthRecordController extends Controller
             'phr_skinNodules' => $this->isNull($request['phr_skinNodules']),
             'phr_skinUlcer' => $this->isNull($request['phr_skinUlcer']),
 
-            'phr_Assessment' => $this->isNull($request['phr_Assessment']),
+            'phr_Assessment' => $this->isNULLString($request['phr_Assessment']),
 
 
             'created_at' => now(),
