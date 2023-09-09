@@ -11,6 +11,13 @@ class ResActionLogController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function isChief($user){
+        if($user['role'] == 'resident'){
+            return 'resident';
+        }else{
+            return 'chiefResident';
+        }
+    }
     public function index()
     {
         //
@@ -19,7 +26,7 @@ class ResActionLogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store($user_id, $role, $action)
+    public function store($user, $action)
     {
         $time = now();
         $date = new Carbon( $time ); 
@@ -38,15 +45,26 @@ class ResActionLogController extends Controller
     }
 
         $newId =  $date->year .'RA' . $latestorder;
-
-        resActionLog::insert([
-            'RA_id' => $newId,
-            'action' => $action,
-            'role' => $role,
-            'user_id' => $user_id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        if($user['role'] == 'admin'){
+            resActionLog::insert([
+                'RA_id' => $newId,
+                'action' => $action,
+                'role' => 'admin',
+                'user_id' => $user['id'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);            
+        
+        }else{
+            resActionLog::insert([
+                'RA_id' => $newId,
+                'action' => $action,
+                'role' => $this->isChief($user),
+                'user_id' => $user['resident_id'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
  
         return response('action stored');

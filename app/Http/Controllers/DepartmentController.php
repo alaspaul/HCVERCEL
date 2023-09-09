@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\department;
 use Illuminate\Http\Request;
 use App\Models\resident;
+use Illuminate\Support\Facades\Auth;
 class DepartmentController extends Controller
 {
     /**
@@ -53,6 +54,8 @@ class DepartmentController extends Controller
             'updated_at' => now(),
         ]);
 
+        $action ='created a new department-'. $request['department_name'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
  
         return response('stored');
     }
@@ -78,7 +81,12 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        $action ='updated a department where id-'. $$id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
+        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
+
+        return response('done');
         
     }
 
@@ -87,6 +95,10 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
+        $depName = department::select('department_name')->where('department_id', $id)->first()->department_name;
+        $action ='deleted a department-'. $depName;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
        department::destroy($id);
 
        
@@ -96,11 +108,13 @@ class DepartmentController extends Controller
 
     public function updateDep(Request $request, $id)
     {
-       
-        
+        $action ='updated a department-'. $$id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
         department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
 
-        return response('done');
+        return response('updated');
+
     }
 
 

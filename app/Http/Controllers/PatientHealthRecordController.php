@@ -8,7 +8,7 @@ use App\Models\room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
-
+use Illuminate\Support\Facades\Auth;
 class PatientHealthRecordController extends Controller
 {
     /**
@@ -251,7 +251,8 @@ class PatientHealthRecordController extends Controller
             'updated_at' => now(),
         ]);
         
-
+        $action ='added a new patient-'.$request['patient_lName']. $request['patient_fName'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response()->json('done');
     }
 
@@ -282,7 +283,7 @@ class PatientHealthRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, patient_healthRecord $patient_healthRecord)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -292,6 +293,10 @@ class PatientHealthRecordController extends Controller
      */
     public function destroy($id)
     {
+        $lname = patient_healthRecord::select('patient_lName')->where('patient_id', $id)->first()->patient_lName;
+        $fname = patient_healthRecord::select('patient_fName')->where('patient_id', $id)->first()->patient_fName;
+        $action ='deleted a medicine-'. $lname. $fname;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         patient_healthRecord::destroy($id);
 
        
@@ -484,7 +489,8 @@ class PatientHealthRecordController extends Controller
                 'updated_at' => now(),
         ]);
 
-
+        $action ='updated a patient-'. $request['patient_lName']. $request['patient_fName'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         return response('done');
     }

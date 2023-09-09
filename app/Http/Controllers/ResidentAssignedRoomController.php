@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\resident_assigned_room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class ResidentAssignedRoomController extends Controller
 {
     /**
@@ -42,6 +42,9 @@ class ResidentAssignedRoomController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        $action ='assigned a room-'. $request['room_id'].'for resident-'. $request['resident_id'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
     }
 
     /**
@@ -77,6 +80,10 @@ class ResidentAssignedRoomController extends Controller
      */
     public function destroy($id)
     {
+
+        $action ='deleted a resident assigned room-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        
         resident_assigned_room::destroy($id);
 
        
@@ -98,7 +105,8 @@ class ResidentAssignedRoomController extends Controller
 
             'updated_at' => now(),
         ]);
-
+        $action ='updated a Resident Assigned room where id-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response('done');
     }
 

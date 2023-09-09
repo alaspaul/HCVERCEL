@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\medicine;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class medicineController extends Controller
 {
     
@@ -62,7 +62,8 @@ class medicineController extends Controller
             'updated_at' => now(),
         ]);
 
-        
+        $action ='added a new medicine-'. $request['medicine_name'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -87,7 +88,23 @@ class medicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        medicine::where('medicine_id', $id)->update(
+            [        
+                'medicine_id' => $request['medicine_id'],
+                'medicine_name' => $request['medicine_name'],
+                'medicine_brand' => $request['medicine_brand'],
+                'medicine_dosage' => $request['medicine_dosage'],
+                'medicine_type' => $request['medicine_type'],
+                'medicine_price' => $request['medicine_price'],
+    
+
+            'updated_at' => now(),
+            ]);
+            
+            $action ='updated a medicine-'. $request['medicine_name'];
+            app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+            return response('updated');
+        
         
     }
 
@@ -96,6 +113,9 @@ class medicineController extends Controller
      */
     public function destroy($id)
     {
+        $name = medicine::select('medicine_name')->where('medicine_id', $id)->first()->medicine_name;
+        $action ='deleted a medicine-'. $name;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
        medicine::destroy($id);
 
        
@@ -105,8 +125,6 @@ class medicineController extends Controller
 
     public function updateMeds(Request $request, $id)
     {
-       
-        
         medicine::where('medicine_id', $id)->update(
             [        
                 'medicine_id' => $request[' medicine_id'],
@@ -120,8 +138,12 @@ class medicineController extends Controller
             'updated_at' => now(),
             ]);
             
-        
+            $action ='updated a medicine where id-'. $id;
+            app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
             return response('updated');
+        
+        
+
     }
 
 }

@@ -84,6 +84,8 @@ class UserController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $action ='added a new Admin-'. $request['name'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         return response()->json($id . 'has been added to the system');
     }
@@ -105,7 +107,8 @@ class UserController extends Controller
                 ]
 
         );
-
+        $action ='updated an Admin where id-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response()->json($id . 'has been updated');
     }
 
@@ -114,7 +117,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {   
-  
+        $name = User::select('name')->where('id', $id)->first()->name;
+        $action ='deleted an admin-'. $name;
         User::destroy($id);
 
         return response()->json($id . 'has been deleted');

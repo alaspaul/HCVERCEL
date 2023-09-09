@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\floor;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class FloorController extends Controller
 {
         /**
@@ -51,6 +51,9 @@ class FloorController extends Controller
             'updated_at' => now(),
         ]);
 
+        $action ='created a new floor-'. $request['floor_name'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
         return response('stored');
     }
 
@@ -75,7 +78,18 @@ class FloorController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        $action ='updated a floor where id-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
+        floor::where('floor_id', $id)->update(
+            [
+                'floor_id' => $request['floor_id'],
+                'floor_name' => $request['floor_name'],
+
+                'updated_at' => now(),
+            ]);
+
+        return response('updated');
         
     }
 
@@ -84,6 +98,9 @@ class FloorController extends Controller
      */
     public function destroy($id)
     {
+        $floorName = floor::select('floor_name')->where('floor_id', $id)->first()->floor_name;
+        $action ='deleted a floor-'. $floorName;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
        floor::destroy($id);
 
        
@@ -95,6 +112,9 @@ class FloorController extends Controller
     {
        
         
+        $action ='updated a floor where id-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
         floor::where('floor_id', $id)->update(
             [
                 'floor_id' => $request['floor_id'],

@@ -7,7 +7,7 @@ use App\Models\resident;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Auth;
 
 class ResidentController extends Controller
 {
@@ -73,7 +73,8 @@ class ResidentController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
+        $action ='added a new resident-'. $request['resident_lName']. $request['resident_fName'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response('store');
     }
 
@@ -123,6 +124,9 @@ class ResidentController extends Controller
 
         resident::where('resident_id', $id)->update($dataToUpdate);
 
+        $action ='updated a resident where id-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
         return response('updated');
     }
 
@@ -131,6 +135,10 @@ class ResidentController extends Controller
      */
     public function destroy($id)
     {
+        $lname = resident::select('resident_lName')->where('resident_id', $id)->first()->resident_lName;
+        $fname = resident::select('resident_fName')->where('resident_id', $id)->first()->resident_fName;
+        $action ='deleted a floor-'. $lname. $fname;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
        resident::destroy($id);
 
        return response('deleted');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\room;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class RoomController extends Controller
 {
       /**
@@ -82,6 +82,8 @@ class RoomController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $action ='added a new room-'. $request['room_name'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         return response('stored');
     }
@@ -117,6 +119,9 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
+        $name = room::select('room_name')->where('room_id', $id)->first()->room_name;
+        $action ='deleted a floor-'. $name;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
        room::destroy($id);
 
        return response('deleted');
@@ -140,6 +145,8 @@ class RoomController extends Controller
                 ]
 
         );
+        $action ='updated a room where id-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         return response('updated');
     }

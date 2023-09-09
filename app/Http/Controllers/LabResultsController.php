@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\lab_results;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 class LabResultsController extends Controller
 {
     /**
@@ -57,6 +57,9 @@ class LabResultsController extends Controller
             'updated_at' => now(),
         ]);
 
+        $action ='created a new labResult-'.$newId.' for patient-'. $request['patient_id'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
         return response('stored');
     }
 
@@ -90,6 +93,8 @@ class LabResultsController extends Controller
                 'updated_at' => now(),
             ]);
 
+            $action ='updated labResult where id-'.$id;
+            app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response('updated');
     }
 
@@ -98,6 +103,9 @@ class LabResultsController extends Controller
      */
     public function destroy($id)
     {
+
+        $action ='deleted labResult-'.$id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         lab_results::destroy($id);
 
        

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\Auth;
 class FileUploadController extends Controller
 {
     /**
@@ -15,7 +16,9 @@ class FileUploadController extends Controller
      */
     public function index()
     {
-        //
+        $data = fileUpload::all();
+
+        return response()->json($data);
     }
 
     /**
@@ -62,9 +65,8 @@ class FileUploadController extends Controller
 
             'created_at' => now(),
         ]);
-
-        $action ='uploaded a file ' . $file->getClientOriginalName() .' for ' . $request['patient_id'];
-        app('App\Http\Controllers\resActionLogController')->store($request['user_id'], $request['role'], $action);
+        $action ='uploaded a file ' . $file->getClientOriginalName() .' for patient-' . $request['patient_id'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         return response()->json($file->getClientOriginalName().' file uploaded');
 
@@ -73,9 +75,8 @@ class FileUploadController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(fileUpload $fileUpload)
+    public function show(request $request)
     {
-        //
     }
 
     /**
@@ -92,8 +93,11 @@ class FileUploadController extends Controller
     public function destroy($id)
     {
 
-
         $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
+
+        $action ='deleted a file ' . $file;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
         Storage::delete('file/'.  $file);
         fileUpload::destroy($id);
 
@@ -111,4 +115,16 @@ class FileUploadController extends Controller
       
         return response()->download($pathToFile);
     }
+
+    public function getFiles(request $request)
+    {
+        $resId = $request['resident_id'];
+        $patId = $request['patient_id'];
+
+        $data = fileUpload::where('resident_id', $resId)->where('patient_id', $patId)->get();
+
+
+        return response()->json($data);
+    }
+
 }

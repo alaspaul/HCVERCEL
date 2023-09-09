@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\patient_medicine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class PatientMedicineController extends Controller
 {
     /**
@@ -63,6 +63,8 @@ class PatientMedicineController extends Controller
             'updated_at' => now(),
         ]);
 
+        $action ='added a new medicine-'. $request['medicine_id'] .' for patient-'. $request['patient_id'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -87,7 +89,7 @@ class PatientMedicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        patient_medicine::where('labResults_id', $id)->update(
+        patient_medicine::where('patientMedicine_id', $id)->update(
             [
                 'patientMedicine_id' => $request['patientMedicine_id'],
                 'patientMedicineDate' => $request['patientMedicineDate'],
@@ -98,6 +100,9 @@ class PatientMedicineController extends Controller
                 'updated_at' => now(),
             ]);
 
+        $action ='updated a medicine-'. $request['medicine_id'] .' for patient-'. $request['patient_id'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
         return response('updated');
     }
 
@@ -106,6 +111,9 @@ class PatientMedicineController extends Controller
      */
     public function destroy($id)
     {
+        $meds = patient_medicine::where('medicine_id', $id)->first();
+        $action ='deleted a medicine-'. $meds['medicine_id']. 'for patient-'. $meds['patient_id'];
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         patient_medicine::destroy($id);
 
        
