@@ -127,4 +127,13 @@ class FileUploadController extends Controller
         return response()->json($data);
     }
 
+    public function viewFile($id)
+    {
+
+        $data = fileUpload::where('file_id', $id)->first();
+
+
+        return response()->json($data['file_path']);
+    }
+
 }
