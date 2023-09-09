@@ -56,7 +56,7 @@ class FileUploadController extends Controller
 
         fileUpload::insert([
             'file_id' => $newId,
-            'file_path' => $path,
+            'file_path' => storage_path('app/file/' . $file->getClientOriginalName()),
             'file_name'=> $file->getClientOriginalName(),
             'file_size'=> $file->getSize(),
             'file_ext'=> $file->extension(),
@@ -129,11 +129,10 @@ class FileUploadController extends Controller
 
     public function viewFile($id)
     {
+        $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
+        $pathToFile = storage_path('app/file/' . $file);
 
-        $data = fileUpload::where('file_id', $id)->first();
-
-
-        return response()->json($data['file_path']);
+        return response()->json($file['file_path']);
     }
 
 }
