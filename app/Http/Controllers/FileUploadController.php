@@ -109,11 +109,11 @@ class FileUploadController extends Controller
     {
       
 
-        $file = fileUpload::select('file_name')->where('file_id', $file_id)->first()->file_name;
+        $file = fileUpload::where('file_id', $file_id)->first();
        
         $pathToFile = storage_path('app/file/' . $file);
-      
-        return response()->download($pathToFile);
+
+        return response()->download($file['file_path']);
     }
 
     public function getFiles(request $request)
@@ -129,10 +129,10 @@ class FileUploadController extends Controller
 
     public function viewFile($id)
     {
-        $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
+        $file = fileUpload::where('file_id', $id)->first();
         $pathToFile = storage_path('app/file/' . $file);
 
-        return response()->json($file['file_path']);
+        return response()->file($file['file_path']);
     }
 
 }
