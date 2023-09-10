@@ -18,7 +18,7 @@ class FileUploadController extends Controller
     {
         $files = fileUpload::all();
 
-        return redirect()->view('fileviewer')->with('files', $files);
+        return response()->json($files);
     }
 
     /**

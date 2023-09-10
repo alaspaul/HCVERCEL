@@ -45,6 +45,14 @@ Route::group(['middleware' => 'auth:adminApi', 'prefix' => 'admin'],function(){
     Route::get('Logout', [UserController::class, 'logoutAdmin'])->name('admin.logout');
     Route::apiResource('admin', UserController::class);
 
+
+    
+    Route::apiResource('resActLog', ResActionLogController::class);
+    Route::get('resActLog/residentName/{resident_id}', [ResActionLogController::class, 'residentName'])->name('RAL.residentName');
+    Route::get('resActLog/logs/department', [ResActionLogController::class, 'logsByDep'])->name('RAL.logsByDep');
+
+
+
     Route::apiResource('residents', ResidentController::class);
     Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
     Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');
@@ -89,7 +97,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
     Route::apiResource('resActLog', ResActionLogController::class);
     Route::get('resActLog/residentName/{resident_id}', [ResActionLogController::class, 'residentName'])->name('RAL.residentName');
-
+    Route::get('resActLog/logs/department', [ResActionLogController::class, 'logsByDep'])->name('RAL.logsByDep');
 
 
 

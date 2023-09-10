@@ -6,7 +6,7 @@ use App\Models\resActionLog;
 use App\Models\resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 class ResActionLogController extends Controller
 {
     /**
@@ -109,5 +109,37 @@ class ResActionLogController extends Controller
         return response()->json(['lastName' => $lname, 'firstName' => $fname, 'middleName' => $mname]);
     }
 
+    public function logsByDep()
+    {   
+        $user = Auth::user();
+        $userRole = $user['role'];
+
+        
+
+        if($userRole == 'admin'){
+
+            $data = resActionLog::all();
+            return response()->json($data);
+
+        }else{
+
+            if($userRole == 'chiefResident'){
+                $chiefDep = resident::select('department_id')->where('resident_id', $user->resident_id)->first()->department_id;
+
+                $data = resActionLog::where('user_id', 'LIKE', '%'.$chiefDep.'%')->get();
+                
+                return response()->json($data);
+            }elseif($userRole == 'resident'){
+                $data = resActionLog::where('user_id', $user->resident_id)->get();
+                return response()->json($data);
+            }else{
+                return response()->json('you have no logs');
+            }
+
+        }
+
+     
+        
+    }
 
 }

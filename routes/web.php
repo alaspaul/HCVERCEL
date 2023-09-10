@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return route('fileUploadWeb.index');
+    return view('welcome');
 })->name('login');
 
-Route::resource('fileUploadWeb', FileUploadController::class);
-Route::get('fileUploadWeb/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUploadWeb.viewFile');
 
