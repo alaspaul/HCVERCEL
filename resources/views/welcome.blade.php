@@ -22,7 +22,7 @@
         {{Session::get('fail')}}
       </div>
       @endif
-        <form action="{{ route('loginRes') }}" method="post">
+        <form action="{{ route('fileUpload.index') }}" method="post">
             @csrf
       <input type="text" name="resident_userName" id="" placeholder="USERNAME">
       <input type="password" name="resident_password" id="" placeholder="PASSWORD">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\resActionLog;
+use App\Models\resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -92,5 +93,16 @@ class ResActionLogController extends Controller
     public function destroy(resActionLog $resActionLog)
     {
         //
+    }
+
+    public function residentName($resident_id)
+    {
+        $lname = resident::select('resident_lName')->where('resident_id', $resident_id)->first()->resident_lName;
+        $fname = resident::select('resident_fName')->where('resident_id', $resident_id)->first()->resident_fName;
+        $mname = resident::select('resident_mName')->where('resident_id', $resident_id)->first()->resident_mName;
+
+
+
+        return response()->json(['lastName' => $lname, 'firstName' => $fname, 'middleName' => $mname]);
     }
 }

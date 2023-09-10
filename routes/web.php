@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,5 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return route('fileUploadWeb.index');
 })->name('login');
+
+Route::resource('fileUploadWeb', FileUploadController::class);
+Route::get('fileUploadWeb/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUploadWeb.viewFile');
+

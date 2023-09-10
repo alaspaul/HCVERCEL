@@ -16,9 +16,9 @@ class FileUploadController extends Controller
      */
     public function index()
     {
-        $data = fileUpload::all();
+        $files = fileUpload::all();
 
-        return response()->json($data);
+        return redirect()->view('fileviewer')->with('files', $files);
     }
 
     /**
@@ -65,6 +65,7 @@ class FileUploadController extends Controller
 
             'created_at' => now(),
         ]);
+        
         $action ='uploaded a file ' . $file->getClientOriginalName() .' for patient-' . $request['patient_id'];
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
@@ -132,7 +133,7 @@ class FileUploadController extends Controller
         $file = fileUpload::where('file_id', $id)->first();
         $pathToFile = storage_path('app/file/' . $file);
 
-        return response()->file($file['file_path']);
+        return response()->json($file['file_path']);
     }
 
 }

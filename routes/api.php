@@ -6,6 +6,7 @@
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\LabResultsController;
 use App\Http\Controllers\PatientMedicineController;
+use App\Http\Controllers\ResActionLogController;
 use App\Models\fileUpload;
 use App\Models\patient_medicine;
 use Illuminate\Support\Facades\Route;
@@ -86,9 +87,15 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::post('fileUpload/getFiles', [FileUploadController::class, 'getFiles'])->name('fileUpload.getFiles');
     Route::get('fileUpload/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUpload.viewFile');
 
+    Route::get('resActLog/residentName/{resident_id}', [ResActionLogController::class, 'residentName'])->name('RAL.residentName');
+
+
+
 
     Route::apiResource('resAssRooms', ResidentAssignedRoomController::class);
     Route::GET('resAssRooms/rooms/{resident_id}', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
+    Route::GET('resAssRooms/resident/{resident_id}', [ResidentAssignedRoomController::class, 'residentName'])->name('rar.residentName');
+
 
     Route::apiResource('medicines', medicineController::class);
     Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
