@@ -540,6 +540,10 @@ class PatientHealthRecordController extends Controller
 
 
 
+    public static function getPatientbyId($patient_id){
+        $patient = patient_healthRecord::where('patient_id', $patient_id)->first();
 
+        return $patient;
+    }
 
 }

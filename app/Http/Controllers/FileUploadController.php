@@ -66,7 +66,15 @@ class FileUploadController extends Controller
             'created_at' => now(),
         ]);
         
-        $action ='uploaded a file ' . $file->getClientOriginalName() .' for patient-' . $request['patient_id'];
+
+        
+
+        $patient = PatientHealthRecordController::getPatientbyId($request['patient_id']);
+        
+        $roomName = RoomController::getRoomNamebyId($patient['room_id']);
+        $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
+
+        $action ='uploaded a file ' . $file->getClientOriginalName() .' for patient-' . $patientName. ' in Room-' . $roomName;
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         return response()->json($file->getClientOriginalName().' file uploaded');

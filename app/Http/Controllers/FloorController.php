@@ -98,8 +98,7 @@ class FloorController extends Controller
      */
     public function destroy($id)
     {
-        $floorName = floor::select('floor_name')->where('floor_id', $id)->first()->floor_name;
-        $action ='deleted a floor-'. $floorName;
+        $action ='deleted a floor-'. $this->getFloorNamebyId($id);
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
        floor::destroy($id);
 
@@ -126,4 +125,12 @@ class FloorController extends Controller
         return response('updated');
     }
     
+
+
+    public function getFloorNamebyId($floor_id){
+        $name = floor::select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
+
+
+        return $name;
+    }
 }

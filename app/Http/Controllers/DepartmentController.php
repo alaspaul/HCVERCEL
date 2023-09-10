@@ -81,7 +81,7 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $action ='updated a department where id-'. $$id;
+        $action ='updated a department where id-'. $id;
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
@@ -95,8 +95,8 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        $depName = department::select('department_name')->where('department_id', $id)->first()->department_name;
-        $action ='deleted a department-'. $depName;
+        
+        $action ='deleted a department-'. $this->getDepNamebyId($id);
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
        department::destroy($id);
@@ -108,7 +108,7 @@ class DepartmentController extends Controller
 
     public function updateDep(Request $request, $id)
     {
-        $action ='updated a department-'. $$id;
+        $action ='updated a department-'. $id;
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
@@ -117,5 +117,10 @@ class DepartmentController extends Controller
 
     }
 
+    public function getDepNamebyId($department_id){
+        $name = department::select('department_name')->where('department_id', $department_id)->first()->department_name;
 
+
+        return $name;
+    }
 }

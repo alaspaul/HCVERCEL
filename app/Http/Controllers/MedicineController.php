@@ -101,7 +101,7 @@ class medicineController extends Controller
             'updated_at' => now(),
             ]);
             
-            $action ='updated a medicine-'. $request['medicine_name'];
+            $action ='updated a medicine-'. $id;
             app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
             return response('updated');
         
@@ -113,8 +113,8 @@ class medicineController extends Controller
      */
     public function destroy($id)
     {
-        $name = medicine::select('medicine_name')->where('medicine_id', $id)->first()->medicine_name;
-        $action ='deleted a medicine-'. $name;
+     
+        $action ='deleted a medicine-'. $this->getMedNamebyId($id);
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
        medicine::destroy($id);
 
@@ -144,6 +144,13 @@ class medicineController extends Controller
         
         
 
+    }
+
+    public static function getMedNamebyId($medicine_id){
+        $name = medicine::select('medicine_name')->where('medicine_id', $medicine_id)->first()->medicine_name;
+
+
+        return $name;
     }
 
 }

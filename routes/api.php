@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::apiResource('resAssRooms', ResidentAssignedRoomController::class);
     Route::GET('resAssRooms/rooms/{resident_id}', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
     Route::GET('resAssRooms/resident/{resident_id}', [ResidentAssignedRoomController::class, 'residentName'])->name('rar.residentName');
+    Route::GET('resAssRooms/roomName/{room_id}', [ResidentAssignedRoomController::class, 'roomName'])->name('rar.roomName');
 
 
     Route::apiResource('medicines', medicineController::class);

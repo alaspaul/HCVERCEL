@@ -137,7 +137,7 @@ class ResidentController extends Controller
     {
         $lname = resident::select('resident_lName')->where('resident_id', $id)->first()->resident_lName;
         $fname = resident::select('resident_fName')->where('resident_id', $id)->first()->resident_fName;
-        $action ='deleted a floor-'. $lname. $fname;
+        $action ='deleted a resident-'. $lname. $fname;
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
        resident::destroy($id);
 

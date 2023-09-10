@@ -165,4 +165,11 @@ class RoomController extends Controller
     }
 
 
+    public static function getRoomNamebyId($room_id){
+        $roomName = room::select('room_name')->where('room_id', $room_id)->first()->room_name;
+
+        return $roomName;
+    }
+
+
 }
