@@ -87,6 +87,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::post('fileUpload/getFiles', [FileUploadController::class, 'getFiles'])->name('fileUpload.getFiles');
     Route::get('fileUpload/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUpload.viewFile');
 
+    Route::apiResource('resActLog', ResActionLogController::class);
     Route::get('resActLog/residentName/{resident_id}', [ResActionLogController::class, 'residentName'])->name('RAL.residentName');
 
 

@@ -21,7 +21,10 @@ class ResActionLogController extends Controller
     }
     public function index()
     {
-        //
+        $data = resActionLog::all();
+
+        return response()->json($data);
+        
     }
 
     /**
@@ -105,4 +108,6 @@ class ResActionLogController extends Controller
 
         return response()->json(['lastName' => $lname, 'firstName' => $fname, 'middleName' => $mname]);
     }
+
+
 }
