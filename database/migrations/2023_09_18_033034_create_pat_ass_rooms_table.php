@@ -11,14 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_histories', function (Blueprint $table) {
-            $table->string('patientHistory_Id')->primary();
+        Schema::create('pat_ass_rooms', function (Blueprint $table) {
+            $table->string('par_id')->primary();
             $table->string('patient_id');
-            $table->timestamps();
+            $table->string('room_id');
 
             $table->foreign('patient_id')->references('patient_id')->on('patients')
             ->onDelete('cascade')
             ->onUpdate('cascade');
+
+            $table->foreign('room_id')->references('room_id')->on('rooms')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            
+            $table->timestamps();
         });
     }
 
@@ -27,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_histories');
+        Schema::dropIfExists('pat_ass_rooms');
     }
 };

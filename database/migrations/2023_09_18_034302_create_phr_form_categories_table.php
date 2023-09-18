@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_histories', function (Blueprint $table) {
-            $table->string('patientHistory_Id')->primary();
-            $table->string('patient_id');
+        Schema::create('phr_form_categories', function (Blueprint $table) {
+            $table->string('formCat_id')->primary();
+            $table->string('formCat_name');
+            $table->string('formCat_description');
             $table->timestamps();
-
-            $table->foreign('patient_id')->references('patient_id')->on('patients')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_histories');
+        Schema::dropIfExists('phr_form_categories');
     }
 };

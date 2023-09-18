@@ -128,7 +128,7 @@ return new class extends Migration
             $table->string('patient_id');
 
            
-            $table->foreign('patient_id')->references('patient_id')->on('patient_health_records')
+            $table->foreign('patient_id')->references('patient_id')->on('patients')
             ->onDelete('cascade')
             ->onUpdate('cascade');
         });

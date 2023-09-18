@@ -66,7 +66,7 @@ class ResidentController extends Controller
             'resident_fName' => $request['resident_fName'],
             'resident_lName' => $request['resident_lName'],
             'resident_mName' => $request['resident_mName'],
-            'resident_password' => $request['resident_password'],
+            'resident_password' => bcrypt($request['resident_password']),
             'department_id' => $request['department_id'],
             'role' => $request['role'],
             
@@ -110,7 +110,7 @@ class ResidentController extends Controller
             'resident_lName' => $request['resident_lName'],
             'resident_mName' => $request['resident_mName'],
             'department_id' => $request['department_id'],
-            'isChief' => $request['isChief'],
+            'role' => $request['role'],
             'updated_at' => now(),
         ];
 
@@ -119,7 +119,7 @@ class ResidentController extends Controller
             unset($dataToUpdate['resident_password']);
         } else {
             // If the password is not empty, update it in the array
-            $dataToUpdate['resident_password'] = $request['resident_password'];
+            $dataToUpdate['resident_password'] = bcrypt($request['resident_password']);
         }
 
         resident::where('resident_id', $id)->update($dataToUpdate);
@@ -148,21 +148,28 @@ class ResidentController extends Controller
     public function updateResident(Request $request, $id)
     {
        
-        
-        resident::where('resident_id', $id)->update(
-            [
-                'resident_userName' => $request['resident_userName'],
-                'resident_fName' => $request['resident_fName'],
-                'resident_lName' => $request['resident_lName'],
-                'resident_mName' => $request['resident_mName'],
-                'resident_password' => $request['resident_password'],
-                'department_id' => $request['department_id'],
-                'isChief' => $request['isChief'],
-         
-                'updated_at' => now(),
-                ]
-        );
+        $dataToUpdate = [
+            'resident_userName' => $request['resident_userName'],
+            'resident_fName' => $request['resident_fName'],
+            'resident_lName' => $request['resident_lName'],
+            'resident_mName' => $request['resident_mName'],
+            'department_id' => $request['department_id'],
+            'role' => $request['role'],
+            'updated_at' => now(),
+        ];
 
+        // Check if the password field is empty, if so, remove it from the update array
+        if (empty($request['resident_password'])) {
+            unset($dataToUpdate['resident_password']);
+        } else {
+            // If the password is not empty, update it in the array
+            $dataToUpdate['resident_password'] = bcrypt($request['resident_password']);
+        }
+
+        resident::where('resident_id', $id)->update($dataToUpdate);
+
+        $action ='updated a resident where id-'. $id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
 
         return response('updated');
     }

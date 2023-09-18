@@ -6,6 +6,9 @@
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\LabResultsController;
 use App\Http\Controllers\PatientMedicineController;
+use App\Http\Controllers\PhrAttributeValuesController;
+use App\Http\Controllers\PhrCategoryAttributesController;
+use App\Http\Controllers\PhrFormCategoriesController;
 use App\Http\Controllers\ResActionLogController;
 use App\Models\fileUpload;
 use App\Models\patient_medicine;
@@ -150,6 +153,9 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
     Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
+    Route::apiResource('formCategories', PhrFormCategoriesController::class);
+    Route::apiResource('categoryAttributes', PhrCategoryAttributesController::class);
+    Route::apiResource('attributeValues', PhrAttributeValuesController::class);
 });
 
 

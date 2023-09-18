@@ -110,6 +110,8 @@ class PatientHealthRecordController extends Controller
 
             'phr_maintenanceMeds' => $this->isNull($request['phr_maintenanceMeds']),
             'phr_specifyMaintenanceMeds' => $this->isNULLString($request['phr_specifyMaintenanceMeds']),
+            
+            
             'phr_malignancy' => $this->isNull($request['phr_malignancy']),
             'phr_specifyMalignancy' => $this->isNULLString($request['phr_specifyMalignancy']),
             'phr_surgeries' => $this->isNull($request['phr_surgeries']),
@@ -149,8 +151,16 @@ class PatientHealthRecordController extends Controller
             'phr_weightKG' => $this->isNull($request['phr_weightKG']),
             'phr_BMI' => $this->isNull($request['phr_BMI']),
 
+
+
+
             'phr_nasalMucosaSeptumTurbinatesWNL' => $this->isNull($request['phr_nasalMucosaSeptumTurbinatesWNL']),
             'phr_nasalMucosaSeptumTurbinatesEdeOrEryPresent' => $this->isNull($request['phr_nasalMucosaSeptumTurbinatesEdeOrEryPresent']),
+
+
+
+
+
 
             'phr_dentionAndGumsWNL' => $this->isNull($request['phr_dentionAndGumsWNL']),
             'phr_dentionAndGumsDentalCanes' => $this->isNull($request['phr_dentionAndGumsDentalCanes']),
@@ -166,6 +176,10 @@ class PatientHealthRecordController extends Controller
             'phr_mallampati3' => $this->isNull($request['phr_mallampati3']),
             'phr_mallampati4' => $this->isNull($request['phr_mallampati4']),
 
+
+
+
+
             'phr_neckWNL' => $this->isNull($request['phr_neckWNL']),
             'phr_neckLymphadenopathy' => $this->isNull($request['phr_neckLymphadenopathy']),
 
@@ -176,6 +190,13 @@ class PatientHealthRecordController extends Controller
 
             'phr_jugularVeinsWNL' => $this->isNull($request['phr_jugularVeinsWNL']),
             'phr_jugularVeinsEngorged' => $this->isNull($request['phr_jugularVeinsEngorged']),
+
+
+
+
+
+
+
 
             'phr_chestExpansionAndSymmetrical' => $this->isNull($request['phr_chestExpansionAndSymmetrical']),
 
@@ -203,6 +224,11 @@ class PatientHealthRecordController extends Controller
             'phr_AuscultationRub' => $this->isNull($request['phr_AuscultationRub']),
             'phr_RespiratoryAdditionalFindings' => $this->isNull($request['phr_RespiratoryAdditionalFindings']),
 
+
+
+
+
+
             'phr_heartSoundsClearS1' => $this->isNull($request['phr_heartSoundsClearS1']),
             'phr_heartSoundsClearS2' => $this->isNull($request['phr_heartSoundsClearS2']),
             'phr_heartSoundsNoMurmur' => $this->isNull($request['phr_heartSoundsNoMurmur']),
@@ -214,6 +240,12 @@ class PatientHealthRecordController extends Controller
 
             'phr_grade' => $this->isNull($request['phr_grade']),
             'phr_CardiovascularAdditionalFindings' => $this->isNULLString($request['phr_CardiovascularAdditionalFindings ']),
+
+
+
+
+
+
 
             'phr_abdomenWNL' => $this->isNull($request['phr_abdomenWNL']),
             'phr_massPresent' => $this->isNull($request['phr_massPresent']),
@@ -232,11 +264,21 @@ class PatientHealthRecordController extends Controller
             'phr_kidneyPunchSignPositive' => $this->isNull($request['phr_kidneyPunchSignPositive']),
             'phr_IfPositiveR' => $this->isNull($request['phr_IfPositiveR']),
             'phr_IfPositiveL' => $this->isNull($request['phr_IfPositiveL']),
+
+
+
+
+
+
             'phr_extremitiesWNL' => $this->isNull($request['phr_extremitiesWNL']),
             'phr_extremitiesClubbing' => $this->isNull($request['phr_extremitiesClubbing']),
             'phr_extremitiesCyanosis' => $this->isNull($request['phr_extremitiesCyanosis']),
             'phr_extremitiesPetachiae' => $this->isNull($request['phr_extremitiesPetachiae']),
             'phr_capillaryRefillTime' => $this->isNull($request['phr_capillaryRefillTime']),
+
+
+
+
 
             'phr_skinWNL' => $this->isNull($request['phr_skinWNL']),
             'phr_skinRash' => $this->isNull($request['phr_skinRash']),
