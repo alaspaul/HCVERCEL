@@ -20,13 +20,13 @@ class PatAssRoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public static function store($patient_id, $room_id)
     {
         patAssRoom::insert([
            
-            'par_id' =>  'PAR-'. $request['patient_id'] . $request['room_id'],
-            'patient_id' => $request['patient_id'],
-            'room_id' => $request['room_id'],
+            'par_id' =>  'PAR-'. $patient_id .$room_id,
+            'patient_id' =>$patient_id,
+            'room_id' => $room_id,
             
             'created_at' => now(),
             'updated_at' => now(),

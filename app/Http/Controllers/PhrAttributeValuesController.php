@@ -21,7 +21,7 @@ class PhrAttributeValuesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public static function store(Request $request, $patient_id)
     {
 
         $attributes = phr_categoryAttributes::all();
@@ -29,14 +29,14 @@ class PhrAttributeValuesController extends Controller
         foreach($attributes as $attribute){
       
         
-            $id = $request['patient_id'] . '-' . $attribute['categoryAtt_id'];
+            $id = $patient_id . '-' . $attribute['categoryAtt_id'];
 
             if(!empty($request[$attribute['categoryAtt_name']])){
                 phr_attributeValues::insert([
            
                     'attributeVal_id' => $id,
                     'attributeVal_values' => $request[$attribute['categoryAtt_name']],
-                    'patient_id' => $request['patient_id'],
+                    'patient_id' => $patient_id,
                     'categoryAtt_id' => $attribute['categoryAtt_id'],
 
             
@@ -60,7 +60,7 @@ class PhrAttributeValuesController extends Controller
            
                 'attributeVal_id' => $id,
                 'attributeVal_values' => $variable,
-                'patient_id' => $request['patient_id'],
+                'patient_id' => $patient_id,
                 'categoryAtt_id' => $attribute['categoryAtt_id'],
 
         

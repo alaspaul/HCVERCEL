@@ -54,6 +54,10 @@ class PatientController extends Controller
             'updated_at' => now(),
         ]);
 
+        PatAssRoomController::store($newId, $request['room_id']);
+        PhrAttributeValuesController::store($request, $newId);
+
+
         $action ='added a new patient-'. $request['patient_fName'];
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response('stored');
