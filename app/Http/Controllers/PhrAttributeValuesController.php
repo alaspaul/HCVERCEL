@@ -26,12 +26,6 @@ class PhrAttributeValuesController extends Controller
 
         $attributes = phr_categoryAttributes::all();
 
-
-        
-       
-
-
-
         foreach($attributes as $attribute){
       
         
@@ -50,10 +44,22 @@ class PhrAttributeValuesController extends Controller
                      'updated_at' => now(),
             ]);
         }else{
+            $variable = 0;
+            if($attribute['categoryAtt_dataType'] == 'boolean'){
+                $variable = 0;
+            }elseif($attribute['categoryAtt_dataType'] == 'date'){
+                $variable = 'NAN';
+            }elseif($attribute['categoryAtt_dataType'] == 'text'){
+                $variable = 'none';
+            }elseif($attribute['categoryAtt_dataType'] == 'integer'){
+                $variable = 0;
+            }
+
+
             phr_attributeValues::insert([
            
                 'attributeVal_id' => $id,
-                'attributeVal_values' => 0,
+                'attributeVal_values' => $variable,
                 'patient_id' => $request['patient_id'],
                 'categoryAtt_id' => $attribute['categoryAtt_id'],
 
