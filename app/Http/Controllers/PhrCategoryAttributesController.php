@@ -85,4 +85,13 @@ class PhrCategoryAttributesController extends Controller
        
         return response('deleted');
     }
+
+
+    public function getAttributeName($categoryAtt_id)
+    {
+        $AttributeName = phr_categoryAttributes::where('categoryAtt_id', $categoryAtt_id)->first()->categoryAtt_name;
+
+
+        return response()->json($AttributeName);
+    }
 }

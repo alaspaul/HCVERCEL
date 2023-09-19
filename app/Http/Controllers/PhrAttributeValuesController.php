@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\phr_attributeValues;
+use App\Models\phr_categoryAttributes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class PhrAttributeValuesController extends Controller
@@ -22,29 +23,65 @@ class PhrAttributeValuesController extends Controller
      */
     public function store(Request $request)
     {
-        phr_attributeValues::insert([
+
+        $attributes = phr_categoryAttributes::all();
+
+
+        
+       
+
+
+
+        foreach($attributes as $attribute){
+      
+        
+            $id = $request['patient_id'] . '-' . $attribute['categoryAtt_id'];
+
+            if(!empty($request[$attribute['categoryAtt_name']])){
+                phr_attributeValues::insert([
            
-            'attributeVal_id' => $request['patient_id'] . '-' . $request['categoryAtt_id'],
-            'attributeVal_values' => $request['attributeVal_values'],
-            'patient_id' => $request['patient_id'],
-            'categoryAtt_id' => $request['categoryAtt_id'],
+                    'attributeVal_id' => $id,
+                    'attributeVal_values' => $request[$attribute['categoryAtt_name']],
+                    'patient_id' => $request['patient_id'],
+                    'categoryAtt_id' => $attribute['categoryAtt_id'],
 
             
-            'created_at' => now(),
-            'updated_at' => now(),
+                     'created_at' => now(),
+                     'updated_at' => now(),
+            ]);
+        }else{
+            phr_attributeValues::insert([
+           
+                'attributeVal_id' => $id,
+                'attributeVal_values' => 0,
+                'patient_id' => $request['patient_id'],
+                'categoryAtt_id' => $attribute['categoryAtt_id'],
+
+        
+                 'created_at' => now(),
+                 'updated_at' => now(),
         ]);
 
+
+            
+        }
+    }
         $action ='added a new categoryAttribute';
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-        return response('stored');
+       return response()->json('stored');
+    
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(phr_attributeValues $phr_attributeValues)
+    public function show($patient_id)
     {
-        //
+        $patient = phr_attributeValues::where('patient_id', $patient_id)->get();
+
+
+        return response()->json($patient);
     }
 
     /**
@@ -68,4 +105,8 @@ class PhrAttributeValuesController extends Controller
        
         return response('deleted');
     }
+
+
+
+
 }

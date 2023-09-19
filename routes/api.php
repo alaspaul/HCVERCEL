@@ -5,6 +5,7 @@
 
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\LabResultsController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientMedicineController;
 use App\Http\Controllers\PhrAttributeValuesController;
 use App\Http\Controllers\PhrCategoryAttributesController;
@@ -153,9 +154,20 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
     Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
+
+    Route::apiResource('patients', PatientController::class);
+    Route::get('patients/getPatientName/{id}', [PatientController::class, 'getPatientName'])->name('patients.getPatientName');
+
     Route::apiResource('formCategories', PhrFormCategoriesController::class);
+
     Route::apiResource('categoryAttributes', PhrCategoryAttributesController::class);
+    Route::get('categoryAttributes/getAttributeName/{id}', [PhrCategoryAttributesController::class, 'getAttributeName'])->name('categoryAttributes.getAttributeName');
+
     Route::apiResource('attributeValues', PhrAttributeValuesController::class);
+
+
+
+
 });
 
 
