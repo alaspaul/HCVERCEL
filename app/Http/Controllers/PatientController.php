@@ -63,7 +63,7 @@ class PatientController extends Controller
         return response('stored');
     }
 
-    /**
+    /*
      * Display the specified resource.
      */
     public function show($patient_id)
@@ -113,6 +113,12 @@ class PatientController extends Controller
         }catch(\Exception $e){
             return response()->json(['error'=>'patient not found'], 404);
         }
+    }
+
+    public static function getPatientbyId($patient_id){
+        $patient = patient::where('patient_id', $patient_id)->first();
+
+        return $patient;
     }
     
 }

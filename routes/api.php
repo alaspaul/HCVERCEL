@@ -5,6 +5,7 @@
 
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\LabResultsController;
+use App\Http\Controllers\PatAssRoomController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientMedicineController;
 use App\Http\Controllers\PhrAttributeValuesController;
@@ -120,12 +121,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::apiResource('results', LabResultsController::class);
     
     Route::apiResource('patientHealthRecord', PatientHealthRecordController::class);
-    Route::post('patientHealthRecord/transferPatient/{patient_id}', [PatientHealthRecordController::class, 'transferPatient'])->name('phr.transferPatient');
-    Route::get('patientHealthRecord/get/AvailableRooms', [PatientHealthRecordController::class, 'getAvailableRooms'])->name('phr.getAvailableRooms');
-    Route::get('patientHealthRecord/checkoutPatient/{patient_id}', [PatientHealthRecordController::class, 'checkoutPatient'])->name('phr.checkoutPatient');
-    Route::get('patientHealthRecord/getPatientbyRoom/{room_id}', [PatientHealthRecordController::class, 'getPatientbyRoom'])->name('phr.getPatientbyRoom');
 
-    
     Route::apiResource('physicalExams', PhysicalExamController::class);
 
 
@@ -157,6 +153,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
     Route::apiResource('patients', PatientController::class);
     Route::get('patients/getPatientName/{id}', [PatientController::class, 'getPatientName'])->name('patients.getPatientName');
+    Route::get('patients/getPatientbyId/{id}', [PatientController::class, 'getPatientbyId'])->name('patients.getPatientbyId');
 
     Route::apiResource('formCategories', PhrFormCategoriesController::class);
 
@@ -164,6 +161,12 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('categoryAttributes/getAttributeName/{id}', [PhrCategoryAttributesController::class, 'getAttributeName'])->name('categoryAttributes.getAttributeName');
 
     Route::apiResource('attributeValues', PhrAttributeValuesController::class);
+
+    Route::apiResource(('patAssRooms'), PatAssRoomController::class);
+    Route::put('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
+    Route::get('patAssRooms/get/AvailableRooms', [PatAssRoomController::class, 'getAvailableRooms'])->name('patAssRooms.getAvailableRooms');
+    Route::get('patAssRooms/getPatientbyRoom/{room_id}', [PatAssRoomController::class, 'getPatientbyRoom'])->name('patAssRooms.getPatientbyRoom');
+    Route::get('patAssRooms/checkout/{patient_id}', [PatAssRoomController::class, 'checkout'])->name('patAssRooms.checkout');
 
 
 

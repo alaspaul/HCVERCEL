@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\patAssRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 class PatAssRoomController extends Controller
 {
     /**
@@ -67,4 +68,47 @@ class PatAssRoomController extends Controller
        
         return response('deleted');
     }
+
+
+
+    public function getAvailableRooms(){
+
+        $occupiedRooms = patAssRoom::where('room_id','!=',null)->pluck('room_id');
+        $rooms = DB::table('rooms')->whereNotIn('room_id',  $occupiedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        return response()->json($rooms);
+        
+    }
+
+
+    public function transferPatient($patient_id, request $request){
+        $dataToUpdate = [
+            'room_id' =>  $request['room_id'],
+         ];
+ 
+         patAssRoom::where('patient_id', $patient_id)->update($dataToUpdate);
+         return response()->json('patient Transfered');
+        
+    }
+
+
+    public function getPatientbyRoom($room_id){
+
+        $patient = patAssRoom::where('room_id', $room_id)->get();
+
+        return response()->json($patient);
+    }
+
+
+    public function checkout($patient_id)
+    {
+
+        $action ='checkedout a patient -'. $patient_id;
+        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
+        patAssRoom::where('patient_id', $patient_id)->delete();
+
+       
+        return response('checkedout');
+    }
+
 }

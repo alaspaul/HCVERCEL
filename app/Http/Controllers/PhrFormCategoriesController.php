@@ -82,4 +82,13 @@ class PhrFormCategoriesController extends Controller
        
         return response('deleted');
     }
+
+
+    public function getCategoryName($formCat_id)
+    {
+        $name = phr_formCategories::where('formCat_id', $formCat_id)->first()->formCat_id;
+
+
+        return response()->json($name);
+    }
 }
