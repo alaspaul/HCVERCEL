@@ -11,6 +11,9 @@ use App\Http\Controllers\PatientMedicineController;
 use App\Http\Controllers\PhrAttributeValuesController;
 use App\Http\Controllers\PhrCategoryAttributesController;
 use App\Http\Controllers\PhrFormCategoriesController;
+use App\Http\Controllers\PhysicalExamAttributesController;
+use App\Http\Controllers\PhysicalExamCategoriesController;
+use App\Http\Controllers\PhysicalExamValuesController;
 use App\Http\Controllers\ResActionLogController;
 use App\Models\fileUpload;
 use App\Models\patient_medicine;
@@ -122,9 +125,6 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     
     Route::apiResource('patientHealthRecord', PatientHealthRecordController::class);
 
-    Route::apiResource('physicalExams', PhysicalExamController::class);
-
-
 
     Route::apiResource('residents', ResidentController::class);
     Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
@@ -162,14 +162,16 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
     Route::apiResource('attributeValues', PhrAttributeValuesController::class);
 
-    Route::apiResource(('patAssRooms'), PatAssRoomController::class);
+    Route::apiResource('patAssRooms', PatAssRoomController::class);
     Route::put('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
     Route::get('patAssRooms/get/AvailableRooms', [PatAssRoomController::class, 'getAvailableRooms'])->name('patAssRooms.getAvailableRooms');
     Route::get('patAssRooms/getPatientbyRoom/{room_id}', [PatAssRoomController::class, 'getPatientbyRoom'])->name('patAssRooms.getPatientbyRoom');
     Route::get('patAssRooms/checkout/{patient_id}', [PatAssRoomController::class, 'checkout'])->name('patAssRooms.checkout');
 
 
-
+    Route::apiResource('physicalExam/categories', PhysicalExamCategoriesController::class);
+    Route::apiResource('physicalExam/attributes', PhysicalExamAttributesController::class);
+    Route::apiResource('physicalExam/values', PhysicalExamValuesController::class);
 
 });
 
