@@ -42,7 +42,20 @@ class PhysicalExamAttributesController extends Controller
            
             'PEA_id' => $newId,
             'PEA_name' => $request['PEA_name'],
-            'PEA_dataType' => $request['PEA_dataType'],
+            'PEA_dataType' => 'integer',
+            'physicalExam_id' => $request['physicalExam_id'],
+
+
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $specifyId = $physicalExam_id . 'PEA' . $latestorder+1;
+        physicalExam_Attributes::insert([
+           
+            'PEA_id' => $specifyId,
+            'PEA_name' => 'specify_' . $request['PEA_name'],
+            'PEA_dataType' => 'string',
             'physicalExam_id' => $request['physicalExam_id'],
 
 
