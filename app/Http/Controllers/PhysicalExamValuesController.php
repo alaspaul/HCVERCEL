@@ -24,33 +24,56 @@ class PhysicalExamValuesController extends Controller
      */
     public function store(Request $request)
     {
-        $PEA = physicalExam_Attributes::where('PEA_id', $request['PEA_id'])->first();
+        $attributes = physicalExam_Attributes::all();
         $patient = patient::where('patient_id', $request['patient_id'])->first();
-        $latestorder = physicalExam_values::where('patient_id', $request['patient_id'])->where('PEA_id', $request['PEA_id'])->count();
-        $currentId =   $patient['patient_id'] . $PEA['PEA_id'] . '-'. $latestorder;
 
-        if( !empty(physicalExam_values::select('PAV_id')->where('PAV_id', $currentId)->first()->PAV_id)){
-        do{
-            $latestorder++;
-            $PAV_id =  $patient['patient_id'] . $PEA['PEA_id'] . '-'. $latestorder;
-            $id = physicalExam_values::select('PAV_id')->where('PAV_id', $PAV_id)->first();
-         
-        }while(!empty($id));
+        foreach($attributes as $attribute){
+        $latestOrder = 0;
+        $exit = 0;
+
+        while($exit == 0){
+            $thisId = $request['patient_id'] . $attribute['PEA_id'] . '-' . $latestOrder;
+            if(!empty(physicalExam_values::where('PAV_id', $thisId)->first()->PAV_id)){
+                $exit = 0;
+                $latestOrder++; 
+            }else{
+                $exit = 1;
+            }
         }
-         $newId =  $patient['patient_id'] . $PEA['PEA_id'] . '-'. $latestorder;
+    
+        $newId = $request['patient_id'] . $attribute['PEA_id'] . '-' . $latestOrder;
 
+         if(!empty($request[$attribute['PEA_name']])){
          physicalExam_values::insert([
            
             'PAV_id' => $newId,
-            'PAV_value' => $request['PAV_value'],
+            'PAV_value' => $request[$attribute['PEA_name']],
             'patient_id' => $request['patient_id'],
-            'PEA_id' => $request['PEA_id'],
+            'PEA_id' => $attribute['PEA_id'],
 
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+    }else{
+        $variable = 0;
+        if($attribute['PEA_dataType'] == 'string'){
+            $variable = 'none';
+        }
+        physicalExam_values::insert([
+           
+            'PAV_id' => $newId,
+            'PAV_value' =>  $variable,
+            'patient_id' => $request['patient_id'],
+            'PEA_id' => $attribute['PEA_id'],
 
-        $action ='added a new value for ' . $PEA['PEA_name'] . ' for patient ' . $patient['patient_fName'];
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        
+
+    }
+}
+        $action ='added a new physical exam for patient ' . $patient['patient_fName'];
         app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
         return response('stored');
     }
