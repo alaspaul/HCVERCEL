@@ -38,7 +38,7 @@ class PhysicalExamAttributesController extends Controller
 
          $newId = $physicalExam_id . 'PEA' . $latestorder;
 
-         physicalExam_Attributes::insert([
+         $PEA = new physicalExam_Attributes([
            
             'PEA_id' => $newId,
             'PEA_name' => $request['PEA_name'],
@@ -49,9 +49,21 @@ class PhysicalExamAttributesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $PEA->save();
+
+
+
+        if( !empty(physicalExam_Attributes::select('PEA_id')->where('PEA_id', $currentId)->first()->PEA_id)){
+            do{
+                $latestorder++;
+                $PEA_id = $physicalExam_id . 'PEA' . $latestorder;
+                $id = physicalExam_Attributes::select('PEA_id')->where('PEA_id', $PEA_id)->first();
+             
+            }while(!empty($id));
+            }
 
         $specifyId = $physicalExam_id . 'PEA' . $latestorder+1;
-        physicalExam_Attributes::insert([
+        $SPEA = new physicalExam_Attributes([
            
             'PEA_id' => $specifyId,
             'PEA_name' => 'specify_' . $request['PEA_name'],
@@ -62,9 +74,12 @@ class PhysicalExamAttributesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $SPEA->save();
 
         $action ='added a new Physical Exam Attribute';
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
+         $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -91,8 +106,8 @@ class PhysicalExamAttributesController extends Controller
     {
         $PEA = physicalExam_Attributes::where('PEA_id', $id)->first();
         $action ='deleted a Physical Exam Attribute-'. $PEA['PEA_name'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         physicalExam_Attributes::destroy($id);
 
        

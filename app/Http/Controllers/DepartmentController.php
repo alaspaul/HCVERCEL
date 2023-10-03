@@ -47,16 +47,20 @@ class DepartmentController extends Controller
 
         $newId = 'D' . $latestorder;
 
-        department::insert([
+        $department = new department([
             'department_id' => $newId,
             'department_name' => $request['department_name'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        
+        $department->save();
 
         $action ='created a new department-'. $request['department_name'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
- 
+
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
+
         return response('stored');
     }
 
@@ -82,8 +86,9 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         $action ='updated a department where id-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
 
         return response('done');
@@ -97,7 +102,8 @@ class DepartmentController extends Controller
     {
         
         $action ='deleted a department-'. $this->getDepNamebyId($id);
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
        department::destroy($id);
 
@@ -109,7 +115,9 @@ class DepartmentController extends Controller
     public function updateDep(Request $request, $id)
     {
         $action ='updated a department-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
 

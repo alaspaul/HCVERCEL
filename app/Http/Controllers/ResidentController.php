@@ -60,7 +60,7 @@ class ResidentController extends Controller
          $newId = $date->year . $depId . 'R' . $latestorder;
 
 
-        resident::insert([
+        $resident = new resident([
             'resident_id' =>  $newId,
             'resident_userName' => $request['resident_userName'],
             'resident_fName' => $request['resident_fName'],
@@ -73,8 +73,11 @@ class ResidentController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $resident->save();
+
         $action ='added a new resident-'. $request['resident_lName']. $request['resident_fName'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('store');
     }
 
@@ -125,7 +128,8 @@ class ResidentController extends Controller
         resident::where('resident_id', $id)->update($dataToUpdate);
 
         $action ='updated a resident where id-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         return response('updated');
     }
@@ -137,8 +141,10 @@ class ResidentController extends Controller
     {
         $lname = resident::select('resident_lName')->where('resident_id', $id)->first()->resident_lName;
         $fname = resident::select('resident_fName')->where('resident_id', $id)->first()->resident_fName;
+
         $action ='deleted a resident-'. $lname. $fname;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
        resident::destroy($id);
 
        return response('deleted');
@@ -169,11 +175,21 @@ class ResidentController extends Controller
         resident::where('resident_id', $id)->update($dataToUpdate);
 
         $action ='updated a resident where id-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         return response('updated');
     }
 
-  
+    public function residentName($resident_id)
+    {
+        $lname = resident::select('resident_lName')->where('resident_id', $resident_id)->first()->resident_lName;
+        $fname = resident::select('resident_fName')->where('resident_id', $resident_id)->first()->resident_fName;
+        $mname = resident::select('resident_mName')->where('resident_id', $resident_id)->first()->resident_mName;
+
+
+
+        return ['lastName' => $lname, 'firstName' => $fname, 'middleName' => $mname];
+    }
    
 }

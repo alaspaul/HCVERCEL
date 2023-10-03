@@ -71,7 +71,7 @@ class RoomController extends Controller
 
 
 
-        room::insert([
+        $room = new room([
             'room_id' => $newId,
             'room_name' => $request['room_name'],
             'room_floor' => $request['room_floor'],
@@ -82,8 +82,11 @@ class RoomController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $room->save();
+
         $action ='added a new room-'. $request['room_name'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         return response('stored');
     }
@@ -121,7 +124,8 @@ class RoomController extends Controller
     {
         $name = room::select('room_name')->where('room_id', $id)->first()->room_name;
         $action ='deleted a floor-'. $name;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
        room::destroy($id);
 
        return response('deleted');
@@ -146,8 +150,8 @@ class RoomController extends Controller
 
         );
         $action ='updated a room where id-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('updated');
     }
 
@@ -165,7 +169,7 @@ class RoomController extends Controller
     }
 
 
-    public static function getRoomNamebyId($room_id){
+    public function getRoomNamebyId($room_id){
         $roomName = room::select('room_name')->where('room_id', $room_id)->first()->room_name;
 
         return $roomName;

@@ -36,7 +36,7 @@ class ResidentAssignedRoomController extends Controller
         $date = new Carbon( $time ); 
 
 
-        resident_assigned_room::insert([
+        $rar = new resident_assigned_room([
             'resAssRoom_id' => $date->year . $request['resident_id'] .  $request['room_id'],
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
@@ -45,15 +45,18 @@ class ResidentAssignedRoomController extends Controller
             'updated_at' => now(),
         ]);
 
-        $roomName = RoomController::getRoomNamebyId($request['room_id']);
-        $lname = resident::select('resident_lName')->where('resident_id', $request['resident_id'])->first()->resident_lName;
-        $fname = resident::select('resident_fName')->where('resident_id', $request['resident_id'])->first()->resident_fName;
-        $mname = resident::select('resident_mName')->where('resident_id', $request['resident_id'])->first()->resident_mName;
+        $rar->save();
 
+        $room = new RoomController;
+        $roomName = $room->getRoomNamebyId($request['room_id']);
 
-        $residentName = $lname . ', ' . $fname . ' ' . $mname;
-        $action ='assigned room-'. $roomName.' to resident-'. $residentName;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $resident = new ResidentController;
+        $residentName = $resident->residentName($request['resident_id']);
+
+        $resName = $residentName['lastName'] . ', ' . $residentName['lastName'] . ' ' . $residentName['lastName'];
+        $action ='assigned room-'. $roomName.' to resident-'. $resName;
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
     }
 
     /**
@@ -91,16 +94,21 @@ class ResidentAssignedRoomController extends Controller
     {
         $RAR = resident_assigned_room::where('resAssRoom_id', $id)->first();
 
-        $roomName = RoomController::getRoomNamebyId($RAR['room_id']);
-        $lname = resident::select('resident_lName')->where('resident_id', $RAR['resident_id'])->first()->resident_lName;
-        $fname = resident::select('resident_fName')->where('resident_id', $RAR['resident_id'])->first()->resident_fName;
-        $mname = resident::select('resident_mName')->where('resident_id', $RAR['resident_id'])->first()->resident_mName;
+
+        $room = new RoomController;
+        $roomName = $room->getRoomNamebyId($RAR['room_id']);
+
+        $resident = new ResidentController;
+        $residentName = $resident->residentName($RAR['resident_id']);
+        $resName = $residentName['lastName'] . ', ' . $residentName['lastName'] . ' ' . $residentName['lastName'];
 
 
-        $residentName = $lname . ', ' . $fname . ' ' . $mname;
-        $action ='unassigned resident-'. $residentName . ' from room-' . $roomName;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-        
+        $action ='unassigned resident-'. $resName . ' from room-' . $roomName;
+
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
+
+
         resident_assigned_room::destroy($id);
 
        
@@ -124,7 +132,8 @@ class ResidentAssignedRoomController extends Controller
         ]);
 
         $action ='updated Resident Assigned room where id-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+         $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('done');
     }
 
@@ -139,17 +148,6 @@ class ResidentAssignedRoomController extends Controller
     
     }
 
-
-    public function residentName($resident_id)
-    {
-        $lname = resident::select('resident_lName')->where('resident_id', $resident_id)->first()->resident_lName;
-        $fname = resident::select('resident_fName')->where('resident_id', $resident_id)->first()->resident_fName;
-        $mname = resident::select('resident_mName')->where('resident_id', $resident_id)->first()->resident_mName;
-
-
-
-        return response()->json(['lastName' => $lname, 'firstName' => $fname, 'middleName' => $mname]);
-    }
 
     public function roomName($room_id)
     {

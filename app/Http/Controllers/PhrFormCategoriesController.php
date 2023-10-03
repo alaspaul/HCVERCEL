@@ -37,8 +37,8 @@ class PhrFormCategoriesController extends Controller
         }while(!empty($id));
         }
          $newId = 'FC' . $latestorder;
-
-        phr_formCategories::insert([
+         
+        $formCat = new phr_formCategories([
            
             'formCat_id' => $newId,
             'formCat_name' => $request['formCat_name'],
@@ -47,9 +47,11 @@ class PhrFormCategoriesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $formCat->save();
 
         $action ='added a new par';
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 

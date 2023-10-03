@@ -23,8 +23,7 @@ class PatAssRoomController extends Controller
      */
     public static function store($patient_id, $room_id)
     {
-        patAssRoom::insert([
-           
+        $par = new patAssRoom([
             'par_id' =>  'PAR-'. $patient_id .$room_id,
             'patient_id' =>$patient_id,
             'room_id' => $room_id,
@@ -33,8 +32,11 @@ class PatAssRoomController extends Controller
             'updated_at' => now(),
         ]);
 
+        $par->save();
+
         $action ='added a new par';
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -61,8 +63,8 @@ class PatAssRoomController extends Controller
     {
 
         $action ='deleted a par-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         patAssRoom::destroy($id);
 
        
@@ -84,6 +86,10 @@ class PatAssRoomController extends Controller
         $dataToUpdate = [
             'room_id' =>  $request['room_id'],
          ];
+
+         $action ='transfered a patient -'. $patient_id;
+         $log = new ResActionLogController;
+         $log->store(Auth::user(), $action);
  
          patAssRoom::where('patient_id', $patient_id)->update($dataToUpdate);
          return response()->json('patient Transfered');
@@ -103,8 +109,8 @@ class PatAssRoomController extends Controller
     {
 
         $action ='checkedout a patient -'. $patient_id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         patAssRoom::where('patient_id', $patient_id)->delete();
 
        

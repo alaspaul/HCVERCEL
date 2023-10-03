@@ -52,7 +52,7 @@ class PatientMedicineController extends Controller
 
         $newId =  $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
 
-        patient_medicine::insert([
+        $patientMeds = new patient_medicine([
             'patientMedicine_id' =>  $newId,
             'patientMedicineDate' => $request['patientMedicineDate'],
             'medicine_frequency' => $request['medicine_frequency'],
@@ -62,13 +62,16 @@ class PatientMedicineController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        
+        $patientMeds->save();
 
         $medName = medicineController::getMedNamebyId($request['medicine_id']);
         $patient = PatientHealthRecordController::getPatientbyId($request['patient_id']);
         $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
 
         $action ='added a new medicine-'. $medName .' for patient-'. $patientName;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -105,8 +108,8 @@ class PatientMedicineController extends Controller
             ]);
 
         $action ='updated a medicine-'. $request['medicine_id'] .' for patient-'. $request['patient_id'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('updated');
     }
 
@@ -120,7 +123,8 @@ class PatientMedicineController extends Controller
         $patient = PatientHealthRecordController::getPatientbyId($meds['patient_id']);
         $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
         $action ='deleted a medicine-'. $medicineName . 'for patient-'.  $patientName;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
 
         patient_medicine::destroy($id);

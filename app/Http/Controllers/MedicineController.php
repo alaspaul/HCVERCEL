@@ -49,8 +49,7 @@ class medicineController extends Controller
 
         $newId = 'M' . $latestorder;
 
-        
-        medicine::insert([
+        $medicine = new medicine([
             'medicine_id' =>  $newId,
             'medicine_name' => $request['medicine_name'],
             'medicine_brand' => $request['medicine_brand'],
@@ -61,9 +60,12 @@ class medicineController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        
+        $medicine->save();
 
         $action ='added a new medicine-'. $request['medicine_name'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -102,7 +104,8 @@ class medicineController extends Controller
             ]);
             
             $action ='updated a medicine-'. $id;
-            app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+            $log = new ResActionLogController;
+            $log->store(Auth::user(), $action);
             return response('updated');
         
         
@@ -115,7 +118,8 @@ class medicineController extends Controller
     {
      
         $action ='deleted a medicine-'. $this->getMedNamebyId($id);
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
        medicine::destroy($id);
 
        
@@ -139,7 +143,8 @@ class medicineController extends Controller
             ]);
             
             $action ='updated a medicine where id-'. $id;
-            app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+            $log = new ResActionLogController;
+            $log->store(Auth::user(), $action);
             return response('updated');
         
         

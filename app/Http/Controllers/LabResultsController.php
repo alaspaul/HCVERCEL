@@ -46,20 +46,21 @@ class LabResultsController extends Controller
     }
 
         $newId =  $request['patient_id'] . 'L' . $latestorder;
+        $labResults = new lab_results([
+        'labResults_id' => $newId,
+        'labResultDate' => $request['labResultDate'],
+        'results' => $request['results'],
+        'patient_id' => $request['patient_id'],
 
-        lab_results::insert([
-            'labResults_id' => $newId,
-            'labResultDate' => $request['labResultDate'],
-            'results' => $request['results'],
-            'patient_id' => $request['patient_id'],
-
-            'created_at' => now(),
-            'updated_at' => now(),
+        'created_at' => now(),
+        'updated_at' => now(),
         ]);
 
-        $action ='created a new labResult-'.$newId.' for patient-'. $request['patient_id'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $labResults->save();
 
+        $action ='created a new labResult-'.$newId.' for patient-'. $request['patient_id'];
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -94,7 +95,8 @@ class LabResultsController extends Controller
             ]);
 
             $action ='updated labResult where id-'.$id;
-            app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+            $log = new ResActionLogController;
+            $log->store(Auth::user(), $action);
         return response('updated');
     }
 
@@ -105,7 +107,8 @@ class LabResultsController extends Controller
     {
 
         $action ='deleted labResult-'.$id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         lab_results::destroy($id);
 
        

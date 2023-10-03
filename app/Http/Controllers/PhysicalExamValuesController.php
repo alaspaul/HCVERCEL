@@ -44,7 +44,7 @@ class PhysicalExamValuesController extends Controller
         $newId = $request['patient_id'] . $attribute['PEA_id'] . '-' . $latestOrder;
 
          if(!empty($request[$attribute['PEA_name']])){
-         physicalExam_values::insert([
+         $PEV = new physicalExam_values([
            
             'PAV_id' => $newId,
             'PAV_value' => $request[$attribute['PEA_name']],
@@ -54,12 +54,14 @@ class PhysicalExamValuesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        $PEV->save();
     }else{
         $variable = 0;
         if($attribute['PEA_dataType'] == 'string'){
             $variable = 'none';
         }
-        physicalExam_values::insert([
+        $PEV = new physicalExam_values([
            
             'PAV_id' => $newId,
             'PAV_value' =>  $variable,
@@ -70,11 +72,12 @@ class PhysicalExamValuesController extends Controller
             'updated_at' => now(),
         ]);
         
-
+        $PEV->save();
     }
 }
         $action ='added a new physical exam for patient ' . $patient['patient_fName'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -100,7 +103,8 @@ class PhysicalExamValuesController extends Controller
     public function destroy($id)
     {
         $action ='deleted a Physical Exam Value-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         physicalExam_values::destroy($id);
 

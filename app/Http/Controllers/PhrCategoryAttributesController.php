@@ -39,8 +39,7 @@ class PhrCategoryAttributesController extends Controller
         }
          $newId = $formCat_id . 'CA' . $latestorder;
 
-        phr_categoryAttributes::insert([
-           
+         $categoryAtt = new phr_categoryAttributes([
             'categoryAtt_id' => $newId,
             'categoryAtt_name' => $request['categoryAtt_name'],
             'categoryAtt_dataType' => $request['categoryAtt_dataType'],
@@ -50,9 +49,12 @@ class PhrCategoryAttributesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $categoryAtt->save();
+
 
         $action ='added a new categoryAttribute';
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -78,8 +80,8 @@ class PhrCategoryAttributesController extends Controller
     public function destroy($id)
     {
         $action ='deleted a categoryAttribute-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         phr_categoryAttributes::destroy($id);
 
        

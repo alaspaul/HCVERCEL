@@ -32,8 +32,7 @@ class PhrAttributeValuesController extends Controller
             $id = $patient_id . '-' . $attribute['categoryAtt_id'];
 
             if(!empty($request[$attribute['categoryAtt_name']])){
-                phr_attributeValues::insert([
-           
+                $attributeVal = new phr_attributeValues([
                     'attributeVal_id' => $id,
                     'attributeVal_values' => $request[$attribute['categoryAtt_name']],
                     'patient_id' => $patient_id,
@@ -42,7 +41,9 @@ class PhrAttributeValuesController extends Controller
             
                      'created_at' => now(),
                      'updated_at' => now(),
-            ]);
+                ]);
+                
+                $attributeVal->save();
         }else{
             $variable = 0;
             if($attribute['categoryAtt_dataType'] == 'boolean'){
@@ -56,7 +57,7 @@ class PhrAttributeValuesController extends Controller
             }
 
 
-            phr_attributeValues::insert([
+            $attributeVal = new phr_attributeValues([
            
                 'attributeVal_id' => $id,
                 'attributeVal_values' => $variable,
@@ -66,14 +67,15 @@ class PhrAttributeValuesController extends Controller
         
                  'created_at' => now(),
                  'updated_at' => now(),
-        ]);
+             ]);
 
-
+             $attributeVal->save();
             
         }
     }
         $action ='added a new categoryAttribute';
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
        return response()->json('stored');
     
         
@@ -104,8 +106,8 @@ class PhrAttributeValuesController extends Controller
     public function destroy($id)
     {
         $action ='deleted an attribute value-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         phr_attributeValues::destroy($id);
 
        

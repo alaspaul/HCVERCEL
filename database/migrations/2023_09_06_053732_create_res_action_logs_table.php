@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('res_action_logs', function (Blueprint $table) {
             $table->string('RA_id')->primary();
-            $table->string('action');
+            $table->string('action',1000);
             $table->string('role');
             $table->string('user_id');
             $table->timestamps();

@@ -43,16 +43,19 @@ class FloorController extends Controller
     }
     $newId = 'F'. $latestorder;
 
-        floor::insert([
-            'floor_id' => $newId,
-            'floor_name' => $request['floor_name'],
+        $floor = new floor([ 'floor_id' => $newId,
+        'floor_name' => $request['floor_name'],
 
-            'created_at' => now(),
-            'updated_at' => now(),
+        'created_at' => now(),
+        'updated_at' => now()
         ]);
+     
+        $floor->save();
 
         $action ='created a new floor-'. $request['floor_name'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         return response('stored');
     }
@@ -79,8 +82,8 @@ class FloorController extends Controller
     public function update(Request $request, $id)
     {
         $action ='updated a floor where id-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         floor::where('floor_id', $id)->update(
             [
                 'floor_id' => $request['floor_id'],
@@ -99,7 +102,8 @@ class FloorController extends Controller
     public function destroy($id)
     {
         $action ='deleted a floor-'. $this->getFloorNamebyId($id);
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
        floor::destroy($id);
 
        
@@ -112,8 +116,8 @@ class FloorController extends Controller
        
         
         $action ='updated a floor where id-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
-
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         floor::where('floor_id', $id)->update(
             [
                 'floor_id' => $request['floor_id'],

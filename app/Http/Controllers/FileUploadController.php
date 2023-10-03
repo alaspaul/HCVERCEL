@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\patient;
 use File;
 use App\Models\fileUpload;
 use App\Http\Controllers\ResActionLogController;
@@ -26,10 +27,12 @@ class FileUploadController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         $file = $request->file('file');
         if(empty(fileUpload::where('file_name', $file->getClientOriginalName())->first())){
             $path = Storage::putFileAs(
-                'file',  $file,  $file->getClientOriginalName()
+                'file/'. $user['resident_id'],  $file,  $file->getClientOriginalName()
             );
         }else{
             return response()->json('file with filename ' . $file->getClientOriginalName() . ' already exist');
@@ -53,29 +56,37 @@ class FileUploadController extends Controller
     }
 
         $newId = $date->year . $date->month  . 'FU' . $latestorder;
+  
+        if($user['role'] == 'admin'){
+            return response()->json('admins cannot add a file to a patient');
+        }else{
 
-        fileUpload::insert([
-            'file_id' => $newId,
-            'file_path' => storage_path('app/file/' . $file->getClientOriginalName()),
-            'file_name'=> $file->getClientOriginalName(),
-            'file_size'=> $file->getSize(),
-            'file_ext'=> $file->extension(),
-            'patient_id' => $request['patient_id'],
-            'resident_id'=> $request['resident_id'],
+        $fileUpload = new fileUpload(['file_id' => $newId,
+        'file_path' => $path,
+        'file_name'=> $file->getClientOriginalName(),
+        'file_size'=> $file->getSize(),
+        'file_ext'=> $file->extension(),
+        'patient_id' => $request['patient_id'], 
+        'resident_id'=> $user['resident_id'],
 
-            'created_at' => now(),
+        'created_at' => now()
         ]);
-        
 
+        }
         
-
-        $patient = PatientHealthRecordController::getPatientbyId($request['patient_id']);
         
-        $roomName = RoomController::getRoomNamebyId($patient['room_id']);
-        $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
+        
+        $fileUpload->save();
+           
 
-        $action ='uploaded a file ' . $file->getClientOriginalName() .' for patient-' . $patientName. ' in Room-' . $roomName;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $patient = new PatientController;
+        $patientName = $patient->getPatientName($request['patient_id']);
+
+        $action ='uploaded a file ' . $file->getClientOriginalName() .' for patient-' . $patientName['patient_fName'];
+
+        $log = new ResActionLogController;
+
+        $log->store(Auth::user(), $action);
 
         return response()->json($file->getClientOriginalName().' file uploaded');
 
@@ -105,7 +116,9 @@ class FileUploadController extends Controller
         $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
 
         $action ='deleted a file ' . $file;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         Storage::delete('file/'.  $file);
         fileUpload::destroy($id);
@@ -119,10 +132,9 @@ class FileUploadController extends Controller
       
 
         $file = fileUpload::where('file_id', $file_id)->first();
-       
-        $pathToFile = storage_path('app/file/' . $file);
+        $pathToFile = storage_path('app\\' . $file['file_path']);
 
-        return response()->download($file['file_path']);
+        return response()->download($pathToFile);
     }
 
     public function getFiles(request $request)
@@ -139,9 +151,9 @@ class FileUploadController extends Controller
     public function viewFile($id)
     {
         $file = fileUpload::where('file_id', $id)->first();
-        $pathToFile = storage_path('app/file/' . $file);
+        $pathToFile = storage_path('app\\' . $file['file_path']);
 
-        return response()->json($file['file_path']);
+        return response()->file($pathToFile);
     }
 
 }

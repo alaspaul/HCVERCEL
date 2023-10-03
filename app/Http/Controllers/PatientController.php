@@ -40,9 +40,8 @@ class PatientController extends Controller
         }while(!empty($id));
         }
          $newId = $date->year  . 'P' . $latestorder;
-  
-         patient::insert([
-           
+        
+         $patient = new patient([
             'patient_id' =>  $newId,
             'patient_fName' => $request['patient_fName'],
             'patient_lName' => $request['patient_lName'],
@@ -52,14 +51,18 @@ class PatientController extends Controller
 
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+         ]);
+         
+         $patient->save();
 
         PatAssRoomController::store($newId, $request['room_id']);
         PhrAttributeValuesController::store($request, $newId);
 
 
         $action ='added a new patient-'. $request['patient_fName'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
+
         return response('stored');
     }
 
@@ -95,7 +98,8 @@ class PatientController extends Controller
         $lname = patient::select('patient_lName')->where('patient_id', $id)->first()->patient_lName;
         $fname = patient::select('patient_fName')->where('patient_id', $id)->first()->patient_fName;
         $action ='deleted a patient-'. $lname. $fname;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         patient::destroy($id);
 
        
@@ -109,13 +113,13 @@ class PatientController extends Controller
             if($patient == null){
                 return 'no matches';
             }
-            return response()->json(['patient_fName'=>$patient['patient_fName'],'patient_lName'=>$patient['patient_lName']]);
+            return ['patient_fName'=>$patient['patient_fName'],'patient_lName'=>$patient['patient_lName']];
         }catch(\Exception $e){
             return response()->json(['error'=>'patient not found'], 404);
         }
     }
 
-    public static function getPatientbyId($patient_id){
+    public function getPatientbyId($patient_id){
         $patient = patient::where('patient_id', $patient_id)->first();
 
         return $patient;

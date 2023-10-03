@@ -36,7 +36,7 @@ class PhysicalExamCategoriesController extends Controller
         }
          $newId = 'PE' . $latestorder;
 
-         physicalExam_categories::insert([
+         $PEC = new physicalExam_categories([
            
             'physicalExam_id' => $newId,
             'PE_name' => $request['PE_name'],
@@ -46,9 +46,11 @@ class PhysicalExamCategoriesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $PEC->save();
 
         $action ='added a new physicalExam Category';
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
         return response('stored');
     }
 
@@ -75,7 +77,8 @@ class PhysicalExamCategoriesController extends Controller
     {
         $PE = physicalExam_categories::where('physicalExam_id', $id)->first();
         $action ='deleted a Physical Exam Category-'. $PE['PE_name'];
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         physicalExam_categories::destroy($id);
 
