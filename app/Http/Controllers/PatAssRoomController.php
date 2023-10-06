@@ -117,4 +117,16 @@ class PatAssRoomController extends Controller
         return response('checkedout');
     }
 
+    public function getPatient($patient_id)
+    {
+
+       $patient = new PatientController;
+
+       $pat = $patient->getPatientbyId($patient_id);
+
+
+
+       return $pat;
+    }
+
 }

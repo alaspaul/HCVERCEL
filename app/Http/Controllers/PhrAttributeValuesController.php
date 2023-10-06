@@ -95,15 +95,33 @@ class PhrAttributeValuesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, phr_attributeValues $phr_attributeValues)
+    public function update($patient_id, Request $request)
     {
-        //
+        $attributes = phr_categoryAttributes::all();
+
+        foreach($attributes as $attribute){
+       
+            if(!empty($request[$attribute['categoryAtt_name']])){
+     
+        
+                phr_attributeValues::where('categoryAtt_id', $attribute['categoryAtt_id'])
+                                    ->where('patient_id', $patient_id)
+                                    ->update([
+                    'attributeVal_values' => $request[$attribute['categoryAtt_name']],
+                    'updated_at' => now()
+                ]);
+
+
+        }else{}
+
+        }
+        return response()->json('phr updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+     public function destroy($id)
     {
         $action ='deleted an attribute value-'. $id;
         $log = new ResActionLogController;
@@ -114,7 +132,20 @@ class PhrAttributeValuesController extends Controller
         return response('deleted');
     }
 
+    public function getPHR($patient_id){
+        $PAV = phr_attributeValues::where('patient_id', $patient_id)->get();
 
 
+        return response()->json($PAV);
+    }
+
+    public function getAttributeName($categoryAtt_id){
+        $attribute = new PhrCategoryAttributesController;
+
+        $attributeName = $attribute->getAttributeName($categoryAtt_id);
+
+        return $attributeName;
+
+    }
 
 }

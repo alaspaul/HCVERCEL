@@ -85,9 +85,21 @@ class PatientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, patient $patient)
-    {
-        //
+    public function update($patient_id, Request $request)
+    {   
+        
+
+        $data = $request->all();
+        $dateToUpdate = array();
+        
+        foreach($data as $name => $value){
+            $dataToUpdate[$name] = $value;
+        }
+
+
+        patient::where('patient_id', $patient_id)->update($dataToUpdate);
+
+        return response()->json('patient updated');
     }
 
     /**
@@ -122,7 +134,8 @@ class PatientController extends Controller
     public function getPatientbyId($patient_id){
         $patient = patient::where('patient_id', $patient_id)->first();
 
-        return $patient;
+        return response()->json($patient);
     }
     
+
 }
