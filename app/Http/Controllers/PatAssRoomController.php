@@ -99,7 +99,11 @@ class PatAssRoomController extends Controller
 
     public function getPatientbyRoom($room_id){
 
-        $patient = patAssRoom::where('room_id', $room_id)->get();
+        $patient_id = patAssRoom::where('room_id', $room_id)->first()->patient_id;
+
+        $pat = new PatientController;
+
+        $patient = $pat->getPatientbyId($patient_id);
 
         return response()->json($patient);
     }
