@@ -150,10 +150,10 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
     Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
-
     Route::apiResource('patients', PatientController::class);
     Route::get('patients/getPatientName/{id}', [PatientController::class, 'getPatientName'])->name('patients.getPatientName');
     Route::get('patients/getPatientbyId/{id}', [PatientController::class, 'getPatientbyId'])->name('patients.getPatientbyId');
+    Route::get('patients/getPatientRoom/{id}', [PatientController::class, 'getPatientRoom'])->name('patients.getPatientRoom');
 
     Route::apiResource('formCategories', PhrFormCategoriesController::class);
 
@@ -172,6 +172,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('patAssRooms/getPatientbyRoom/{room_id}', [PatAssRoomController::class, 'getPatientbyRoom'])->name('patAssRooms.getPatientbyRoom');
     Route::get('patAssRooms/checkout/{patient_id}', [PatAssRoomController::class, 'checkout'])->name('patAssRooms.checkout');
     Route::get('patAssRooms/getPatient/{patient_id}', [PatAssRoomController::class, 'getPatient'])->name('patAssRooms.getPatient');
+    Route::get('patAssRooms/getRoombyPatient/{patient_id}', [PatAssRoomController::class, 'getRoombyPatient'])->name('patAssRooms.getRoombyPatient');
 
 
     Route::apiResource('physicalExam/categories', PhysicalExamCategoriesController::class);

@@ -6,7 +6,7 @@ use App\Models\patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use DB;
 class PatientController extends Controller
 {
     /**
@@ -15,7 +15,7 @@ class PatientController extends Controller
     public function index()
     {
         $data = patient::all();
-
+    
         return response()->json($data);
     }
 
@@ -135,6 +135,25 @@ class PatientController extends Controller
         $patient = patient::where('patient_id', $patient_id)->first();
 
         return response()->json($patient);
+    }
+
+
+
+    public function getPatientRoom($patient_id){
+        $par = new PatAssRoomController;
+        $room = $par->getRoombyPatient($patient_id);
+
+        return $room;
+    }
+
+    public function webPatients(){
+
+        $data = DB::table('patients')
+        ->join('pat_ass_rooms', 'patients.patient_id', '=', 'pat_ass_rooms.patient_id')// joining the contacts table , where user_id and contact_user_id are same
+        ->join('rooms', 'pat_ass_rooms.room_id', '=', 'rooms.room_id')
+        ->get();
+
+        return response()->json($data);
     }
     
 

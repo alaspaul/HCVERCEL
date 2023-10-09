@@ -128,9 +128,20 @@ class PatAssRoomController extends Controller
 
        $pat = $patient->getPatientbyId($patient_id);
 
-
-
        return $pat;
+    }
+
+    
+
+    public function getRoombyPatient($patient_id)
+    {
+       $par = patAssRoom::where('patient_id', $patient_id)->first();
+   
+       $roomCon = new RoomController;
+
+       $room = $roomCon->getRoom($par->room_id);
+
+       return $room;
     }
 
 }
