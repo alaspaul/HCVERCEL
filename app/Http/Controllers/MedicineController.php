@@ -90,7 +90,8 @@ class medicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        medicine::where('medicine_id', $id)->update(
+        $medicine = new medicine;
+        $medicine->where('medicine_id', $id)->update(
             [        
                 'medicine_id' => $request['medicine_id'],
                 'medicine_name' => $request['medicine_name'],
@@ -120,39 +121,18 @@ class medicineController extends Controller
         $action ='deleted a medicine-'. $this->getMedNamebyId($id);
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-       medicine::destroy($id);
+        
+        $medicine = new medicine;
+        $medicine->destroy($id);
 
        
        return response('deleted');
     }
 
 
-    public function updateMeds(Request $request, $id)
-    {
-        medicine::where('medicine_id', $id)->update(
-            [        
-                'medicine_id' => $request[' medicine_id'],
-                'medicine_name' => $request['medicine_name'],
-                'medicine_brand' => $request['medicine_brand'],
-                'medicine_dosage' => $request['medicine_dosage'],
-                'medicine_type' => $request['medicine_type'],
-                'medicine_price' => $request['medicine_price'],
-    
-
-            'updated_at' => now(),
-            ]);
-            
-            $action ='updated a medicine where id-'. $id;
-            $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
-            return response('updated');
-        
-        
-
-    }
-
     public static function getMedNamebyId($medicine_id){
-        $name = medicine::select('medicine_name')->where('medicine_id', $medicine_id)->first()->medicine_name;
+        $medicine = new medicine;
+        $name = $medicine->select('medicine_name')->where('medicine_id', $medicine_id)->first()->medicine_name;
 
 
         return $name;

@@ -132,8 +132,9 @@ class ResidentAssignedRoomController extends Controller
         ]);
 
         $action ='updated Resident Assigned room where id-'. $id;
-         $log = new ResActionLogController;
+        $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        
         return response('done');
     }
 

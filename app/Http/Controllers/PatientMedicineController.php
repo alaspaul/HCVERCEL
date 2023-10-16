@@ -65,8 +65,11 @@ class PatientMedicineController extends Controller
         
         $patientMeds->save();
 
-        $medName = medicineController::getMedNamebyId($request['medicine_id']);
-        $patient = PatientHealthRecordController::getPatientbyId($request['patient_id']);
+        $medicineController = new medicineController;
+        $medName = $medicineController->getMedNamebyId($request['medicine_id']);
+
+        $patientController = new patientController;
+        $patient = $patientController->getPatientbyId($request['patient_id']);
         $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
 
         $action ='added a new medicine-'. $medName .' for patient-'. $patientName;
@@ -96,7 +99,8 @@ class PatientMedicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        patient_medicine::where('patientMedicine_id', $id)->update(
+        $patientMeds = new patient_medicine;
+        $patientMeds->where('patientMedicine_id', $id)->update(
             [
                 'patientMedicine_id' => $request['patientMedicine_id'],
                 'patientMedicineDate' => $request['patientMedicineDate'],
@@ -118,16 +122,26 @@ class PatientMedicineController extends Controller
      */
     public function destroy($id)
     {
-        $meds = patient_medicine::where('patientMedicine_id', $id)->first();
-        $medicineName = medicineController::getMedNamebyId($meds['medicine_id']);
-        $patient = PatientHealthRecordController::getPatientbyId($meds['patient_id']);
+        $patientMeds = new patient_medicine;
+        $meds = $patientMeds->where('patientMedicine_id', $id)->first();
+
+        $medicineController = new medicineController;
+        $medicineName =  $medicineController->getMedNamebyId($meds['medicine_id']);
+
+        $patientController = new patientController;
+        $patient = $patientController->getPatientbyId($meds['patient_id']);
+
+
         $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
         $action ='deleted a medicine-'. $medicineName . 'for patient-'.  $patientName;
+
+
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
 
-        patient_medicine::destroy($id);
+        $patientMeds->destroy($id);
         return response('deleted');
     }
 }
+ 

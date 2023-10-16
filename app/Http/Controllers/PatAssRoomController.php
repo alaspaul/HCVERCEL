@@ -65,7 +65,9 @@ class PatAssRoomController extends Controller
         $action ='deleted a par-'. $id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        patAssRoom::destroy($id);
+
+        $patAssRoom = new patAssRoom;
+        $patAssRoom->destroy($id);
 
        
         return response('deleted');
@@ -74,8 +76,9 @@ class PatAssRoomController extends Controller
 
 
     public function getAvailableRooms(){
+        $patAssRoom = new patAssRoom;
 
-        $occupiedRooms = patAssRoom::where('room_id','!=',null)->pluck('room_id');
+        $occupiedRooms = $patAssRoom->where('room_id','!=',null)->pluck('room_id');
         $rooms = DB::table('rooms')->whereNotIn('room_id',  $occupiedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
         return response()->json($rooms);
         
@@ -91,7 +94,8 @@ class PatAssRoomController extends Controller
          $log = new ResActionLogController;
          $log->store(Auth::user(), $action);
  
-         patAssRoom::where('patient_id', $patient_id)->update($dataToUpdate);
+         $patAssRoom = new patAssRoom;
+         $patAssRoom->where('patient_id', $patient_id)->update($dataToUpdate);
          return response()->json('patient Transfered');
         
     }
@@ -99,7 +103,9 @@ class PatAssRoomController extends Controller
 
     public function getPatientbyRoom($room_id){
 
-        $patient_id = patAssRoom::where('room_id', $room_id)->first()->patient_id;
+        $patAssRoom = new patAssRoom;
+
+        $patient_id =  $patAssRoom->updateTimestampswhere('room_id', $room_id)->first()->patient_id;
 
         $pat = new PatientController;
 
@@ -115,7 +121,9 @@ class PatAssRoomController extends Controller
         $action ='checkedout a patient -'. $patient_id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        patAssRoom::where('patient_id', $patient_id)->delete();
+
+        $patAssRoom = new patAssRoom;
+        $patAssRoom->where('patient_id', $patient_id)->delete();
 
        
         return response('checkedout');
@@ -135,7 +143,8 @@ class PatAssRoomController extends Controller
 
     public function getRoombyPatient($patient_id)
     {
-       $par = patAssRoom::where('patient_id', $patient_id)->first();
+       $patAssRoom = new patAssRoom;
+       $par =  $patAssRoom->where('patient_id', $patient_id)->first();
    
        $roomCon = new RoomController;
 

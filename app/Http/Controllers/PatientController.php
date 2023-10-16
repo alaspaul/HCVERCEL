@@ -55,8 +55,11 @@ class PatientController extends Controller
          
          $patient->save();
 
-        PatAssRoomController::store($newId, $request['room_id']);
-        PhrAttributeValuesController::store($request, $newId);
+        $PatAssRoomController = new PatAssRoomController;
+        $PatAssRoomController->store($newId, $request['room_id']);
+
+        $PhrAttributeValuesController = new PhrAttributeValuesController;
+        $PhrAttributeValuesController->store($request, $newId);
 
 
         $action ='added a new patient-'. $request['patient_fName'];
@@ -72,7 +75,8 @@ class PatientController extends Controller
     public function show($patient_id)
     {
         try{
-            $patient = patient::where('patient_id',$patient_id)->first();
+            $patient = new patient;
+            $patient = $patient->where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
@@ -96,8 +100,8 @@ class PatientController extends Controller
             $dataToUpdate[$name] = $value;
         }
 
-
-        patient::where('patient_id', $patient_id)->update($dataToUpdate);
+        $patient = new patient;
+        $patient->where('patient_id', $patient_id)->update($dataToUpdate);
 
         return response()->json('patient updated');
     }
@@ -112,7 +116,9 @@ class PatientController extends Controller
         $action ='deleted a patient-'. $lname. $fname;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        patient::destroy($id);
+
+        $patient = new patient;
+        $patient->destroy($id);
 
        
         return response('deleted');
@@ -121,7 +127,8 @@ class PatientController extends Controller
     public function getPatientName($patient_id)
     {
         try{
-            $patient = patient::where('patient_id',$patient_id)->first();
+            $pat = new patient;
+            $patient = $pat->where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
@@ -132,7 +139,8 @@ class PatientController extends Controller
     }
 
     public function getPatientbyId($patient_id){
-        $patient = patient::where('patient_id', $patient_id)->first();
+        $pat = new patient;
+        $patient = $pat->where('patient_id', $patient_id)->first();
 
         return response()->json($patient);
     }
@@ -146,15 +154,7 @@ class PatientController extends Controller
         return $room;
     }
 
-    public function webPatients(){
 
-        $data = DB::table('patients')
-        ->join('pat_ass_rooms', 'patients.patient_id', '=', 'pat_ass_rooms.patient_id')// joining the contacts table , where user_id and contact_user_id are same
-        ->join('rooms', 'pat_ass_rooms.room_id', '=', 'rooms.room_id')
-        ->get();
-
-        return response()->json($data);
-    }
     
 
 }

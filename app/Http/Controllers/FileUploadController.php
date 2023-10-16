@@ -112,8 +112,8 @@ class FileUploadController extends Controller
      */
     public function destroy($id)
     {
-
-        $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
+        $fileUpload = new fileUpload;
+        $file = $fileUpload->select('file_name')->where('file_id', $id)->first()->file_name;
 
         $action ='deleted a file ' . $file;
 
@@ -130,8 +130,8 @@ class FileUploadController extends Controller
     public function download($file_id)
     {
       
-
-        $file = fileUpload::where('file_id', $file_id)->first();
+        $fileUpload = new fileUpload;
+        $file = $fileUpload->where('file_id', $file_id)->first();
         $pathToFile = storage_path('app\\' . $file['file_path']);
 
         return response()->download($pathToFile);
@@ -142,7 +142,8 @@ class FileUploadController extends Controller
         $resId = $request['resident_id'];
         $patId = $request['patient_id'];
 
-        $data = fileUpload::where('resident_id', $resId)->where('patient_id', $patId)->get();
+        $fileUpload = new fileUpload;
+        $data = $fileUpload->where('resident_id', $resId)->where('patient_id', $patId)->get();
 
 
         return response()->json($data);
@@ -150,7 +151,8 @@ class FileUploadController extends Controller
 
     public function viewFile($id)
     {
-        $file = fileUpload::where('file_id', $id)->first();
+        $fileUpload = new fileUpload;
+        $file = $fileUpload->where('file_id', $id)->first();
         $pathToFile = storage_path('app\\' . $file['file_path']);
 
         return response()->file($pathToFile);

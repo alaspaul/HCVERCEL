@@ -3,6 +3,9 @@
 
 
 
+use App\Http\Controllers\ChatGroupController;
+use App\Http\Controllers\ChatGroupMessagesController;
+use App\Http\Controllers\ChatGroupUsersController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\LabResultsController;
 use App\Http\Controllers\PatAssRoomController;
@@ -72,10 +75,8 @@ Route::group(['middleware' => 'auth:adminApi', 'prefix' => 'admin'],function(){
 
 
     Route::apiResource('departments', DepartmentController::class);
-    Route::POST('departments/edit{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
-    Route::POST('departments/updateDep{department}', [DepartmentController::class, 'updateDep'])->name('departments.updateDep');
-
-
+    Route::POST('departments/getDepNamebyId/{department_id}', [DepartmentController::class, 'getDepNamebyId'])->name('departments.getDepNamebyId');
+  
     Route::apiResource('medicines', medicineController::class);
     Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
     Route::POST('medicines/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicines.updateMeds');
@@ -142,9 +143,8 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
 
     Route::apiResource('departments', DepartmentController::class);
-    Route::POST('departments/edit{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
-    Route::POST('departments/updateDep{department}', [DepartmentController::class, 'updateDep'])->name('departments.updateDep');
-
+    Route::get('departments/getDepNamebyId/{department_id}', [DepartmentController::class, 'getDepNamebyId'])->name('departments.getDepNamebyId');
+  
 
     Route::apiResource('floors', FloorController::class);
     Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
@@ -178,6 +178,18 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::apiResource('physicalExam/categories', PhysicalExamCategoriesController::class);
     Route::apiResource('physicalExam/attributes', PhysicalExamAttributesController::class);
     Route::apiResource('physicalExam/values', PhysicalExamValuesController::class);
+
+
+    Route::apiResource('chatGroup', ChatGroupController::class);
+
+    
+    Route::apiResource('chatGroupMessages', ChatGroupMessagesController::class);
+    Route::get('chatGroupMessages/get/GroupMessages/{chatGroup_id}', [ChatGroupMessagesController::class, 'getGroupMessages'])->name('chatGroupMessages.GroupMessages');
+
+    
+    Route::apiResource('chatGroupUsers', ChatGroupUsersController::class);
+    Route::get('chatGroupUsers/get/allGroups', [ChatGroupUsersController::class, 'allGroups'])->name('chatGroupUsers.allGroups');
+    Route::get('chatGroupUsers/get/allUsersinGroup/{chatGroup_id}', [ChatGroupUsersController::class, 'allUsersinGroup'])->name('chatGroupUsers.allUsersinGroup');
 
 });
 

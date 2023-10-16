@@ -89,7 +89,8 @@ class DepartmentController extends Controller
         
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
+        $department = new department;
+        $department->where('department_id', $id)->update(['department_name' => $request['department_name']]);
 
         return response('done');
         
@@ -104,29 +105,20 @@ class DepartmentController extends Controller
         $action ='deleted a department-'. $this->getDepNamebyId($id);
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-
-       department::destroy($id);
+        
+        $department = new department;
+        $department->destroy($id);
 
        
        return response('deleted');
     }
 
 
-    public function updateDep(Request $request, $id)
-    {
-        $action ='updated a department-'. $id;
-
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
-
-        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
-
-        return response('updated');
-
-    }
 
     public function getDepNamebyId($department_id){
-        $name = department::select('department_name')->where('department_id', $department_id)->first()->department_name;
+
+        $department = new department;
+        $name = $department->select('department_name')->where('department_id', $department_id)->first()->department_name;
 
 
         return $name;

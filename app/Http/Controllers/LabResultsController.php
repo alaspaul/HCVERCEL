@@ -85,7 +85,9 @@ class LabResultsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        lab_results::where('labResults_id', $id)->update(
+        $labResults = new lab_results;
+
+        $labResults->where('labResults_id', $id)->update(
             [
                 'labResults_id' => $request['labResults_id'],
                 'labResultDate' => $request['labResultDate'],
@@ -109,7 +111,9 @@ class LabResultsController extends Controller
         $action ='deleted labResult-'.$id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        lab_results::destroy($id);
+
+        $labResults = new lab_results;
+        $labResults->destroy($id);
 
        
         return response('deleted');
