@@ -16,7 +16,7 @@ class authCheck
     public function handle(Request $request, Closure $next): Response
     {
         if(!Session()->has('loggedUser') && ($request->path() !='/')){
-            return redirect()->route('login')->with('fail', 'please login');
+            return redirect()->route('loginRes')->with('fail', 'please login');
         }
 
         

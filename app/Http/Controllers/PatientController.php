@@ -154,6 +154,13 @@ class PatientController extends Controller
         return $room;
     }
 
+    public function addPhr(request $request, $patient_id){
+        $PhrAttributeValuesController = new PhrAttributeValuesController;
+        $PhrAttributeValuesController->store($request, $patient_id);
+
+        return response('phr added');
+    }
+
 
     
 

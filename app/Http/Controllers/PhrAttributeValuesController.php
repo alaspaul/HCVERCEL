@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\phr_attributeValues;
 use App\Models\phr_categoryAttributes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 class PhrAttributeValuesController extends Controller
 {
@@ -29,7 +30,24 @@ class PhrAttributeValuesController extends Controller
         foreach($attributes as $attribute){
       
         
-            $id = $patient_id . '-' . $attribute['categoryAtt_id'];
+  
+            $exit = 0;
+            $latestOrder = 0;
+
+
+            while($exit == 0){
+                $thisId = $patient_id . '-' . $attribute['categoryAtt_id'] . '-' . $latestOrder;
+                if(!empty(phr_attributeValues::where('attributeVal_id', $thisId)->first()->categoryAtt_id)){
+                    $exit = 0;
+                    $latestOrder++;
+                }else{
+                    $exit = 1;
+                }
+            }
+
+
+
+            $id = $patient_id . '-' . $attribute['categoryAtt_id'] . '-' . $latestOrder;
 
             if(!empty($request[$attribute['categoryAtt_name']])){
                 $attributeVal = new phr_attributeValues([
@@ -65,8 +83,8 @@ class PhrAttributeValuesController extends Controller
                 'categoryAtt_id' => $attribute['categoryAtt_id'],
 
         
-                 'created_at' => now(),
-                 'updated_at' => now(),
+                 'created_at' => Carbon::today()->toDateString(),
+                 'updated_at' => Carbon::today()->toDateString(),
              ]);
 
              $attributeVal->save();
@@ -148,4 +166,50 @@ class PhrAttributeValuesController extends Controller
 
     }
 
+
+    public function getPhrDates($patient_id){
+        $PAV = new phr_attributeValues;
+
+        $dates = $PAV->select('created_at')->distinct()->where('patient_id', $patient_id)->get();
+
+        
+        return $dates->pluck('created_at');
+    }
+
+    public function getPhrbyDate($patient_id, request $request){
+        $PAV = new phr_attributeValues;
+
+        $phr = $PAV->where('created_at', $request['date'])->where('patient_id', $patient_id)->get();
+      
+        return $phr;
+    }
+
+
+    public function comparePhr($patient_id, request $request){
+        $PAV1 = new phr_attributeValues;
+
+        $phr1 = $PAV1->where('created_at', $request['date1'])->where('patient_id', $patient_id)->get();
+
+        $PAV2 = new phr_attributeValues;
+
+        $phr2 = $PAV2->where('created_at', $request['date2'])->where('patient_id', $patient_id)->get();
+
+        $array = [];
+
+        $PCA = new phr_categoryAttributes;
+
+        $length = $PCA->count(); 
+
+        
+        for($i = 0; $i < $length; $i++){
+            if($phr1[$i]['attributeVal_values'] != $phr2[$i]['attributeVal_values']){
+                $array[$i] = $this->getAttributeName($phr1[$i]['categoryAtt_id']) . 
+                             ' is changed from ' . $phr1[$i]['attributeVal_values'] . ' to ' . 
+                             $phr2[$i]['attributeVal_values']. ' on ' . $phr2[$i]['created_at'];
+            }
+        }
+    
+
+        return $array;
+    }
 }

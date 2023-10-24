@@ -94,6 +94,6 @@ class PhrCategoryAttributesController extends Controller
         $AttributeName = phr_categoryAttributes::where('categoryAtt_id', $categoryAtt_id)->first()->categoryAtt_name;
 
 
-        return response()->json($AttributeName);
+        return $AttributeName;
     }
 }

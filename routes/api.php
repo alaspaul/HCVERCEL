@@ -18,8 +18,6 @@ use App\Http\Controllers\PhysicalExamAttributesController;
 use App\Http\Controllers\PhysicalExamCategoriesController;
 use App\Http\Controllers\PhysicalExamValuesController;
 use App\Http\Controllers\ResActionLogController;
-use App\Models\fileUpload;
-use App\Models\patient_medicine;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
@@ -28,9 +26,7 @@ use App\Http\Controllers\ResidentAssignedRoomController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\FloorController;
 use App\Http\Controllers\medicineController;
-use App\Http\Controllers\PatientHealthRecordController;
 use App\Http\Controllers\loginController;
-use App\Http\Controllers\PhysicalExamController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VitalController;
 
@@ -123,8 +119,6 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::apiResource('patientMedicines', PatientMedicineController::class);
 
     Route::apiResource('results', LabResultsController::class);
-    
-    Route::apiResource('patientHealthRecord', PatientHealthRecordController::class);
 
 
     Route::apiResource('residents', ResidentController::class);
@@ -154,6 +148,8 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('patients/getPatientName/{id}', [PatientController::class, 'getPatientName'])->name('patients.getPatientName');
     Route::get('patients/getPatientbyId/{id}', [PatientController::class, 'getPatientbyId'])->name('patients.getPatientbyId');
     Route::get('patients/getPatientRoom/{id}', [PatientController::class, 'getPatientRoom'])->name('patients.getPatientRoom');
+    Route::post('patients/addPhr/{id}', [PatientController::class, 'addPhr'])->name('patients.addPhr');
+
 
     Route::apiResource('formCategories', PhrFormCategoriesController::class);
 
@@ -163,8 +159,9 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::apiResource('attributeValues', PhrAttributeValuesController::class);
     Route::get('attributeValues/getPHR/{patient_id}', [PhrAttributeValuesController::class, 'getPHR'])->name('attributeValues.getPHR');
     Route::get('attributeValues/getAttributeName/{id}', [PhrAttributeValuesController::class, 'getAttributeName'])->name('attributeValues.getAttributeName');
-
-
+    Route::get('attributeValues/getPhrDates/{patient_id}', [PhrAttributeValuesController::class, 'getPhrDates'])->name('attributeValues.getPhrDates');
+    Route::get('attributeValues/getPhrbyDate/{patient_id}', [PhrAttributeValuesController::class, 'getPhrbyDate'])->name('attributeValues.getPhrbyDate');
+    Route::get('attributeValues/comparePhr/{patient_id}', [PhrAttributeValuesController::class, 'comparePhr'])->name('attributeValues.comparePhr');
 
     Route::apiResource('patAssRooms', PatAssRoomController::class);
     Route::put('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');

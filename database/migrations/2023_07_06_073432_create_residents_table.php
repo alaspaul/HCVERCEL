@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('role');
             $table->rememberToken();
             $table->string('department_id');
+            
             $table->timestamps();
 
             $table->foreign('department_id')->references('department_id')->on('departments')     
