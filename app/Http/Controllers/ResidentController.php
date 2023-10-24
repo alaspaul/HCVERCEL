@@ -164,11 +164,10 @@ class ResidentController extends Controller
             'updated_at' => now(),
         ];
 
-        // Check if the password field is empty, if so, remove it from the update array
+      
         if (empty($request['resident_password'])) {
             unset($dataToUpdate['resident_password']);
         } else {
-            // If the password is not empty, update it in the array
             $dataToUpdate['resident_password'] = bcrypt($request['resident_password']);
         }
 
