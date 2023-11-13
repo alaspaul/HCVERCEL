@@ -60,7 +60,7 @@ class ResidentController extends Controller
          $newId = $date->year . $depId . 'R' . $latestorder;
 
 
-        $resident = new resident([
+         resident::insert([
             'resident_id' =>  $newId,
             'resident_userName' => $request['resident_userName'],
             'resident_fName' => $request['resident_fName'],
@@ -73,7 +73,7 @@ class ResidentController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $resident->save();
+       
 
         $action ='added a new resident-'. $request['resident_lName']. $request['resident_fName'];
         $log = new ResActionLogController;

@@ -38,7 +38,7 @@ class PhysicalExamAttributesController extends Controller
 
          $newId = $physicalExam_id . 'PEA' . $latestorder;
 
-         $PEA = new physicalExam_Attributes([
+         physicalExam_Attributes::insert([
            
             'PEA_id' => $newId,
             'PEA_name' => $request['PEA_name'],
@@ -49,7 +49,7 @@ class PhysicalExamAttributesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $PEA->save();
+
 
 
 
@@ -63,7 +63,7 @@ class PhysicalExamAttributesController extends Controller
             }
 
         $specifyId = $physicalExam_id . 'PEA' . $latestorder+1;
-        $SPEA = new physicalExam_Attributes([
+        physicalExam_Attributes::insert([
            
             'PEA_id' => $specifyId,
             'PEA_name' => 'specify_' . $request['PEA_name'],
@@ -74,7 +74,7 @@ class PhysicalExamAttributesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $SPEA->save();
+
 
         $action ='added a new Physical Exam Attribute';
 

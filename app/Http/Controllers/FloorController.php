@@ -43,14 +43,14 @@ class FloorController extends Controller
     }
     $newId = 'F'. $latestorder;
 
-        $floor = new floor([ 'floor_id' => $newId,
+         floor::insert([ 'floor_id' => $newId,
         'floor_name' => $request['floor_name'],
 
         'created_at' => now(),
         'updated_at' => now()
         ]);
      
-        $floor->save();
+    
 
         $action ='created a new floor-'. $request['floor_name'];
 
@@ -85,9 +85,7 @@ class FloorController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $floor = new floor;
-
-        $floor->where('floor_id', $id)->update(
+        floor::where('floor_id', $id)->update(
             [
                 'floor_id' => $request['floor_id'],
                 'floor_name' => $request['floor_name'],
@@ -108,8 +106,7 @@ class FloorController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $floor = new floor;
-        $floor->destroy($id);
+        floor::destroy($id);
 
        
        return response('deleted');
@@ -124,8 +121,7 @@ class FloorController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $floor = new floor;
-        $floor->where('floor_id', $id)->update(
+        floor::where('floor_id', $id)->update(
             [
                 'floor_id' => $request['floor_id'],
                 'floor_name' => $request['floor_name'],
@@ -140,8 +136,7 @@ class FloorController extends Controller
 
     public function getFloorNamebyId($floor_id){
 
-        $floor = new floor;
-        $name = $floor->select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
+        $name = floor::select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
 
 
         return $name;

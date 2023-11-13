@@ -36,7 +36,7 @@ class PhysicalExamCategoriesController extends Controller
         }
          $newId = 'PE' . $latestorder;
 
-         $PEC = new physicalExam_categories([
+         physicalExam_categories::insert([
            
             'physicalExam_id' => $newId,
             'PE_name' => $request['PE_name'],
@@ -46,7 +46,7 @@ class PhysicalExamCategoriesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $PEC->save();
+        
 
         $action ='added a new physicalExam Category';
         $log = new ResActionLogController;

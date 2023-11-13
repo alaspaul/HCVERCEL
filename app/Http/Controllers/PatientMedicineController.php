@@ -52,7 +52,7 @@ class PatientMedicineController extends Controller
 
         $newId =  $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
 
-        $patientMeds = new patient_medicine([
+        patient_medicine::insert([
             'patientMedicine_id' =>  $newId,
             'patientMedicineDate' => $request['patientMedicineDate'],
             'medicine_frequency' => $request['medicine_frequency'],
@@ -63,7 +63,6 @@ class PatientMedicineController extends Controller
             'updated_at' => now(),
         ]);
         
-        $patientMeds->save();
 
         $medicineController = new medicineController;
         $medName = $medicineController->getMedNamebyId($request['medicine_id']);
@@ -99,8 +98,7 @@ class PatientMedicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $patientMeds = new patient_medicine;
-        $patientMeds->where('patientMedicine_id', $id)->update(
+        patient_medicine::where('patientMedicine_id', $id)->update(
             [
                 'patientMedicine_id' => $request['patientMedicine_id'],
                 'patientMedicineDate' => $request['patientMedicineDate'],
@@ -122,8 +120,7 @@ class PatientMedicineController extends Controller
      */
     public function destroy($id)
     {
-        $patientMeds = new patient_medicine;
-        $meds = $patientMeds->where('patientMedicine_id', $id)->first();
+        $meds = patient_medicine::where('patientMedicine_id', $id)->first();
 
         $medicineController = new medicineController;
         $medicineName =  $medicineController->getMedNamebyId($meds['medicine_id']);
@@ -140,7 +137,7 @@ class PatientMedicineController extends Controller
         $log->store(Auth::user(), $action);
 
 
-        $patientMeds->destroy($id);
+        patient_medicine::destroy($id);
         return response('deleted');
     }
 }

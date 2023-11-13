@@ -50,7 +50,7 @@ class PhrAttributeValuesController extends Controller
             $id = $patient_id . '-' . $attribute['categoryAtt_id'] . '-' . $latestOrder;
 
             if(!empty($request[$attribute['categoryAtt_name']])){
-                $attributeVal = new phr_attributeValues([
+                phr_attributeValues::insert([
                     'attributeVal_id' => $id,
                     'attributeVal_values' => $request[$attribute['categoryAtt_name']],
                     'patient_id' => $patient_id,
@@ -61,7 +61,6 @@ class PhrAttributeValuesController extends Controller
                      'updated_at' => now(),
                 ]);
                 
-                $attributeVal->save();
         }else{
             $variable = 0;
             if($attribute['categoryAtt_dataType'] == 'boolean'){
@@ -75,7 +74,7 @@ class PhrAttributeValuesController extends Controller
             }
 
 
-            $attributeVal = new phr_attributeValues([
+            phr_attributeValues::insert([
            
                 'attributeVal_id' => $id,
                 'attributeVal_values' => $variable,
@@ -87,7 +86,6 @@ class PhrAttributeValuesController extends Controller
                  'updated_at' => Carbon::today()->toDateString(),
              ]);
 
-             $attributeVal->save();
             
         }
     }

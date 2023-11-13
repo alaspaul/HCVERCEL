@@ -71,7 +71,7 @@ class RoomController extends Controller
 
 
 
-        $room = new room([
+        room::insert([
             'room_id' => $newId,
             'room_name' => $request['room_name'],
             'room_floor' => $request['room_floor'],
@@ -82,7 +82,6 @@ class RoomController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $room->save();
 
         $action ='added a new room-'. $request['room_name'];
         $log = new ResActionLogController;

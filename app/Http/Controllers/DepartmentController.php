@@ -47,15 +47,13 @@ class DepartmentController extends Controller
 
         $newId = 'D' . $latestorder;
 
-        $department = new department([
+        department::insert([
             'department_id' => $newId,
             'department_name' => $request['department_name'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         
-        $department->save();
-
         $action ='created a new department-'. $request['department_name'];
 
         $log = new ResActionLogController;
@@ -89,8 +87,8 @@ class DepartmentController extends Controller
         
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        $department = new department;
-        $department->where('department_id', $id)->update(['department_name' => $request['department_name']]);
+ 
+        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
 
         return response('done');
         
@@ -106,8 +104,8 @@ class DepartmentController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         
-        $department = new department;
-        $department->destroy($id);
+  
+        department::destroy($id);
 
        
        return response('deleted');
@@ -117,8 +115,7 @@ class DepartmentController extends Controller
 
     public function getDepNamebyId($department_id){
 
-        $department = new department;
-        $name = $department->select('department_name')->where('department_id', $department_id)->first()->department_name;
+        $name = department::select('department_name')->where('department_id', $department_id)->first()->department_name;
 
 
         return $name;

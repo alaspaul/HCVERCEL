@@ -41,7 +41,7 @@ class PatientController extends Controller
         }
          $newId = $date->year  . 'P' . $latestorder;
         
-         $patient = new patient([
+         patient::insert([
             'patient_id' =>  $newId,
             'patient_fName' => $request['patient_fName'],
             'patient_lName' => $request['patient_lName'],
@@ -53,7 +53,6 @@ class PatientController extends Controller
             'updated_at' => now(),
          ]);
          
-         $patient->save();
 
         $PatAssRoomController = new PatAssRoomController;
         $PatAssRoomController->store($newId, $request['room_id']);
@@ -75,8 +74,7 @@ class PatientController extends Controller
     public function show($patient_id)
     {
         try{
-            $patient = new patient;
-            $patient = $patient->where('patient_id',$patient_id)->first();
+            $patient = patient::where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
@@ -100,8 +98,7 @@ class PatientController extends Controller
             $dataToUpdate[$name] = $value;
         }
 
-        $patient = new patient;
-        $patient->where('patient_id', $patient_id)->update($dataToUpdate);
+        patient::where('patient_id', $patient_id)->update($dataToUpdate);
 
         return response()->json('patient updated');
     }
@@ -117,8 +114,8 @@ class PatientController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $patient = new patient;
-        $patient->destroy($id);
+      
+        patient::destroy($id);
 
        
         return response('deleted');
@@ -127,8 +124,7 @@ class PatientController extends Controller
     public function getPatientName($patient_id)
     {
         try{
-            $pat = new patient;
-            $patient = $pat->where('patient_id',$patient_id)->first();
+            $patient = patient::where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
@@ -139,10 +135,9 @@ class PatientController extends Controller
     }
 
     public function getPatientbyId($patient_id){
-        $pat = new patient;
-        $patient = $pat->where('patient_id', $patient_id)->first();
+        $patient = patient::where('patient_id', $patient_id)->first();
 
-        return response()->json($patient);
+        return $patient;
     }
 
 

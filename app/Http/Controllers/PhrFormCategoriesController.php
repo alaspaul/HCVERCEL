@@ -38,7 +38,7 @@ class PhrFormCategoriesController extends Controller
         }
          $newId = 'FC' . $latestorder;
          
-        $formCat = new phr_formCategories([
+         phr_formCategories::insert([
            
             'formCat_id' => $newId,
             'formCat_name' => $request['formCat_name'],
@@ -47,7 +47,7 @@ class PhrFormCategoriesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $formCat->save();
+
 
         $action ='added a new par';
         $log = new ResActionLogController;
@@ -77,7 +77,8 @@ class PhrFormCategoriesController extends Controller
     public function destroy($id)
     {
         $action ='deleted a formCategory-'. $id;
-        app('App\Http\Controllers\resActionLogController')->store(Auth::user(), $action);
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
 
         phr_formCategories::destroy($id);
 

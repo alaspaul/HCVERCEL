@@ -46,7 +46,8 @@ class LabResultsController extends Controller
     }
 
         $newId =  $request['patient_id'] . 'L' . $latestorder;
-        $labResults = new lab_results([
+
+        lab_results::insert([
         'labResults_id' => $newId,
         'labResultDate' => $request['labResultDate'],
         'results' => $request['results'],
@@ -56,7 +57,6 @@ class LabResultsController extends Controller
         'updated_at' => now(),
         ]);
 
-        $labResults->save();
 
         $action ='created a new labResult-'.$newId.' for patient-'. $request['patient_id'];
         $log = new ResActionLogController;
@@ -85,9 +85,7 @@ class LabResultsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $labResults = new lab_results;
-
-        $labResults->where('labResults_id', $id)->update(
+        lab_results::where('labResults_id', $id)->update(
             [
                 'labResults_id' => $request['labResults_id'],
                 'labResultDate' => $request['labResultDate'],
@@ -112,8 +110,7 @@ class LabResultsController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $labResults = new lab_results;
-        $labResults->destroy($id);
+        lab_results::destroy($id);
 
        
         return response('deleted');

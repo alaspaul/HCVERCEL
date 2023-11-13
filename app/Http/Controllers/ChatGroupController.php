@@ -39,13 +39,12 @@ class ChatGroupController extends Controller
             $newId = $date->year . 'CG' . $latestorder;
 
 
-            $chatGroup = new chatGroup([
+            chatGroup::insert([
                 'chatGroup_id' => $newId,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-            
-            $chatGroup->save();
+        
     
             $action ='created a new chatGroup';
     

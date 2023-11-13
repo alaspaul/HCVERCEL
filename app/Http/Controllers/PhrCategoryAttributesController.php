@@ -39,7 +39,7 @@ class PhrCategoryAttributesController extends Controller
         }
          $newId = $formCat_id . 'CA' . $latestorder;
 
-         $categoryAtt = new phr_categoryAttributes([
+         phr_categoryAttributes::insert([
             'categoryAtt_id' => $newId,
             'categoryAtt_name' => $request['categoryAtt_name'],
             'categoryAtt_dataType' => $request['categoryAtt_dataType'],
@@ -49,7 +49,7 @@ class PhrCategoryAttributesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        $categoryAtt->save();
+
 
 
         $action ='added a new categoryAttribute';

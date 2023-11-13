@@ -44,7 +44,7 @@ class ChatGroupMessagesController extends Controller
             $newId = $request['chatGroup_id'] . 'CGM' . $latestorder;
 
 
-            $chatGroup = new chatGroupMessages([
+            chatGroupMessages::insert([
                 'chatGroupMessages_id' => $newId,
                 'message' => $request['message'],   
                 'chatGroup_id' => $request['chatGroup_id'],
@@ -53,7 +53,6 @@ class ChatGroupMessagesController extends Controller
                 'updated_at' => now(),
             ]);
             
-            $chatGroup->save();
     
             $action ='created a new chatGroupMESSAGE';
     
@@ -89,9 +88,9 @@ class ChatGroupMessagesController extends Controller
 
     public function getGroupMessages($chatGroup_id){
 
-        $chatGroupMessages = new chatGroupMessages;
+      
 
-        $messages = $chatGroupMessages->where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'asc')->get();
+        $messages = chatGroupMessages::where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'asc')->get();
 
 
         return $messages;

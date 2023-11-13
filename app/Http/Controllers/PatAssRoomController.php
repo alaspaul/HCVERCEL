@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\patAssRoom;
+use App\Models\patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -23,7 +24,7 @@ class PatAssRoomController extends Controller
      */
     public static function store($patient_id, $room_id)
     {
-        $par = new patAssRoom([
+        patAssRoom::insert([
             'par_id' =>  'PAR-'. $patient_id .$room_id,
             'patient_id' =>$patient_id,
             'room_id' => $room_id,
@@ -32,7 +33,6 @@ class PatAssRoomController extends Controller
             'updated_at' => now(),
         ]);
 
-        $par->save();
 
         $action ='added a new par';
         $log = new ResActionLogController;
@@ -66,8 +66,8 @@ class PatAssRoomController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $patAssRoom = new patAssRoom;
-        $patAssRoom->destroy($id);
+
+        patAssRoom::destroy($id);
 
        
         return response('deleted');
@@ -76,9 +76,9 @@ class PatAssRoomController extends Controller
 
 
     public function getAvailableRooms(){
-        $patAssRoom = new patAssRoom;
 
-        $occupiedRooms = $patAssRoom->where('room_id','!=',null)->pluck('room_id');
+
+        $occupiedRooms = patAssRoom::where('room_id','!=',null)->pluck('room_id');
         $rooms = DB::table('rooms')->whereNotIn('room_id',  $occupiedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
         return response()->json($rooms);
         
@@ -94,8 +94,7 @@ class PatAssRoomController extends Controller
          $log = new ResActionLogController;
          $log->store(Auth::user(), $action);
  
-         $patAssRoom = new patAssRoom;
-         $patAssRoom->where('patient_id', $patient_id)->update($dataToUpdate);
+         patAssRoom::where('patient_id', $patient_id)->update($dataToUpdate);
          return response()->json('patient Transfered');
         
     }
@@ -103,15 +102,16 @@ class PatAssRoomController extends Controller
 
     public function getPatientbyRoom($room_id){
 
-        $patAssRoom = new patAssRoom;
+        $patAssRoom = patAssRoom::where('room_id', $room_id)->first();
 
-        $patient_id =  $patAssRoom->updateTimestampswhere('room_id', $room_id)->first()->patient_id;
+        if($patAssRoom){
+            $patient_id = $patAssRoom->patient_id;
 
-        $pat = new PatientController;
-
-        $patient = $pat->getPatientbyId($patient_id);
-
-        return response()->json($patient);
+            $patient = patient::getPatientbyId($patient_id);
+    
+            return response()->json($patient);
+        }
+ 
     }
 
 
@@ -123,7 +123,7 @@ class PatAssRoomController extends Controller
         $log->store(Auth::user(), $action);
 
         $patAssRoom = new patAssRoom;
-        $patAssRoom->where('patient_id', $patient_id)->delete();
+        patAssRoom::where('patient_id', $patient_id)->delete();
 
        
         return response('checkedout');
@@ -131,10 +131,7 @@ class PatAssRoomController extends Controller
 
     public function getPatient($patient_id)
     {
-
-       $patient = new PatientController;
-
-       $pat = $patient->getPatientbyId($patient_id);
+       $pat = patAssRoom::getPatientbyId($patient_id);
 
        return $pat;
     }
@@ -143,14 +140,20 @@ class PatAssRoomController extends Controller
 
     public function getRoombyPatient($patient_id)
     {
-       $patAssRoom = new patAssRoom;
-       $par =  $patAssRoom->where('patient_id', $patient_id)->first();
-   
-       $roomCon = new RoomController;
-
-       $room = $roomCon->getRoom($par->room_id);
+       $par =   patAssRoom::where('patient_id', $patient_id)->first();
+       $roomCont = new RoomController;
+       $room = $roomCont->getRoom($par->room_id);
 
        return $room;
     }
+
+
+    public function getPAR($id)
+    {
+        $PAR =  patAssRoom::where('room_id', $id)->first();
+
+       return $PAR;
+    }
+
 
 }

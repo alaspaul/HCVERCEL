@@ -38,7 +38,7 @@ class ChatGroupUsersController extends Controller
     
             $newId = $request['chatGroup_id'] . 'CGU' . $latestorder;
             
-            $chatGroup = new chatGroupUsers([
+            chatGroupUsers::insert([
                 'chatGroupUsers_id' => $newId,
                 'chatGroup_id' => $request['chatGroup_id'],
                 'resident_id' => $request['resident_id'],
@@ -46,7 +46,7 @@ class ChatGroupUsersController extends Controller
                 'updated_at' => now(),
             ]);
 
-            $chatGroup->save();
+    
 
 
 
@@ -64,7 +64,7 @@ class ChatGroupUsersController extends Controller
             
                     $newId = $request['chatGroup_id'] . 'CGU' . $latestorder;
                     
-                    $chatGroup2 = new chatGroupUsers([
+                    chatGroupUsers::insert([
                         'chatGroupUsers_id' => $newId,
                         'chatGroup_id' => $request['chatGroup_id'],
                         'resident_id' => $user['resident_id'],
@@ -72,7 +72,6 @@ class ChatGroupUsersController extends Controller
                         'updated_at' => now(),
                     ]);
         
-                    $chatGroup2->save();
 
             }
         
@@ -106,17 +105,15 @@ class ChatGroupUsersController extends Controller
 
     public function allGroups(){
         $user = Auth::user();
-        $chatGroupUsers = new chatGroupUsers;
 
-        $myGroups = $chatGroupUsers->where('resident_id', $user['resident_id'])->pluck('chatGroup_id');
+        $myGroups = chatGroupUsers::where('resident_id', $user['resident_id'])->pluck('chatGroup_id');
 
         return $myGroups;
     }
 
     public function allUsersinGroup($groupChat_id){
-        $chatGroupUsers = new chatGroupUsers;
 
-        $groupUsers = $chatGroupUsers->where('chatGroup_id', $groupChat_id)->pluck('resident_id');
+        $groupUsers = chatGroupUsers::where('chatGroup_id', $groupChat_id)->pluck('resident_id');
 
         return $groupUsers;
     }

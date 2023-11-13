@@ -36,7 +36,7 @@ class ResidentAssignedRoomController extends Controller
         $date = new Carbon( $time ); 
 
 
-        $rar = new resident_assigned_room([
+        resident_assigned_room::insert([
             'resAssRoom_id' => $date->year . $request['resident_id'] .  $request['room_id'],
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
@@ -44,8 +44,6 @@ class ResidentAssignedRoomController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        $rar->save();
 
         $room = new RoomController;
         $roomName = $room->getRoomNamebyId($request['room_id']);
