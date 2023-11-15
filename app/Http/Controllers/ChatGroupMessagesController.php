@@ -73,17 +73,41 @@ class ChatGroupMessagesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, chatGroupMessages $chatGroupMessages)
+    public function update(Request $request, $id)
     {
-        //
+        $user = Auth::user();
+
+        $action ='updated a chatGroupMessages where id-'. $id;
+        
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
+ 
+
+        chatGroupMessages::where('chatGroupMessages_id', $id)->update([
+            'message' => $request['message'],   
+            'chatGroup_id' => $request['chatGroup_id'],
+            'resident_id' => $user['resident_id'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response('done');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(chatGroupMessages $chatGroupMessages)
+    public function destroy($id)
     {
-        //
+        $action ='deleted a chatGroupMessage-';
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
+        
+  
+        chatGroupMessages::destroy($id);
+
+       
+       return response('deleted');
     }
 
     public function getGroupMessages($chatGroup_id){

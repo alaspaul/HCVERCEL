@@ -145,7 +145,7 @@ class ResidentAssignedRoomController extends Controller
 
         return response()->json($rooms);
     
-    }
+    } 
 
 
     public function roomName($room_id)
@@ -154,6 +154,18 @@ class ResidentAssignedRoomController extends Controller
 
 
         return response()->json($roomName);
+    }
+
+
+    
+    public function residentName($resident_id)
+    {
+        $resident = new residentController;
+
+        $residentName = $resident->residentName($resident_id);
+
+
+        return $residentName;
     }
 
 }

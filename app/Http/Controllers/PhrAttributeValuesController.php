@@ -14,6 +14,7 @@ class PhrAttributeValuesController extends Controller
      */
     public function index()
     {
+        
         $data = phr_attributeValues::all();
 
         return response()->json($data);
@@ -89,6 +90,16 @@ class PhrAttributeValuesController extends Controller
             
         }
     }
+
+    
+        $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
+
+        if(count($dates) > 1){
+            $PAVC = new PhrAttributeValuesController;
+
+            $PAVC->comparePhr($patient_id, $dates[1], $dates[0]);
+        }
+
         $action ='added a new categoryAttribute';
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
@@ -166,48 +177,51 @@ class PhrAttributeValuesController extends Controller
 
 
     public function getPhrDates($patient_id){
-        $PAV = new phr_attributeValues;
 
-        $dates = $PAV->select('created_at')->distinct()->where('patient_id', $patient_id)->get();
+        $dates = phr_attributeValues::select('created_at')->distinct()->where('patient_id', $patient_id)->get();
 
         
         return $dates->pluck('created_at');
     }
 
     public function getPhrbyDate($patient_id, request $request){
-        $PAV = new phr_attributeValues;
 
-        $phr = $PAV->where('created_at', $request['date'])->where('patient_id', $patient_id)->get();
+        $phr = phr_attributeValues::where('created_at', $request['date'])->where('patient_id', $patient_id)->get();
       
         return $phr;
     }
 
 
-    public function comparePhr($patient_id, request $request){
-        $PAV1 = new phr_attributeValues;
+    public function comparePhr($patient_id, $date1, $date2){
 
-        $phr1 = $PAV1->where('created_at', $request['date1'])->where('patient_id', $patient_id)->get();
+        $phr1 = phr_attributeValues::where('created_at',  $date1)->where('patient_id', $patient_id)->get();
 
-        $PAV2 = new phr_attributeValues;
-
-        $phr2 = $PAV2->where('created_at', $request['date2'])->where('patient_id', $patient_id)->get();
+        $phr2 = phr_attributeValues::where('created_at', $date2)->where('patient_id', $patient_id)->get();
 
         $array = [];
 
         $PCA = new phr_categoryAttributes;
 
         $length = $PCA->count(); 
+        $history = new HistoryController;
 
+        $history_id = $history->store();
         
-        for($i = 0; $i < $length; $i++){
-            if($phr1[$i]['attributeVal_values'] != $phr2[$i]['attributeVal_values']){
+        for($i = 0; $i <= $length-1; $i++){
+            if(isset($phr1[$i]) && isset($phr2[$i]) && $phr1[$i]['attributeVal_values'] != $phr2[$i]['attributeVal_values']){
                 $array[$i] = $this->getAttributeName($phr1[$i]['categoryAtt_id']) . 
                              ' is changed from ' . $phr1[$i]['attributeVal_values'] . ' to ' . 
                              $phr2[$i]['attributeVal_values']. ' on ' . $phr2[$i]['created_at'];
+        
+                $ph = new PatientHistoryController;
+                $ph->store($array[$i], $history_id, $phr1[$i]['attributeVal_id'], $phr2[$i]['attributeVal_id']);
             }
         }
     
-
-        return $array;
+        
+        return $array; 
     }
+
+
+    
 }

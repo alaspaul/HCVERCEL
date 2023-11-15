@@ -20,7 +20,7 @@ class ChatGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
 
     {   $time = now();
         $date = new Carbon( $time ); 
@@ -51,7 +51,7 @@ class ChatGroupController extends Controller
             $log = new ResActionLogController;
             $log->store(Auth::user(), $action);
     
-            return response('stored');
+            return $newId;
         
 
     }
@@ -67,9 +67,9 @@ class ChatGroupController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, chatGroup $chatGroup)
+    public function update(Request $request,  $id)
     {
-        //
+
     }
 
     /**

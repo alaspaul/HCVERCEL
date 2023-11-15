@@ -15,9 +15,13 @@ return new class extends Migration
             $table->string('RA_id')->primary();
             $table->string('action',1000);
             $table->string('role');
-            $table->string('user_id');
             $table->timestamps();
 
+
+            $table->string('user_id');
+            $table->foreign('user_id')->references('resident_id')->on('residents')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 

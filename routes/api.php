@@ -7,6 +7,7 @@ use App\Http\Controllers\ChatGroupController;
 use App\Http\Controllers\ChatGroupMessagesController;
 use App\Http\Controllers\ChatGroupUsersController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LabResultsController;
 use App\Http\Controllers\PatAssRoomController;
 use App\Http\Controllers\PatientController;
@@ -188,6 +189,9 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('chatGroupUsers/get/allGroups', [ChatGroupUsersController::class, 'allGroups'])->name('chatGroupUsers.allGroups');
     Route::get('chatGroupUsers/get/allUsersinGroup/{chatGroup_id}', [ChatGroupUsersController::class, 'allUsersinGroup'])->name('chatGroupUsers.allUsersinGroup');
 
+
+    Route::apiResource('histories', HistoryController::class);
+    
 });
 
 
