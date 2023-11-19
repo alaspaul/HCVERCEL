@@ -174,8 +174,11 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
 
     Route::apiResource('physicalExam/categories', PhysicalExamCategoriesController::class);
+    
     Route::apiResource('physicalExam/attributes', PhysicalExamAttributesController::class);
+
     Route::apiResource('physicalExam/values', PhysicalExamValuesController::class);
+    Route::get('physicalExam/values/getPE/{patient_id}', [PhysicalExamValuesController::class, 'getPE'])->name('physicalExamValues.getPE');
 
 
     Route::apiResource('chatGroup', ChatGroupController::class);

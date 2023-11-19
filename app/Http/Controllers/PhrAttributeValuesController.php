@@ -169,7 +169,7 @@ class PhrAttributeValuesController extends Controller
     public function getAttributeName($categoryAtt_id){
         $attribute = new PhrCategoryAttributesController;
 
-        $attributeName = $attribute->getAttributeName($categoryAtt_id);
+        $attributeName = phr_categoryAttributes::select('categoryAtt_name')->where('categoryAtt_id', $categoryAtt_id)->first();
 
         return $attributeName;
 

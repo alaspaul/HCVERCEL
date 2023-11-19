@@ -110,4 +110,13 @@ class PhysicalExamValuesController extends Controller
        
         return response('deleted');
     }
+
+
+    public function getPE($patient_id){
+        $latestDate = physicalExam_values::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
+        $PE = physicalExam_values::where('patient_id', $patient_id)->where('created_at', $latestDate[0])->get();
+
+
+        return response()->json($PE);
+    }
 }

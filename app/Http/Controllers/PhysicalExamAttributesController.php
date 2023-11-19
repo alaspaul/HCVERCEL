@@ -13,7 +13,7 @@ class PhysicalExamAttributesController extends Controller
      */
     public function index()
     {
-        $data = physicalExam_Attributes::all();
+        $data = physicalExam_Attributes::orderByRaw('LENGTH(PEA_id) ASC')->orderByRaw('LENGTH(physicalExam_id) ASC')->get();;
 
         return response()->json($data);
     }
