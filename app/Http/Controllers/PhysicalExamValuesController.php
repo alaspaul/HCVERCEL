@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\patient;
 use App\Models\physicalExam_Attributes;
+use App\Models\physicalExam_categories;
 use App\Models\physicalExam_values;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 class PhysicalExamValuesController extends Controller
 {
@@ -114,9 +116,26 @@ class PhysicalExamValuesController extends Controller
 
     public function getPE($patient_id){
         $latestDate = physicalExam_values::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
-        $PE = physicalExam_values::where('patient_id', $patient_id)->where('created_at', $latestDate[0])->get();
+        $date = new Carbon($latestDate[0]);
+        $formattedDate = $date->format('Y-m-d');
+    
+        $PE = physicalExam_values::where('patient_id', $patient_id)->where('created_at', 'LIKE', $formattedDate. '%')->get();
 
+        $result = $PE->map(function ($item) {
+            $PEA_id = $item['PEA_id'];
+            $attribute_Name = physicalExam_Attributes::where('PEA_id', $PEA_id)->value('PEA_name');
+            $physicalExam_id = physicalExam_Attributes::where('PEA_id', $PEA_id)->value('physicalExam_id');
+            $category_Name = physicalExam_categories::where('physicalExam_id', $physicalExam_id)->value('PE_name');
+    
+            return [
+                'created_at' => $item['created_at'],
+                'category_Name' => $category_Name,
+                'attribute_Name' => $attribute_Name,
+                'value' => $item['PAV_value'],
+            ];
+        });
+    
 
-        return response()->json($PE);
+        return response()->json($result);
     }
 }
