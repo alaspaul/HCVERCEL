@@ -51,9 +51,9 @@ class ChatGroupController extends Controller
             $log = new ResActionLogController;
             $log->store(Auth::user(), $action);
     
-            return $newId;
+            
         
-
+            return $newId;
     }
 
     /**

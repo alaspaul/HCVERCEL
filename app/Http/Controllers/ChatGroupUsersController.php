@@ -32,13 +32,14 @@ class ChatGroupUsersController extends Controller
 
         $currentId = $chatGroupId . 'CGU' . $latestorder;
 
-   
+        $chatGroupUsers = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
 
+        if(!in_array($request['resident_id'],  $chatGroupUsers) ){
         if( !empty(chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
             do{
                 $latestorder++;
                 $depId = $chatGroupId . 'CGU' . $latestorder;
-                $id = chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first();
+                $id = chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first()->chatGroupUsers_id;
              
             }while(!empty($id));
         }
@@ -51,13 +52,13 @@ class ChatGroupUsersController extends Controller
                 'resident_id' => $request['resident_id'],
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
+            ]
+        );
+        }
 
-    
 
 
-
-            $chatGroupUsers = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
+            
             if(!in_array($user['resident_id'],  $chatGroupUsers) ){
         
                 if( !empty(chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
@@ -83,7 +84,7 @@ class ChatGroupUsersController extends Controller
             }
         
     
-            return response('stored');
+            return $chatGroupId;
     }
 
     /**
