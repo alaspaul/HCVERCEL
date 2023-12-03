@@ -138,4 +138,17 @@ class PhysicalExamValuesController extends Controller
 
         return response()->json($result);
     }
+
+
+    public function getPEM($patient_id){
+        $latestDate = physicalExam_values::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
+        $date = new Carbon($latestDate[0]);
+        $formattedDate = $date->format('Y-m-d');
+    
+        $PE = physicalExam_values::where('patient_id', $patient_id)->where('created_at', 'LIKE', $formattedDate. '%')->get();
+
+    
+
+        return response()->json($PE);
+    }
 }

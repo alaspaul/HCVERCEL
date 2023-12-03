@@ -163,6 +163,8 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('attributeValues/getPhrDates/{patient_id}', [PhrAttributeValuesController::class, 'getPhrDates'])->name('attributeValues.getPhrDates');
     Route::get('attributeValues/getPhrbyDate/{patient_id}', [PhrAttributeValuesController::class, 'getPhrbyDate'])->name('attributeValues.getPhrbyDate');
     Route::get('attributeValues/comparePhr/{patient_id}', [PhrAttributeValuesController::class, 'comparePhr'])->name('attributeValues.comparePhr');
+    Route::get('attributeValues/getPHRM/{patient_id}', [PhrAttributeValuesController::class, 'getPHRM'])->name('attributeValues.getPHRM');
+
 
     Route::apiResource('patAssRooms', PatAssRoomController::class);
     Route::put('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
@@ -179,6 +181,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
     Route::apiResource('physicalExam/values', PhysicalExamValuesController::class);
     Route::get('physicalExam/values/getPE/{patient_id}', [PhysicalExamValuesController::class, 'getPE'])->name('physicalExamValues.getPE');
+    Route::get('physicalExam/values/getPEM/{patient_id}', [PhysicalExamValuesController::class, 'getPEM'])->name('physicalExamValues.getPEM');
 
 
     Route::apiResource('chatGroup', ChatGroupController::class);

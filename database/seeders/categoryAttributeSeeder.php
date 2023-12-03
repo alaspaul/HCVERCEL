@@ -1227,16 +1227,6 @@ class categoryAttributeSeeder extends Seeder
             ],
             [
                 'categoryAtt_id' => 'FC12CA6',
-                'categoryAtt_name' => 'phr_alcohol',
-                'categoryAtt_dataType' => 'boolean',
-                'formCat_id' => 'FC12'
-                
-
-                , 'created_at' => now(), 
-                  'updated_at' => now(),
-            ],
-            [
-                'categoryAtt_id' => 'FC12CA7',
                 'categoryAtt_name' => 'phr_alcoholDrinksFrequencyDay',
                 'categoryAtt_dataType' => 'boolean',
                 'formCat_id' => 'FC12'
@@ -1246,7 +1236,7 @@ class categoryAttributeSeeder extends Seeder
                   'updated_at' => now(),
             ],
             [
-                'categoryAtt_id' => 'FC12CA8',
+                'categoryAtt_id' => 'FC12CA7',
                 'categoryAtt_name' => 'phr_alcoholDrinksFrequencyWeek',
                 'categoryAtt_dataType' => 'boolean',
                 'formCat_id' => 'FC12'
@@ -1256,7 +1246,7 @@ class categoryAttributeSeeder extends Seeder
                   'updated_at' => now(),
             ],
             [
-                'categoryAtt_id' => 'FC12CA9',
+                'categoryAtt_id' => 'FC12CA8',
                 'categoryAtt_name' => 'phr_noOfAlcoholDrinks',
                 'categoryAtt_dataType' => 'integer',
                 'formCat_id' => 'FC12'
@@ -1266,8 +1256,8 @@ class categoryAttributeSeeder extends Seeder
                   'updated_at' => now(),
             ],
             [
-                'categoryAtt_id' => 'FC12CA10',
-                'categoryAtt_name' => 'phr_vaccinationHistory',
+                'categoryAtt_id' => 'FC12CA9',
+                'categoryAtt_name' => 'phr_vaccination_stat',
                 'categoryAtt_dataType' => 'text',
                 'formCat_id' => 'FC12'
                 
@@ -1314,6 +1304,93 @@ class categoryAttributeSeeder extends Seeder
                 , 'created_at' => now(), 
                   'updated_at' => now(),
             ],
+            [
+              'categoryAtt_id' => 'FC13CA3',
+              'categoryAtt_name' => 'phr_historyOfPresentIllness',
+              'categoryAtt_dataType' => 'text',
+              'formCat_id' => 'FC13'
+              
+
+              , 'created_at' => now(), 
+                'updated_at' => now(),
+          ],
+          [
+            'categoryAtt_id' => 'FC13CA4',
+            'categoryAtt_name' => 'phr_HxFromParent',
+            'categoryAtt_dataType' => 'text',
+            'formCat_id' => 'FC13'
+            
+
+            , 'created_at' => now(), 
+              'updated_at' => now(),
+          ],
+          [
+          'categoryAtt_id' => 'FC13CA5',
+          'categoryAtt_name' => 'phr_HxFromFamily',
+          'categoryAtt_dataType' => 'text',
+          'formCat_id' => 'FC13'
+          
+
+          , 'created_at' => now(), 
+            'updated_at' => now(),
+          ],
+          [
+          'categoryAtt_id' => 'FC13CA6',
+          'categoryAtt_name' => 'phr_HxFromFamily',
+          'categoryAtt_dataType' => 'text',
+          'formCat_id' => 'FC13'
+          
+
+          , 'created_at' => now(), 
+            'updated_at' => now(),
+          ],
+
+
+
+
+
+
+          [
+          'categoryAtt_id' => 'FC14CA0',
+          'categoryAtt_name' => 'phr_nonVerbalPatient',
+          'categoryAtt_dataType' => 'text',
+          'formCat_id' => 'FC14'
+          
+
+          , 'created_at' => now(), 
+            'updated_at' => now(),
+          ],
+           [
+          'categoryAtt_id' => 'FC14CA1',
+          'categoryAtt_name' => 'phr_endTime',
+          'categoryAtt_dataType' => 'text',
+          'formCat_id' => 'FC14'
+          
+
+          , 'created_at' => now(), 
+            'updated_at' => now(),
+          ],
+          [
+            'categoryAtt_id' => 'FC14CA2',
+            'categoryAtt_name' => 'phr_startTime',
+            'categoryAtt_dataType' => 'text',
+            'formCat_id' => 'FC14'
+            
+  
+            , 'created_at' => now(), 
+              'updated_at' => now(),
+            ],
+            [
+              'categoryAtt_id' => 'FC14CA3',
+              'categoryAtt_name' => 'phr_chiefComplaint',
+              'categoryAtt_dataType' => 'text',
+              'formCat_id' => 'FC14'
+              
+    
+              , 'created_at' => now(), 
+                'updated_at' => now(),
+              ],
+            
             
 
 

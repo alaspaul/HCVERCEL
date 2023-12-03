@@ -244,6 +244,16 @@ class PhrAttributeValuesController extends Controller
         return $array; 
     }
 
-
+    public function getPHRM($patient_id)
+    {
+        $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
+        $date = new Carbon($dates[0]);
+        $formattedDate = $date->format('Y-m-d');
+    
+        $PAV = phr_attributeValues::where('patient_id', $patient_id)->where('created_at', 'LIKE', $formattedDate . '%')->get();
+    
+    
+        return response()->json($PAV);
+    }
     
 }
