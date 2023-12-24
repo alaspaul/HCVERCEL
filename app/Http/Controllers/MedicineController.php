@@ -63,8 +63,11 @@ class medicineController extends Controller
         
 
         $action ='added a new medicine-'. $request['medicine_name'];
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         return response('stored');
     }
 
@@ -103,8 +106,11 @@ class medicineController extends Controller
             ]);
             
             $action ='updated a medicine-'. $id;
+            $user = Auth::user();
+            if($user['role'] != 'admin'){
             $log = new ResActionLogController;
             $log->store(Auth::user(), $action);
+            }
             return response('updated');
         
         
@@ -117,8 +123,11 @@ class medicineController extends Controller
     {
      
         $action ='deleted a medicine-'. $this->getMedNamebyId($id);
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         medicine::destroy($id);
 

@@ -58,7 +58,7 @@ class PhysicalExamValuesController extends Controller
         ]);
 
 
-    }else{
+       }else{
         $variable = 0;
         if($attribute['PEA_dataType'] == 'string'){
             $variable = 'none';

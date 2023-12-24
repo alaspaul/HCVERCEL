@@ -54,8 +54,11 @@ class FloorController extends Controller
 
         $action ='created a new floor-'. $request['floor_name'];
 
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         return response('stored');
     }
@@ -82,8 +85,11 @@ class FloorController extends Controller
     public function update(Request $request, $id)
     {
         $action ='updated a floor where id-'. $id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         floor::where('floor_id', $id)->update(
             [
@@ -103,8 +109,11 @@ class FloorController extends Controller
     public function destroy($id)
     {
         $action ='deleted a floor-'. $this->getFloorNamebyId($id);
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         floor::destroy($id);
 
@@ -118,8 +127,11 @@ class FloorController extends Controller
        
         
         $action ='updated a floor where id-'. $id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         floor::where('floor_id', $id)->update(
             [

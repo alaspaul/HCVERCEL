@@ -56,9 +56,11 @@ class DepartmentController extends Controller
         
         $action ='created a new department-'. $request['department_name'];
 
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-
+        }
         return response('stored');
     }
 
@@ -85,9 +87,12 @@ class DepartmentController extends Controller
     {
         $action ='updated a department where id-'. $id;
         
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
- 
+        }
+
         department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
 
         return response('done');
@@ -101,9 +106,12 @@ class DepartmentController extends Controller
     {
         
         $action ='deleted a department-'. $this->getDepNamebyId($id);
+
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        
+        }
   
         department::destroy($id);
 

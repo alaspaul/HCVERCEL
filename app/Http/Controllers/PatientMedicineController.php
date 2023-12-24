@@ -72,8 +72,11 @@ class PatientMedicineController extends Controller
         $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
 
         $action ='added a new medicine-'. $medName .' for patient-'. $patientName;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         return response('stored');
     }
 
@@ -110,8 +113,11 @@ class PatientMedicineController extends Controller
             ]);
 
         $action ='updated a medicine-'. $request['medicine_id'] .' for patient-'. $request['patient_id'];
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         return response('updated');
     }
 
@@ -133,8 +139,11 @@ class PatientMedicineController extends Controller
         $action ='deleted a medicine-'. $medicineName . 'for patient-'.  $patientName;
 
 
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
 
         patient_medicine::destroy($id);

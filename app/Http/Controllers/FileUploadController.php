@@ -81,9 +81,11 @@ class FileUploadController extends Controller
 
         $action ='uploaded a file ' . $file->getClientOriginalName() .' for patient-' . $patientName['patient_fName'];
 
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
-
         $log->store(Auth::user(), $action);
+        }
 
         return response()->json($file->getClientOriginalName().' file uploaded');
 
@@ -113,9 +115,13 @@ class FileUploadController extends Controller
 
         $action ='deleted a file ' . $file;
 
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
+        
         Storage::delete('file/'.  $file);
         fileUpload::destroy($id);
 

@@ -35,8 +35,11 @@ class PatAssRoomController extends Controller
 
 
         $action ='added a new par';
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         return response('stored');
     }
 
@@ -63,8 +66,11 @@ class PatAssRoomController extends Controller
     {
 
         $action ='deleted a par-'. $id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
 
         patAssRoom::destroy($id);
@@ -91,8 +97,11 @@ class PatAssRoomController extends Controller
          ];
 
          $action ='transfered a patient -'. $patient_id;
+         $user = Auth::user();
+         if($user['role'] != 'admin'){
          $log = new ResActionLogController;
          $log->store(Auth::user(), $action);
+         }
  
          patAssRoom::where('patient_id', $patient_id)->update($dataToUpdate);
          return response()->json('patient Transfered');
@@ -122,7 +131,7 @@ class PatAssRoomController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $patAssRoom = new patAssRoom;
+        
         patAssRoom::where('patient_id', $patient_id)->delete();
 
        

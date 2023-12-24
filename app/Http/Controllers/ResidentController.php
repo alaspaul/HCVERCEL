@@ -76,8 +76,11 @@ class ResidentController extends Controller
        
 
         $action ='added a new resident-'. $request['resident_lName']. $request['resident_fName'];
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         return response('store');
     }
 
@@ -128,8 +131,11 @@ class ResidentController extends Controller
         resident::where('resident_id', $id)->update($dataToUpdate);
 
         $action ='updated a resident where id-'. $id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         return response('updated');
     }
@@ -143,8 +149,11 @@ class ResidentController extends Controller
         $fname = resident::select('resident_fName')->where('resident_id', $id)->first()->resident_fName;
 
         $action ='deleted a resident-'. $lname. $fname;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
        resident::destroy($id);
 
        return response('deleted');
@@ -174,8 +183,11 @@ class ResidentController extends Controller
         resident::where('resident_id', $id)->update($dataToUpdate);
 
         $action ='updated a resident where id-'. $id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         return response('updated');
     }

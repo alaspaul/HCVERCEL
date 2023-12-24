@@ -56,9 +56,12 @@ class ChatGroupMessagesController extends Controller
     
             $action ='created a new chatGroupMESSAGE';
     
+            $user = Auth::user();
+            if($user['role'] != 'admin'){
             $log = new ResActionLogController;
             $log->store(Auth::user(), $action);
-    
+            }
+
             return response('stored');
     }
 
@@ -78,10 +81,12 @@ class ChatGroupMessagesController extends Controller
         $user = Auth::user();
 
         $action ='updated a chatGroupMessages where id-'. $id;
-        
+
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
- 
+        }
 
         chatGroupMessages::where('chatGroupMessages_id', $id)->update([
             'message' => $request['message'],   
@@ -100,9 +105,12 @@ class ChatGroupMessagesController extends Controller
     public function destroy($id)
     {
         $action ='deleted a chatGroupMessage-';
+        
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        
+        }
   
         chatGroupMessages::destroy($id);
 
@@ -114,7 +122,7 @@ class ChatGroupMessagesController extends Controller
 
       
 
-        $messages = chatGroupMessages::where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'asc')->get();
+        $messages = chatGroupMessages::where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'desc')->limit(30)->get();
 
 
         return $messages;

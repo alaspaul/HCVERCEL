@@ -24,11 +24,11 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
+        
         $time = now();
         $date = new Carbon( $time ); 
         
         $latestorder = patient::all()->count();
-        $last_id = patient::select('patient_id')->orderBy('created_at', 'desc')->first()->patient_id;
         $currentId = $date->year  . 'P' . $latestorder;
 
         if( !empty(patient::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)){
@@ -59,11 +59,15 @@ class PatientController extends Controller
 
         $PhrAttributeValuesController = new PhrAttributeValuesController;
         $PhrAttributeValuesController->store($request, $newId);
-
+        
 
         $action ='added a new patient-'. $request['patient_fName'];
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
+
 
         return response('stored');
     }
@@ -111,8 +115,11 @@ class PatientController extends Controller
         $lname = patient::select('patient_lName')->where('patient_id', $id)->first()->patient_lName;
         $fname = patient::select('patient_fName')->where('patient_id', $id)->first()->patient_fName;
         $action ='deleted a patient-'. $lname. $fname;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
       
         patient::destroy($id);

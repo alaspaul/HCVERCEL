@@ -59,8 +59,11 @@ class LabResultsController extends Controller
 
 
         $action ='created a new labResult-'.$newId.' for patient-'. $request['patient_id'];
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         return response('stored');
     }
 
@@ -95,8 +98,11 @@ class LabResultsController extends Controller
             ]);
 
             $action ='updated labResult where id-'.$id;
+            $user = Auth::user();
+            if($user['role'] != 'admin'){
             $log = new ResActionLogController;
             $log->store(Auth::user(), $action);
+            }
         return response('updated');
     }
 
@@ -107,8 +113,11 @@ class LabResultsController extends Controller
     {
 
         $action ='deleted labResult-'.$id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         lab_results::destroy($id);
 

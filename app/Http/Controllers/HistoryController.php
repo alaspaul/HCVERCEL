@@ -51,8 +51,11 @@ class HistoryController extends Controller
 
        $action ='created a new history';
 
+       $user = Auth::user();
+       if($user['role'] != 'admin'){
        $log = new ResActionLogController;
        $log->store(Auth::user(), $action);
+       }
 
        return $newId;
     }

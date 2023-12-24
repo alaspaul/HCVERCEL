@@ -103,10 +103,12 @@ class ChatGroupUsersController extends Controller
         $user = Auth::user();
 
         $action ='updated a chatGroupUsers where id-'. $id;
-        
+
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
- 
+        }
 
         chatGroupUsers::where('chatGroupUsers_id', $id)->update([
             'chatGroup_id' => $request['chatGroup_id'],

@@ -47,10 +47,12 @@ class ChatGroupController extends Controller
         
     
             $action ='created a new chatGroup';
-    
+
+            $user = Auth::user();
+            if($user['role'] != 'admin'){
             $log = new ResActionLogController;
             $log->store(Auth::user(), $action);
-    
+            }
             
         
             return $newId;

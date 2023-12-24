@@ -21,7 +21,7 @@ class ResActionLogController extends Controller
     }
     public function index()
     {
-        $data = resActionLog::all();
+        $data = resActionLog::paginate(30);
 
         return response()->json($data);
         
@@ -126,11 +126,11 @@ class ResActionLogController extends Controller
             if($userRole == 'chiefResident'){
                 $chiefDep = resident::select('department_id')->where('resident_id', $user->resident_id)->first()->department_id;
 
-                $data = resActionLog::where('user_id', 'LIKE', '%'.$chiefDep.'%')->get();
+                $data = resActionLog::where('user_id', 'LIKE', '%'.$chiefDep.'%')->limit(30)->get();
                 
                 return response()->json($data);
             }elseif($userRole == 'resident'){
-                $data = resActionLog::where('user_id', $user->resident_id)->get();
+                $data = resActionLog::where('user_id', $user->resident_id)->limit(30)->get();
                 return response()->json($data);
             }else{
                 return response()->json('you have no logs');

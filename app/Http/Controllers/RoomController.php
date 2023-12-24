@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\floor;
 use App\Models\room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,38 +35,28 @@ class RoomController extends Controller
     public function store(Request $request)
 
     { 
+        $floorName = floor::where('floor_id', $request['floor_id'])->first()->floor_name;
+        $abbreviations = $this->getAbbreviation($floorName);
+       
+
+
         $floorId = $request['floor_id'];
        
-        if($floorId  == 'F1'){
-            $floorName = 'RAA';
-         }elseif($floorId  == 'F2'){
-            $floorName = 'RAB';
-         }elseif($floorId  == 'F3'){
-            $floorName = 'RAC1';
-         }elseif($floorId  == 'F4'){
-            $floorName = 'RAC2';
-         }elseif($floorId  == 'F5'){
-            $floorName = 'RAC3';
-         }elseif($floorId  == 'F6'){
-            $floorName = 'RAD1';
-         }elseif($floorId  == 'F7'){
-            $floorName = 'RAE';
-         }
 
         $latestorder = room::where('floor_id', $floorId )->count();
         $last_id = room::select('room_id')->orderBy('created_at', 'desc')->first()->room_id;
-        $currentId = $floorName . $latestorder;
+        $currentId = $abbreviations . $latestorder;
         
         if( !empty(room::select('room_id')->where('room_id', $currentId)->first()->room_id)){
         do{
             $latestorder++;
-            $depId = $floorName  . $latestorder;
+            $depId = $abbreviations  . $latestorder;
             $id = room::select('room_id')->where('room_id', $depId)->first();
          
         }while(!empty($id));
     }
 
-        $newId = $floorName  . $latestorder;
+        $newId = $abbreviations  . $latestorder;
 
 
 
@@ -74,7 +65,7 @@ class RoomController extends Controller
         room::insert([
             'room_id' => $newId,
             'room_name' => $request['room_name'],
-            'room_floor' => $request['room_floor'],
+            'room_floor' => $floorName,
             'room_type' => $request['room_type'],
             'room_price' => $request['room_price'],
             'floor_id' => $request['floor_id'],
@@ -84,8 +75,11 @@ class RoomController extends Controller
         ]);
 
         $action ='added a new room-'. $request['room_name'];
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
         return response('stored');
     }
@@ -123,8 +117,11 @@ class RoomController extends Controller
     {
         $name = room::select('room_name')->where('room_id', $id)->first()->room_name;
         $action ='deleted a floor-'. $name;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
        room::destroy($id);
 
        return response('deleted');
@@ -149,8 +146,11 @@ class RoomController extends Controller
 
         );
         $action ='updated a room where id-'. $id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         return response('updated');
     }
 
@@ -174,5 +174,12 @@ class RoomController extends Controller
         return $roomName;
     }
 
-
+    public function getAbbreviation($floorname) {
+        $words = explode(' ', $floorname);
+        $abbreviation = '';
+        foreach ($words as $word) {
+            $abbreviation .= strtoupper($word[0]);
+        }
+        return 'R' . $abbreviation;
+    }
 }

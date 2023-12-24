@@ -53,8 +53,11 @@ class ResidentAssignedRoomController extends Controller
 
         $resName = $residentName['lastName'] . ', ' . $residentName['lastName'] . ' ' . $residentName['lastName'];
         $action ='assigned room-'. $roomName.' to resident-'. $resName;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
     }
 
     /**
@@ -103,8 +106,11 @@ class ResidentAssignedRoomController extends Controller
 
         $action ='unassigned resident-'. $resName . ' from room-' . $roomName;
 
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
 
 
         resident_assigned_room::destroy($id);
@@ -130,8 +136,11 @@ class ResidentAssignedRoomController extends Controller
         ]);
 
         $action ='updated Resident Assigned room where id-'. $id;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+        }
         
         return response('done');
     }
