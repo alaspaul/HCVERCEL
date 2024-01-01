@@ -111,6 +111,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::GET('resAssRooms/rooms/{resident_id}', [ResidentAssignedRoomController::class, 'showRessAssRoom'])->name('rar.rooms');
     Route::GET('resAssRooms/resident/{resident_id}', [ResidentAssignedRoomController::class, 'residentName'])->name('rar.residentName');
     Route::GET('resAssRooms/roomName/{room_id}', [ResidentAssignedRoomController::class, 'roomName'])->name('rar.roomName');
+    Route::GET('resAssRooms/get/unassignedRooms', [ResidentAssignedRoomController::class, 'unassignedRooms'])->name('rar.unassignedRooms');
 
 
     Route::apiResource('medicines', medicineController::class);
@@ -173,6 +174,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('patAssRooms/checkout/{patient_id}', [PatAssRoomController::class, 'checkout'])->name('patAssRooms.checkout');
     Route::get('patAssRooms/getPatient/{patient_id}', [PatAssRoomController::class, 'getPatient'])->name('patAssRooms.getPatient');
     Route::get('patAssRooms/getRoombyPatient/{patient_id}', [PatAssRoomController::class, 'getRoombyPatient'])->name('patAssRooms.getRoombyPatient');
+    Route::get('patAssRooms/get/unassignedRooms', [PatAssRoomController::class, 'unassignedRooms'])->name('patAssRooms.unassignedRooms');
 
 
     Route::apiResource('physicalExam/categories', PhysicalExamCategoriesController::class);

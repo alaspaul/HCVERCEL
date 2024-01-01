@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\patAssRoom;
 use App\Models\patient;
+use App\Models\room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -162,6 +163,14 @@ class PatAssRoomController extends Controller
         $PAR =  patAssRoom::where('room_id', $id)->first();
 
        return $PAR;
+    }
+
+    public function unassignedRooms(){
+        $assignedRooms = patAssRoom::select('room_id')->get();
+        $rooms = room::select('room_id')->whereNotIn('room_id', $assignedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+
+
+        return response()->json($rooms);
     }
 
 

@@ -172,9 +172,17 @@ class ResidentAssignedRoomController extends Controller
         $resident = new residentController;
 
         $residentName = $resident->residentName($resident_id);
-
+ 
 
         return $residentName;
+    }
+
+    public function unassignedRooms(){
+        $assignedRooms = resident_assigned_room::select('room_id')->get();
+        $rooms = room::select('room_id')->whereNotIn('room_id', $assignedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+
+
+        return response()->json($rooms);
     }
 
 }
