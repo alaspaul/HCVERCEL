@@ -125,7 +125,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::apiResource('residents', ResidentController::class);
     Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
     Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');
-
+    Route::GET('residents/get/allRes', [residentController::class, 'allRes'])->name('residents.allRes');
 
     Route::apiResource('vitals', VitalController::class);
     Route::POST('vitals/edit{vital}', [vitalController::class, 'edit'])->name('vitals.edit');
