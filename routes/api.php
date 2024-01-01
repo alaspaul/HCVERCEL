@@ -196,6 +196,8 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::apiResource('chatGroupUsers', ChatGroupUsersController::class);
     Route::get('chatGroupUsers/get/allGroups', [ChatGroupUsersController::class, 'allGroups'])->name('chatGroupUsers.allGroups');
     Route::get('chatGroupUsers/get/allUsersinGroup/{chatGroup_id}', [ChatGroupUsersController::class, 'allUsersinGroup'])->name('chatGroupUsers.allUsersinGroup');
+    Route::get('chatGroupUsers/get/addResidents', [ChatGroupUsersController::class, 'addResidents'])->name('chatGroupUsers.addResidents');
+    Route::get('chatGroupUsers/get/firstAddResidents', [ChatGroupUsersController::class, 'firstAddResidents'])->name('chatGroupUsers.firstAddResidents');
 
 
     Route::apiResource('histories', HistoryController::class);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\chatGroup;
 use App\Models\chatGroupUsers;
+use App\Models\resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +30,11 @@ class ChatGroupUsersController extends Controller
         $latestorder = chatGroupUsers::all()->count();
 
         $chatGroupId = $this->ifNew($request['chatGroup_id']);
+
+        if($chatGroupId == null){
+            return 'chatGroup id does not exist';
+        }
+
 
         $currentId = $chatGroupId . 'CGU' . $latestorder;
 
@@ -144,17 +150,28 @@ class ChatGroupUsersController extends Controller
         return $myGroups;
     }
 
-    public function allUsersinGroup($groupChat_id){
+    public function allUsersinGroup($chatGroup_id){
 
-        $groupUsers = chatGroupUsers::where('chatGroup_id', $groupChat_id)->pluck('resident_id');
+        $groupUsers = chatGroupUsers::where('chatGroup_id', $chatGroup_id)->pluck('resident_id');
 
         return $groupUsers;
     }
 
 
     public function ifNew($variable){
+        
+
         if($variable != null){
-            return $variable;
+           $chatGroupIds = chatGroup::select('chatGroup_id')->get();
+           $chatGroupArray = $chatGroupIds->toArray();
+
+           if(in_array($variable,  $chatGroupArray)){
+                return $variable;
+
+           }else{
+                return null;
+           }
+
         }else{
             $chatGroup = new ChatGroupController;
 
@@ -165,5 +182,37 @@ class ChatGroupUsersController extends Controller
         }
 
 
+    }
+
+
+    public function addResidents(request $request){
+        $user = Auth::user();
+
+        $residents = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
+
+        $unassignedResidents = resident::whereNotIn('resident_id', $residents)->get();
+
+
+
+        return response()->json($unassignedResidents);
+    }
+
+    public function firstAddResidents(request $request){
+        $user = Auth::user();
+
+        $chatGroupIds = chatGroupUsers::select('chatGroup_id')
+                                    ->groupBy('chatGroup_id')
+                                    ->havingRaw('COUNT(DISTINCT resident_id) = 2')
+                                    ->havingRaw('COUNT(resident_id) = 2')
+                                    ->pluck('chatGroup_id');
+
+
+        $assignedResidents = chatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
+                                    ->where('resident_id' , '!=' , $user['resident_id'])
+                                    ->pluck('resident_id');
+
+        $unassignedResidents = resident::whereNotIn('resident_id', $assignedResidents)->get();
+
+        return response()->json($unassignedResidents);
     }
 }
