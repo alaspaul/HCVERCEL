@@ -61,16 +61,15 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
-        ],
-
+        ],      
         'pgsql' => [
             'url' => env('DATABASE_URL'),
             'driver' => 'pgsql',
-            'host' => 'dpg-cmabn9f109ks73fcn12g-a.oregon-postgres.render.com',
+            'host' => 'dpg-cmatoq6d3nmc73ekn53g-a.singapore-postgres.render.com',
             'port' => env('DB_PORT', '5432'),
             'database' => 'hospital_wilm',
-            'username' => 'user',
-            'password' => 'N9lkLZv3xwiOoZGG0MoJk7Y2zBaMhrp5',
+            'username' => 'newuser1',
+            'password' => 'j4IwKaXLHNjtF2rlEQqzjaDuFQXAX6ol',
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
