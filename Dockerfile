@@ -7,7 +7,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Update Composer
-RUN composer self-update --2
+RUN composer --version
 
 # Set Laravel environment variables
 ENV SKIP_COMPOSER 1
