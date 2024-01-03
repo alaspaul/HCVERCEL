@@ -67,7 +67,7 @@ return [
             'driver' => 'pgsql',
             'host' => 'dpg-cmatoq6d3nmc73ekn53g-a.singapore-postgres.render.com',
             'port' => env('DB_PORT', '5432'),
-            'database' => 'hospital_wilm',
+            'database' => 'hospital_hqd7',
             'username' => 'newuser1',
             'password' => 'j4IwKaXLHNjtF2rlEQqzjaDuFQXAX6ol',
             'charset' => 'utf8',
