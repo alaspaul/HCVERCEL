@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Floor extends Model
+class physicalExam_categories extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'floor_id';
-
+    protected $primaryKey = 'physicalExam_id';
+    
     public $incrementing = false;
     protected $keyType = 'string';
-
-
     protected $fillable = [
-        'floor_id',
-        'floor_name',
+        'PE_name',
+        'PE_description',
+        
     ];
+
 }

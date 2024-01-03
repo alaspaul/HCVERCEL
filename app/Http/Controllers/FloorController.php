@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Floor;
+use App\Models\floor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class FloorController extends Controller
@@ -13,7 +13,7 @@ class FloorController extends Controller
     public function index()
     {
       
-        $data = Floor::all();
+        $data = floor::all();
         return $data;
     }
     /**
@@ -29,21 +29,21 @@ class FloorController extends Controller
      */
     public function store(Request $request)
     {
-        $latestorder = Floor::all()->count();
-        $last_id = Floor::select('floor_id')->orderBy('created_at', 'desc')->first()->floor_id;
+        $latestorder = floor::all()->count();
+        $last_id = floor::select('floor_id')->orderBy('created_at', 'desc')->first()->floor_id;
         $currentId = 'F' . $latestorder;
       
-        if( !empty(Floor::select('floor_id')->where('floor_id', $currentId)->first()->floor_id)){
+        if( !empty(floor::select('floor_id')->where('floor_id', $currentId)->first()->floor_id)){
         do{
             $latestorder++;
             $floorId = 'F'. $latestorder;
-            $id = Floor::select('floor_id')->where('floor_id', $floorId)->first();
+            $id = floor::select('floor_id')->where('floor_id', $floorId)->first();
          
         }while(!empty($id));
     }
     $newId = 'F'. $latestorder;
 
-         Floor::insert([ 'floor_id' => $newId,
+         floor::insert([ 'floor_id' => $newId,
         'floor_name' => $request['floor_name'],
 
         'created_at' => now(),
@@ -52,7 +52,7 @@ class FloorController extends Controller
      
     
 
-        $action ='created a new Floor-'. $request['floor_name'];
+        $action ='created a new floor-'. $request['floor_name'];
 
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -66,7 +66,7 @@ class FloorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Floor $floor)
+    public function show(floor $floor)
     {
         //
     }
@@ -84,14 +84,14 @@ class FloorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $action ='updated a Floor where id-'. $id;
+        $action ='updated a floor where id-'. $id;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
 
-        Floor::where('floor_id', $id)->update(
+        floor::where('floor_id', $id)->update(
             [
                 'floor_id' => $request['floor_id'],
                 'floor_name' => $request['floor_name'],
@@ -108,14 +108,14 @@ class FloorController extends Controller
      */
     public function destroy($id)
     {
-        $action ='deleted a Floor-'. $this->getFloorNamebyId($id);
+        $action ='deleted a floor-'. $this->getFloorNamebyId($id);
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
 
-        Floor::destroy($id);
+        floor::destroy($id);
 
        
        return response('deleted');
@@ -126,14 +126,14 @@ class FloorController extends Controller
     {
        
         
-        $action ='updated a Floor where id-'. $id;
+        $action ='updated a floor where id-'. $id;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
 
-        Floor::where('floor_id', $id)->update(
+        floor::where('floor_id', $id)->update(
             [
                 'floor_id' => $request['floor_id'],
                 'floor_name' => $request['floor_name'],
@@ -148,7 +148,7 @@ class FloorController extends Controller
 
     public function getFloorNamebyId($floor_id){
 
-        $name = Floor::select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
+        $name = floor::select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
 
 
         return $name;

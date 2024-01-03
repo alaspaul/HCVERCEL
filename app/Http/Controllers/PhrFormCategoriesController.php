@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Phr_formCategories;
+use App\Models\phr_formCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class PhrFormCategoriesController extends Controller
      */
     public function index()
     {
-        $data = Phr_formCategories::all();
+        $data = phr_formCategories::all();
 
         return response()->json($data);
     }
@@ -25,20 +25,20 @@ class PhrFormCategoriesController extends Controller
     {
 
 
-        $latestorder = Phr_formCategories::all()->count();
+        $latestorder = phr_formCategories::all()->count();
         $currentId =  'FC' . $latestorder;
 
-        if( !empty(Phr_formCategories::select('formCat_id')->where('formCat_id', $currentId)->first()->formCat_id)){
+        if( !empty(phr_formCategories::select('formCat_id')->where('formCat_id', $currentId)->first()->formCat_id)){
         do{
             $latestorder++;
             $formCat_id = 'FC' . $latestorder;
-            $id = Phr_formCategories::select('formCat_id')->where('formCat_id', $formCat_id)->first();
+            $id = phr_formCategories::select('formCat_id')->where('formCat_id', $formCat_id)->first();
          
         }while(!empty($id));
         }
          $newId = 'FC' . $latestorder;
          
-         Phr_formCategories::insert([
+         phr_formCategories::insert([
            
             'formCat_id' => $newId,
             'formCat_name' => $request['formCat_name'],
@@ -58,7 +58,7 @@ class PhrFormCategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Phr_formCategories $phr_formCategories)
+    public function show(phr_formCategories $phr_formCategories)
     {
         //
     }
@@ -66,7 +66,7 @@ class PhrFormCategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Phr_formCategories $phr_formCategories)
+    public function update(Request $request, phr_formCategories $phr_formCategories)
     {
         //
     }
@@ -80,7 +80,7 @@ class PhrFormCategoriesController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        Phr_formCategories::destroy($id);
+        phr_formCategories::destroy($id);
 
        
         return response('deleted');
@@ -89,7 +89,7 @@ class PhrFormCategoriesController extends Controller
 
     public function getCategoryName($formCat_id)
     {
-        $name = Phr_formCategories::where('formCat_id', $formCat_id)->first()->formCat_id;
+        $name = phr_formCategories::where('formCat_id', $formCat_id)->first()->formCat_id;
 
 
         return response()->json($name);

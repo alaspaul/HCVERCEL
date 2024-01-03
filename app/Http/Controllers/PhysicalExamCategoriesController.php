@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PhysicalExam_categories;
+use App\Models\physicalExam_categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class PhysicalExamCategoriesController extends Controller
@@ -12,7 +12,7 @@ class PhysicalExamCategoriesController extends Controller
      */
     public function index()
     {
-        $data = PhysicalExam_categories::all();
+        $data = physicalExam_categories::all();
 
         return response()->json($data);
     }
@@ -23,20 +23,20 @@ class PhysicalExamCategoriesController extends Controller
     public function store(Request $request)
     {
  
-        $latestorder = PhysicalExam_categories::all()->count();
+        $latestorder = physicalExam_categories::all()->count();
         $currentId =  'PE' . $latestorder;
 
-        if( !empty(PhysicalExam_categories::select('physicalExam_id')->where('physicalExam_id', $currentId)->first()->physicalExam_id)){
+        if( !empty(physicalExam_categories::select('physicalExam_id')->where('physicalExam_id', $currentId)->first()->physicalExam_id)){
         do{
             $latestorder++;
             $physicalExam_id = 'PE' . $latestorder;
-            $id = PhysicalExam_categories::select('physicalExam_id')->where('physicalExam_id', $physicalExam_id)->first();
+            $id = physicalExam_categories::select('physicalExam_id')->where('physicalExam_id', $physicalExam_id)->first();
          
         }while(!empty($id));
         }
          $newId = 'PE' . $latestorder;
 
-         PhysicalExam_categories::insert([
+         physicalExam_categories::insert([
            
             'physicalExam_id' => $newId,
             'PE_name' => $request['PE_name'],
@@ -57,7 +57,7 @@ class PhysicalExamCategoriesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PhysicalExam_categories $physicalExam_categories)
+    public function show(physicalExam_categories $physicalExam_categories)
     {
         //
     }
@@ -65,7 +65,7 @@ class PhysicalExamCategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PhysicalExam_categories $physicalExam_categories)
+    public function update(Request $request, physicalExam_categories $physicalExam_categories)
     {
         //
     }
@@ -75,12 +75,12 @@ class PhysicalExamCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $PE = PhysicalExam_categories::where('physicalExam_id', $id)->first();
+        $PE = physicalExam_categories::where('physicalExam_id', $id)->first();
         $action ='deleted a Physical Exam Category-'. $PE['PE_name'];
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        PhysicalExam_categories::destroy($id);
+        physicalExam_categories::destroy($id);
 
        
         return response('deleted');

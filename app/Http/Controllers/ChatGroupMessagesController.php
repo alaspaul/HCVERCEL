@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ChatGroupMessages;
+use App\Models\chatGroupMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ChatGroupMessagesController extends Controller
@@ -12,7 +12,7 @@ class ChatGroupMessagesController extends Controller
      */
     public function index()
     {
-        $data = ChatGroupMessages::all();
+        $data = chatGroupMessages::all();
         return $data;
     }
 
@@ -22,7 +22,7 @@ class ChatGroupMessagesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $latestorder = ChatGroupMessages::all()->count();
+        $latestorder = chatGroupMessages::all()->count();
         $currentId = $request['chatGroup_id'] . 'CGM' . $latestorder;
 
         $chatGroupUsers = new ChatGroupUsersController;
@@ -32,11 +32,11 @@ class ChatGroupMessagesController extends Controller
             return 'USER ISNT PART OF THIS GROUP';
         }
 
-        if( !empty(ChatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $currentId)->first()->chatGroupMessages_id)){
+        if( !empty(chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $currentId)->first()->chatGroupMessages_id)){
             do{
                 $latestorder++;
                 $depId = $request['chatGroup_id'] . 'CGM' . $latestorder;
-                $id = ChatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $depId)->first();
+                $id = chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $depId)->first();
              
             }while(!empty($id));
         }
@@ -44,7 +44,7 @@ class ChatGroupMessagesController extends Controller
             $newId = $request['chatGroup_id'] . 'CGM' . $latestorder;
 
 
-            ChatGroupMessages::insert([
+            chatGroupMessages::insert([
                 'chatGroupMessages_id' => $newId,
                 'message' => $request['message'],   
                 'chatGroup_id' => $request['chatGroup_id'],
@@ -68,7 +68,7 @@ class ChatGroupMessagesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ChatGroupMessages $chatGroupMessages)
+    public function show(chatGroupMessages $chatGroupMessages)
     {
         //
     }
@@ -80,7 +80,7 @@ class ChatGroupMessagesController extends Controller
     {
         $user = Auth::user();
 
-        $action ='updated a ChatGroupMessages where id-'. $id;
+        $action ='updated a chatGroupMessages where id-'. $id;
 
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -88,7 +88,7 @@ class ChatGroupMessagesController extends Controller
         $log->store(Auth::user(), $action);
         }
 
-        ChatGroupMessages::where('chatGroupMessages_id', $id)->update([
+        chatGroupMessages::where('chatGroupMessages_id', $id)->update([
             'message' => $request['message'],   
             'chatGroup_id' => $request['chatGroup_id'],
             'resident_id' => $user['resident_id'],
@@ -112,7 +112,7 @@ class ChatGroupMessagesController extends Controller
         $log->store(Auth::user(), $action);
         }
   
-        ChatGroupMessages::destroy($id);
+        chatGroupMessages::destroy($id);
 
        
        return response('deleted');
@@ -122,7 +122,7 @@ class ChatGroupMessagesController extends Controller
 
       
 
-        $messages = ChatGroupMessages::where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'desc')->limit(30)->get();
+        $messages = chatGroupMessages::where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'desc')->limit(30)->get();
 
 
         return $messages;

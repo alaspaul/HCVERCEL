@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PatientHistory;
+use App\Models\patientHistory;
 use Illuminate\Http\Request;
 
 class PatientHistoryController extends Controller
@@ -21,21 +21,21 @@ class PatientHistoryController extends Controller
     public function store($changes, $history_id, $AV_id1, $AV_id2)
     {
 
-        $latestOrder = PatientHistory::where('history_id', $history_id)->count();
+        $latestOrder = patientHistory::where('history_id', $history_id)->count();
         $currentId = $history_id . '|'.'PH' . '-' . $latestOrder;
 
-        if( !empty(PatientHistory::select('ph_id')->where('ph_id', $currentId)->first()->ph_id)){
+        if( !empty(patientHistory::select('ph_id')->where('ph_id', $currentId)->first()->ph_id)){
             do{
                 $latestorder++;
                 $histId = $history_id . '|'.'PH' . '-' . $latestOrder;
-                $id = PatientHistory::select('ph_id')->where('ph_id', $currentId)->first();
+                $id = patientHistory::select('ph_id')->where('ph_id', $currentId)->first();
              
             }while(!empty($id));
         }
 
         $newId = $history_id . '|'.'PH' . '-' . $latestOrder;
 
-        PatientHistory::insert([
+        patientHistory::insert([
             'ph_id' => $newId, 
             'ph_changes' => $changes,
             'attributeVal_id1' => $AV_id1,
@@ -50,7 +50,7 @@ class PatientHistoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PatientHistory $patientHistory)
+    public function show(patientHistory $patientHistory)
     {
         //
     }
@@ -58,7 +58,7 @@ class PatientHistoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PatientHistory $patientHistory)
+    public function update(Request $request, patientHistory $patientHistory)
     {
         //
     }
@@ -66,7 +66,7 @@ class PatientHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PatientHistory $patientHistory)
+    public function destroy(patientHistory $patientHistory)
     {
         //
     }

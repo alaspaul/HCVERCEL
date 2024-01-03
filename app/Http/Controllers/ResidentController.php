@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
-use App\Models\Resident;
+use App\Models\department;
+use App\Models\resident;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        $data = Resident::all();
+        $data = resident::all();
         return $data;
 
 
@@ -42,25 +42,25 @@ class ResidentController extends Controller
     {
         $time = now();
         $date = new Carbon( $time ); 
-        $depId = Department::select('department_id')->where('department_id',  $request['department_id'] )->first()->department_id;
+        $depId = department::select('department_id')->where('department_id',  $request['department_id'] )->first()->department_id;
 
-        $latestorder = Resident::where('department_id', $depId)->count();
-        $last_id = Resident::select('resident_id')->orderBy('created_at', 'desc')->first()->resident_id;
+        $latestorder = resident::where('department_id', $depId)->count();
+        $last_id = resident::select('resident_id')->orderBy('created_at', 'desc')->first()->resident_id;
         $currentId = $date->year . $depId . 'R' . $latestorder;
         
 
-        if( !empty(Resident::select('resident_id')->where('resident_id', $currentId)->first()->resident_id)){
+        if( !empty(resident::select('resident_id')->where('resident_id', $currentId)->first()->resident_id)){
         do{
             $latestorder++;
             $residentId = $date->year . $depId . 'R' . $latestorder;
-            $id = Resident::select('resident_id')->where('resident_id', $residentId)->first();
+            $id = resident::select('resident_id')->where('resident_id', $residentId)->first();
          
         }while(!empty($id));
         }
          $newId = $date->year . $depId . 'R' . $latestorder;
 
 
-         Resident::insert([
+         resident::insert([
             'resident_id' =>  $newId,
             'resident_userName' => $request['resident_userName'],
             'resident_fName' => $request['resident_fName'],
@@ -75,7 +75,7 @@ class ResidentController extends Controller
         ]);
        
 
-        $action ='added a new Resident-'. $request['resident_lName']. $request['resident_fName'];
+        $action ='added a new resident-'. $request['resident_lName']. $request['resident_fName'];
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -93,7 +93,7 @@ class ResidentController extends Controller
             $resident = Resident::findOrFail($residentId);
             return response()->json($resident);
         }catch(\Exception $e){
-            return response()->json(['error'=>'Resident not found'], 404);
+            return response()->json(['error'=>'resident not found'], 404);
         }
     }
 
@@ -128,9 +128,9 @@ class ResidentController extends Controller
             $dataToUpdate['resident_password'] = bcrypt($request['resident_password']);
         }
 
-        Resident::where('resident_id', $id)->update($dataToUpdate);
+        resident::where('resident_id', $id)->update($dataToUpdate);
 
-        $action ='updated a Resident where id-'. $id;
+        $action ='updated a resident where id-'. $id;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -145,16 +145,16 @@ class ResidentController extends Controller
      */
     public function destroy($id)
     {
-        $lname = Resident::select('resident_lName')->where('resident_id', $id)->first()->resident_lName;
-        $fname = Resident::select('resident_fName')->where('resident_id', $id)->first()->resident_fName;
+        $lname = resident::select('resident_lName')->where('resident_id', $id)->first()->resident_lName;
+        $fname = resident::select('resident_fName')->where('resident_id', $id)->first()->resident_fName;
 
-        $action ='deleted a Resident-'. $lname. $fname;
+        $action ='deleted a resident-'. $lname. $fname;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
-       Resident::destroy($id);
+       resident::destroy($id);
 
        return response('deleted');
     }
@@ -180,9 +180,9 @@ class ResidentController extends Controller
             $dataToUpdate['resident_password'] = bcrypt($request['resident_password']);
         }
 
-        Resident::where('resident_id', $id)->update($dataToUpdate);
+        resident::where('resident_id', $id)->update($dataToUpdate);
 
-        $action ='updated a Resident where id-'. $id;
+        $action ='updated a resident where id-'. $id;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -194,9 +194,9 @@ class ResidentController extends Controller
 
     public function residentName($resident_id)
     {
-        $lname = Resident::select('resident_lName')->where('resident_id', $resident_id)->first()->resident_lName;
-        $fname = Resident::select('resident_fName')->where('resident_id', $resident_id)->first()->resident_fName;
-        $mname = Resident::select('resident_mName')->where('resident_id', $resident_id)->first()->resident_mName;
+        $lname = resident::select('resident_lName')->where('resident_id', $resident_id)->first()->resident_lName;
+        $fname = resident::select('resident_fName')->where('resident_id', $resident_id)->first()->resident_fName;
+        $mname = resident::select('resident_mName')->where('resident_id', $resident_id)->first()->resident_mName;
 
 
 
@@ -208,7 +208,7 @@ class ResidentController extends Controller
         if($user['role'] != 'admin'){
         $userid = $user->resident_id;
 
-        $residents = Resident::where('resident_id','!=', $userid)->get();
+        $residents = resident::where('resident_id','!=', $userid)->get();
     
 
         return response()->json($residents);

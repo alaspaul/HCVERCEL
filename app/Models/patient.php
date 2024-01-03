@@ -4,22 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class ResActionLog extends Model
+class patient extends Model
 {
     use HasFactory;
 
-    use HasFactory;
-    protected $primaryKey = 'RA_id';
     
+    protected $primaryKey = 'patient_id';
+
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = [
-        'RA_id',
-        'action',
-        'role',
-        'user_id',
-    ];
 
+
+    protected $fillable = [
+        'patient_id',
+        'patient_fName',
+        'patient_lName',
+        'patient_mName',
+        'patient_age',
+        'patient_sex',
+    ];
 }

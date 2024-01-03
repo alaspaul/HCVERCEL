@@ -26,7 +26,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ResidentAssignedRoomController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\FloorController;
-use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\medicineController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VitalController;
@@ -38,7 +38,7 @@ use App\Http\Controllers\VitalController;
 |
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great
+| be assigned to the "api" middleware group. Make something great!
 |
 */
 
@@ -48,9 +48,9 @@ use App\Http\Controllers\VitalController;
 Route::post('/admin/Login', [UserController::class, 'loginAdmin'])->name('admin.login');
 
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:adminApi'], function () {
+Route::group(['middleware' => 'auth:adminApi', 'prefix' => 'admin'],function(){
     Route::get('Check', [UserController::class, 'checker'])->name('checker');
-    Route::get('Logout', [UserController::class, 'logoutAdmin'])->name('logout');
+    Route::get('Logout', [UserController::class, 'logoutAdmin'])->name('admin.logout');
     Route::apiResource('admin', UserController::class);
 
 
@@ -62,27 +62,29 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 
 
     Route::apiResource('residents', ResidentController::class);
-    Route::POST('residents/edit{resident}', [ResidentController::class, 'edit'])->name('residents.edit');
-    Route::POST('residents/updateResident{resident}', [ResidentController::class, 'updateResident'])->name('residents.updateResident');
+    Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
+    Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');
 
 
     Route::apiResource('floors', FloorController::class);
-    Route::POST('floors/edit{floor}', [FloorController::class, 'edit'])->name('floors.edit');
-    Route::POST('floors/updateFloor{floor}', [FloorController::class, 'updateFloor'])->name('floors.updateFloor');
+    Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
+    Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
 
     Route::apiResource('departments', DepartmentController::class);
     Route::POST('departments/getDepNamebyId/{department_id}', [DepartmentController::class, 'getDepNamebyId'])->name('departments.getDepNamebyId');
   
-    Route::apiResource('medicines', MedicineController::class);
-    Route::POST('medicines/edit{medicine}', [MedicineController::class, 'edit'])->name('medicines.edit');
-    Route::POST('medicines/updateMeds{medicine}', [MedicineController::class, 'updateMeds'])->name('medicines.updateMeds');
+    Route::apiResource('medicines', medicineController::class);
+    Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
+    Route::POST('medicines/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicines.updateMeds');
+
 
     Route::apiResource('rooms', RoomController::class);
-    Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
-    Route::POST('rooms/updateRoom{room}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
-    Route::POST('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::POST('rooms/edit{room}', [roomController::class, 'edit'])->name('rooms.edit');
+    Route::POST('rooms/updateRoom{room}', [roomController::class, 'updateRoom'])->name('rooms.updateRoom');
+    Route::POST('rooms/getRooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::post('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
+
 });
 
 
@@ -96,9 +98,9 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
 
     Route::apiResource('rooms', RoomController::class);
-    Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
-    Route::POST('rooms/updateRoom{room}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
-    Route::POST('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::POST('rooms/edit{room}', [roomController::class, 'edit'])->name('rooms.edit');
+    Route::POST('rooms/updateRoom{room}', [roomController::class, 'updateRoom'])->name('rooms.updateRoom');
+    Route::POST('rooms/getRooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::post('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
     
@@ -120,9 +122,9 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::GET('resAssRooms/get/unassignedRooms', [ResidentAssignedRoomController::class, 'unassignedRooms'])->name('rar.unassignedRooms');
 
 
-    Route::apiResource('medicines', MedicineController::class);
-    Route::POST('medicines/edit{medicine}', [MedicineController::class, 'edit'])->name('medicines.edit');
-    Route::POST('medicines/updateMeds{medicine}', [MedicineController::class, 'updateMeds'])->name('medicines.updateMeds');
+    Route::apiResource('medicines', medicineController::class);
+    Route::POST('medicines/edit{medicine}', [medicineController::class, 'edit'])->name('medicines.edit');
+    Route::POST('medicines/updateMeds{medicine}', [medicineController::class, 'updateMeds'])->name('medicines.updateMeds');
 
     Route::apiResource('patientMedicines', PatientMedicineController::class);
 
@@ -130,13 +132,18 @@ Route::group(['middleware' => 'auth:customApi'],function(){
 
 
     Route::apiResource('residents', ResidentController::class);
-    Route::POST('residents/edit{resident}', [ResidentController::class, 'edit'])->name('residents.edit');
-    Route::POST('residents/updateResident{resident}', [ResidentController::class, 'updateResident'])->name('residents.updateResident');
-    Route::GET('residents/get/allRes', [ResidentController::class, 'allRes'])->name('residents.allRes');
+    Route::POST('residents/edit{resident}', [residentController::class, 'edit'])->name('residents.edit');
+    Route::POST('residents/updateResident{resident}', [residentController::class, 'updateResident'])->name('residents.updateResident');
+    Route::GET('residents/get/allRes', [residentController::class, 'allRes'])->name('residents.allRes');
 
     Route::apiResource('vitals', VitalController::class);
-    Route::POST('vitals/edit{vital}', [VitalController::class, 'edit'])->name('vitals.edit');
-    Route::POST('vitals/updateVital{vital}', [VitalController::class, 'updateVital'])->name('vitals.updateVital');
+    Route::POST('vitals/edit{vital}', [vitalController::class, 'edit'])->name('vitals.edit');
+    Route::POST('vitals/updateVital{vital}', [vitalController::class, 'updateVital'])->name('vitals.updateVital');
+  
+
+    Route::apiResource('rooms', RoomController::class);
+    Route::POST('Rooms/getRooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::post('Rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
 
     Route::apiResource('departments', DepartmentController::class);
@@ -144,8 +151,8 @@ Route::group(['middleware' => 'auth:customApi'],function(){
   
 
     Route::apiResource('floors', FloorController::class);
-    Route::POST('floors/edit{floor}', [FloorController::class, 'edit'])->name('floors.edit');
-    Route::POST('floors/updateFloor{floor}', [FloorController::class, 'updateFloor'])->name('floors.updateFloor');
+    Route::POST('floors/edit{floor}', [floorController::class, 'edit'])->name('floors.edit');
+    Route::POST('floors/updateFloor{floor}', [floorController::class, 'updateFloor'])->name('floors.updateFloor');
 
     Route::apiResource('patients', PatientController::class);
     Route::get('patients/getPatientName/{id}', [PatientController::class, 'getPatientName'])->name('patients.getPatientName');

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lab_results;
+use App\Models\lab_results;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class LabResultsController extends Controller
      */
     public function index()
     {
-        $data = Lab_results::all();
+        $data = lab_results::all();
         return $data;
     }
 
@@ -32,22 +32,22 @@ class LabResultsController extends Controller
     {
         $time = now();
         $date = new Carbon( $time ); 
-        $latestorder = Lab_results::where('patient_id', $request['patient_id'])->count();
+        $latestorder = lab_results::where('patient_id', $request['patient_id'])->count();
         $currentId =  $request['patient_id'] . 'L' . $latestorder;
 
 
-        if( !empty( Lab_results::select('labResults_id')->where('labResults_id', $currentId)->first()->labResults_id )){
+        if( !empty( lab_results::select('labResults_id')->where('labResults_id', $currentId)->first()->labResults_id )){
         do{
             $latestorder++;
             $depId =  $request['patient_id'] . 'L' . $latestorder;
-            $id = Lab_results::select('labResults_id')->where('labResults_id', $depId)->first();
+            $id = lab_results::select('labResults_id')->where('labResults_id', $depId)->first();
          
         }while(!empty($id));
     }
 
         $newId =  $request['patient_id'] . 'L' . $latestorder;
 
-        Lab_results::insert([
+        lab_results::insert([
         'labResults_id' => $newId,
         'labResultDate' => $request['labResultDate'],
         'results' => $request['results'],
@@ -70,7 +70,7 @@ class LabResultsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Lab_results $lab_results)
+    public function show(lab_results $lab_results)
     {
         //
     }
@@ -78,7 +78,7 @@ class LabResultsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Lab_results $lab_results)
+    public function edit(lab_results $lab_results)
     {
         //
     }
@@ -88,7 +88,7 @@ class LabResultsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Lab_results::where('labResults_id', $id)->update(
+        lab_results::where('labResults_id', $id)->update(
             [
                 'labResults_id' => $request['labResults_id'],
                 'labResultDate' => $request['labResultDate'],
@@ -119,7 +119,7 @@ class LabResultsController extends Controller
         $log->store(Auth::user(), $action);
         }
 
-        Lab_results::destroy($id);
+        lab_results::destroy($id);
 
        
         return response('deleted');

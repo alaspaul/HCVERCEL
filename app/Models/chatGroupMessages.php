@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Phr_formCategories extends Model
+class chatGroupMessages extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'formCat_id';
-
+    protected $primaryKey = 'chatGroupMessages_id';
+    
     public $incrementing = false;
     protected $keyType = 'string';
-
-
     protected $fillable = [
-        'formCat_id',
-        'formCat_name',
-        'formCat_description',
-
+        'chatGroupMessages_id',
+        'message',
+        'resident_id',
+        'chatGroup_id'
     ];
-
 }

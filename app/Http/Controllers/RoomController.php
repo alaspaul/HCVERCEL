@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Floor;
-use App\Models\Room;
+use App\Models\floor;
+use App\Models\room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class RoomController extends Controller
@@ -13,7 +13,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $data = Room::orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        $data = room::orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
         return $data;
 
 
@@ -35,7 +35,7 @@ class RoomController extends Controller
     public function store(Request $request)
 
     { 
-        $floorName = Floor::where('floor_id', $request['floor_id'])->first()->floor_name;
+        $floorName = floor::where('floor_id', $request['floor_id'])->first()->floor_name;
         $abbreviations = $this->getAbbreviation($floorName);
        
 
@@ -43,15 +43,15 @@ class RoomController extends Controller
         $floorId = $request['floor_id'];
        
 
-        $latestorder = Room::where('floor_id', $floorId )->count();
-        $last_id = Room::select('room_id')->orderBy('created_at', 'desc')->first()->room_id;
+        $latestorder = room::where('floor_id', $floorId )->count();
+        $last_id = room::select('room_id')->orderBy('created_at', 'desc')->first()->room_id;
         $currentId = $abbreviations . $latestorder;
         
-        if( !empty(Room::select('room_id')->where('room_id', $currentId)->first()->room_id)){
+        if( !empty(room::select('room_id')->where('room_id', $currentId)->first()->room_id)){
         do{
             $latestorder++;
             $depId = $abbreviations  . $latestorder;
-            $id = Room::select('room_id')->where('room_id', $depId)->first();
+            $id = room::select('room_id')->where('room_id', $depId)->first();
          
         }while(!empty($id));
     }
@@ -62,7 +62,7 @@ class RoomController extends Controller
 
 
 
-        Room::insert([
+        room::insert([
             'room_id' => $newId,
             'room_name' => $request['room_name'],
             'room_floor' => $floorName,
@@ -74,7 +74,7 @@ class RoomController extends Controller
             'updated_at' => now(),
         ]);
 
-        $action ='added a new Room-'. $request['room_name'];
+        $action ='added a new room-'. $request['room_name'];
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -87,7 +87,7 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Room $room)
+    public function show(room $room)
     {
         //
     }
@@ -115,14 +115,14 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        $name = Room::select('room_name')->where('room_id', $id)->first()->room_name;
-        $action ='deleted a Floor-'. $name;
+        $name = room::select('room_name')->where('room_id', $id)->first()->room_name;
+        $action ='deleted a floor-'. $name;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
-       Room::destroy($id);
+       room::destroy($id);
 
        return response('deleted');
     }
@@ -132,7 +132,7 @@ class RoomController extends Controller
     {
        
         
-        Room::where('room_id', $id)->update(
+        room::where('room_id', $id)->update(
             [
                 'room_name' => $request['room_name'],
                 'room_floor' => $request['room_floor'],
@@ -145,7 +145,7 @@ class RoomController extends Controller
                 ]
 
         );
-        $action ='updated a Room where id-'. $id;
+        $action ='updated a room where id-'. $id;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -156,20 +156,20 @@ class RoomController extends Controller
 
 
     public function getRoom($room_id){
-        $room = Room::where('room_id', $room_id)->first();
+        $room = room::where('room_id', $room_id)->first();
         return response()->json($room);
     }
 
 
     public function getRoomByFloor($floorId){
-        $rooms = Room::where('floor_Id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        $rooms = room::where('floor_Id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
         return response()->json($rooms);
     }
 
 
     public function getRoomNamebyId($room_id){
-        $roomName = Room::select('room_name')->where('room_id', $room_id)->first()->room_name;
+        $roomName = room::select('room_name')->where('room_id', $room_id)->first()->room_name;
 
         return $roomName;
     }

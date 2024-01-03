@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Phr_categoryAttributes;
-use App\Models\Phr_formCategories;
+use App\Models\phr_categoryAttributes;
+use App\Models\phr_formCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class PhrCategoryAttributesController extends Controller
@@ -13,7 +13,7 @@ class PhrCategoryAttributesController extends Controller
      */
     public function index()
     {
-        $data = Phr_categoryAttributes::all();
+        $data = phr_categoryAttributes::all();
 
         return response()->json($data);
     }
@@ -23,23 +23,23 @@ class PhrCategoryAttributesController extends Controller
      */
     public function store(Request $request)
     {
-        $formCat_id = Phr_formCategories::where('formCat_id', $request['formCat_id'])->first()->formCat_id;
+        $formCat_id = phr_formCategories::where('formCat_id', $request['formCat_id'])->first()->formCat_id;
 
-        $latestorder = Phr_categoryAttributes::where('formCat_id', $formCat_id)->count();
+        $latestorder = phr_categoryAttributes::where('formCat_id', $formCat_id)->count();
         
         $currentId =  $formCat_id . 'CA' . $latestorder;
 
-        if( !empty(Phr_categoryAttributes::select('categoryAtt_id')->where('categoryAtt_id', $currentId)->first()->categoryAtt_id)){
+        if( !empty(phr_categoryAttributes::select('categoryAtt_id')->where('categoryAtt_id', $currentId)->first()->categoryAtt_id)){
         do{
             $latestorder++;
             $categoryAtt_id = $formCat_id . 'CA' . $latestorder;
-            $id = Phr_categoryAttributes::select('categoryAtt_id')->where('categoryAtt_id', $categoryAtt_id)->first();
+            $id = phr_categoryAttributes::select('categoryAtt_id')->where('categoryAtt_id', $categoryAtt_id)->first();
          
         }while(!empty($id));
         }
          $newId = $formCat_id . 'CA' . $latestorder;
 
-         Phr_categoryAttributes::insert([
+         phr_categoryAttributes::insert([
             'categoryAtt_id' => $newId,
             'categoryAtt_name' => $request['categoryAtt_name'],
             'categoryAtt_dataType' => $request['categoryAtt_dataType'],
@@ -61,7 +61,7 @@ class PhrCategoryAttributesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Phr_categoryAttributes $phr_categoryAttributes)
+    public function show(phr_categoryAttributes $phr_categoryAttributes)
     {
         //
     }
@@ -69,7 +69,7 @@ class PhrCategoryAttributesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Phr_categoryAttributes $phr_categoryAttributes)
+    public function update(Request $request, phr_categoryAttributes $phr_categoryAttributes)
     {
         //
     }
@@ -82,7 +82,7 @@ class PhrCategoryAttributesController extends Controller
         $action ='deleted a categoryAttribute-'. $id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        Phr_categoryAttributes::destroy($id);
+        phr_categoryAttributes::destroy($id);
 
        
         return response('deleted');
@@ -91,7 +91,7 @@ class PhrCategoryAttributesController extends Controller
 
     public function getAttributeName($categoryAtt_id)
     {
-        $AttributeName = Phr_categoryAttributes::where('categoryAtt_id', $categoryAtt_id)->first()->categoryAtt_name;
+        $AttributeName = phr_categoryAttributes::where('categoryAtt_id', $categoryAtt_id)->first()->categoryAtt_name;
 
 
         return $AttributeName;

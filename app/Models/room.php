@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\floor;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
-class Room extends Model
+class room extends Model
 {
     
     use HasFactory;
@@ -30,7 +30,7 @@ class Room extends Model
     
     public function floor(): HasOneOrMany
     {
-        return $this->hasOne(Floor::class, 'foreign_key', 'floor_id');
+        return $this->hasOne(floor::class, 'foreign_key', 'floor_id');
     }
 
 

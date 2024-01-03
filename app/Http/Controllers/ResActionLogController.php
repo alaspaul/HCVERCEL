@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ResActionLog;
-use App\Models\Resident;
+use App\Models\resActionLog;
+use App\Models\resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ class ResActionLogController extends Controller
     }
     public function index()
     {
-        $data = ResActionLog::paginate(30);
+        $data = resActionLog::paginate(30);
 
         return response()->json($data);
         
@@ -35,22 +35,22 @@ class ResActionLogController extends Controller
         $time = now();
         $date = new Carbon( $time ); 
 
-        $latestorder = ResActionLog::all()->count();
+        $latestorder = resActionLog::all()->count();
         $currentId = $date->year .'RA' . $latestorder;
 
 
-        if( !empty(ResActionLog::select('RA_id')->where('RA_id', $currentId)->first()->RA_id)){
+        if( !empty(resActionLog::select('RA_id')->where('RA_id', $currentId)->first()->RA_id)){
         do{
             $latestorder++;
             $depId = $date->year .'RA' . $latestorder;
-            $id = ResActionLog::select('RA_id')->where('RA_id', $depId)->first();
+            $id = resActionLog::select('RA_id')->where('RA_id', $depId)->first();
          
         }while(!empty($id));
     }
 
         $newId =  $date->year .'RA' . $latestorder;
         if($user['role'] == 'admin'){
-            ResActionLog::insert([
+            resActionLog::insert([
                 'RA_id' => $newId,
                 'action' => $action,
                 'role' => 'admin',
@@ -60,7 +60,7 @@ class ResActionLogController extends Controller
             ]);            
         
         }else{
-            ResActionLog::insert([
+            resActionLog::insert([
                 'RA_id' => $newId,
                 'action' => $action,
                 'role' => $this->isChief($user),
@@ -77,7 +77,7 @@ class ResActionLogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ResActionLog $resActionLog)
+    public function show(resActionLog $resActionLog)
     {
         //
     }
@@ -85,7 +85,7 @@ class ResActionLogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ResActionLog $resActionLog)
+    public function update(Request $request, resActionLog $resActionLog)
     {
         //
     }
@@ -93,16 +93,16 @@ class ResActionLogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ResActionLog $resActionLog)
+    public function destroy(resActionLog $resActionLog)
     {
         //
     }
 
     public function residentName($resident_id)
     {
-        $lname = Resident::select('resident_lName')->where('resident_id', $resident_id)->first()->resident_lName;
-        $fname = Resident::select('resident_fName')->where('resident_id', $resident_id)->first()->resident_fName;
-        $mname = Resident::select('resident_mName')->where('resident_id', $resident_id)->first()->resident_mName;
+        $lname = resident::select('resident_lName')->where('resident_id', $resident_id)->first()->resident_lName;
+        $fname = resident::select('resident_fName')->where('resident_id', $resident_id)->first()->resident_fName;
+        $mname = resident::select('resident_mName')->where('resident_id', $resident_id)->first()->resident_mName;
 
 
 
@@ -118,19 +118,19 @@ class ResActionLogController extends Controller
 
         if($userRole == 'admin'){
 
-            $data = ResActionLog::paginate(5);
+            $data = resActionLog::paginate(5);
             return response()->json($data);
 
         }else{
 
             if($userRole == 'chiefResident'){
-                $chiefDep = Resident::select('department_id')->where('resident_id', $user['resident_id'])->first()->department_id;
+                $chiefDep = resident::select('department_id')->where('resident_id', $user['resident_id'])->first()->department_id;
 
-                $data = ResActionLog::where('user_id', 'LIKE', '%'.$chiefDep.'%')->paginate(5);
+                $data = resActionLog::where('user_id', 'LIKE', '%'.$chiefDep.'%')->paginate(5);
                
                 return response()->json($data);
-            }elseif($userRole == 'Resident'){
-                $data = ResActionLog::where('user_id', $user['resident_id'])->paginate(5);
+            }elseif($userRole == 'resident'){
+                $data = resActionLog::where('user_id', $user['resident_id'])->paginate(5);
                 return response()->json($data);
             }
 

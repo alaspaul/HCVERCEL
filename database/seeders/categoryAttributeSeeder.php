@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Phr_categoryAttributes;
+use App\Models\phr_categoryAttributes;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -1397,6 +1397,6 @@ class categoryAttributeSeeder extends Seeder
 
         ];
 
-        Phr_categoryAttributes::insert($categoryAtt);
+        phr_categoryAttributes::insert($categoryAtt);
     }
 }

@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Patient;
-
-use App\Models\FileUpload;
+use App\Models\patient;
+use File;
+use App\Models\fileUpload;
 use App\Http\Controllers\ResActionLogController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\Auth;
 class FileUploadController extends Controller
 {
@@ -16,7 +17,7 @@ class FileUploadController extends Controller
      */
     public function index()
     {
-        $files = FileUpload::all();
+        $files = fileUpload::all();
 
         return response()->json($files);
     }
@@ -29,7 +30,7 @@ class FileUploadController extends Controller
         $user = Auth::user();
 
         $file = $request->file('file');
-        if(empty(FileUpload::where('file_name', $file->getClientOriginalName())->first())){
+        if(empty(fileUpload::where('file_name', $file->getClientOriginalName())->first())){
             $path = Storage::putFileAs(
                 'file/'. $user['resident_id'],  $file,  $file->getClientOriginalName()
             );
@@ -41,15 +42,15 @@ class FileUploadController extends Controller
 
         $time = now();
         $date = new Carbon( $time ); 
-        $latestorder = FileUpload::all()->count();
+        $latestorder = fileUpload::all()->count();
         $currentId = $date->year . $date->month  . 'FU' . $latestorder;
 
 
-        if( !empty(FileUpload::select('file_id')->where('file_id', $currentId)->first()->file_id)){
+        if( !empty(fileUpload::select('file_id')->where('file_id', $currentId)->first()->file_id)){
         do{
             $latestorder++;
             $depId =  $date->year . $date->month  . 'FU' . $latestorder;
-            $id = FileUpload::select('file_id')->where('file_id', $depId)->first();
+            $id = fileUpload::select('file_id')->where('file_id', $depId)->first();
          
         }while(!empty($id));
     }
@@ -60,7 +61,7 @@ class FileUploadController extends Controller
             return response()->json('admins cannot add a file to a patient');
         }else{
 
-        FileUpload::insert(['file_id' => $newId,
+        fileUpload::insert(['file_id' => $newId,
         'file_path' => $path,
         'file_name'=> $file->getClientOriginalName(),
         'file_size'=> $file->getSize(),
@@ -100,7 +101,7 @@ class FileUploadController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FileUpload $fileUpload)
+    public function update(Request $request, fileUpload $fileUpload)
     {
         //
     }
@@ -110,7 +111,7 @@ class FileUploadController extends Controller
      */
     public function destroy($id)
     {
-        $file = FileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
+        $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
 
         $action ='deleted a file ' . $file;
 
@@ -122,7 +123,7 @@ class FileUploadController extends Controller
 
         
         Storage::delete('file/'.  $file);
-        FileUpload::destroy($id);
+        fileUpload::destroy($id);
 
 
         return response()->json($file . ' has been Deleted');
@@ -131,7 +132,7 @@ class FileUploadController extends Controller
     public function download($file_id)
     {
       
-        $file = FileUpload::where('file_id', $file_id)->first();
+        $file = fileUpload::where('file_id', $file_id)->first();
         $pathToFile = storage_path('app\\' . $file['file_path']);
 
         return response()->download($pathToFile);
@@ -143,7 +144,7 @@ class FileUploadController extends Controller
         $patId = $request['patient_id'];
 
    
-        $data = FileUpload::where('resident_id', $resId)->where('patient_id', $patId)->get();
+        $data = fileUpload::where('resident_id', $resId)->where('patient_id', $patId)->get();
 
 
         return response()->json($data);
@@ -152,7 +153,7 @@ class FileUploadController extends Controller
     public function viewFile($id)
     {
 
-        $file = FileUpload::where('file_id', $id)->first();
+        $file = fileUpload::where('file_id', $id)->first();
         $pathToFile = storage_path('app\\' . $file['file_path']);
 
         return response()->file($pathToFile);

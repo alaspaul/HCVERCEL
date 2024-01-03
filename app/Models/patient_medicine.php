@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class Patient_medicine extends Model
+class patient_medicine extends Model
 {
     use HasFactory;
     protected $primaryKey = 'patientMedicine_id';
@@ -25,11 +25,11 @@ class Patient_medicine extends Model
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(Patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(patient_healthRecord::class, 'foreign_key', 'patient_id');
     }
 
     public function medecine(): HasOneOrMany
     {
-        return $this->hasOne(Medicine::class, 'foreign_key', 'medicine_id');
+        return $this->hasOne(medicine::class, 'foreign_key', 'medicine_id');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Medicine;
+use App\Models\medicine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class MedicineController extends Controller
@@ -15,7 +15,7 @@ class MedicineController extends Controller
      */
     public function index()
     {
-        $data = Medicine::all();
+        $data = medicine::all();
 
         return response()->json($data);
     }
@@ -33,23 +33,23 @@ class MedicineController extends Controller
      */
     public function store(Request $request)
     {
-        $latestorder = Medicine::all()->count();
-        $last_id = Medicine::select('medicine_id')->orderBy('created_at', 'desc')->first()->medicine_id;
+        $latestorder = medicine::all()->count();
+        $last_id = medicine::select('medicine_id')->orderBy('created_at', 'desc')->first()->medicine_id;
         $currentId = 'M' . $latestorder;
 
 
-        if( !empty( Medicine::select('medicine_id')->where('medicine_id', $currentId)->first()->medicine_id )){
+        if( !empty( medicine::select('medicine_id')->where('medicine_id', $currentId)->first()->medicine_id )){
         do{
             $latestorder++;
             $depId = 'M'. $latestorder;
-            $id = Medicine::select('medicine_id')->where('medicine_id', $depId)->first();
+            $id = medicine::select('medicine_id')->where('medicine_id', $depId)->first();
          
         }while(!empty($id));
     }
 
         $newId = 'M' . $latestorder;
 
-        Medicine::insert([
+        medicine::insert([
             'medicine_id' =>  $newId,
             'medicine_name' => $request['medicine_name'],
             'medicine_brand' => $request['medicine_brand'],
@@ -62,7 +62,7 @@ class MedicineController extends Controller
         ]);
         
 
-        $action ='added a new Medicine-'. $request['medicine_name'];
+        $action ='added a new medicine-'. $request['medicine_name'];
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -74,7 +74,7 @@ class MedicineController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Medicine $medicine)
+    public function show(medicine $medicine)
     {
         //
     }
@@ -92,7 +92,7 @@ class MedicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Medicine::where('medicine_id', $id)->update(
+        medicine::where('medicine_id', $id)->update(
             [        
                 'medicine_id' => $request['medicine_id'],
                 'medicine_name' => $request['medicine_name'],
@@ -105,7 +105,7 @@ class MedicineController extends Controller
             'updated_at' => now(),
             ]);
             
-            $action ='updated a Medicine-'. $id;
+            $action ='updated a medicine-'. $id;
             $user = Auth::user();
             if($user['role'] != 'admin'){
             $log = new ResActionLogController;
@@ -122,14 +122,14 @@ class MedicineController extends Controller
     public function destroy($id)
     {
      
-        $action ='deleted a Medicine-'. $this->getMedNamebyId($id);
+        $action ='deleted a medicine-'. $this->getMedNamebyId($id);
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
 
-        Medicine::destroy($id);
+        medicine::destroy($id);
 
        
        return response('deleted');
@@ -138,7 +138,7 @@ class MedicineController extends Controller
 
     public static function getMedNamebyId($medicine_id){
 
-        $name = Medicine::select('medicine_name')->where('medicine_id', $medicine_id)->first()->medicine_name;
+        $name = medicine::select('medicine_name')->where('medicine_id', $medicine_id)->first()->medicine_name;
 
 
         return $name;

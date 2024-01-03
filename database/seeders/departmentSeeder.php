@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\Department;
+use App\Models\department;
 class departmentSeeder extends Seeder
 {
     /**
@@ -50,7 +50,7 @@ class departmentSeeder extends Seeder
 
        ];
 
-       Department::insert($department);
+       department::insert($department);
 
 
     

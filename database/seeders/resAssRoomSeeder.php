@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\Resident_assigned_room;
+use App\Models\resident_assigned_room;
 use Illuminate\Database\Seeder;
 
 class resAssRoomSeeder extends Seeder
@@ -38,7 +38,7 @@ class resAssRoomSeeder extends Seeder
 
        ];
 
-       Resident_assigned_room::insert( $ressAssRooms);
+       resident_assigned_room::insert( $ressAssRooms);
         
     }
 }
