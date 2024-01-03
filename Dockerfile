@@ -6,9 +6,6 @@ WORKDIR /var/www/html
 # Copy the application files
 COPY . .
 
-# Install dependencies using composer
-RUN composer install --no-dev --optimize-autoloader
-
 # Set Laravel environment variables
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
@@ -25,3 +22,4 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Start script
 CMD ["/start.sh"]
+
