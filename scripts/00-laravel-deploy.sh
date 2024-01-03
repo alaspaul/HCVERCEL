@@ -14,11 +14,8 @@ echo "Caching config..."
 php artisan config:cache
 
 echo "Running migrations..."
-php artisan migrate:fresh --force
+php artisan migrate:fresh --force --seed
 
-
-echo "Running seeding migrations..."
-php artisan migrate --seed
 
 
 
