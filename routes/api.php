@@ -80,9 +80,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 
 
     Route::apiResource('rooms', RoomController::class);
-    Route::POST('rooms/edit{room}', [roomController::class, 'edit'])->name('rooms.edit');
-    Route::POST('rooms/updateRoom{room}', [roomController::class, 'updateRoom'])->name('rooms.updateRoom');
-    Route::POST('rooms/getRooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
+    Route::POST('rooms/updateRoom{room}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
+    Route::POST('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::post('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
 });
