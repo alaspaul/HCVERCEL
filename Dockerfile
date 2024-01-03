@@ -9,16 +9,6 @@ COPY . .
 # Install dependencies using composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Run additional commands
-RUN echo "Running composer dump-autoload" && \
-    composer dump-autoload --working-dir=/var/www/html && \
-    echo "Caching config..." && \
-    php artisan config:cache && \
-    echo "Caching routes..." && \
-    php artisan route:cache && \
-    echo "Running migrations..." && \
-    php artisan migrate --force
-
 # Set Laravel environment variables
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
