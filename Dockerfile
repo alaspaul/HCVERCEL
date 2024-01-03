@@ -6,6 +6,9 @@ WORKDIR /var/www/html
 # Copy the application files
 COPY . .
 
+# Update Composer
+RUN composer self-update --2
+
 # Set Laravel environment variables
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
@@ -22,4 +25,3 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Start script
 CMD ["/start.sh"]
-
