@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\user;
+
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use App\Models\user;
 
 class userSeeder extends Seeder
 {
