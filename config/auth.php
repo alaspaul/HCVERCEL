@@ -43,12 +43,12 @@ return [
 
         'custom' => [
             'driver' => 'session',
-            'provider' => 'resident',
+            'provider' => 'residents',
         ],
 
         'customApi' => [
             'driver' => 'sanctum',
-            'provider' => 'resident',
+            'provider' => 'residents',
         ],
 
         'admin' => [
