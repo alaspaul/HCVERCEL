@@ -43,12 +43,12 @@ return [
 
         'custom' => [
             'driver' => 'session',
-            'provider' => 'residents',
+            'provider' => 'resident',
         ],
 
         'customApi' => [
             'driver' => 'sanctum',
-            'provider' => 'residents',
+            'provider' => 'resident',
         ],
 
         'admin' => [
@@ -83,13 +83,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\user::class,
            
         ],
 
         'residents' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Resident::class,
+            'model' => App\Models\resident::class,
             'username' => 'resident_userName', // Use the correct username field
             'password' => 'resident_password', // Use the correct password field
            
@@ -97,7 +97,7 @@ return [
 
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class, // Replace with your admin model
+            'model' => App\Models\user::class, // Replace with your admin model
         ],
         // 'users' => [
         //     'driver' => 'database',
