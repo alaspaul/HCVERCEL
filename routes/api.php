@@ -96,6 +96,14 @@ Route::post('/login', [loginController::class, 'loginResident'])->name('loginRes
 Route::group(['middleware' => 'auth:customApi'],function(){
     Route::get('/logout', [loginController::class, 'logoutRes'])->name('logout');
 
+
+    Route::apiResource('rooms', RoomController::class);
+    Route::POST('rooms/edit{room}', [roomController::class, 'edit'])->name('rooms.edit');
+    Route::POST('rooms/updateRoom{room}', [roomController::class, 'updateRoom'])->name('rooms.updateRoom');
+    Route::POST('rooms/getRooms{roomId}', [roomController::class, 'getRoom'])->name('rooms.getRoom');
+    Route::post('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
+
+    
     Route::apiResource('fileUpload', FileUploadController::class);
     Route::GET('fileUpload/download/{file_id}', [FileUploadController::class, 'download'])->name('fileUpload.download');
     Route::post('fileUpload/getFiles', [FileUploadController::class, 'getFiles'])->name('fileUpload.getFiles');

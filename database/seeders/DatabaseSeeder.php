@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(floorSeeder::class);
         $this->call(roomSeeder::class);
 
-        $this->call(MedicineSeeder::class);
+        $this->call(medicineSeeder::class);
       
 
 
