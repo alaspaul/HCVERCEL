@@ -48,9 +48,9 @@ use App\Http\Controllers\VitalController;
 Route::post('/admin/Login', [UserController::class, 'loginAdmin'])->name('admin.login');
 
 
-Route::group(['middleware' => 'auth:adminApi', 'prefix' => 'admin'],function(){
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:adminApi'], function () {
     Route::get('Check', [UserController::class, 'checker'])->name('checker');
-    Route::get('Logout', [UserController::class, 'logoutAdmin'])->name('admin.logout');
+    Route::get('Logout', [UserController::class, 'logoutAdmin'])->name('logout');
     Route::apiResource('admin', UserController::class);
 
 
@@ -78,13 +78,11 @@ Route::group(['middleware' => 'auth:adminApi', 'prefix' => 'admin'],function(){
     Route::POST('medicines/edit{medicine}', [MedicineController::class, 'edit'])->name('medicines.edit');
     Route::POST('medicines/updateMeds{medicine}', [MedicineController::class, 'updateMeds'])->name('medicines.updateMeds');
 
-
     Route::apiResource('rooms', RoomController::class);
     Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
     Route::POST('rooms/updateRoom{room}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
     Route::POST('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::post('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
-
 });
 
 
