@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; 
 
-class resident extends Model implements Authenticatable
+class Resident extends Model implements Authenticatable
 {   use HasApiTokens, HasFactory, Notifiable;
 
     protected $primaryKey = 'resident_id';
@@ -37,7 +37,7 @@ class resident extends Model implements Authenticatable
 
     public function department(): HasOneOrMany
     {
-        return $this->hasOne(department::class, 'foreign_key', 'department_id');
+        return $this->hasOne(Department::class, 'foreign_key', 'department_id');
     }
 
     public function getAuthIdentifierName()

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\physicalExam_Attributes;
+use App\Models\PhysicalExam_Attributes;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -703,7 +703,7 @@ class PEAseeder extends Seeder
     
        ];
     
-       physicalExam_Attributes::insert($PEA);
+       PhysicalExam_Attributes::insert($PEA);
     
         }
     }

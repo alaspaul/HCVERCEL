@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class phr_formCategories extends Model
+class Phr_formCategories extends Model
 {
     use HasFactory;
 

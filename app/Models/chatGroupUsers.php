@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class chatGroupUsers extends Model
+class ChatGroupUsers extends Model
 {
     use HasFactory;
 
@@ -18,4 +19,9 @@ class chatGroupUsers extends Model
         'resident_id',
         'chatGroup_id'
     ];
+
+    public function ChatGroup(): HasOneOrMany
+    {
+        return $this->hasOne(ChatGroup::class, 'foreign_key', 'chatGroup_id');
+    }
 }

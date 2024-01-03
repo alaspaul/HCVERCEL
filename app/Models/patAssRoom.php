@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class patAssRoom extends Model
+class PatAssRoom extends Model
 {
     use HasFactory;
 
@@ -24,11 +24,11 @@ class patAssRoom extends Model
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(Patient::class, 'foreign_key', 'patient_id');
     }
 
     public function room(): HasOneOrMany
     {
-        return $this->hasOne(room::class, 'foreign_key', 'room_id');
+        return $this->hasOne(Room::class, 'foreign_key', 'room_id');
     }
 }

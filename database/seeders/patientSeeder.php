@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\patient;
+use App\Models\Patient;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
@@ -81,7 +81,7 @@ class patientSeeder extends Seeder
 
    ];
 
-   patient::insert($patient);
+   Patient::insert($patient);
 
     
     }

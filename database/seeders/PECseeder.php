@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\physicalExam_categories;
+use App\Models\PhysicalExam_categories;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -47,7 +47,7 @@ class PECseeder extends Seeder
 
    ];
 
-   physicalExam_categories::insert( $PEC);
+   PhysicalExam_categories::insert( $PEC);
 
     }
 }

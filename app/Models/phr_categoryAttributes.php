@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class phr_categoryAttributes extends Model
+class Phr_categoryAttributes extends Model
 { 
 
     use HasFactory;
@@ -27,6 +27,6 @@ class phr_categoryAttributes extends Model
 
     public function formCategory(): HasOneOrMany
     {
-        return $this->hasOne(phr_formCategories::class, 'foreign_key', 'formCat_id');
+        return $this->hasOne(Phr_formCategories::class, 'foreign_key', 'formCat_id');
     }
 }

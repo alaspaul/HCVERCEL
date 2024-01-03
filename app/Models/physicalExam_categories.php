@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class physicalExam_categories extends Model
+class PhysicalExam_categories extends Model
 {
     use HasFactory;
 

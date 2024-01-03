@@ -33,6 +33,6 @@ class userSeeder extends Seeder
             
        ];
 
-       user::insert($User);
+       User::insert($User);
     }
 }

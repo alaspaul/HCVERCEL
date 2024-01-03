@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\room;
+use App\Models\Room;
 
 class roomSeeder extends Seeder
 {
@@ -474,6 +474,6 @@ class roomSeeder extends Seeder
 
        ];
 
-       room::insert($rooms);
+       Room::insert($rooms);
     }
 }

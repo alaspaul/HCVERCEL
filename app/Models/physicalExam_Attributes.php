@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class physicalExam_Attributes extends Model
+class PhysicalExam_Attributes extends Model
 {
     use HasFactory;
 
@@ -24,6 +24,6 @@ class physicalExam_Attributes extends Model
 
     public function physicalExam_categories(): HasOneOrMany
     {
-        return $this->hasOne(physicalExam_categories::class, 'foreign_key', 'physicalExam_id');
+        return $this->hasOne(PhysicalExam_categories::class, 'foreign_key', 'physicalExam_id');
     }
 }

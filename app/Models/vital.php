@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class vital extends Model
+class Vital extends Model
 {
     use HasFactory;
 
@@ -30,6 +30,6 @@ class vital extends Model
     
     public function floor(): HasOneOrMany
     {
-        return $this->hasOne(floor::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(Floor::class, 'foreign_key', 'patient_id');
     }
 }

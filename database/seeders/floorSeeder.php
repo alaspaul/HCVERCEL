@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\floor;
+use App\Models\Floor;
 
 class floorSeeder extends Seeder
 {
@@ -42,7 +42,7 @@ class floorSeeder extends Seeder
 
        ];
 
-       floor::insert($floors);
+       Floor::insert($floors);
 
     }
 }

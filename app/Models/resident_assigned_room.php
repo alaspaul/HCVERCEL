@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\room;
 use App\Models\resident;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
-class resident_assigned_room extends Model
+class Resident_assigned_room extends Model
 {
     use HasFactory;
 
@@ -27,11 +27,11 @@ class resident_assigned_room extends Model
 
     public function resident(): HasOneOrMany
     {
-        return $this->hasOne(resident::class, 'foreign_key', 'resident_id');
+        return $this->hasOne(Resident::class, 'foreign_key', 'resident_id');
     }
 
     public function room(): HasOneOrMany
     {
-        return $this->hasOne(room::class, 'foreign_key', 'room_id');
+        return $this->hasOne(Room::class, 'foreign_key', 'room_id');
     }
 }

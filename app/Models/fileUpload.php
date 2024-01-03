@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class fileUpload extends Model
+class FileUpload extends Model
 {
     use HasFactory;
 
@@ -26,12 +26,12 @@ class fileUpload extends Model
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient_healthRecord::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(Patient::class, 'foreign_key', 'patient_id');
     }
 
     public function residents(): HasOneOrMany
     {
-        return $this->hasOne(resident::class, 'foreign_key', 'resident_id');
+        return $this->hasOne(Resident::class, 'foreign_key', 'resident_id');
     }
 
 

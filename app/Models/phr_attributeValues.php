@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
-class phr_attributeValues extends Model
+class Phr_attributeValues extends Model
 { 
     use HasFactory;
 
@@ -26,12 +26,12 @@ class phr_attributeValues extends Model
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(Patient::class, 'foreign_key', 'patient_id');
     }
 
     public function categoryAttribute(): HasOneOrMany
     {
-        return $this->hasOne(phr_categoryAttributes::class, 'foreign_key', 'categoryAtt_id');
+        return $this->hasOne(Phr_categoryAttributes::class, 'foreign_key', 'categoryAtt_id');
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\phr_formCategories;
+use App\Models\Phr_formCategories;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -153,7 +153,7 @@ class formCategorySeeder extends Seeder
            
        ];
 
-       phr_formCategories::insert($formCat);
+       Phr_formCategories::insert($formCat);
 
     }
 }
