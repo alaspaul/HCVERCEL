@@ -4,6 +4,9 @@
 echo "Running composer"
 composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
 
+echo "Requiring symfony/error-handler"
+composer require symfony/error-handler --working-dir=/var/www/html
+
 echo "Updating composer"
 composer update --no-scripts --working-dir=/var/www/html
 
