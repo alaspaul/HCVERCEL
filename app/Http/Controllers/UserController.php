@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\user;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\TryCatch;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -26,7 +26,7 @@ class UserController extends Controller
             
         if(Auth::guard('admin')->attempt($credentials))
         {
-            $admin = User::where('email', $request['email'])->first();
+            $admin = user::where('email', $request['email'])->first();
             $user = Auth::guard('admin')->user();
             $token = $user->createToken('admin-token')->plainTextToken;
             return response()->json(['token'=> $token, 'admin' => $admin, 'role' => $admin['role']],200);
@@ -59,22 +59,22 @@ class UserController extends Controller
         $time = now();
         $date = new Carbon( $time ); 
 
-        $latestorder = User::all()->count();
-        $last_id = User::select('id')->orderBy('created_at', 'desc')->first()->id;
+        $latestorder = user::all()->count();
+        $last_id = user::select('id')->orderBy('created_at', 'desc')->first()->id;
         $currentId =  $date->year . 'A' . $latestorder;
         
 
-        if( !empty( User::select('id')->where('id', $currentId)->first()->id )){
+        if( !empty( user::select('id')->where('id', $currentId)->first()->id )){
         do{
             $latestorder++;
             $depId = $date->year. 'A'. $latestorder;
-            $id = User::select('id')->where('id', $depId)->first();
+            $id = user::select('id')->where('id', $depId)->first();
          
         }while(!empty($id));
     }
 
         $newId = $date->year . 'A' . $latestorder;
-        User::insert([
+        user::insert([
             'id' => $newId,
             'name' => $request['name'],
             'email' => $request['email'],
@@ -95,7 +95,7 @@ class UserController extends Controller
     {
        
         
-        User::where('id', $id)->update(
+        user::where('id', $id)->update(
             [
                 'name' => $request['name'],
                 'email' => $request['email'],
@@ -117,9 +117,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {   
-        $name = User::select('name')->where('id', $id)->first()->name;
+        $name = user::select('name')->where('id', $id)->first()->name;
         $action ='deleted an admin-'. $name;
-        User::destroy($id);
+        user::destroy($id);
 
         return response()->json($id . 'has been deleted');
 
@@ -128,7 +128,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $data = User::all();
+        $data = user::all();
 
         return response()->json($data);
     }

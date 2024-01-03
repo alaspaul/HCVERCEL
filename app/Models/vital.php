@@ -28,8 +28,8 @@ class vital extends Model
 
 
     
-    public function floor(): HasOneOrMany
+    public function patient(): HasOneOrMany
     {
-        return $this->hasOne(floor::class, 'foreign_key', 'patient_id');
+        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
     }
 }

@@ -22,4 +22,9 @@ class resActionLog extends Model
         'user_id',
     ];
 
+    public function resident(): HasOneOrMany
+    {
+        return $this->hasOne(resident::class, 'foreign_key', 'resident_id');
+    }
+
 }
