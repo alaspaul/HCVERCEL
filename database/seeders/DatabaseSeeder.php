@@ -12,11 +12,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(userSeeder::class);
         $this->call(departmentSeeder::class);
+        $this->call(residentSeeder::class);
+
+
         $this->call(floorSeeder::class);
+        $this->call(roomSeeder::class);
 
+        $this->call(MedicineSeeder::class);
+      
 
-        // Seed other seeders as needed
 
         $this->call(formCategorySeeder::class);
         $this->call(categoryAttributeSeeder::class);
@@ -24,10 +30,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PECseeder::class);
         $this->call(PEAseeder::class);
 
-        $this->call(residentSeeder::class);
-        $this->call(roomSeeder::class);
 
-        $this->call(MedicineSeeder::class);
-        $this->call(userSeeder::class);
+      
+
+       
     }
 }
