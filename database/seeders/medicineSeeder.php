@@ -589,7 +589,7 @@ class medicineSeeder extends Seeder
             ],
         ];
 
-        Medicine::insert($medicines);
+        medicine::insert($medicines);
     }
 }
 
