@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\medicine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-class medicineController extends Controller
+class MedicineController extends Controller
 {
     
 
