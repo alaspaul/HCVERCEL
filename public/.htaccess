@@ -5,6 +5,9 @@
 
     RewriteEngine On
 
+    # Set CORS headers
+    Header set Access-Control-Allow-Credentials "true"
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
