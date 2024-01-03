@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\history;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -25,21 +25,21 @@ class HistoryController extends Controller
         $time = now();
         $date = new Carbon( $time ); 
 
-        $latestOrder = history::all()->count();
+        $latestOrder = History::all()->count();
         $currentId = 'H' . $date->year . '-' . $latestOrder;
 
-        if( !empty(history::select('history_id')->where('history_id', $currentId)->first()->history_id)){
+        if( !empty(History::select('history_id')->where('history_id', $currentId)->first()->history_id)){
             do{
                 $latestorder++;
                 $histId = 'H' . $date->year . '-' . $latestOrder;
-                $id = history::select('history_id')->where('history_id',$histId)->first();
+                $id = History::select('history_id')->where('history_id',$histId)->first();
              
             }while(!empty($id));
         }
 
         $newId = 'H' . $date->year . '-' . $latestOrder;
 
-        history::insert([ 
+        History::insert([ 
             'history_id' => $newId,
       
 
@@ -49,7 +49,7 @@ class HistoryController extends Controller
     
    
 
-       $action ='created a new history';
+       $action ='created a new History';
 
        $user = Auth::user();
        if($user['role'] != 'admin'){
@@ -63,7 +63,7 @@ class HistoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(history $history)
+    public function show(History $history)
     {
         //
     }
@@ -71,7 +71,7 @@ class HistoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, history $history)
+    public function update(Request $request, History $history)
     {
         //
     }
@@ -79,7 +79,7 @@ class HistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(history $history)
+    public function destroy(History $history)
     {
         //
     }

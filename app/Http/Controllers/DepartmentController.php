@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\department;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\resident;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class DepartmentController extends Controller
     public function index()
     {
 
-        $data = department::all();
+        $data = Department::all();
         return $data;
     }
 
@@ -31,30 +31,30 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $latestorder = department::all()->count();
-        $last_id = department::select('department_id')->orderBy('created_at', 'desc')->first()->department_id;
+        $latestorder = Department::all()->count();
+        $last_id = Department::select('department_id')->orderBy('created_at', 'desc')->first()->department_id;
         $currentId = 'D' . $latestorder;
 
 
-        if( !empty(department::select('department_id')->where('department_id', $currentId)->first()->department_id)){
+        if( !empty(Department::select('department_id')->where('department_id', $currentId)->first()->department_id)){
         do{
             $latestorder++;
             $depId = 'D'. $latestorder;
-            $id = department::select('department_id')->where('department_id', $depId)->first();
+            $id = Department::select('department_id')->where('department_id', $depId)->first();
          
         }while(!empty($id));
     }
 
         $newId = 'D' . $latestorder;
 
-        department::insert([
+        Department::insert([
             'department_id' => $newId,
             'department_name' => $request['department_name'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         
-        $action ='created a new department-'. $request['department_name'];
+        $action ='created a new Department-'. $request['department_name'];
 
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -67,7 +67,7 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(department $department)
+    public function show(Department $department)
     {
         //
     }
@@ -85,7 +85,7 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $action ='updated a department where id-'. $id;
+        $action ='updated a Department where id-'. $id;
         
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -93,7 +93,7 @@ class DepartmentController extends Controller
         $log->store(Auth::user(), $action);
         }
 
-        department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
+        Department::where('department_id', $id)->update(['department_name' => $request['department_name']]);
 
         return response('done');
         
@@ -105,7 +105,7 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         
-        $action ='deleted a department-'. $this->getDepNamebyId($id);
+        $action ='deleted a Department-'. $this->getDepNamebyId($id);
 
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -113,7 +113,7 @@ class DepartmentController extends Controller
         $log->store(Auth::user(), $action);
         }
   
-        department::destroy($id);
+        Department::destroy($id);
 
        
        return response('deleted');
@@ -123,7 +123,7 @@ class DepartmentController extends Controller
 
     public function getDepNamebyId($department_id){
 
-        $name = department::select('department_name')->where('department_id', $department_id)->first()->department_name;
+        $name = Department::select('department_name')->where('department_id', $department_id)->first()->department_name;
 
 
         return $name;

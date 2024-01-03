@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\chatGroup;
-use App\Models\chatGroupUsers;
-use App\Models\resident;
+use App\Models\ChatGroup;
+use App\Models\ChatGroupUsers;
+use App\Models\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +15,7 @@ class ChatGroupUsersController extends Controller
      */
     public function index()
     {
-        $data = chatGroupUsers::all();
+        $data = ChatGroupUsers::all();
         return $data;
     }
 
@@ -27,12 +27,12 @@ class ChatGroupUsersController extends Controller
 
        
         $user = Auth::user();
-        $latestorder = chatGroupUsers::all()->count();
+        $latestorder = ChatGroupUsers::all()->count();
 
         $chatGroupId = $this->ifNew($request['chatGroup_id']);
 
         if($chatGroupId == null){
-            return 'chatGroup id does not exist';
+            return 'ChatGroup id does not exist';
         }
 
 
@@ -41,18 +41,18 @@ class ChatGroupUsersController extends Controller
         $chatGroupUsers = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
 
         if(!in_array($request['resident_id'],  $chatGroupUsers) ){
-        if( !empty(chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
+        if( !empty(ChatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
             do{
                 $latestorder++;
                 $depId = $chatGroupId . 'CGU' . $latestorder;
-                $id = chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first()->chatGroupUsers_id;
+                $id = ChatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first()->chatGroupUsers_id;
              
             }while(!empty($id));
         }
     
             $newId = $chatGroupId . 'CGU' . $latestorder;
             
-            chatGroupUsers::insert([
+            ChatGroupUsers::insert([
                 'chatGroupUsers_id' => $newId,
                 'chatGroup_id' => $chatGroupId,
                 'resident_id' => $request['resident_id'],
@@ -67,18 +67,18 @@ class ChatGroupUsersController extends Controller
             
             if(!in_array($user['resident_id'],  $chatGroupUsers) ){
         
-                if( !empty(chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
+                if( !empty(ChatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
                     do{
                         $latestorder++;
                         $depId = $chatGroupId . 'CGU' . $latestorder;
-                        $id = chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first();
+                        $id = ChatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first();
                      
                     }while(!empty($id));
                 }
             
                     $newId = $chatGroupId . 'CGU' . $latestorder;
                     
-                    chatGroupUsers::insert([
+                    ChatGroupUsers::insert([
                         'chatGroupUsers_id' => $newId,
                         'chatGroup_id' => $chatGroupId,
                         'resident_id' => $user['resident_id'],
@@ -96,7 +96,7 @@ class ChatGroupUsersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(chatGroupUsers $chatGroupUsers)
+    public function show(ChatGroupUsers $chatGroupUsers)
     {
         //
     }
@@ -108,7 +108,7 @@ class ChatGroupUsersController extends Controller
     {
         $user = Auth::user();
 
-        $action ='updated a chatGroupUsers where id-'. $id;
+        $action ='updated a ChatGroupUsers where id-'. $id;
 
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -116,7 +116,7 @@ class ChatGroupUsersController extends Controller
         $log->store(Auth::user(), $action);
         }
 
-        chatGroupUsers::where('chatGroupUsers_id', $id)->update([
+        ChatGroupUsers::where('chatGroupUsers_id', $id)->update([
             'chatGroup_id' => $request['chatGroup_id'],
             'resident_id' => $user['resident_id'],
             'created_at' => now(),
@@ -131,12 +131,12 @@ class ChatGroupUsersController extends Controller
      */
     public function destroy($id)
     {
-        $action ='deleted a chatGroupUsers-';
+        $action ='deleted a ChatGroupUsers-';
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         
   
-        chatGroupUsers::destroy($id);
+        ChatGroupUsers::destroy($id);
 
        
        return response('deleted');
@@ -145,14 +145,14 @@ class ChatGroupUsersController extends Controller
     public function allGroups(){
         $user = Auth::user();
 
-        $myGroups = chatGroupUsers::where('resident_id', $user['resident_id'])->pluck('chatGroup_id');
+        $myGroups = ChatGroupUsers::where('resident_id', $user['resident_id'])->pluck('chatGroup_id');
 
         return $myGroups;
     }
 
     public function allUsersinGroup($chatGroup_id){
 
-        $groupUsers = chatGroupUsers::where('chatGroup_id', $chatGroup_id)->pluck('resident_id');
+        $groupUsers = ChatGroupUsers::where('chatGroup_id', $chatGroup_id)->pluck('resident_id');
 
         return $groupUsers;
     }
@@ -162,7 +162,7 @@ class ChatGroupUsersController extends Controller
         
 
         if($variable != null){
-           $chatGroupIds = chatGroup::select('chatGroup_id')->get();
+           $chatGroupIds = ChatGroup::select('chatGroup_id')->get();
            $chatGroupArray = $chatGroupIds->toArray();
 
            if(in_array($variable,  $chatGroupArray)){
@@ -190,7 +190,7 @@ class ChatGroupUsersController extends Controller
 
         $residents = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
 
-        $unassignedResidents = resident::whereNotIn('resident_id', $residents)->get();
+        $unassignedResidents = Resident::whereNotIn('resident_id', $residents)->get();
 
 
 
@@ -200,18 +200,18 @@ class ChatGroupUsersController extends Controller
     public function firstAddResidents(request $request){
         $user = Auth::user();
 
-        $chatGroupIds = chatGroupUsers::select('chatGroup_id')
+        $chatGroupIds = ChatGroupUsers::select('chatGroup_id')
                                     ->groupBy('chatGroup_id')
                                     ->havingRaw('COUNT(DISTINCT resident_id) = 2')
                                     ->havingRaw('COUNT(resident_id) = 2')
                                     ->pluck('chatGroup_id');
 
 
-        $assignedResidents = chatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
+        $assignedResidents = ChatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
                                     ->where('resident_id' , '!=' , $user['resident_id'])
                                     ->pluck('resident_id');
 
-        $unassignedResidents = resident::whereNotIn('resident_id', $assignedResidents)->get();
+        $unassignedResidents = Resident::whereNotIn('resident_id', $assignedResidents)->get();
 
         return response()->json($unassignedResidents);
     }

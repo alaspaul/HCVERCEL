@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\physicalExam_Attributes;
-use App\Models\physicalExam_categories;
+use App\Models\PhysicalExam_Attributes;
+use App\Models\PhysicalExam_categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class PhysicalExamAttributesController extends Controller
@@ -13,7 +13,7 @@ class PhysicalExamAttributesController extends Controller
      */
     public function index()
     {
-        $data = physicalExam_Attributes::orderByRaw('LENGTH(PEA_id) ASC')->orderByRaw('LENGTH(physicalExam_id) ASC')->get();;
+        $data = PhysicalExam_Attributes::orderByRaw('LENGTH(PEA_id) ASC')->orderByRaw('LENGTH(physicalExam_id) ASC')->get();;
 
         return response()->json($data);
     }
@@ -23,22 +23,22 @@ class PhysicalExamAttributesController extends Controller
      */
     public function store(Request $request)
     {
-        $physicalExam_id = physicalExam_categories::where('physicalExam_id', $request['physicalExam_id'])->first()->physicalExam_id;
-        $latestorder = physicalExam_Attributes::where('physicalExam_id', $request['physicalExam_id'])->count();
+        $physicalExam_id = PhysicalExam_categories::where('physicalExam_id', $request['physicalExam_id'])->first()->physicalExam_id;
+        $latestorder = PhysicalExam_Attributes::where('physicalExam_id', $request['physicalExam_id'])->count();
         $currentId =  $physicalExam_id . 'PEA' . $latestorder;
 
-        if( !empty(physicalExam_Attributes::select('PEA_id')->where('PEA_id', $currentId)->first()->PEA_id)){
+        if( !empty(PhysicalExam_Attributes::select('PEA_id')->where('PEA_id', $currentId)->first()->PEA_id)){
         do{
             $latestorder++;
             $PEA_id = $physicalExam_id . 'PEA' . $latestorder;
-            $id = physicalExam_Attributes::select('PEA_id')->where('PEA_id', $PEA_id)->first();
+            $id = PhysicalExam_Attributes::select('PEA_id')->where('PEA_id', $PEA_id)->first();
          
         }while(!empty($id));
         }
 
          $newId = $physicalExam_id . 'PEA' . $latestorder;
 
-         physicalExam_Attributes::insert([
+         PhysicalExam_Attributes::insert([
            
             'PEA_id' => $newId,
             'PEA_name' => $request['PEA_name'],
@@ -53,17 +53,17 @@ class PhysicalExamAttributesController extends Controller
 
 
 
-        if( !empty(physicalExam_Attributes::select('PEA_id')->where('PEA_id', $currentId)->first()->PEA_id)){
+        if( !empty(PhysicalExam_Attributes::select('PEA_id')->where('PEA_id', $currentId)->first()->PEA_id)){
             do{
                 $latestorder++;
                 $PEA_id = $physicalExam_id . 'PEA' . $latestorder;
-                $id = physicalExam_Attributes::select('PEA_id')->where('PEA_id', $PEA_id)->first();
+                $id = PhysicalExam_Attributes::select('PEA_id')->where('PEA_id', $PEA_id)->first();
              
             }while(!empty($id));
             }
 
         $specifyId = $physicalExam_id . 'PEA' . $latestorder+1;
-        physicalExam_Attributes::insert([
+        PhysicalExam_Attributes::insert([
            
             'PEA_id' => $specifyId,
             'PEA_name' => 'specify_' . $request['PEA_name'],
@@ -86,7 +86,7 @@ class PhysicalExamAttributesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(physicalExam_Attributes $physicalExam_Attributes)
+    public function show(PhysicalExam_Attributes $physicalExam_Attributes)
     {
         //
     }
@@ -94,7 +94,7 @@ class PhysicalExamAttributesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, physicalExam_Attributes $physicalExam_Attributes)
+    public function update(Request $request, PhysicalExam_Attributes $physicalExam_Attributes)
     {
         //
     }
@@ -104,11 +104,11 @@ class PhysicalExamAttributesController extends Controller
      */
     public function destroy($id)
     {
-        $PEA = physicalExam_Attributes::where('PEA_id', $id)->first();
+        $PEA = PhysicalExam_Attributes::where('PEA_id', $id)->first();
         $action ='deleted a Physical Exam Attribute-'. $PEA['PEA_name'];
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        physicalExam_Attributes::destroy($id);
+        PhysicalExam_Attributes::destroy($id);
 
        
         return response('deleted');

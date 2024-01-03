@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patient;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -14,7 +14,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $data = patient::all();
+        $data = Patient::all();
     
         return response()->json($data);
     }
@@ -28,20 +28,20 @@ class PatientController extends Controller
         $time = now();
         $date = new Carbon( $time ); 
         
-        $latestorder = patient::all()->count();
+        $latestorder = Patient::all()->count();
         $currentId = $date->year  . 'P' . $latestorder;
 
-        if( !empty(patient::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)){
+        if( !empty(Patient::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)){
         do{
             $latestorder++;
             $patientId = $date->year  . 'P' . $latestorder;
-            $id = patient::select('patient_id')->where('patient_id', $patientId)->first();
+            $id = Patient::select('patient_id')->where('patient_id', $patientId)->first();
          
         }while(!empty($id));
         }
          $newId = $date->year  . 'P' . $latestorder;
         
-         patient::insert([
+         Patient::insert([
             'patient_id' =>  $newId,
             'patient_fName' => $request['patient_fName'],
             'patient_lName' => $request['patient_lName'],
@@ -61,7 +61,7 @@ class PatientController extends Controller
         $PhrAttributeValuesController->store($request, $newId);
         
 
-        $action ='added a new patient-'. $request['patient_fName'];
+        $action ='added a new Patient-'. $request['patient_fName'];
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -78,13 +78,13 @@ class PatientController extends Controller
     public function show($patient_id)
     {
         try{
-            $patient = patient::where('patient_id',$patient_id)->first();
+            $patient = Patient::where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
             return response()->json($patient);
         }catch(\Exception $e){
-            return response()->json(['error'=>'patient not found'], 404);
+            return response()->json(['error'=>'Patient not found'], 404);
         }
     }
 
@@ -102,9 +102,9 @@ class PatientController extends Controller
             $dataToUpdate[$name] = $value;
         }
 
-        patient::where('patient_id', $patient_id)->update($dataToUpdate);
+        Patient::where('patient_id', $patient_id)->update($dataToUpdate);
 
-        return response()->json('patient updated');
+        return response()->json('Patient updated');
     }
 
     /**
@@ -112,9 +112,9 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        $lname = patient::select('patient_lName')->where('patient_id', $id)->first()->patient_lName;
-        $fname = patient::select('patient_fName')->where('patient_id', $id)->first()->patient_fName;
-        $action ='deleted a patient-'. $lname. $fname;
+        $lname = Patient::select('patient_lName')->where('patient_id', $id)->first()->patient_lName;
+        $fname = Patient::select('patient_fName')->where('patient_id', $id)->first()->patient_fName;
+        $action ='deleted a Patient-'. $lname. $fname;
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;
@@ -122,7 +122,7 @@ class PatientController extends Controller
         }
 
       
-        patient::destroy($id);
+        Patient::destroy($id);
 
        
         return response('deleted');
@@ -131,18 +131,18 @@ class PatientController extends Controller
     public function getPatientName($patient_id)
     {
         try{
-            $patient = patient::where('patient_id',$patient_id)->first();
+            $patient = Patient::where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
             return ['patient_fName'=>$patient['patient_fName'],'patient_lName'=>$patient['patient_lName']];
         }catch(\Exception $e){
-            return response()->json(['error'=>'patient not found'], 404);
+            return response()->json(['error'=>'Patient not found'], 404);
         }
     }
 
     public function getPatientbyId($patient_id){
-        $patient = patient::where('patient_id', $patient_id)->first();
+        $patient = Patient::where('patient_id', $patient_id)->first();
 
         return $patient;
     }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\resident;
+use App\Models\Resident;
 
 
 use Dotenv\Exception\ValidationException;
@@ -31,7 +31,7 @@ class loginController extends Controller
             
     
             if (Auth::guard('custom')->attempt($credentials)){
-                $resident = resident::where('resident_userName', $request['resident_userName'])->first();
+                $resident = Resident::where('resident_userName', $request['resident_userName'])->first();
                 $user = Auth::user();
                 $token = $user->createToken('api_token')->plainTextToken;
                 return response()->json(['token'=> $token, 'resident' => $resident, 'resident_id' => $resident['resident_id'], 'role' => $resident['role']],200);

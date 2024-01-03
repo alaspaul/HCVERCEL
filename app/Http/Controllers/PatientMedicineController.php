@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patient_medicine;
+use App\Models\Patient_medicine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class PatientMedicineController extends Controller
      */
     public function index()
     {
-        $data = patient_medicine::all();
+        $data = Patient_medicine::all();
         return $data;
     }
 
@@ -36,23 +36,23 @@ class PatientMedicineController extends Controller
         $time = now();
         $date = new Carbon( $time ); 
 
-        $latestorder = patient_medicine::where('patient_id', $request['patient_id'])->where('medicine_id', $request['medicine_id'])->count();
+        $latestorder = Patient_medicine::where('patient_id', $request['patient_id'])->where('medicine_id', $request['medicine_id'])->count();
        
         $currentId =  $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
 
 
-        if( !empty( patient_medicine::select('patientMedicine_id')->where('patientMedicine_id', $currentId)->first()->patientMedicine_id )){
+        if( !empty( Patient_medicine::select('patientMedicine_id')->where('patientMedicine_id', $currentId)->first()->patientMedicine_id )){
         do{
             $latestorder++;
             $depId = $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
-            $id = patient_medicine::select('patientMedicine_id')->where('patientMedicine_id', $depId)->first();
+            $id = Patient_medicine::select('patientMedicine_id')->where('patientMedicine_id', $depId)->first();
          
         }while(!empty($id));
     }
 
         $newId =  $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
 
-        patient_medicine::insert([
+        Patient_medicine::insert([
             'patientMedicine_id' =>  $newId,
             'patientMedicineDate' => $request['patientMedicineDate'],
             'medicine_frequency' => $request['medicine_frequency'],
@@ -83,7 +83,7 @@ class PatientMedicineController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(patient_medicine $patient_medicine)
+    public function show(Patient_medicine $patient_medicine)
     {
         //
     }
@@ -91,7 +91,7 @@ class PatientMedicineController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(patient_medicine $patient_medicine)
+    public function edit(Patient_medicine $patient_medicine)
     {
         //
     }
@@ -101,7 +101,7 @@ class PatientMedicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        patient_medicine::where('patientMedicine_id', $id)->update(
+        Patient_medicine::where('patientMedicine_id', $id)->update(
             [
                 'patientMedicine_id' => $request['patientMedicine_id'],
                 'patientMedicineDate' => $request['patientMedicineDate'],
@@ -126,7 +126,7 @@ class PatientMedicineController extends Controller
      */
     public function destroy($id)
     {
-        $meds = patient_medicine::where('patientMedicine_id', $id)->first();
+        $meds = Patient_medicine::where('patientMedicine_id', $id)->first();
 
         $medicineController = new medicineController;
         $medicineName =  $medicineController->getMedNamebyId($meds['medicine_id']);
@@ -146,7 +146,7 @@ class PatientMedicineController extends Controller
         }
 
 
-        patient_medicine::destroy($id);
+        Patient_medicine::destroy($id);
         return response('deleted');
     }
 }

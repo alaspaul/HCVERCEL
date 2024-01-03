@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\chatGroup;
+use App\Models\ChatGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class ChatGroupController extends Controller
      */
     public function index()
     {
-        $data = chatGroup::all();
+        $data = ChatGroup::all();
         return $data;
     }
 
@@ -24,14 +24,14 @@ class ChatGroupController extends Controller
 
     {   $time = now();
         $date = new Carbon( $time ); 
-        $latestorder = chatGroup::all()->count();
+        $latestorder = ChatGroup::all()->count();
         $currentId = $date->year . 'CG' . $latestorder;
 
-        if( !empty(chatGroup::select('chatGroup_id')->where('chatGroup_id', $currentId)->first()->chatGroup_id)){
+        if( !empty(ChatGroup::select('chatGroup_id')->where('chatGroup_id', $currentId)->first()->chatGroup_id)){
             do{
                 $latestorder++;
                 $depId = $date->year . 'CG' . $latestorder;
-                $id = chatGroup::select('chatGroup_id')->where('chatGroup_id', $depId)->first();
+                $id = ChatGroup::select('chatGroup_id')->where('chatGroup_id', $depId)->first();
              
             }while(!empty($id));
         }
@@ -39,7 +39,7 @@ class ChatGroupController extends Controller
             $newId = $date->year . 'CG' . $latestorder;
 
 
-            chatGroup::insert([
+            ChatGroup::insert([
                 'chatGroup_id' => $newId,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -61,7 +61,7 @@ class ChatGroupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(chatGroup $chatGroup)
+    public function show(ChatGroup $chatGroup)
     {
         //
     }
@@ -77,7 +77,7 @@ class ChatGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(chatGroup $chatGroup)
+    public function destroy(ChatGroup $chatGroup)
     {
         //
     }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\vital;
+use App\Models\Vital;
 use Illuminate\Http\Request;
 
 class VitalController extends Controller
@@ -12,7 +12,7 @@ class VitalController extends Controller
      */
     public function index()
     {
-        $data = vital::all();
+        $data = Vital::all();
 
         return $data;
     }
@@ -30,7 +30,7 @@ class VitalController extends Controller
      */
     public function store(Request $request)
     {
-        vital::insert([
+        Vital::insert([
             'patientVital_id' => $request['patientVital_id'],
             'patientVital_Bp' => $request['patientVital_Bp'],
             'patientVital_temp' => $request['patientVital_temp'],
@@ -42,13 +42,13 @@ class VitalController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect(route('vital.index'));
+        return redirect(route('Vital.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(vital $vital)
+    public function show(Vital $vital)
     {
         //
     }
@@ -58,8 +58,8 @@ class VitalController extends Controller
      */
     public function edit($id)
     {   
-        $vital = vital::where('vital_id', $id)->get();
-        return view('editDep')->with('vital', $vital);
+        $vital = Vital::where('vital_id', $id)->get();
+        return view('editDep')->with('Vital', $vital);
     }
 
     /**
@@ -69,7 +69,7 @@ class VitalController extends Controller
     {
        
         
-        vital::where('vital_id', $id)->update(
+        Vital::where('vital_id', $id)->update(
             [
                 'vital_name' => $request['vital_name'],
                 'vital_building' => $request['vital_building'],
@@ -83,7 +83,7 @@ class VitalController extends Controller
 
         );
 
-        return redirect(route('vital.index'))->with('message','dep has been updated');
+        return redirect(route('Vital.index'))->with('message','dep has been updated');
     }
 
     /**
@@ -91,9 +91,9 @@ class VitalController extends Controller
      */
     public function destroy($id)
     {
-       vital::destroy($id);
+       Vital::destroy($id);
 
-       return redirect(route('vital.index'))->with('message','dep has been deleted');
+       return redirect(route('Vital.index'))->with('message','dep has been deleted');
     }
 
 
@@ -101,7 +101,7 @@ class VitalController extends Controller
     {
        
         
-        vital::where('vital_id', $id)->update(
+        Vital::where('vital_id', $id)->update(
             [
 
                 'patientVital_Bp' => $request['patientVital_Bp'],
@@ -115,7 +115,7 @@ class VitalController extends Controller
                 ]
         );
 
-        return redirect(route('vital.index'))->with('message','dep has been updated');
+        return redirect(route('Vital.index'))->with('message','dep has been updated');
     }
 
 
