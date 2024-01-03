@@ -162,9 +162,10 @@ class RoomController extends Controller
 
 
     public function getRoomByFloor($floorId){
-        $rooms = room::where('floor_Id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        $rooms = new room;
+        $floorRooms = $rooms::where('floor_Id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
-        return response()->json($rooms);
+        return response()->json($floorRooms);
     }
 
 
