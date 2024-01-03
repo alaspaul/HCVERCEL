@@ -48,9 +48,9 @@ use App\Http\Controllers\VitalController;
 Route::post('/admin/Login', [UserController::class, 'loginAdmin'])->name('admin.login');
 
 
-Route::group(['middleware' => 'auth:adminApi', 'prefix' => 'admin'],function(){
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:adminApi'], function () {
     Route::get('Check', [UserController::class, 'checker'])->name('checker');
-    Route::get('Logout', [UserController::class, 'logoutAdmin'])->name('admin.logout');
+    Route::get('Logout', [UserController::class, 'logoutAdmin'])->name('logout');
     Route::apiResource('admin', UserController::class);
 
 
