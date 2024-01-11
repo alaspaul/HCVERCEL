@@ -62,6 +62,23 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],      
+
+
+        // 'pgsql' => [
+        //     'url' => env('DATABASE_URL'),
+        //     'driver' => 'pgsql',
+        //     'host' => 'ep-cool-unit-80954760.us-east-1.postgres.vercel-storage.com',
+        //     'port' => env('DB_PORT', '5432'),
+        //     'database' => 'hcvercel',
+        //     'username' => 'default',
+        //     'password' => 'ZmJ0P2AVSdoF',
+        //     'charset' => 'utf8',
+        //     'prefix' => '',
+        //     'prefix_indexes' => true,
+        //     'search_path' => 'public',
+        //     'sslmode' => env('PGSQL_SSLMODE', 'prefer'),
+        // ],
+
         'pgsql' => [
             'url' => env('DATABASE_URL'),
             'driver' => 'pgsql',
@@ -76,6 +93,9 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
+
+        
+        
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
