@@ -85,7 +85,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
     Route::POST('rooms/updateRoom{room}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
     Route::POST('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
-    Route::POST('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
+    Route::GET('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
 });
 
@@ -103,7 +103,7 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
     Route::POST('rooms/updateRoom{room}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
     Route::POST('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
-    Route::POST('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
+    Route::GET('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
     
     Route::apiResource('fileUpload', FileUploadController::class);
