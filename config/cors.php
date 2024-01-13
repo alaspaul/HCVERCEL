@@ -16,8 +16,8 @@ return [
     */
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
-    'allowed_methods' => ['*', 'http://localhost:3000', 'https://ipims-gfa232gtx-gabriel-26s-projects.vercel.app'],
-    // 'allowed_origins' => ['http://localhost:3000', 'https://ipims-gfa232gtx-gabriel-26s-projects.vercel.app'],
+    'allowed_methods' => ['*'],
+    'allowed_origins' => ['http://localhost:3000', 'https://ipims-git-master-gabriel-26s-projects.vercel.app'],
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
