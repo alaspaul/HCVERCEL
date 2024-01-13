@@ -191,8 +191,8 @@ class ResidentAssignedRoomController extends Controller
         $user = Auth::user();
 
         $residentByDep = resident::where('department_id', $user['$department_id'])->get();
-
-        return response()->json($residentByDep);
+        $residents = resident::where('department_id', $user['$department_id'])->get();
+        return response()->json($user);
     }
 
 
