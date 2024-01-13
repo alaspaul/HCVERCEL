@@ -45,7 +45,7 @@ use App\Http\Controllers\VitalController;
 // header('Access-Control-Allow-Origin: https://ipims-git-master-gabriel-26s-projects.vercel.app');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length');
-header('Access-Control-Allow-Credentials: true');
+// header('Access-Control-Allow-Credentials: true');
 
 Route::POST('/admin/Login', [UserController::class, 'loginAdmin'])->name('admin.login');
 
