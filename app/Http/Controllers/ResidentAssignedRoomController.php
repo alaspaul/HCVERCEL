@@ -185,4 +185,13 @@ class ResidentAssignedRoomController extends Controller
         return response()->json($rooms);
     }
 
+
+ 
+    public function residentsByDepartment($department_id){
+        $residentByDep = resident::where('department_id', $department_id)->get();
+
+        return response()->json($residentByDep);
+    }
+
+
 }
