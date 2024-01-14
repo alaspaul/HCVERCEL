@@ -46,11 +46,14 @@ class FileUploadController extends Controller
         $currentId = $date->year . $date->month  . 'FU' . $latestorder;
 
 
-        if( !empty(fileUpload::select('file_id')->where('file_id', $currentId)->first()->file_id)){
+        if( !empty(fileUpload::select('file_id')->where('file_id', $currentId)
+                                                ->first()
+                                                ->file_id)){
         do{
             $latestorder++;
             $depId =  $date->year . $date->month  . 'FU' . $latestorder;
-            $id = fileUpload::select('file_id')->where('file_id', $depId)->first();
+            $id = fileUpload::select('file_id')->where('file_id', $depId)
+                                               ->first();
          
         }while(!empty($id));
     }
@@ -157,6 +160,19 @@ class FileUploadController extends Controller
         $pathToFile = storage_path('app\\' . $file['file_path']);
 
         return response()->file($pathToFile);
+    }
+
+    public function getFilesByPatient($patientid)
+    {
+        $dataCount = fileUpload::where('patient_id', $patientid)->count();
+        $data = fileUpload::where('patient_id', $patientid)->get();
+        if($dataCount <= 0){
+
+            return response()->json('Patient has no files');
+        }
+
+
+        return response()->json($data);
     }
 
 }

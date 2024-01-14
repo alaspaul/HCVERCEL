@@ -162,11 +162,18 @@ class PhrAttributeValuesController extends Controller
 
     public function getPHR($patient_id)
     {
+        $dateCount = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->count();
+        if($dateCount <= 0){
+            return response()->json('patient has no PHR');
+        }
         $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
+        
         $date = new Carbon($dates[0]);
         $formattedDate = $date->format('Y-m-d');
     
         $PAV = phr_attributeValues::where('patient_id', $patient_id)->where('created_at', 'LIKE', $formattedDate . '%')->get();
+
+       
     
         $result = $PAV->map(function ($item) {
             $categoryAtt_id = $item['categoryAtt_id'];

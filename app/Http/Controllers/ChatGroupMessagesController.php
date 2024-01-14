@@ -27,16 +27,20 @@ class ChatGroupMessagesController extends Controller
 
         $chatGroupUsers = new ChatGroupUsersController;
 
-        $groupUsers = $chatGroupUsers->allUsersinGroup($request['chatGroup_id'])->toArray();
+        $groupUsers = $chatGroupUsers->allUsersinGroup($request['chatGroup_id'])
+                                     ->toArray();
         if(!in_array($user['resident_id'],  $groupUsers) ){
             return 'USER ISNT PART OF THIS GROUP';
         }
 
-        if( !empty(chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $currentId)->first()->chatGroupMessages_id)){
+        if( !empty(chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $currentId)
+                                                                    ->first()
+                                                                    ->chatGroupMessages_id)){
             do{
                 $latestorder++;
                 $depId = $request['chatGroup_id'] . 'CGM' . $latestorder;
-                $id = chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $depId)->first();
+                $id = chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $depId)
+                                                                       ->first();
              
             }while(!empty($id));
         }
@@ -122,7 +126,9 @@ class ChatGroupMessagesController extends Controller
 
       
 
-        $messages = chatGroupMessages::where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'desc')->limit(30)->get();
+        $messages = chatGroupMessages::where('chatGroup_id', $chatGroup_id)->orderBy('created_at', 'desc')
+                                                                           ->limit(30)
+                                                                           ->get();
 
 
         return $messages;

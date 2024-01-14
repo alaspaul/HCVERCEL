@@ -110,7 +110,10 @@ Route::group(['middleware' => 'auth:customApi'],function(){
     Route::GET('fileUpload/download/{file_id}', [FileUploadController::class, 'download'])->name('fileUpload.download');
     Route::POST('fileUpload/getFiles', [FileUploadController::class, 'getFiles'])->name('fileUpload.getFiles');
     Route::GET('fileUpload/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUpload.viewFile');
+    Route::GET('fileUpload/getFilesByPatient/{patient_id}', [FileUploadController::class, 'getFilesByPatient'])->name('fileUpload.getFilesByPatient');
 
+
+    
     Route::apiResource('resActLog', ResActionLogController::class);
     Route::GET('resActLog/residentName/{resident_id}', [ResActionLogController::class, 'residentName'])->name('RAL.residentName');
     Route::GET('resActLog/logs/department', [ResActionLogController::class, 'logsByDep'])->name('RAL.logsByDep');

@@ -27,11 +27,14 @@ class ChatGroupController extends Controller
         $latestorder = chatGroup::all()->count();
         $currentId = $date->year . 'CG' . $latestorder;
 
-        if( !empty(chatGroup::select('chatGroup_id')->where('chatGroup_id', $currentId)->first()->chatGroup_id)){
+        if( !empty(chatGroup::select('chatGroup_id')->where('chatGroup_id', $currentId)
+                                                    ->first()
+                                                    ->chatGroup_id)){
             do{
                 $latestorder++;
                 $depId = $date->year . 'CG' . $latestorder;
-                $id = chatGroup::select('chatGroup_id')->where('chatGroup_id', $depId)->first();
+                $id = chatGroup::select('chatGroup_id')->where('chatGroup_id', $depId)
+                                                       ->first();
              
             }while(!empty($id));
         }

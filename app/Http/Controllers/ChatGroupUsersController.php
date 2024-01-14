@@ -29,7 +29,7 @@ class ChatGroupUsersController extends Controller
         $user = Auth::user();
         $latestorder = chatGroupUsers::all()->count();
 
-        $chatGroupId = $this->ifNew($request['chatGroup_id']);
+        $chatGroupId = $this->exist($request['chatGroup_id']);
 
         if($chatGroupId == null){
             return 'chatGroup id does not exist';
@@ -90,7 +90,7 @@ class ChatGroupUsersController extends Controller
             }
         
     
-            return $chatGroupId;
+            return response()->json($chatGroupId);
     }
 
     /**
@@ -158,7 +158,7 @@ class ChatGroupUsersController extends Controller
     }
 
 
-    public function ifNew($variable){
+    public function exist($variable){
         
 
         if($variable != null){
@@ -200,16 +200,14 @@ class ChatGroupUsersController extends Controller
     public function firstAddResidents(request $request){
         $user = Auth::user();
 
-        $chatGroupIds = chatGroupUsers::select('chatGroup_id')
-                                    ->groupBy('chatGroup_id')
-                                    ->havingRaw('COUNT(DISTINCT resident_id) = 2')
-                                    ->havingRaw('COUNT(resident_id) = 2')
-                                    ->pluck('chatGroup_id');
+        $chatGroupIds = chatGroupUsers::select('chatGroup_id')->groupBy('chatGroup_id')
+                                                              ->havingRaw('COUNT(DISTINCT resident_id) = 2')
+                                                              ->havingRaw('COUNT(resident_id) = 2')
+                                                              ->pluck('chatGroup_id');
 
 
-        $assignedResidents = chatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
-                                    ->where('resident_id' , '!=' , $user['resident_id'])
-                                    ->pluck('resident_id');
+        $assignedResidents = chatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)->where('resident_id' , '!=' , $user['resident_id'])
+                                                                                   ->pluck('resident_id');
 
         $unassignedResidents = resident::whereNotIn('resident_id', $assignedResidents)->get();
 
