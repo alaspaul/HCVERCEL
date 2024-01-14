@@ -26,7 +26,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ResidentAssignedRoomController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\FloorController;
-use App\Http\Controllers\medicineController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VitalController;
