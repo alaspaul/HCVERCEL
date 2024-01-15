@@ -37,7 +37,7 @@ class ResidentAssignedRoomController extends Controller
 
 
         resident_assigned_room::insert([
-            'resAssRoom_id' => $date->year . $request['resident_id'] .  $request['room_id'],
+            'resAssRoom_id' =>  $request['resident_id'] .  $request['room_id'],
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
             'isFinished' => 0,
@@ -51,13 +51,16 @@ class ResidentAssignedRoomController extends Controller
         $resident = new ResidentController;
         $residentName = $resident->residentName($request['resident_id']);
 
-        $resName = $residentName['lastName'] . ', ' . $residentName['lastName'] . ' ' . $residentName['lastName'];
-        $action ='assigned room-'. $roomName.' to resident-'. $resName;
+        $action ='assigned room-'. $roomName.' to resident-'. $residentName['lastName'];
         $user = Auth::user();
-        if($user['role'] != 'admin'){
+
+        if($user['role'] != 'admin')
+        {
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
+
+        return response()->json($request['room_id']);
     }
 
     /**
@@ -147,9 +150,10 @@ class ResidentAssignedRoomController extends Controller
 
 
 
-    public function showRessAssRoom($resident_id)
+    public function ressAssRoom()
     {
-        $rooms = resident_assigned_room::where('resident_id', $resident_id)->get();
+        $user = Auth::user();
+        $rooms = resident_assigned_room::where('resident_id', $user['resident_id'])->get();
 
 
         return response()->json($rooms);

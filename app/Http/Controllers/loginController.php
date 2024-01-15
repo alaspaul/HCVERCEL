@@ -6,8 +6,6 @@ use App\Models\resident;
 
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
-use Hash;
-use Illuminate\Http\Response;
 use Auth;
 class loginController extends Controller
 {
