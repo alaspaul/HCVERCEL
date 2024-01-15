@@ -164,11 +164,11 @@ class FileUploadController extends Controller
 
     public function getFilesByPatient($patientid)
     {
-        // $dataCount = fileUpload::where('patient_id', $patientid)->count();
-        // if($dataCount <= 0){
-
-        //     return response()->json('Patient has no files');
-        // }
+        $dataCount = fileUpload::where('patient_id', $patientid)->count();
+        if($dataCount <= 0){
+            $newDAta = [];
+            return response()->json($newDAta);
+        }
     
         $data = fileUpload::where('patient_id', $patientid)->get();
         return response()->json($data);
