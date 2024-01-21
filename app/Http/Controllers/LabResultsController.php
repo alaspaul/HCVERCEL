@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\lab_results;
+use App\Models\Lab_results;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\department;
-use App\Models\resident;
+use App\Models\Department;
+use App\Models\Resident;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -214,5 +214,7 @@ class ResidentController extends Controller
         return response()->json($residents);
         }
     }
+   
+
    
 }

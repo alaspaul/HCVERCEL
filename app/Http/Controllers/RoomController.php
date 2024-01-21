@@ -128,31 +128,34 @@ class RoomController extends Controller
     }
 
 
-    public function updateRoom(Request $request, $id)
+    public function updateRoom(Request $request, $roomId)
     {
-       
-        
-        room::where('room_id', $id)->update(
-            [
-                'room_name' => $request['room_name'],
-                'room_floor' => $request['room_floor'],
-                'room_type' => $request['room_type'],
-                'room_price' => $request['room_price'],
-                'floor_id' => $request['floor_id'],
-                
-
+        try {
+            $room = Room::findOrFail($roomId);
+    
+            $room->update([
+                'room_name' => $request->input('room_name'),
+                'room_floor' => $request->input('room_floor'),
+                'room_type' => $request->input('room_type'),
+                'room_price' => $request->input('room_price'),
+                'floor_id' => $request->input('floor_id'),
                 'updated_at' => now(),
-                ]
-
-        );
-        $action ='updated a room where id-'. $id;
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
+            ]);
+    
+            $action = 'updated a room where id-' . $roomId;
+            $user = Auth::user();
+            if ($user['role'] != 'admin') {
+                $log = new ResActionLogController;
+                $log->store(Auth::user(), $action);
+            }
+    
+            return response('updated');
+        } catch (\Exception $e) {
+            // Handle exception, e.g., return an error response
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-        return response('updated');
     }
+    
 
 
     public function getRoom($room_id){
@@ -162,7 +165,8 @@ class RoomController extends Controller
 
 
     public function getRoomByFloor($floorId){
-        $floorRooms = room::where('floor_id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        $rooms = new room;
+        $floorRooms = $rooms::where('floor_Id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
         return response()->json($floorRooms);
     }

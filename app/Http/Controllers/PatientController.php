@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patient;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use DB;
+
 class PatientController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class PatientController extends Controller
     public function index()
     {
         $data = patient::all();
-    
+
         return response()->json($data);
     }
 
@@ -26,18 +27,17 @@ class PatientController extends Controller
     {
         
         $time = now();
-        $date = new Carbon( $time ); 
-        
+        $date = new Carbon($time);
+
         $latestorder = patient::all()->count();
         $currentId = $date->year  . 'P' . $latestorder;
 
-        if( !empty(patient::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)){
-        do{
-            $latestorder++;
-            $patientId = $date->year  . 'P' . $latestorder;
-            $id = patient::select('patient_id')->where('patient_id', $patientId)->first();
-         
-        }while(!empty($id));
+        if (!empty(patient::select('patient_id')->where('patient_id', $currentId)->first()->patient_id)) {
+            do {
+                $latestorder++;
+                $patientId = $date->year  . 'P' . $latestorder;
+                $id = patient::select('patient_id')->where('patient_id', $patientId)->first();
+            } while (!empty($id));
         }
          $newId = $date->year  . 'P' . $latestorder;
         
@@ -54,6 +54,7 @@ class PatientController extends Controller
          ]);
          
 
+
         $PatAssRoomController = new PatAssRoomController;
         $PatAssRoomController->store($newId, $request['room_id']);
 
@@ -61,12 +62,10 @@ class PatientController extends Controller
         $PhrAttributeValuesController->store($request, $newId);
         
 
-        $action ='added a new patient-'. $request['patient_fName'];
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
+        $action = 'added a new patient-' . $request['patient_fName'];
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        }
+        
 
 
         return response('stored');
@@ -83,8 +82,8 @@ class PatientController extends Controller
                 return 'no matches';
             }
             return response()->json($patient);
-        }catch(\Exception $e){
-            return response()->json(['error'=>'patient not found'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'patient not found'], 404);
         }
     }
 
@@ -92,13 +91,13 @@ class PatientController extends Controller
      * Update the specified resource in storage.
      */
     public function update($patient_id, Request $request)
-    {   
-        
+    {
+
 
         $data = $request->all();
         $dateToUpdate = array();
-        
-        foreach($data as $name => $value){
+
+        foreach ($data as $name => $value) {
             $dataToUpdate[$name] = $value;
         }
 
@@ -114,17 +113,15 @@ class PatientController extends Controller
     {
         $lname = patient::select('patient_lName')->where('patient_id', $id)->first()->patient_lName;
         $fname = patient::select('patient_fName')->where('patient_id', $id)->first()->patient_fName;
-        $action ='deleted a patient-'. $lname. $fname;
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
+        $action = 'deleted a patient-' . $lname . $fname;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        }
+        
 
       
         patient::destroy($id);
 
-       
+
         return response('deleted');
     }
 
@@ -135,35 +132,35 @@ class PatientController extends Controller
             if($patient == null){
                 return 'no matches';
             }
-            return ['patient_fName'=>$patient['patient_fName'],'patient_lName'=>$patient['patient_lName']];
-        }catch(\Exception $e){
-            return response()->json(['error'=>'patient not found'], 404);
+            return ['patient_fName' => $patient['patient_fName'], 'patient_lName' => $patient['patient_lName']];
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'patient not found'], 404);
         }
     }
 
-    public function getPatientbyId($patient_id){
-        $patient = patient::where('patient_id', $patient_id)->first();
-
-        return $patient;
+    public function getPatientbyId($patient_id) {
+        try {
+            $patient = patient::where('patient_id', $patient_id)->firstOrFail();
+            return response()->json($patient);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Patient not found'], 404);
+        }
     }
 
 
-
-    public function getPatientRoom($patient_id){
+    public function getPatientRoom($patient_id)
+    {
         $par = new PatAssRoomController;
         $room = $par->getRoombyPatient($patient_id);
 
         return $room;
     }
 
-    public function addPhr(request $request, $patient_id){
+    public function addPhr(request $request, $patient_id)
+    {
         $PhrAttributeValuesController = new PhrAttributeValuesController;
         $PhrAttributeValuesController->store($request, $patient_id);
 
         return response('phr added');
     }
-
-
-    
-
 }

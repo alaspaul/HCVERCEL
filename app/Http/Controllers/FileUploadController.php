@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\patient;
+use App\Models\Patient;
 use File;
-use App\Models\fileUpload;
+use App\Models\FileUpload;
 use App\Http\Controllers\ResActionLogController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,14 +46,11 @@ class FileUploadController extends Controller
         $currentId = $date->year . $date->month  . 'FU' . $latestorder;
 
 
-        if( !empty(fileUpload::select('file_id')->where('file_id', $currentId)
-                                                ->first()
-                                                ->file_id)){
+        if( !empty(fileUpload::select('file_id')->where('file_id', $currentId)->first()->file_id)){
         do{
             $latestorder++;
             $depId =  $date->year . $date->month  . 'FU' . $latestorder;
-            $id = fileUpload::select('file_id')->where('file_id', $depId)
-                                               ->first();
+            $id = fileUpload::select('file_id')->where('file_id', $depId)->first();
          
         }while(!empty($id));
     }
@@ -69,7 +66,7 @@ class FileUploadController extends Controller
         'file_name'=> $file->getClientOriginalName(),
         'file_size'=> $file->getSize(),
         'file_ext'=> $file->extension(),
-        'patient_id' => $request['patient_id'], 
+        'patient_id' => $request['patient_id'],
         'resident_id'=> $user['resident_id'],
 
         'created_at' => now()
@@ -153,6 +150,13 @@ class FileUploadController extends Controller
         return response()->json($data);
     }
 
+    public function getFilesByPatient($patient_id)
+{
+    $data = fileUpload::where('patient_id', $patient_id)->get();
+
+    return response()->json($data);
+}
+
     public function viewFile($id)
     {
 
@@ -160,18 +164,6 @@ class FileUploadController extends Controller
         $pathToFile = storage_path('app\\' . $file['file_path']);
 
         return response()->file($pathToFile);
-    }
-
-    public function getFilesByPatient($patientid)
-    {
-        $dataCount = fileUpload::where('patient_id', $patientid)->count();
-        if($dataCount <= 0){
-            $newDAta = [];
-            return response()->json($newDAta);
-        }
-    
-        $data = fileUpload::where('patient_id', $patientid)->get();
-        return response()->json($data);
     }
 
 }

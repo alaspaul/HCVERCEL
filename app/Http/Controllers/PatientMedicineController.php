@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patient_medicine;
+use App\Models\Patient_medicine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Medicine;
 class PatientMedicineController extends Controller
 {
     /**
@@ -34,7 +35,7 @@ class PatientMedicineController extends Controller
     public function store(Request $request)
     {
         $time = now();
-        $date = new Carbon( $time ); 
+        $date = new Carbon( $time );
 
         $latestorder = patient_medicine::where('patient_id', $request['patient_id'])->where('medicine_id', $request['medicine_id'])->count();
        
@@ -51,17 +52,18 @@ class PatientMedicineController extends Controller
     }
 
         $newId =  $request['patient_id'] . $request['medicine_id'] .'-'. $latestorder;
+        $formattedDate = Carbon::parse($request['patientMedicineDate'])->format('Y-m-d H:i:s');
 
         patient_medicine::insert([
             'patientMedicine_id' =>  $newId,
-            'patientMedicineDate' => $request['patientMedicineDate'],
+            'patientMedicineDate' => $formattedDate, // Use the formatted date
             'medicine_frequency' => $request['medicine_frequency'],
             'patient_id' => $request['patient_id'],
             'medicine_id' => $request['medicine_id'],
-
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+    
         
 
         $medicineController = new medicineController;
@@ -149,5 +151,33 @@ class PatientMedicineController extends Controller
         patient_medicine::destroy($id);
         return response('deleted');
     }
+
+    public function getPatientMedicinesByPatientId($patientId)
+    {
+        try {
+            $patientMedicines = patient_medicine::where('patient_id', $patientId)->get();
+    
+            // Fetch medicine details for each patient medicine
+            foreach ($patientMedicines as $medication) {
+                $medicine = Medicine::find($medication->medicine_id); // Assuming the model for the medicine table is Medicine
+                if ($medicine) {
+                    $medication->medicine_name = $medicine->medicine_name;
+                    $medication->medicine_dosage = $medicine->medicine_dosage;
+                    $medication->medicine_type = $medicine->medicine_type;
+                } else {
+                    $medication->medicine_name = null;
+                    $medication->medicine_dosage = null;
+                    $medication->medicine_type = null;
+                }
+            }
+    
+            return response()->json($patientMedicines);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error fetching patient medicines.'], 500);
+        }
+    }
+    
+
+    
 }
  

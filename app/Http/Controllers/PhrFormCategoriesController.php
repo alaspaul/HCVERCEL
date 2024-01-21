@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\phr_formCategories;
+use App\Models\Phr_formCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;

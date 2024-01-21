@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\physicalExam_categories;
+use App\Models\PhysicalExam_categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class PhysicalExamCategoriesController extends Controller

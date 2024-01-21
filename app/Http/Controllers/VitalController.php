@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\vital;
+use App\Models\Vital;
 use Illuminate\Http\Request;
 
 class VitalController extends Controller

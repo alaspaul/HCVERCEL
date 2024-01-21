@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\floor;
+use App\Models\Floor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class FloorController extends Controller
@@ -30,16 +30,14 @@ class FloorController extends Controller
     public function store(Request $request)
     {
         $latestorder = floor::all()->count();
+        $last_id = floor::select('floor_id')->orderBy('created_at', 'desc')->first()->floor_id;
         $currentId = 'F' . $latestorder;
       
-        if( !empty(floor::select('floor_id')->where('floor_id', $currentId)
-                                            ->first()
-                                            ->floor_id)){
+        if( !empty(floor::select('floor_id')->where('floor_id', $currentId)->first()->floor_id)){
         do{
             $latestorder++;
             $floorId = 'F'. $latestorder;
-            $id = floor::select('floor_id')->where('floor_id', $floorId)
-                                           ->first();
+            $id = floor::select('floor_id')->where('floor_id', $floorId)->first();
          
         }while(!empty($id));
     }
@@ -150,9 +148,7 @@ class FloorController extends Controller
 
     public function getFloorNamebyId($floor_id){
 
-        $name = floor::select('floor_name')->where('floor_id', $floor_id)
-                                           ->first()
-                                           ->floor_name;
+        $name = floor::select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
 
 
         return $name;

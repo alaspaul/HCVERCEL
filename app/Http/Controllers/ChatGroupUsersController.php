@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\chatGroup;
-use App\Models\chatGroupUsers;
-use App\Models\resident;
+use App\Models\ChatGroup;
+use App\Models\ChatGroupUsers;
+use App\Models\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +29,7 @@ class ChatGroupUsersController extends Controller
         $user = Auth::user();
         $latestorder = chatGroupUsers::all()->count();
 
-        $chatGroupId = $this->exist($request['chatGroup_id']);
+        $chatGroupId = $this->ifNew($request['chatGroup_id']);
 
         if($chatGroupId == null){
             return 'chatGroup id does not exist';
@@ -88,9 +88,9 @@ class ChatGroupUsersController extends Controller
         
 
             }
-        
+            $cgID = $chatGroupId;
     
-            return response()->json($chatGroupId);
+            return $cgID;
     }
 
     /**
@@ -144,11 +144,38 @@ class ChatGroupUsersController extends Controller
 
     public function allGroups(){
         $user = Auth::user();
-
-        $myGroups = chatGroupUsers::where('resident_id', $user['resident_id'])->pluck('chatGroup_id');
-
-        return $myGroups;
+        
+        // Fetch chat groups where the user is a member
+        $myGroups = chatGroupUsers::where('resident_id', $user['resident_id'])->get();
+    
+        // Define an array to store formatted group data
+        $formattedGroups = [];
+    
+        foreach ($myGroups as $group) {
+            // Get the other resident in the chat group (excluding the current user)
+            $otherResident = chatGroupUsers::where('chatGroup_id', $group->chatGroup_id)
+                ->where('resident_id', '!=', $user['resident_id'])
+                ->first();
+    
+            // Check if the other resident exists
+            if ($otherResident) {
+                // Fetch the resident details using the Resident model
+                $otherResidentDetails = Resident::find($otherResident->resident_id);
+    
+                // Add the formatted group data to the array
+                $formattedGroups[] = [
+                    'chatGroup_id' => $group->chatGroup_id,
+                    'other_resident_fName' => $otherResidentDetails->resident_fName,
+                    'other_resident_lName' => $otherResidentDetails->resident_lName,
+                    // Add other properties if needed
+                ];
+            }
+        }
+    
+        return $formattedGroups;
     }
+    
+    
 
     public function allUsersinGroup($chatGroup_id){
 
@@ -158,7 +185,7 @@ class ChatGroupUsersController extends Controller
     }
 
 
-    public function exist($variable){
+    public function ifNew($variable){
         
 
         if($variable != null){
@@ -200,14 +227,16 @@ class ChatGroupUsersController extends Controller
     public function firstAddResidents(request $request){
         $user = Auth::user();
 
-        $chatGroupIds = chatGroupUsers::select('chatGroup_id')->groupBy('chatGroup_id')
-                                                              ->havingRaw('COUNT(DISTINCT resident_id) = 2')
-                                                              ->havingRaw('COUNT(resident_id) = 2')
-                                                              ->pluck('chatGroup_id');
+        $chatGroupIds = chatGroupUsers::select('chatGroup_id')
+                                    ->groupBy('chatGroup_id')
+                                    ->havingRaw('COUNT(DISTINCT resident_id) = 2')
+                                    ->havingRaw('COUNT(resident_id) = 2')
+                                    ->pluck('chatGroup_id');
 
 
-        $assignedResidents = chatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)->where('resident_id' , '!=' , $user['resident_id'])
-                                                                                   ->pluck('resident_id');
+        $assignedResidents = chatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
+                                    ->where('resident_id' , '!=' , $user['resident_id'])
+                                    ->pluck('resident_id');
 
         $unassignedResidents = resident::whereNotIn('resident_id', $assignedResidents)->get();
 

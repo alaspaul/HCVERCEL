@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\department;
+use App\Models\Department;
 use Illuminate\Http\Request;
-use App\Models\resident;
+use App\Models\Resident;
 use Illuminate\Support\Facades\Auth;
 class DepartmentController extends Controller
 {
@@ -32,20 +32,15 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $latestorder = department::all()->count();
-        $last_id = department::select('department_id')->orderBy('created_at', 'desc')
-                                                      ->first()
-                                                      ->department_id;
+        $last_id = department::select('department_id')->orderBy('created_at', 'desc')->first()->department_id;
         $currentId = 'D' . $latestorder;
 
 
-        if( !empty(department::select('department_id')->where('department_id', $currentId)
-                                                      ->first()
-                                                      ->department_id)){
+        if( !empty(department::select('department_id')->where('department_id', $currentId)->first()->department_id)){
         do{
             $latestorder++;
             $depId = 'D'. $latestorder;
-            $id = department::select('department_id')->where('department_id', $depId)
-                                                     ->first();
+            $id = department::select('department_id')->where('department_id', $depId)->first();
          
         }while(!empty($id));
     }
@@ -128,9 +123,7 @@ class DepartmentController extends Controller
 
     public function getDepNamebyId($department_id){
 
-        $name = department::select('department_name')->where('department_id', $department_id)
-                                                     ->first()
-                                                     ->department_name;
+        $name = department::select('department_name')->where('department_id', $department_id)->first()->department_name;
 
 
         return $name;

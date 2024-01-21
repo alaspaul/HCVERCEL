@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\phr_categoryAttributes;
-use App\Models\phr_formCategories;
+use App\Models\Phr_categoryAttributes;
+use App\Models\Phr_formCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class PhrCategoryAttributesController extends Controller

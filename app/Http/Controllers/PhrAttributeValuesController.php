@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\phr_attributeValues;
-use App\Models\phr_categoryAttributes;
-use App\Models\phr_formCategories;
+use App\Models\Phr_attributeValues;
+use App\Models\Phr_categoryAttributes;
+use App\Models\Phr_formCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -162,18 +162,11 @@ class PhrAttributeValuesController extends Controller
 
     public function getPHR($patient_id)
     {
-        $dateCount = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->count();
-        if($dateCount <= 0){
-            return response()->json('patient has no PHR');
-        }
         $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
-        
         $date = new Carbon($dates[0]);
         $formattedDate = $date->format('Y-m-d');
     
         $PAV = phr_attributeValues::where('patient_id', $patient_id)->where('created_at', 'LIKE', $formattedDate . '%')->get();
-
-       
     
         $result = $PAV->map(function ($item) {
             $categoryAtt_id = $item['categoryAtt_id'];
@@ -192,13 +185,22 @@ class PhrAttributeValuesController extends Controller
         return response()->json($result);
     }
 
-    public function getAttributeName($categoryAtt_id){
-        $attribute = new PhrCategoryAttributesController;
+    
 
-        $attributeName = phr_categoryAttributes::select('categoryAtt_name')->where('categoryAtt_id', $categoryAtt_id)->first();
+    public function getAttributeName($categoryAtt_id)
+    {
+        $attributeName = phr_categoryAttributes::where('categoryAtt_id', $categoryAtt_id)
+            ->value('categoryAtt_name');
 
         return $attributeName;
+    }
 
+    public function getFormCategoryName($formCat_id)
+    {
+        $formCategoryName = phr_categoryAttributes::where('formCat_id', $formCat_id)
+            ->value('formCat_name');
+
+        return $formCategoryName;
     }
 
 

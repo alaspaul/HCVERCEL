@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patAssRoom;
-use App\Models\patient;
-use App\Models\room;
+use App\Models\PatAssRoom;
+use App\Models\Patient;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
+
+
 class PatAssRoomController extends Controller
 {
     /**
@@ -25,11 +27,10 @@ class PatAssRoomController extends Controller
      */
     public static function store($patient_id, $room_id)
     {
-        patAssRoom::insert([
-            'par_id' =>  'PAR-'. $patient_id .$room_id,
-            'patient_id' =>$patient_id,
+        $par = new patAssRoom([
+            'par_id' => 'PAR-' . $patient_id . $room_id,
+            'patient_id' => $patient_id,
             'room_id' => $room_id,
-            
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -41,8 +42,18 @@ class PatAssRoomController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
+
+    
+        // Call the save method to store the data in the database
+        $par->save();
+    
+        $action = 'added a new par';
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
+    
         return response('stored');
     }
+    
 
     /**
      * Display the specified resource.
@@ -66,103 +77,101 @@ class PatAssRoomController extends Controller
     public function destroy($id)
     {
 
-        $action ='deleted a par-'. $id;
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
+        $action = 'deleted a par-' . $id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        }
+        
 
 
-        patAssRoom::destroy($id);
 
-       
         return response('deleted');
     }
 
 
 
-    public function getAvailableRooms(){
+    public function getAvailableRooms()
+    {
+        $patAssRoom = new patAssRoom;
 
-
-        $occupiedRooms = patAssRoom::where('room_id','!=',null)->pluck('room_id');
+        $occupiedRooms = $patAssRoom->where('room_id', '!=', null)->pluck('room_id');
         $rooms = DB::table('rooms')->whereNotIn('room_id',  $occupiedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
         return response()->json($rooms);
-        
     }
 
 
-    public function transferPatient($patient_id, request $request){
+    public function transferPatient($patient_id, request $request)
+    {
         $dataToUpdate = [
             'room_id' =>  $request['room_id'],
-         ];
+        ];
 
-         $action ='transfered a patient -'. $patient_id;
-         $user = Auth::user();
-         if($user['role'] != 'admin'){
-         $log = new ResActionLogController;
-         $log->store(Auth::user(), $action);
-         }
- 
-         patAssRoom::where('patient_id', $patient_id)->update($dataToUpdate);
-         return response()->json('patient Transfered');
-        
+        $action = 'transfered a patient -' . $patient_id;
+        $log = new ResActionLogController;
+        $log->store(Auth::user(), $action);
+
+        $patAssRoom = new patAssRoom;
+        $patAssRoom->where('patient_id', $patient_id)->update($dataToUpdate);
+        return response()->json('patient Transfered');
     }
 
 
-    public function getPatientbyRoom($room_id){
-
+    public function getPatientbyRoom($room_id)
+    {
+        // Get the patient_id from the patAssRooms table
         $patAssRoom = patAssRoom::where('room_id', $room_id)->first();
 
-        if($patAssRoom){
+        if ($patAssRoom) {
+            // If a record is found in patAssRooms, get the patient_id
             $patient_id = $patAssRoom->patient_id;
 
-            $patient = patient::getPatientbyId($patient_id);
-    
+            // Use the patient_id to fetch patient data from the patient_healthRecord table
+            $patient = patient::where('patient_id', $patient_id)->get();
+
             return response()->json($patient);
+        } else {
+            // Handle the case where no patient is found for the room
+            return response()->json(['message' => 'No patients found for this room.']);
         }
- 
     }
+
+
+
 
 
     public function checkout($patient_id)
     {
 
-        $action ='checkedout a patient -'. $patient_id;
+        $action = 'checkedout a patient -' . $patient_id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
         
         patAssRoom::where('patient_id', $patient_id)->delete();
 
-       
+
         return response('checkedout');
     }
 
     public function getPatient($patient_id)
     {
-       $pat = patAssRoom::getPatientbyId($patient_id);
+        // Assuming `getPatientbyId` is a static method in the PatAssRoom model
+        $pat = PatAssRoom::getPatientbyId($patient_id);
 
-       return $pat;
+        return $pat;
     }
 
-    
+
 
     public function getRoombyPatient($patient_id)
     {
-       $par =   patAssRoom::where('patient_id', $patient_id)->first();
-       $roomCont = new RoomController;
-       $room = $roomCont->getRoom($par->room_id);
+        $patAssRoom = new patAssRoom;
+        $par =  $patAssRoom->where('patient_id', $patient_id)->first();
 
-       return $room;
-    }
+        $roomCon = new RoomController;
 
+        $room = $roomCon->getRoom($par->room_id);
 
-    public function getPAR($id)
-    {
-        $PAR =  patAssRoom::where('room_id', $id)->first();
-
-       return $PAR;
+        return $room;
     }
 
     public function unassignedRooms(){
@@ -172,6 +181,4 @@ class PatAssRoomController extends Controller
 
         return response()->json($rooms);
     }
-
-
 }

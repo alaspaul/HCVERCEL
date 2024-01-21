@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\resident;
-use App\Models\resident_assigned_room;
-use App\Models\room;
+use App\Models\Resident;
+use App\Models\Resident_assigned_room;
+use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class ResidentAssignedRoomController extends Controller
 {
     /**
@@ -27,14 +30,18 @@ class ResidentAssignedRoomController extends Controller
         //
     }
 
+
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   $time = now();
+        $date = new Carbon( $time ); 
+
 
         resident_assigned_room::insert([
-            'resAssRoom_id' =>  $request['resident_id'] .  $request['room_id'],
+            'resAssRoom_id' => $date->year . $request['resident_id'] .  $request['room_id'],
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
             'isFinished' => 0,
@@ -42,17 +49,19 @@ class ResidentAssignedRoomController extends Controller
             'updated_at' => now(),
         ]);
 
+        $room = new RoomController;
+        $roomName = $room->getRoomNamebyId($request['room_id']);
 
-        $action ='assigned room-'.$request['room_id'].' to resident-'. $request['resident_id'];
+        $resident = new ResidentController;
+        $residentName = $resident->residentName($request['resident_id']);
+
+        $resName = $residentName['lastName'] . ', ' . $residentName['lastName'] . ' ' . $residentName['lastName'];
+        $action ='assigned room-'. $roomName.' to resident-'. $resName;
         $user = Auth::user();
-
-        if($user['role'] != 'admin')
-        {
+        if($user['role'] != 'admin'){
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
-
-        return response()->json($request['room_id']);
     }
 
     /**
@@ -142,10 +151,9 @@ class ResidentAssignedRoomController extends Controller
 
 
 
-    public function ressAssRoom()
+    public function showRessAssRoom($resident_id)
     {
-        $user = Auth::user();
-        $rooms = resident_assigned_room::where('resident_id', $user['resident_id'])->get();
+        $rooms = resident_assigned_room::where('resident_id', $resident_id)->get();
 
 
         return response()->json($rooms);
@@ -173,22 +181,26 @@ class ResidentAssignedRoomController extends Controller
         return $residentName;
     }
 
+
+    public function getResidentsByDepartment($departmentId)
+    {
+        try {
+            $residents = DB::table('residents')
+                ->where('department_id', $departmentId)
+                ->get();
+
+            return $residents;
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred.']);
+        }
+    }
+
     public function unassignedRooms(){
         $assignedRooms = resident_assigned_room::select('room_id')->get();
         $rooms = room::select('room_id')->whereNotIn('room_id', $assignedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
 
         return response()->json($rooms);
-    }
-
-
- 
-    public function residentsByDepartment($departmentid){
-        $user = Auth::user();
-
-        $residentByDep = resident::where('department_id', $user['department_id'])->get();
-        $residents = resident::where('department_id', $user['department_id'])->get();
-        return response()->json($residents);
     }
 
     public function getCurrentUserAssignedRooms()
@@ -251,6 +263,7 @@ class ResidentAssignedRoomController extends Controller
             return response()->json(['error' => 'An error occurred.']);
         }
     }
+    
     
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\history;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;

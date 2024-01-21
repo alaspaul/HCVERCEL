@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\patient;
-use App\Models\physicalExam_Attributes;
-use App\Models\physicalExam_categories;
-use App\Models\physicalExam_values;
+use App\Models\Patient;
+use App\Models\PhysicalExam_Attributes;
+use App\Models\PhysicalExam_categories;
+use App\Models\PhysicalExam_values;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -28,59 +28,67 @@ class PhysicalExamValuesController extends Controller
     {
         $attributes = physicalExam_Attributes::all();
         $patient = patient::where('patient_id', $request['patient_id'])->first();
-
-        foreach($attributes as $attribute){
-        $latestOrder = 0;
-        $exit = 0;
-
-        while($exit == 0){
-            $thisId = $request['patient_id'] . $attribute['PEA_id'] . '-' . $latestOrder;
-            if(!empty(physicalExam_values::where('PAV_id', $thisId)->first()->PAV_id)){
-                $exit = 0;
-                $latestOrder++; 
-            }else{
-                $exit = 1;
+    
+        foreach ($attributes as $attribute) {
+            $latestOrder = 0;
+            $exit = 0;
+    
+            while ($exit == 0) {
+                $thisId = $request['patient_id'] . $attribute['PEA_id'] . '-' . $latestOrder;
+                if (!empty(physicalExam_values::where('PAV_id', $thisId)->first()->PAV_id)) {
+                    $exit = 0;
+                    // $latestOrder++;
+                } else {
+                    $exit = 1;
+                }
+            }
+    
+            $newId = $request['patient_id'] . $attribute['PEA_id'];
+    
+            // Delete existing entry
+            physicalExam_values::where('PAV_id', $newId)->delete();
+    
+            // Check if the value is not empty, if empty set to "None"
+            $value = !empty($request[$attribute['PEA_name']]) ? $request[$attribute['PEA_name']] : 'None';
+    
+            physicalExam_values::updateOrInsert(
+                ['PAV_id' => $newId],
+                [
+                    'PAV_value' => $value,
+                    'patient_id' => $request['patient_id'],
+                    'PEA_id' => $attribute['PEA_id'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]
+            );
+    
+            // Handle specify_patient_bodypart
+            $specifyFieldName = 'specify_' . $attribute['PEA_name'];
+    
+            // Check if the specify value is not empty
+            if (!empty($request[$specifyFieldName])) {
+                physicalExam_values::updateOrInsert(
+                    ['PAV_id' => $newId],
+                    [
+                        'PAV_value' => $request[$specifyFieldName],
+                        'patient_id' => $request['patient_id'],
+                        'PEA_id' => $attribute['PEA_id'],
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]
+                );
             }
         }
     
-        $newId = $request['patient_id'] . $attribute['PEA_id'] . '-' . $latestOrder;
-
-         if(!empty($request[$attribute['PEA_name']])){
-            physicalExam_values::insert([
-           
-            'PAV_id' => $newId,
-            'PAV_value' => $request[$attribute['PEA_name']],
-            'patient_id' => $request['patient_id'],
-            'PEA_id' => $attribute['PEA_id'],
-
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-
-       }else{
-        $variable = 0;
-        if($attribute['PEA_dataType'] == 'string'){
-            $variable = 'none';
-        }
-        physicalExam_values::insert([
-           
-            'PAV_id' => $newId,
-            'PAV_value' =>  $variable,
-            'patient_id' => $request['patient_id'],
-            'PEA_id' => $attribute['PEA_id'],
-
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-    }
-}
-        $action ='added a new physical exam for patient ' . $patient['patient_fName'];
+        $action = 'added a new physical exam for patient ' . $patient['patient_fName'];
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
+    
         return response('stored');
     }
+    
+    
+    
 
     /**
      * Display the specified resource.
