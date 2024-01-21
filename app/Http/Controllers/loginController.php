@@ -32,7 +32,7 @@ class loginController extends Controller
                 $resident = resident::where('resident_userName', $request['resident_userName'])->first();
                 $user = Auth::user();
                 $token = $user->createToken('api_token')->plainTextToken;
-                return response()->json(['token'=> $token, 'resident' => $resident, 'resident_id' => $resident['resident_id'], 'role' => $resident['role']],200);
+                return response()->json(['token'=> $token, 'depID' => $resident['department_id'], 'resFirstName' => $resident['resident_fName'], 'resLastname' => $resident['resident_lName'], 'resident_id' => $resident['resident_id'], 'role' => $resident['role']],200);
             }
         } catch (ValidationException $e) {
             return response()->json(['error'=> 'login error'], 422);
