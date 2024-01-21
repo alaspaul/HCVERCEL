@@ -157,9 +157,10 @@ class FileUploadController extends Controller
     {
 
         $file = fileUpload::where('file_id', $id)->first();
-        $pathToFile = storage_path('app\\' . $file['file_path']);
+        // $pathToFile = storage_path('app\\' . $file['file_path']);
+        $pathToFile = storage_path($file['file_path']);
 
-        return response()->file($file['file_path']);
+        return response()->file($pathToFile);
     }
 
 }
