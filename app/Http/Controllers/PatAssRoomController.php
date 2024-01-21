@@ -51,7 +51,7 @@ class PatAssRoomController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
     
-        return response('stored');
+        return response()->json('stored in ' . $room_id);
     }
     
 
