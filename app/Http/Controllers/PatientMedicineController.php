@@ -34,8 +34,6 @@ class PatientMedicineController extends Controller
      */
     public function store(Request $request)
     {
-        $time = now();
-        $date = new Carbon( $time );
 
         $latestorder = patient_medicine::where('patient_id', $request['patient_id'])->where('medicine_id', $request['medicine_id'])->count();
        
@@ -64,16 +62,11 @@ class PatientMedicineController extends Controller
             'updated_at' => now(),
         ]);
     
-        
+    
 
-        $medicineController = new MedicineController;
-        $medName = $medicineController->getMedNamebyId($request['medicine_id']);
 
-        $patientController = new PatientController;
-        $patient = $patientController->getPatientbyId($request['patient_id']);
-        $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
 
-        $action ='added a new medicine-'. $medName .' for patient-'. $patientName;
+        $action ='added a new medicine-'. $request['medicine_id'] .' for patient-'. $request['patient_id'];
         $user = Auth::user();
         if($user['role'] != 'admin'){
         $log = new ResActionLogController;

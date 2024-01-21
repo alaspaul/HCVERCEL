@@ -124,6 +124,9 @@ class PhysicalExamValuesController extends Controller
 
     public function getPE($patient_id){
         $latestDate = physicalExam_values::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
+        if ($latestDate->isEmpty()) {
+            return response()->json('no pe');
+        }
         $date = new Carbon($latestDate[0]);
         $formattedDate = $date->format('Y-m-d');
     
