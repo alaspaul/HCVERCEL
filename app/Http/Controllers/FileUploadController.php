@@ -28,7 +28,7 @@ class FileUploadController extends Controller
         $file = $request->file('file');
         if(empty(fileUpload::where('file_name', $file->getClientOriginalName())->first())){
             $path = Storage::putFileAs(
-                'file/'. $user['resident_id'],  $file,  $file->getClientOriginalName()
+                'file/'. $user['resident_id'] . '/' . $request['patient_id'],  $file,  $file->getClientOriginalName()
             );
         }else{
             return response()->json('file with filename ' . $file->getClientOriginalName() . ' already exist');
@@ -159,7 +159,7 @@ class FileUploadController extends Controller
         $file = fileUpload::where('file_id', $id)->first();
         $pathToFile = storage_path('app\\' . $file['file_path']);
 
-        return response()->file($pathToFile);
+        return response()->file($file['file_path']);
     }
 
 }
