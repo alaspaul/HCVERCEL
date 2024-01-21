@@ -185,7 +185,8 @@ class ResidentAssignedRoomController extends Controller
     public function getResidentsByDepartment($departmentId)
     {
         try {
-            $residents = resident::where('department_id', $departmentId)
+            $residents = DB::table('residents')
+                ->where('department_id', $departmentId)
                 ->get();
 
             return $residents;
