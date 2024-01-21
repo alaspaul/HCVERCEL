@@ -127,12 +127,23 @@ class FileUploadController extends Controller
 
     public function download($file_id)
     {
-      
         $file = fileUpload::where('file_id', $file_id)->first();
-        $pathToFile = storage_path('app\\' . $file['file_path']);
-
-        return response()->download($pathToFile);
+    
+        // Check if the file record exists
+        if (!$file) {
+            return response()->json('File not found', 404);
+        }
+    
+        $pathToFile = storage_path('app/' . $file['file_path']);
+    
+        // Check if the file itself exists
+        if (file_exists($pathToFile)) {
+            return response()->download($pathToFile);
+        } else {
+            return response()->json('File not found', 404);
+        }
     }
+    
 
     public function getFiles(request $request)
     {
@@ -157,10 +168,20 @@ class FileUploadController extends Controller
     {
 
         $file = fileUpload::where('file_id', $id)->first();
-        // $pathToFile = storage_path('app\\' . $file['file_path']);
-        $pathToFile = storage_path($file['file_path']);
 
-        return response()->file($pathToFile);
+        // Make sure the file record is found
+        if($file) {
+            $pathToFile = storage_path('app/' . $file['file_path']);
+            
+            // Check if the file exists
+            if (Storage::exists($file['file_path'])) {
+                return response()->file($pathToFile);
+            } else {
+                return response()->json('File not found', 404);
+            }
+        } else {
+            return response()->json('File record not found', 404);
+        }
     }
 
 }
