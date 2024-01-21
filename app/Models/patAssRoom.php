@@ -31,4 +31,5 @@ class patAssRoom extends Model
     {
         return $this->hasOne(room::class, 'foreign_key', 'room_id');
     }
+
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ResActionLog;
-use App\Models\Resident;
+use App\Models\resActionLog;
+use App\Models\resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;

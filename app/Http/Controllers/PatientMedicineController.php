@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Patient_medicine;
+use App\Models\patient_medicine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Medicine;
+use App\Models\medicine;
 class PatientMedicineController extends Controller
 {
     /**
@@ -66,10 +66,10 @@ class PatientMedicineController extends Controller
     
         
 
-        $medicineController = new medicineController;
+        $medicineController = new MedicineController;
         $medName = $medicineController->getMedNamebyId($request['medicine_id']);
 
-        $patientController = new patientController;
+        $patientController = new PatientController;
         $patient = $patientController->getPatientbyId($request['patient_id']);
         $patientName = $patient['patient_lName'] .', '. $patient['patient_fName'] .' '. $patient['patient_mName'];
 
@@ -130,7 +130,7 @@ class PatientMedicineController extends Controller
     {
         $meds = patient_medicine::where('patientMedicine_id', $id)->first();
 
-        $medicineController = new medicineController;
+        $medicineController = new MedicineController;
         $medicineName =  $medicineController->getMedNamebyId($meds['medicine_id']);
 
         $patientController = new patientController;
@@ -159,7 +159,7 @@ class PatientMedicineController extends Controller
     
             // Fetch medicine details for each patient medicine
             foreach ($patientMedicines as $medication) {
-                $medicine = Medicine::find($medication->medicine_id); // Assuming the model for the medicine table is Medicine
+                $medicine = medicine::find($medication->medicine_id); // Assuming the model for the medicine table is Medicine
                 if ($medicine) {
                     $medication->medicine_name = $medicine->medicine_name;
                     $medication->medicine_dosage = $medicine->medicine_dosage;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Resident;
-use App\Models\Resident_assigned_room;
-use App\Models\Room;
+use App\Models\resident;
+use App\Models\resident_assigned_room;
+use App\Models\room;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -185,8 +185,7 @@ class ResidentAssignedRoomController extends Controller
     public function getResidentsByDepartment($departmentId)
     {
         try {
-            $residents = DB::table('residents')
-                ->where('department_id', $departmentId)
+            $residents = resident::where('department_id', $departmentId)
                 ->get();
 
             return $residents;

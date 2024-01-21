@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Phr_attributeValues;
-use App\Models\Phr_categoryAttributes;
-use App\Models\Phr_formCategories;
+use App\Models\phr_attributeValues;
+use App\Models\phr_categoryAttributes;
+use App\Models\phr_formCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;

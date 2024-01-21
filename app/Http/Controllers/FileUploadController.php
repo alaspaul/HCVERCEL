@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Patient;
-use File;
-use App\Models\FileUpload;
-use App\Http\Controllers\ResActionLogController;
+use App\Models\fileUpload;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\Auth;
 class FileUploadController extends Controller
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Patient;
+use App\Models\patient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;

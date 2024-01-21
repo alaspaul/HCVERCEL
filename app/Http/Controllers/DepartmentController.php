@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+use App\Models\department;
 use Illuminate\Http\Request;
-use App\Models\Resident;
 use Illuminate\Support\Facades\Auth;
 class DepartmentController extends Controller
 {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
-use App\Models\Resident;
+use App\Models\department;
+use App\Models\resident;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -90,7 +90,7 @@ class ResidentController extends Controller
     public function show($residentId)
     {
         try{
-            $resident = Resident::findOrFail($residentId);
+            $resident = resident::findOrFail($residentId);
             return response()->json($resident);
         }catch(\Exception $e){
             return response()->json(['error'=>'resident not found'], 404);

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ChatGroup;
-use App\Models\ChatGroupUsers;
-use App\Models\Resident;
+use App\Models\chatGroup;
+use App\Models\chatGroupUsers;
+use App\Models\resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -160,7 +160,7 @@ class ChatGroupUsersController extends Controller
             // Check if the other resident exists
             if ($otherResident) {
                 // Fetch the resident details using the Resident model
-                $otherResidentDetails = Resident::find($otherResident->resident_id);
+                $otherResidentDetails = resident::find($otherResident->resident_id);
     
                 // Add the formatted group data to the array
                 $formattedGroups[] = [
