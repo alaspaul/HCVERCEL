@@ -76,15 +76,18 @@ class PatientController extends Controller
      */
     public function show($patient_id)
     {
+        $patientRoom = $this->getPatientRoom($patient_id);
         try{
             $patient = patient::where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
-            return response()->json($patient);
+            return response()->json(['patient' => $patient, 'patientRoom' => $patientRoom]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'patient not found'], 404);
         }
+
+        
     }
 
     /**
@@ -139,9 +142,10 @@ class PatientController extends Controller
     }
 
     public function getPatientbyId($patient_id) {
+        $patientRoom = $this->getPatientRoom($patient_id);
         try {
             $patient = patient::where('patient_id', $patient_id)->firstOrFail();
-            return response()->json($patient);
+            return response()->json(['patient' => $patient, 'patientRoom' => $patientRoom]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Patient not found'], 404);
         }

@@ -164,14 +164,16 @@ class PatAssRoomController extends Controller
 
     public function getRoombyPatient($patient_id)
     {
-        $patAssRoom = new patAssRoom;
-        $par =  $patAssRoom->where('patient_id', $patient_id)->first();
-
-        $roomCon = new RoomController;
-
-        $room = $roomCon->getRoom($par->room_id);
-
+        $patAssRoom = patAssRoom::where('patient_id', $patient_id)->first();
+        if($patAssRoom){
+        $room = room::where('room_id', $patAssRoom->room_id)->first();
+        
+       
         return $room;
+       
+        }
+
+        return 'Patient has no room';
     }
 
     public function unassignedRooms(){

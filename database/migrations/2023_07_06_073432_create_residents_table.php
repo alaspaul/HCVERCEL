@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('resident_fName');
             $table->string('resident_lName');
             $table->string('resident_mName');
+            $table->string('resident_gender');
             $table->string('resident_password');
             $table->string('role');
             $table->rememberToken();

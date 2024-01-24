@@ -26,6 +26,7 @@ class resident extends Model implements Authenticatable
         'resident_lName',
         'resident_mName',
         'resident_password',
+        'resident_gender',
         'role',
         'department_id',
     ];
