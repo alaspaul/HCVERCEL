@@ -43,6 +43,7 @@ class loginController extends Controller
                     'role' => $resident['role'],
                     'resident_fName' => $resident['resident_fName'],
                     'resident_lName' => $resident['resident_lName'],
+                    'resident_gender' => $resident['resident_gender'],
                     'department_id' => $resident['department_id']
                 ], 200);
             }
