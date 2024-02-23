@@ -9,7 +9,7 @@ use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Hash;
 use Illuminate\Http\Response;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class loginController extends Controller
 {

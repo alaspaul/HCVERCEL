@@ -7,6 +7,7 @@ use App\Models\chatGroupUsers;
 use App\Models\resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ChatGroupUsersController extends Controller
 {
@@ -24,18 +25,24 @@ class ChatGroupUsersController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'chatGroup_id' => 'required',
+            'resident_id' => 'required',
+        ]);
 
-       
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
         $user = Auth::user();
         $latestorder = chatGroupUsers::all()->count();
 
         $chatGroupId = $this->ifNew($request['chatGroup_id']);
 
-        if($chatGroupId == null){
+        if ($chatGroupId == null) {
             return 'chatGroup id does not exist';
         }
-
-
+        
         $currentId = $chatGroupId . 'CGU' . $latestorder;
 
         $chatGroupUsers = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
@@ -94,21 +101,27 @@ class ChatGroupUsersController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(chatGroupUsers $chatGroupUsers)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-
         $action ='updated a chatGroupUsers where id-'. $id;
+
+        $resident = resident::where('resident_id', $request['resident_id'])->first();
+        if($resident == null){
+            return response('resident does not exist');
+        }
+
+        $chatGroup = chatGroup::where('chatGroup_id', $request['chatGroup_id'])->first();
+        if($chatGroup == null){
+            return response('chatGroup does not exist');
+        }
+
+        $chatGroupUsers = chatGroupUsers::where('chatGroupUsers_id', $id)->first();
+        if($chatGroupUsers == null){
+            return response('chatGroupUsers does not exist');
+        }
 
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -131,6 +144,11 @@ class ChatGroupUsersController extends Controller
      */
     public function destroy($id)
     {
+        $chatGroupUsers = chatGroupUsers::where('chatGroupUsers_id', $id)->first();
+        if($chatGroupUsers == null){
+            return response('chatGroupUsers does not exist');
+        }
+
         $action ='deleted a chatGroupUsers-';
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
@@ -167,7 +185,6 @@ class ChatGroupUsersController extends Controller
                     'chatGroup_id' => $group->chatGroup_id,
                     'other_resident_fName' => $otherResidentDetails->resident_fName,
                     'other_resident_lName' => $otherResidentDetails->resident_lName,
-                    // Add other properties if needed
                 ];
             }
         }
@@ -176,51 +193,70 @@ class ChatGroupUsersController extends Controller
     }
     
     
-
+    /**
+     * Retrieve all users in a chat group.
+     *
+     * @param int $chatGroup_id The ID of the chat group.
+     * @return \Illuminate\Support\Collection|array|string|null The collection of resident IDs in the chat group, or a string indicating that the chat group does not exist.
+     */
     public function allUsersinGroup($chatGroup_id){
+        // Retrieve the chat group by ID
+        $chatGroup = chatGroup::where('chatGroup_id', $chatGroup_id)->first();
 
+        // Check if the chat group exists
+        if($chatGroup == null){
+            return response('chatGroup does not exist');
+        }
+
+        // Retrieve the resident IDs of the users in the chat group
         $groupUsers = chatGroupUsers::where('chatGroup_id', $chatGroup_id)->pluck('resident_id');
 
         return $groupUsers;
     }
 
 
+    /**
+     * Check if a variable is new.
+     *
+     * @param mixed $variable The variable to check.
+     * @return mixed The variable itself if it exists in the chat group array, null otherwise. If the variable is null, a new chat group ID is generated and returned.
+     */
     public function ifNew($variable){
         
-
+        // Check if the variable is not null
         if($variable != null){
-           $chatGroupIds = chatGroup::select('chatGroup_id')->get();
-           $chatGroupArray = $chatGroupIds->toArray();
+            // Retrieve all chat group IDs
+            $chatGroupIds = chatGroup::select('chatGroup_id')->get();
+            $chatGroupArray = $chatGroupIds->toArray();
+        
 
-           if(in_array($variable,  $chatGroupArray)){
+            // Check if the variable exists in the chat group array
+            if(in_array($variable,  $chatGroupArray)){
                 return $variable;
-
-           }else{
+            }else{
                 return null;
-           }
-
+            }
         }else{
+            // Create a new ChatGroupController instance
             $chatGroup = new ChatGroupController;
 
+            // Generate a new chat group ID
             $newid = $chatGroup->store();
-
 
             return $newid;
         }
-
-
     }
 
 
     public function addResidents(request $request){
-        $user = Auth::user();
+        $chatGroup = chatGroup::where('chatGroup_id', $request['chatGroup_id'])->first();
+        if($chatGroup == null){
+            return response('chatGroup does not exist');
+        }
 
         $residents = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
 
         $unassignedResidents = resident::whereNotIn('resident_id', $residents)->get();
-
-
-
         return response()->json($unassignedResidents);
     }
 

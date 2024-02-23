@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 class DepartmentController extends Controller
 {
     /**
@@ -30,10 +31,17 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $latestorder = department::all()->count();
-        $last_id = department::select('department_id')->orderBy('created_at', 'desc')->first()->department_id;
-        $currentId = 'D' . $latestorder;
+        $validator = Validator::make($request->all(), [
+            'department_name' => 'required|string|max:255',
+        ]);
 
+        if ($validator->fails()) {
+            return response($validator->errors(), 400);
+        }
+        
+        $latestorder = department::all()->count();
+        $currentId = 'D' . $latestorder;
+        
 
         if( !empty(department::select('department_id')->where('department_id', $currentId)->first()->department_id)){
         do{
@@ -84,6 +92,19 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'department_name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response($validator->errors(), 400);
+        }
+
+        $department = department::where('department_id', $id)->first();
+        if($department == null){
+            return response('department does not exist');
+        }
+
         $action ='updated a department where id-'. $id;
         
         $user = Auth::user();
@@ -103,6 +124,10 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
+        $department = department::where('department_id', $id)->first();
+        if($department == null){
+            return response('department does not exist');
+        }
         
         $action ='deleted a department-'. $this->getDepNamebyId($id);
 
@@ -122,9 +147,12 @@ class DepartmentController extends Controller
 
     public function getDepNamebyId($department_id){
 
+        $department = department::where('department_id', $department_id)->first();
+        if($department == null){
+            return response('department does not exist');
+        }
+
         $name = department::select('department_name')->where('department_id', $department_id)->first()->department_name;
-
-
         return $name;
     }
 }

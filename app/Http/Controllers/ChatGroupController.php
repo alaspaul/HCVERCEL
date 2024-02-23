@@ -16,69 +16,68 @@ class ChatGroupController extends Controller
         $data = chatGroup::all();
         return $data;
     }
-
     /**
-     * Store a newly created resource in storage.
+     * Store a new chat group.
+     *
+     * @return string The ID of the newly created chat group.
      */
     public function store()
-
-    {   $time = now();
-        $date = new Carbon( $time ); 
+    {
+        // Generate a unique ID for the chat group
+        $time = now();
+        $date = new Carbon($time);
         $latestorder = chatGroup::all()->count();
         $currentId = $date->year . 'CG' . $latestorder;
 
-        if( !empty(chatGroup::select('chatGroup_id')->where('chatGroup_id', $currentId)->first()->chatGroup_id)){
-            do{
+        // Check if the generated ID already exists, and generate a new one if necessary
+        if (!empty(chatGroup::select('chatGroup_id')->where('chatGroup_id', $currentId)->first()->chatGroup_id)) {
+            do {
                 $latestorder++;
                 $depId = $date->year . 'CG' . $latestorder;
                 $id = chatGroup::select('chatGroup_id')->where('chatGroup_id', $depId)->first();
-             
-            }while(!empty($id));
+            } while (!empty($id));
         }
-    
-            $newId = $date->year . 'CG' . $latestorder;
 
+        $newId = $date->year . 'CG' . $latestorder;
 
-            chatGroup::insert([
-                'chatGroup_id' => $newId,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        
-    
-            $action ='created a new chatGroup';
+        // Insert the new chat group into the database
+        chatGroup::insert([
+            'chatGroup_id' => $newId,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
-            $user = Auth::user();
-            if($user['role'] != 'admin'){
+        // Log the action if the user is not an admin
+        $action = 'created a new chatGroup';
+        $user = Auth::user();
+        if ($user['role'] != 'admin') {
             $log = new ResActionLogController;
             $log->store(Auth::user(), $action);
-            }
-            
-        
-            return $newId;
+        }
+
+        return $newId;
     }
 
     /**
-     * Display the specified resource.
+     * Delete a chat group.
+     *
+     * @param string $id The ID of the chat group to delete.
+     * @return \Illuminate\Http\JsonResponse A JSON response indicating that the chat group was deleted.
      */
-    public function show(chatGroup $chatGroup)
+    public function destroy($id)
     {
-        //
-    }
+        // Mark the chat group as deleted in the database
+        chatGroup::where('chatGroup_id', $id)->update(['isDeleted' => true]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,  $id)
-    {
+        // Log the action if the user is not an admin
+        $action = 'deleted a chatGroup';
+        $user = Auth::user();
+        if ($user['role'] != 'admin') {
+            $log = new ResActionLogController;
+            $log->store(Auth::user(), $action);
+        }
 
+        return response()->json('chatGroup deleted');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(chatGroup $chatGroup)
-    {
-        //
-    }
+    
 }

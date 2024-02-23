@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('par_id')->primary();
             $table->string('patient_id');
             $table->string('room_id');
+            $table->boolean('isDeleted');
 
             $table->foreign('patient_id')->references('patient_id')->on('patients')
             ->onDelete('cascade')

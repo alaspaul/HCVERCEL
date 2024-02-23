@@ -17,7 +17,7 @@ class PatAssRoomController extends Controller
      */
     public function index()
     {
-        $data = patAssRoom::all();
+        $data = patAssRoom::where('isDeleted', false)->Get();
 
         return response()->json($data);
     }
@@ -31,6 +31,7 @@ class PatAssRoomController extends Controller
             'par_id' => 'PAR-' . $patient_id . $room_id,
             'patient_id' => $patient_id,
             'room_id' => $room_id,
+            'isDeleted' => false,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -42,16 +43,8 @@ class PatAssRoomController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
         }
-
     
-        // Call the save method to store the data in the database
-        $par->save();
-    
-        $action = 'added a new par';
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
-    
-        return response()->json('stored in ' . $room_id);
+        return response()->json($patient_id . ' stored in ' . $room_id);
     }
     
 
@@ -80,37 +73,27 @@ class PatAssRoomController extends Controller
         $action = 'deleted a par-' . $id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
-        
-
-
 
         return response('deleted');
     }
 
-
-
-    public function getAvailableRooms()
-    {
-        $patAssRoom = new patAssRoom;
-
-        $occupiedRooms = $patAssRoom->where('room_id', '!=', null)->pluck('room_id');
-        $rooms = room::whereNotIn('room_id',  $occupiedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
-        return response()->json($rooms);
-    }
-
-
     public function transferPatient($patient_id, request $request)
     {
+        if(!$this->patientAssignedRoomExists($patient_id)){
+            return response()->json('patient Does not Exists');
+        }
+
         $dataToUpdate = [
             'room_id' =>  $request['room_id'],
+            'updated_at' => now()
         ];
 
         $action = 'transfered a patient -' . $patient_id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        $patAssRoom = new patAssRoom;
-        $patAssRoom->where('patient_id', $patient_id)->update($dataToUpdate);
+        patAssRoom::where('patient_id', $patient_id)->where('isDeleted', false)->update($dataToUpdate);
+
         return response()->json('patient Transfered');
     }
 
@@ -118,7 +101,7 @@ class PatAssRoomController extends Controller
     public function getPatientbyRoom($room_id)
     {
         // Get the patient_id from the patAssRooms table
-        $patAssRoom = patAssRoom::where('room_id', $room_id)->first();
+        $patAssRoom = patAssRoom::where('room_id', $room_id)->where('isDeleted', false)->first();
 
         if ($patAssRoom) {
             // If a record is found in patAssRooms, get the patient_id
@@ -134,53 +117,48 @@ class PatAssRoomController extends Controller
         }
     }
 
-
-
-
-
     public function checkout($patient_id)
     {
 
-        $action = 'checkedout a patient -' . $patient_id;
+        $action = 'checked out a patient -' . $patient_id;
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
+        $dataToUpdate = [
+            'isDeleted' => true,
+            'updated_at' => now()
+        ];
         
-        patAssRoom::where('patient_id', $patient_id)->delete();
-
-
-        return response('checkedout');
+        patAssRoom::where('patient_id', $patient_id)->where('isDeleted', false)->update($dataToUpdate);
+        return response('checked out');
     }
-
-    public function getPatient($patient_id)
-    {
-        // Assuming `getPatientbyId` is a static method in the PatAssRoom model
-        $pat = PatAssRoom::getPatientbyId($patient_id);
-
-        return $pat;
-    }
-
-
 
     public function getRoombyPatient($patient_id)
     {
-        $patAssRoom = patAssRoom::where('patient_id', $patient_id)->first();
+        $patAssRoom = patAssRoom::where('patient_id', $patient_id)->where('isDeleted', false)->first();
         if($patAssRoom){
         $room = room::where('room_id', $patAssRoom->room_id)->first();
-        
-       
+
         return $room;
-       
         }
 
         return 'Patient has no room';
     }
 
     public function unassignedRooms(){
-        $assignedRooms = patAssRoom::select('room_id')->get();
+        $assignedRooms = patAssRoom::select('room_id')->where('isDeleted', false)->get();
         $rooms = room::select('room_id')->whereNotIn('room_id', $assignedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
-
         return response()->json($rooms);
+    }
+
+    private function patientAssignedRoomExists($patientId){
+        $par = patAssRoom::where('patient_id', $patientId)->where('isDeleted', false)->get();
+
+        if ($par == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

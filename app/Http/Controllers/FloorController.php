@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\floor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 class FloorController extends Controller
 {
         /**
@@ -29,8 +30,14 @@ class FloorController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'floor_name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response($validator->errors(), 400);
+        }
         $latestorder = floor::all()->count();
-        $last_id = floor::select('floor_id')->orderBy('created_at', 'desc')->first()->floor_id;
         $currentId = 'F' . $latestorder;
       
         if( !empty(floor::select('floor_id')->where('floor_id', $currentId)->first()->floor_id)){
@@ -84,6 +91,19 @@ class FloorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'floor_name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response($validator->errors(), 400);
+        }
+
+        $floor = floor::where('floor_id', $id)->first();
+        if($floor == null){
+            return response('floor does not exist');
+        }
+
         $action ='updated a floor where id-'. $id;
         $user = Auth::user();
         if($user['role'] != 'admin'){
@@ -121,35 +141,14 @@ class FloorController extends Controller
        return response('deleted');
     }
 
-
-    public function updateFloor(Request $request, $id)
-    {
-       
-        
-        $action ='updated a floor where id-'. $id;
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
-        }
-
-        floor::where('floor_id', $id)->update(
-            [
-                'floor_id' => $request['floor_id'],
-                'floor_name' => $request['floor_name'],
-
-                'updated_at' => now(),
-            ]);
-
-        return response('updated');
-    }
-    
-
-
     public function getFloorNamebyId($floor_id){
 
-        $name = floor::select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
+        $floor = floor::where('floor_id', $floor_id)->first();
+        if($floor == null){
+            return response('floor does not exist');
+        }
 
+        $name = floor::select('floor_name')->where('floor_id', $floor_id)->first()->floor_name;
 
         return $name;
     }

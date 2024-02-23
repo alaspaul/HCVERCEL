@@ -19,8 +19,6 @@ use App\Http\Controllers\PhysicalExamAttributesController;
 use App\Http\Controllers\PhysicalExamCategoriesController;
 use App\Http\Controllers\PhysicalExamValuesController;
 use App\Http\Controllers\ResActionLogController;
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ResidentAssignedRoomController;
@@ -30,6 +28,9 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VitalController;
+use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -110,8 +111,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::apiResource('fileUpload', FileUploadController::class);
     Route::GET('fileUpload/download/{file_id}', [FileUploadController::class, 'download'])->name('fileUpload.download');
     Route::POST('fileUpload/getFiles', [FileUploadController::class, 'getFiles'])->name('fileUpload.getFiles');
-    Route::GET('fileUpload/getFilesByPatient/{patient_id}', [FileUploadController::class, 'getFilesByPatient'])
-    ->name('fileUpload.getFilesByPatient');
+    Route::GET('fileUpload/getFilesByPatient/{patient_id}', [FileUploadController::class, 'getFilesByPatient'])->name('fileUpload.getFilesByPatient');
 
     Route::apiResource('resActLog', ResActionLogController::class);
     Route::GET('resActLog/residentName/{resident_id}', [ResActionLogController::class, 'residentName'])->name('RAL.residentName');
@@ -127,6 +127,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('resAssRooms/get/unassignedRooms', [ResidentAssignedRoomController::class, 'unassignedRooms'])->name('rar.unassignedRooms');
     Route::GET('/resident-assigned-rooms', [ResidentAssignedRoomController:: class, 'getCurrentUserAssignedRooms']);
     Route::PUT('/resAssRooms/{id}/updateIsFinished', [ResidentAssignedRoomController::class, 'updateIsFinished'])->name('rar.updateIsFinished');
+    Route::PUT('/ressAssRooms/{id}/delete', [ResidentAssignedRoomController::class, 'delete'])->name('rar.delete');
 
 
     Route::apiResource('medicines', MedicineController::class);
@@ -142,19 +143,13 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::apiResource('residents', ResidentController::class);
     Route::PUT('residents/edit{resident}', [ResidentController::class, 'edit'])->name('residents.edit');
     Route::PUT('residents/updateResident{resident}', [ResidentController::class, 'updateResident'])->name('residents.updateResident');
-    Route::GET('resident/{resident_id}', 'ResidentController@residentName');
-    Route::GET('residents/get/allRes', [residentController::class, 'allRes'])->name('residents.allRes');
+    Route::GET('residents/get/allRes', [ResidentController::class, 'allRes'])->name('residents.allRes');
 
 
 
     Route::apiResource('vitals', VitalController::class);
     Route::POST('vitals/edit{vital}', [VitalController::class, 'edit'])->name('vitals.edit');
     Route::POST('vitals/updateVital{vital}', [VitalController::class, 'updateVital'])->name('vitals.updateVital');
-
-
-    Route::apiResource('rooms', RoomController::class);
-    Route::GET('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
-    Route::GET('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
 
     Route::apiResource('departments', DepartmentController::class);
     Route::GET('departments/getDepNamebyId/{department_id}', [DepartmentController::class, 'getDepNamebyId'])->name('departments.getDepNamebyId');
