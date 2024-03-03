@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('patient_mName');
             $table->integer('patient_age');
             $table->string('patient_sex');
+            $table->boolean('isDeleted')->default(false);
 
             $table->timestamps();
         });

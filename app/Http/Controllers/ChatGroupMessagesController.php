@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AppConstants;
 use App\Models\chatGroupMessages;
 use App\Models\chatGroup;
 use Illuminate\Http\Request;
@@ -11,51 +12,44 @@ use Illuminate\Support\Facades\Validator;
 class ChatGroupMessagesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retrieves all chat group messages.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
         $data = chatGroupMessages::all();
         return $data;
     }
-    /**
-     * Store a new chat group message.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
 
+    /**
+     * Stores a new chat group message.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $user = Auth::user();
-        $latestorder = chatGroupMessages::all()->count();
-        $currentId = $request['chatGroup_id'] . 'CGM' . $latestorder;
+
+        $valid = $this->ValidateChatGroupMessages($request);
+        if($valid == false){
+            return response('invalid input');
+        }
+
+        $chatGroup = chatGroup::where('chatGroup_id', $request['chatGroup_id'])->first();
+        if ($chatGroup == null) {
+            return response('not found');
+        }
 
         $chatGroupUsers = new ChatGroupUsersController;
 
         $groupUsers = $chatGroupUsers->allUsersinGroup($request['chatGroup_id'])->toArray();
         if (!in_array($user['resident_id'],  $groupUsers)) {
-            return response()->json('USER ISNT PART OF THIS GROUP', 200);
+            return response('USER ISNT PART OF THIS GROUP');
         }
 
-        $validator = Validator::make($request->all(), [
-            'message' => 'required',
-            'chatGroup_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-
-        if (!empty(chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $currentId)->first()->chatGroupMessages_id)) {
-            do {
-                $latestorder++;
-                $depId = $request['chatGroup_id'] . 'CGM' . $latestorder;
-                $id = chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $depId)->first();
-            } while (!empty($id));
-        }
-
-        $newId = $request['chatGroup_id'] . 'CGM' . $latestorder;
+        $newId = $this->createNewId($request);
 
         chatGroupMessages::insert([
             'chatGroupMessages_id' => $newId,
@@ -65,17 +59,8 @@ class ChatGroupMessagesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        $action = 'created a new chatGroupMESSAGE';
-
-        $user = Auth::user();
-        if ($user['role'] != 'admin') {
-            $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
-        }
-
         return response()->json(['chatGroup_id' => $request['chatGroup_id']], 200);
-        }
+    }
 
  
     /**
@@ -89,18 +74,14 @@ class ChatGroupMessagesController extends Controller
     {
         $user = Auth::user();
 
-        $validator = Validator::make($request->all(), [
-            'message' => 'required',
-            'chatGroup_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+        $valid = $this->ValidateChatGroupMessages($request);
+        if($valid == false){
+            return response('invalid input');
         }
 
-        $chatGroup = Chatgroup::where('chatGroup_id', $request['chatGroup_id'])->first();
+        $chatGroup = chatGroup::where('chatGroup_id', $request['chatGroup_id'])->first();
         if ($chatGroup == null) {
-            return response()->json(['error' => 'no chatGroup like this'], 400);
+            return response('not found');
         }
 
         $existingAssignment = chatGroupMessages::where('chatGroupMessages_id', $id)
@@ -110,13 +91,11 @@ class ChatGroupMessagesController extends Controller
         if ($existingAssignment == null) {
            return response()->json(['error' => 'no messages like this'], 400);
         }
-        
-        $action ='updated a chatGroupMessages where id-'. $id;
-
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
-            $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
+    
+        $chatGroupUsers = new ChatGroupUsersController;
+        $groupUsers = $chatGroupUsers->allUsersinGroup($request['chatGroup_id'])->toArray();
+        if (!in_array($user['resident_id'],  $groupUsers)) {
+            return response('USER ISNT PART OF THIS GROUP');
         }
 
         chatGroupMessages::where('chatGroupMessages_id', $id)->update([
@@ -126,7 +105,6 @@ class ChatGroupMessagesController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
         return response('done');
     }
 
@@ -138,17 +116,12 @@ class ChatGroupMessagesController extends Controller
      */
     public function destroy($id)
     {
-        $action ='deleted a chatGroupMessage-';
-        
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
-            $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
+        chatGroupMessages::where('chatGroupMessages_id', $id)->first();
+        if ($id == null) {
+            return response('not found');
         }
       
         chatGroupMessages::destroy($id);
-
-       
         return response('deleted');
     }
     /**
@@ -161,7 +134,6 @@ class ChatGroupMessagesController extends Controller
 
         $messages = (new ChatGroupMessagesController)->getGroupMessagesWithNames($chatGroup_id);
         return response()->json($messages, 200);
-
     }
 
     /**
@@ -198,6 +170,51 @@ class ChatGroupMessagesController extends Controller
         }
 
         return $result;
+    }
+    /**
+     * Validates the chat group messages request.
+     *
+     * @param Request $request The request object.
+     * @return bool Returns true if the request is valid, false otherwise.
+     */
+    private function ValidateChatGroupMessages(Request $request){
+        // Validation rules for the request parameters
+        $validator = Validator::make($request->all(), [
+            'message' => 'required',
+            'chatGroup_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Creates a new ID for the chat group message.
+     *
+     * @param Request $request The request object.
+     * @return string The newly generated ID.
+     */
+    private function createNewId(Request $request){
+
+        // Generate a unique ID for the chat group message
+        $latestorder = chatGroupMessages::all()->count();
+        $currentId = $request['chatGroup_id'] . 'CGM' . $latestorder;
+
+        if (!empty(chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $currentId)->first()->chatGroupMessages_id)) {
+            do {
+                $latestorder++;
+                $depId = $request['chatGroup_id'] . 'CGM' . $latestorder;
+                $id = chatGroupMessages::select('chatGroupMessages_id')->where('chatGroupMessages_id', $depId)->first();
+            } while (!empty($id));
+        }
+
+        $newId = $request['chatGroup_id'] . 'CGM' . $latestorder;
+
+        return $newId;
     }
 
 }

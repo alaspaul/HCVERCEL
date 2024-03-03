@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\department;
 use App\Models\Resident;
 
 
@@ -34,9 +35,16 @@ class loginController extends Controller
 
 
             if (Auth::guard('custom')->attempt($credentials)) {
-                $resident = resident::where('resident_userName', $request['resident_userName'])->first();
+                $resident = resident::where('resident_userName', $request['resident_userName'])->where('isDeleted', false)->first();
+                
+                if ($resident == null) {
+                    return response()->json(['error' => 'invalid credentials'], 401);
+                }
+
+                $department = department::where('department_id', $resident['department_id'])->first();
                 $user = Auth::user();
-                $token = $user->createToken('api_token')->plainTextToken;
+                
+                $token = $user->createToken('api_token', ['*'], now()->addHours(10))->plainTextToken;
                 return response()->json([
                     'token' => $token,
                     'resident_id' => $resident['resident_id'],
@@ -44,7 +52,8 @@ class loginController extends Controller
                     'resident_fName' => $resident['resident_fName'],
                     'resident_lName' => $resident['resident_lName'],
                     'resident_gender' => $resident['resident_gender'],
-                    'department_id' => $resident['department_id']
+                    'department_id' => $department->department_id,
+                    'department_Name' => $department->department_name,
                 ], 200);
             }
         } catch (ValidationException $e) {

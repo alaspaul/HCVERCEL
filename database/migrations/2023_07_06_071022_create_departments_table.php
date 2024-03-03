@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->string('department_id')->primary();
             $table->string('department_name')->unique();
+            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }

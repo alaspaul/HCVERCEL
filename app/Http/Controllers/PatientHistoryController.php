@@ -26,7 +26,7 @@ class PatientHistoryController extends Controller
 
         if( !empty(patientHistory::select('ph_id')->where('ph_id', $currentId)->first()->ph_id)){
             do{
-                $latestorder++;
+                $latestOrder++;
                 $histId = $history_id . '|'.'PH' . '-' . $latestOrder;
                 $id = patientHistory::select('ph_id')->where('ph_id', $currentId)->first();
              

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('medicine_dosage');
             $table->string('medicine_type');
             $table->string('medicine_price');
+            $table->boolean('isDeleted')->default(false);
 
             $table->timestamps();
         });

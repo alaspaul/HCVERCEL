@@ -63,32 +63,34 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 
 
     Route::apiResource('residents', ResidentController::class);
-    Route::PUT('residents/edit{resident}', [ResidentController::class, 'edit'])->name('residents.edit');
-    Route::PUT('residents/updateResident/{resident}', [ResidentController::class, 'updateResident'])->name('residents.updateResident');
+    Route::PUT('residents/updateResident/{resident}', [ResidentController::class, 'update'])->name('residents.updateResident');
+    Route::DELETE('residents/delete/{resident}', [ResidentController::class, 'deleteResident'])->name('residents.deleteResident');
 
 
     Route::apiResource('floors', FloorController::class);
     Route::POST('floors/edit{floor}', [FloorController::class, 'edit'])->name('floors.edit');
-    Route::PUT('floors/updateFloor/{floor}', [FloorController::class, 'updateFloor'])->name('floors.updateFloor');
+    Route::PUT('floors/updateFloor/{floor}', [FloorController::class, 'update'])->name('floors.updateFloor');
+    Route::DELETE('floors/delete/{floor}', [FloorController::class, 'deleteFloor'])->name('floors.deleteFloor');
 
 
     Route::apiResource('departments', DepartmentController::class);
     Route::POST('departments/getDepNamebyId/{department_id}', [DepartmentController::class, 'getDepNamebyId'])->name('departments.getDepNamebyId');
-  
-    Route::apiResource('medicines', MedicineController::class);
-    Route::POST('medicines/edit{medicine}', [MedicineController::class, 'edit'])->name('medicines.edit');
-    Route::POST('medicines/updateMeds{medicine}', [MedicineController::class, 'updateMeds'])->name('medicines.updateMeds');
+    Route::DELETE('departments/delete/{department}', [DepartmentController::class, 'deleteDepartment'])->name('departments.deleteDepartment');
 
+    Route::apiResource('medicines', MedicineController::class);
+    Route::POST('medicines/updateMeds{medicine}', [MedicineController::class, 'update'])->name('medicines.updateMeds');
+    Route::DELETE('medicines/delete/{medicine}', [MedicineController::class, 'deleteMedicine'])->name('medicines.deleteMedicine');
 
     Route::apiResource('rooms', RoomController::class);
-    Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
-    Route::PUT('rooms/updateRoom/{roomId}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
+    Route::PUT('rooms/updateRoom/{roomId}', [RoomController::class, 'update'])->name('rooms.updateRoom');
     Route::GET('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::GET('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
+    Route::DELETE('rooms/delete/{room}', [RoomController::class, 'deleteRoom'])->name('rooms.deleteRoom');
 
     Route::apiResource('patients', PatientController::class);
     Route::GET('patients/getPatientName/{id}', [PatientController::class, 'getPatientName'])->name('patients.getPatientName');
     Route::GET('patients/getPatientbyId/{id}', [PatientController::class, 'getPatientbyId'])->name('patients.getPatientbyId');
+    Route::DELETE('patients/delete/{patient}', [PatientController::class, 'deletePatient'])->name('patients.deletePatient');
 });
 
 
@@ -102,16 +104,17 @@ Route::group(['middleware' => 'auth:customApi'], function () {
 
 
     Route::apiResource('rooms', RoomController::class);
-    Route::POST('rooms/edit{room}', [RoomController::class, 'edit'])->name('rooms.edit');
-    Route::POST('rooms/updateRoom{room}', [RoomController::class, 'updateRoom'])->name('rooms.updateRoom');
+    Route::POST('rooms/updateRoom{room}', [RoomController::class, 'update'])->name('rooms.updateRoom');
     Route::GET('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::GET('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
-
+    Route::DELETE('rooms/delete/{room}', [RoomController::class, 'deleteRoom'])->name('rooms.deleteRoom');
     
     Route::apiResource('fileUpload', FileUploadController::class);
     Route::GET('fileUpload/download/{file_id}', [FileUploadController::class, 'download'])->name('fileUpload.download');
     Route::POST('fileUpload/getFiles', [FileUploadController::class, 'getFiles'])->name('fileUpload.getFiles');
     Route::GET('fileUpload/getFilesByPatient/{patient_id}', [FileUploadController::class, 'getFilesByPatient'])->name('fileUpload.getFilesByPatient');
+    Route::GET('fileUpload/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUpload.viewFile');
+    Route::DELETE('fileUpload/delete/{id}', [FileUploadController::class, 'delete'])->name('fileUpload.deleteFile');
 
     Route::apiResource('resActLog', ResActionLogController::class);
     Route::GET('resActLog/residentName/{resident_id}', [ResActionLogController::class, 'residentName'])->name('RAL.residentName');
@@ -127,37 +130,38 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('resAssRooms/get/unassignedRooms', [ResidentAssignedRoomController::class, 'unassignedRooms'])->name('rar.unassignedRooms');
     Route::GET('/resident-assigned-rooms', [ResidentAssignedRoomController:: class, 'getCurrentUserAssignedRooms']);
     Route::PUT('/resAssRooms/{id}/updateIsFinished', [ResidentAssignedRoomController::class, 'updateIsFinished'])->name('rar.updateIsFinished');
-    Route::PUT('/ressAssRooms/{id}/delete', [ResidentAssignedRoomController::class, 'delete'])->name('rar.delete');
+    Route::DELETE('/resAssRooms/delete/{id}', [ResidentAssignedRoomController::class, 'delete'])->name('rar.delete');
 
 
     Route::apiResource('medicines', MedicineController::class);
-    Route::POST('medicines/edit{medicine}', [MedicineController::class, 'edit'])->name('medicines.edit');
-    Route::POST('medicines/updateMeds{medicine}', [MedicineController::class, 'updateMeds'])->name('medicines.updateMeds');
+    Route::POST('medicines/updateMeds{medicine}', [MedicineController::class, 'update'])->name('medicines.updateMeds');
+    Route::DELETE('medicines/delete/{medicine}', [MedicineController::class, 'deleteMedicine'])->name('medicines.deleteMedicine');
 
     Route::apiResource('patientMedicines', PatientMedicineController::class);
     Route::GET('patientMedicines/patient/{patient_id}', [PatientMedicineController::class, 'getPatientMedicinesByPatientId']);
+    Route::DELETE('patientMedicines/delete/{patientMedicine}', [PatientMedicineController::class, 'delete'])->name('patientMedicines.delete');
 
     Route::apiResource('results', LabResultsController::class);
-
+    Route::GET('results/patient/{patientId}', [LabResultsController::class, 'getPatientLabResultsById'])->name('results.getPatientLabResultsById');
 
     Route::apiResource('residents', ResidentController::class);
-    Route::PUT('residents/edit{resident}', [ResidentController::class, 'edit'])->name('residents.edit');
-    Route::PUT('residents/updateResident{resident}', [ResidentController::class, 'updateResident'])->name('residents.updateResident');
+    Route::PUT('residents/updateResident{resident}', [ResidentController::class, 'update'])->name('residents.updateResident');
     Route::GET('residents/get/allRes', [ResidentController::class, 'allRes'])->name('residents.allRes');
-
+    Route::DELETE('residents/delete/{resident}', [ResidentController::class, 'deleteResident'])->name('residents.deleteResident');
 
 
     Route::apiResource('vitals', VitalController::class);
     Route::POST('vitals/edit{vital}', [VitalController::class, 'edit'])->name('vitals.edit');
-    Route::POST('vitals/updateVital{vital}', [VitalController::class, 'updateVital'])->name('vitals.updateVital');
+    Route::POST('vitals/updateVital{vital}', [VitalController::class, 'update'])->name('vitals.updateVital');
 
     Route::apiResource('departments', DepartmentController::class);
     Route::GET('departments/getDepNamebyId/{department_id}', [DepartmentController::class, 'getDepNamebyId'])->name('departments.getDepNamebyId');
-  
+    Route::DELETE('departments/delete/{department}', [DepartmentController::class, 'deleteDepartment'])->name('departments.deleteDepartment');
 
     Route::apiResource('floors', FloorController::class);
     Route::POST('floors/edit{floor}', [FloorController::class, 'edit'])->name('floors.edit');
-    Route::POST('floors/updateFloor{floor}', [FloorController::class, 'updateFloor'])->name('floors.updateFloor');
+    Route::POST('floors/updateFloor{floor}', [FloorController::class, 'update'])->name('floors.updateFloor');
+    Route::DELETE('floors/delete/{floor}', [FloorController::class, 'deleteFloor'])->name('floors.deleteFloor');
 
     Route::apiResource('patients', PatientController::class);
     Route::GET('patients/getPatientName/{id}', [PatientController::class, 'getPatientName'])->name('patients.getPatientName');
@@ -165,7 +169,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('patients/getPatientRoom/{id}', [PatientController::class, 'getPatientRoom'])->name('patients.getPatientRoom');
     Route::POST('patients/addPhr/{id}', [PatientController::class, 'addPhr'])->name('patients.addPhr');
     Route::PUT('patients/{patient_id}', [PatientController::class, 'update']);
-
+    Route::DELETE('patients/delete/{patient}', [PatientController::class, 'deletePatient'])->name('patients.deletePatient');
 
     Route::apiResource('formCategories', PhrFormCategoriesController::class);
 

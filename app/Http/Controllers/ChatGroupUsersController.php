@@ -25,79 +25,42 @@ class ChatGroupUsersController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'chatGroup_id' => 'required',
-            'resident_id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+        $valid = $this->ValidateChatGroupMessages($request);
+        if($valid == false){
+            return response('Invalid data');
         }
 
         $user = Auth::user();
-        $latestorder = chatGroupUsers::all()->count();
+
 
         $chatGroupId = $this->ifNew($request['chatGroup_id']);
-
-        if ($chatGroupId == null) {
-            return 'chatGroup id does not exist';
-        }
         
-        $currentId = $chatGroupId . 'CGU' . $latestorder;
-
         $chatGroupUsers = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
 
+       
         if(!in_array($request['resident_id'],  $chatGroupUsers) ){
-        if( !empty(chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
-            do{
-                $latestorder++;
-                $depId = $chatGroupId . 'CGU' . $latestorder;
-                $id = chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first()->chatGroupUsers_id;
-             
-            }while(!empty($id));
-        }
-    
-            $newId = $chatGroupId . 'CGU' . $latestorder;
-            
+            $newId = $this->createNewId($request, $chatGroupId);
             chatGroupUsers::insert([
                 'chatGroupUsers_id' => $newId,
                 'chatGroup_id' => $chatGroupId,
                 'resident_id' => $request['resident_id'],
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
-        );
+            ]);
+
         }
-
-
-
             
-            if(!in_array($user['resident_id'],  $chatGroupUsers) ){
-        
-                if( !empty(chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
-                    do{
-                        $latestorder++;
-                        $depId = $chatGroupId . 'CGU' . $latestorder;
-                        $id = chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first();
-                     
-                    }while(!empty($id));
-                }
-            
-                    $newId = $chatGroupId . 'CGU' . $latestorder;
-                    
-                    chatGroupUsers::insert([
-                        'chatGroupUsers_id' => $newId,
-                        'chatGroup_id' => $chatGroupId,
-                        'resident_id' => $user['resident_id'],
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-        
-
-            }
-            $cgID = $chatGroupId;
-    
-            return $cgID;
+        if(!in_array($user['resident_id'],  $chatGroupUsers) ){
+            $newId = $this->createNewId($request, $chatGroupId);
+            chatGroupUsers::insert([
+                'chatGroupUsers_id' => $newId,
+                'chatGroup_id' => $chatGroupId,
+                'resident_id' => $user['resident_id'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+            return $chatGroupId;
     }
 
     /**
@@ -106,9 +69,13 @@ class ChatGroupUsersController extends Controller
     public function update(Request $request, $id)
     {
         $user = Auth::user();
-        $action ='updated a chatGroupUsers where id-'. $id;
 
-        $resident = resident::where('resident_id', $request['resident_id'])->first();
+        $valid = $this->ValidateChatGroupMessages($request);
+        if($valid == false){
+            return response('invalid input');
+        }
+
+        $resident = resident::where('resident_id', $request['residsent_id'])->where('isDeleted', false)->first();
         if($resident == null){
             return response('resident does not exist');
         }
@@ -121,12 +88,6 @@ class ChatGroupUsersController extends Controller
         $chatGroupUsers = chatGroupUsers::where('chatGroupUsers_id', $id)->first();
         if($chatGroupUsers == null){
             return response('chatGroupUsers does not exist');
-        }
-
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
         }
 
         chatGroupUsers::where('chatGroupUsers_id', $id)->update([
@@ -149,16 +110,14 @@ class ChatGroupUsersController extends Controller
             return response('chatGroupUsers does not exist');
         }
 
-        $action ='deleted a chatGroupUsers-';
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
-        
-  
         chatGroupUsers::destroy($id);
-
-       
-       return response('deleted');
+        return response('deleted');
     }
+    /**
+     * Retrieve all chat groups where the user is a member.
+     *
+     * @return array The formatted group data containing chat group ID and details of the other resident in the group.
+     */
 
     public function allGroups(){
         $user = Auth::user();
@@ -247,35 +206,101 @@ class ChatGroupUsersController extends Controller
         }
     }
 
+    /**
+     * Adds residents to a chat group.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addResidents(Request $request)
+    {
+        // Retrieve the chat group based on the provided chatGroup_id
+        $chatGroup = ChatGroup::where('chatGroup_id', $request['chatGroup_id'])->first();
 
-    public function addResidents(request $request){
-        $chatGroup = chatGroup::where('chatGroup_id', $request['chatGroup_id'])->first();
-        if($chatGroup == null){
+        // Check if the chat group exists
+        if ($chatGroup == null) {
             return response('chatGroup does not exist');
         }
 
+        // Get all users in the chat group
         $residents = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
 
-        $unassignedResidents = resident::whereNotIn('resident_id', $residents)->get();
+        // Get the unassigned residents (residents not in the chat group)
+        $unassignedResidents = Resident::whereNotIn('resident_id', $residents)->get();
+
+        // Return the unassigned residents as a JSON response
         return response()->json($unassignedResidents);
     }
 
-    public function firstAddResidents(request $request){
+    /**
+     * Retrieves the unassigned residents for the first time adding residents to a chat group.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function firstAddResidents(Request $request)
+    {
+        // Get the authenticated user
         $user = Auth::user();
 
-        $chatGroupIds = chatGroupUsers::select('chatGroup_id')
-                                    ->groupBy('chatGroup_id')
-                                    ->havingRaw('COUNT(DISTINCT resident_id) = 2')
-                                    ->havingRaw('COUNT(resident_id) = 2')
-                                    ->pluck('chatGroup_id');
+        // Retrieve the chat group IDs where there are exactly 2 distinct resident IDs and 2 resident IDs in total
+        $chatGroupIds = ChatGroupUsers::select('chatGroup_id')
+            ->groupBy('chatGroup_id')
+            ->havingRaw('COUNT(DISTINCT resident_id) = 2')
+            ->havingRaw('COUNT(resident_id) = 2')
+            ->pluck('chatGroup_id');
 
+        // Get the assigned residents (residents already in chat groups) excluding the current user
+        $assignedResidents = ChatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
+            ->where('resident_id', '!=', $user['resident_id'])
+            ->pluck('resident_id');
 
-        $assignedResidents = chatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
-                                    ->where('resident_id' , '!=' , $user['resident_id'])
-                                    ->pluck('resident_id');
+        // Get the unassigned residents (residents not in any chat group)
+        $unassignedResidents = Resident::whereNotIn('resident_id', $assignedResidents)->get();
 
-        $unassignedResidents = resident::whereNotIn('resident_id', $assignedResidents)->get();
-
+        // Return the unassigned residents as a JSON response
         return response()->json($unassignedResidents);
+    }
+    /**
+     * Validates the chat group messages request.
+     *
+     * @param Request $request The request object.
+     * @return bool Returns true if the request parameters are valid, false otherwise.
+     */
+    private function ValidateChatGroupMessages(Request $request){
+        // Validation rules for the request parameters
+        $validator = Validator::make($request->all(), [
+            'chatGroup_id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Creates a new ID for chat group users.
+     *
+     * @param Request $request The request object.
+     * @param int $chatGroupId The ID of the chat group.
+     * @return string The newly created ID for chat group users.
+     */
+    private function createNewId(Request $request, $chatGroupId){
+
+        $latestorder = chatGroupUsers::all()->count();
+        $currentId = $chatGroupId . 'CGU' . $latestorder;
+        if( !empty(chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $currentId)->first()->chatGroupUsers_id)){
+            do{
+                $latestorder++;
+                $depId = $chatGroupId . 'CGU' . $latestorder;
+                $id = chatGroupUsers::select('chatGroupUsers_id')->where('chatGroupUsers_id', $depId)->first()->chatGroupUsers_id;
+             
+            }while(!empty($id));
+        }
+        $newId = $chatGroupId . 'CGU' . $latestorder;
+
+        return $newId;
     }
 }

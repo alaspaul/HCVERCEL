@@ -30,7 +30,7 @@ class HistoryController extends Controller
 
         if( !empty(history::select('history_id')->where('history_id', $currentId)->first()->history_id)){
             do{
-                $latestorder++;
+                $latestOrder++;
                 $histId = 'H' . $date->year . '-' . $latestOrder;
                 $id = history::select('history_id')->where('history_id',$histId)->first();
              

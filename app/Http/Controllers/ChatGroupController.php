@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AppConstants;
 use App\Models\chatGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -24,6 +25,40 @@ class ChatGroupController extends Controller
     public function store()
     {
         // Generate a unique ID for the chat group
+        $newId = $this->createNewId();
+
+        // Insert the new chat group into the database
+        chatGroup::insert([
+            'chatGroup_id' => $newId,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return $newId;
+    }
+
+    /**
+     * Delete a chat group.
+     *
+     * @param string $id The ID of the chat group to delete.
+     * @return \Illuminate\Http\JsonResponse A JSON response indicating that the chat group was deleted.
+     */
+    public function destroy($id)
+    {
+        // Mark the chat group as deleted in the database
+        chatGroup::where('chatGroup_id', $id)->update(['isDeleted' => true]);
+
+        return response()->json('chatGroup deleted');
+    }
+
+    /**
+     * Generates a new unique ID for a chat group.
+     *
+     * @return string The generated ID.
+     */
+    private function createNewId(){
+
+        // Generate a unique ID for the chat group
         $time = now();
         $date = new Carbon($time);
         $latestorder = chatGroup::all()->count();
@@ -40,44 +75,7 @@ class ChatGroupController extends Controller
 
         $newId = $date->year . 'CG' . $latestorder;
 
-        // Insert the new chat group into the database
-        chatGroup::insert([
-            'chatGroup_id' => $newId,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        // Log the action if the user is not an admin
-        $action = 'created a new chatGroup';
-        $user = Auth::user();
-        if ($user['role'] != 'admin') {
-            $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
-        }
-
         return $newId;
-    }
-
-    /**
-     * Delete a chat group.
-     *
-     * @param string $id The ID of the chat group to delete.
-     * @return \Illuminate\Http\JsonResponse A JSON response indicating that the chat group was deleted.
-     */
-    public function destroy($id)
-    {
-        // Mark the chat group as deleted in the database
-        chatGroup::where('chatGroup_id', $id)->update(['isDeleted' => true]);
-
-        // Log the action if the user is not an admin
-        $action = 'deleted a chatGroup';
-        $user = Auth::user();
-        if ($user['role'] != 'admin') {
-            $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
-        }
-
-        return response()->json('chatGroup deleted');
     }
     
 }

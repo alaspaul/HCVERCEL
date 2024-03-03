@@ -29,68 +29,60 @@ class PhrAttributeValuesController extends Controller
 
         $attributes = phr_categoryAttributes::all();
 
-        foreach($attributes as $attribute){
-      
-        
-  
+        foreach ($attributes as $attribute) {
             $exit = 0;
             $latestOrder = 0;
 
 
-            while($exit == 0){
+            while ($exit == 0) {
                 $thisId = $patient_id . '-' . $attribute['categoryAtt_id'] . '-' . $latestOrder;
-                if(!empty(phr_attributeValues::where('attributeVal_id', $thisId)->first()->categoryAtt_id)){
+                if (!empty(phr_attributeValues::where('attributeVal_id', $thisId)->first()->categoryAtt_id)) {
                     $exit = 0;
                     $latestOrder++;
-                }else{
+                } else {
                     $exit = 1;
                 }
             }
 
-
-
             $id = $patient_id . '-' . $attribute['categoryAtt_id'] . '-' . $latestOrder;
 
-            if(!empty($request[$attribute['categoryAtt_name']])){
+            if (!empty($request[$attribute['categoryAtt_name']])) {
                 phr_attributeValues::insert([
                     'attributeVal_id' => $id,
                     'attributeVal_values' => $request[$attribute['categoryAtt_name']],
                     'patient_id' => $patient_id,
                     'categoryAtt_id' => $attribute['categoryAtt_id'],
 
-            
-                     'created_at' => now(),
-                     'updated_at' => now(),
+
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
-                
-        }else{
-            $variable = 0;
-            if($attribute['categoryAtt_dataType'] == 'boolean'){
+            } else {
                 $variable = 0;
-            }elseif($attribute['categoryAtt_dataType'] == 'date'){
-                $variable = 'NAN';
-            }elseif($attribute['categoryAtt_dataType'] == 'text'){
-                $variable = 'none';
-            }elseif($attribute['categoryAtt_dataType'] == 'integer'){
-                $variable = 0;
+                if ($attribute['categoryAtt_dataType'] == 'boolean') {
+                    $variable = 0;
+                } elseif ($attribute['categoryAtt_dataType'] == 'date') {
+                    $variable = 'NAN';
+                } elseif ($attribute['categoryAtt_dataType'] == 'text') {
+                    $variable = 'none';
+                } elseif ($attribute['categoryAtt_dataType'] == 'integer') {
+                    $variable = 0;
+                }
+
+
+                phr_attributeValues::insert([
+
+                    'attributeVal_id' => $id,
+                    'attributeVal_values' => $variable,
+                    'patient_id' => $patient_id,
+                    'categoryAtt_id' => $attribute['categoryAtt_id'],
+
+
+                    'created_at' => Carbon::today()->toDateString(),
+                    'updated_at' => Carbon::today()->toDateString(),
+                ]);
             }
-
-
-            phr_attributeValues::insert([
-           
-                'attributeVal_id' => $id,
-                'attributeVal_values' => $variable,
-                'patient_id' => $patient_id,
-                'categoryAtt_id' => $attribute['categoryAtt_id'],
-
-        
-                 'created_at' => Carbon::today()->toDateString(),
-                 'updated_at' => Carbon::today()->toDateString(),
-             ]);
-
-            
         }
-    }
 
     
         $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use App\AppConstants;
 class ResidentAssignedRoomController extends Controller
 {
     /**
@@ -47,9 +47,9 @@ class ResidentAssignedRoomController extends Controller
 
         $time = now();
         $date = new Carbon($time);
-
+        $id = $date->year . $request['resident_id'] . $request['room_id'];
         resident_assigned_room::insert([
-            'resAssRoom_id' => $date->year . $request['resident_id'] . $request['room_id'],
+            'resAssRoom_id' => $id,
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
             'isFinished' => 0,
@@ -58,19 +58,9 @@ class ResidentAssignedRoomController extends Controller
             'updated_at' => now(),
         ]);
 
-        $room = new RoomController;
-        $roomName = $room->getRoomNamebyId($request['room_id']);
-
-        $resident = new ResidentController;
-        $residentName = $resident->residentName($request['resident_id']);
-
-        $resName = $residentName['lastName'] . ', ' . $residentName['lastName'] . ' ' . $residentName['lastName'];
-        $action = 'assigned room-' . $roomName . ' to resident-' . $resName;
-        $user = Auth::user();
-        if ($user['role'] != 'admin') {
-            $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
-        }
+        
+        $action = new AppConstants;
+        $this->LogAction($action->add, $request['room_id'], $request['resident_id']);
     }
 
     /**
@@ -93,26 +83,13 @@ class ResidentAssignedRoomController extends Controller
             return response('resident assigned room does not exist');
         }
 
-        $room = new RoomController;
-        $roomName = $room->getRoomNamebyId($RAR['room_id']);
-
-        $resident = new ResidentController;
-        $residentName = $resident->residentName($RAR['resident_id']);
-        $resName = $residentName['lastName'] . ', ' . $residentName['lastName'] . ' ' . $residentName['lastName'];
-
-
-        $action ='unassigned resident-'. $resName . ' from room-' . $roomName;
-
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
-        }
-
+        $action = new AppConstants;
+        $this->LogAction($action->delete, $RAR['room_id'], $RAR['resident_id']);
 
         resident_assigned_room::destroy($id);
 
-       
+
+
        return response('deleted');
     }
 
@@ -132,15 +109,11 @@ class ResidentAssignedRoomController extends Controller
         resident_assigned_room::where('resAssRoom_id', $id)->update(
             [
             'isDeleted' => true,
-            'updated_at' => now(),
+            'updated_at' => now()
         ]);
 
-        $action ='deleted Resident Assigned room where id-'. $id;
-        $user = Auth::user();
-        if($user['role'] != 'admin'){
-        $log = new ResActionLogController;
-        $log->store(Auth::user(), $action);
-        }
+        $action = new AppConstants;
+        $this->LogAction($action->delete, $RAR['room_id'], $RAR['resident_id']);
         
         return response('deleted');
     }
@@ -315,7 +288,20 @@ class ResidentAssignedRoomController extends Controller
             return response()->json(['error' => 'An error occurred.']);
         }
     }
-    
-    
-
+    /**
+     * Logs an action performed on a resident assigned to a room.
+     *
+     * @param string $action The action performed.
+     * @param int $roomid The ID of the room.
+     * @param int $residentId The ID of the resident.
+     * @return void
+     */
+    private function LogAction($action, $roomid, $residentId){
+        $newAction = $action . ' resident - ' . $residentId. ' room - ' . $roomid;
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
+            $log = new ResActionLogController;
+            $log->store(Auth::user(), $newAction);
+        }
+    }
 }

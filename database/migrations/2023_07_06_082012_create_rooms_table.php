@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('room_type');
             $table->string('floor_id');
             $table->integer('room_price');
+            $table->boolean('isDeleted')->default(false);
 
             $table->timestamps();
 
