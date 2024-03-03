@@ -209,7 +209,7 @@ class PatAssRoomController extends Controller
      * @return bool Returns true if the patient is already assigned to a room, false otherwise.
      */
     private function patientAssignedRoomExists($patientId){
-        $par = patAssRoom::where('patient_id', $patientId)->where('isDeleted', false)->get();
+        $par = patAssRoom::where('patient_id', $patientId)->where('isDeleted', false)->first();
 
         if ($par == null){
             return false;
@@ -225,7 +225,7 @@ class PatAssRoomController extends Controller
      * @return bool Returns true if the room is already being used, false otherwise.
      */
     private function roomAlreadyUsed($roomId){
-        $par = patAssRoom::where('room_id', $roomId)->where('isDeleted', false)->get();
+        $par = patAssRoom::where('room_id', $roomId)->where('isDeleted', false)->first();
 
         if ($par == null){
             return false;
