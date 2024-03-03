@@ -42,26 +42,28 @@ class PatientController extends Controller
                             ->where('patient_lName', $request['patient_lName'])
                             ->where('patient_mName', $request['patient_mName'])
                             ->where('isDeleted', false)
-                            ->get();
-
-        if($patient->isEmpty()){
-
-        $newId = $this->createNewId($request);
+                            ->first();
+        if(empty($patient)){
         
-         patient::insert([
-            'patient_id' =>  $newId,
-            'patient_fName' => $request['patient_fName'],
-            'patient_lName' => $request['patient_lName'],
-            'patient_mName' => $request['patient_mName'],
-            'patient_age' => $request['patient_age'],
-            'patient_sex' => $request['patient_sex'],
+            $newId = $this->createNewId($request);
+            
+            patient::insert([
+                'patient_id' =>  $newId,
+                'patient_fName' => $request['patient_fName'],
+                'patient_lName' => $request['patient_lName'],
+                'patient_mName' => $request['patient_mName'],
+                'patient_age' => $request['patient_age'],
+                'patient_sex' => $request['patient_sex'],
 
-            'created_at' => now(),
-            'updated_at' => now(),
-         ]);
-
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }else{
             $newId = $patient['patient_id'];
+
+            patient::where('patient_id', $newId)->update([
+                'patient_age' => $request['patient_age'],
+            ]);
         }
 
         $PatAssRoomController = new PatAssRoomController;
