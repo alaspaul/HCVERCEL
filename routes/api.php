@@ -130,7 +130,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('resAssRooms/get/unassignedRooms', [ResidentAssignedRoomController::class, 'unassignedRooms'])->name('rar.unassignedRooms');
     Route::GET('/resident-assigned-rooms', [ResidentAssignedRoomController:: class, 'getCurrentUserAssignedRooms']);
     Route::PUT('/resAssRooms/{id}/updateIsFinished', [ResidentAssignedRoomController::class, 'updateIsFinished'])->name('rar.updateIsFinished');
-    Route::DELETE('/resAssRooms/delete/{id}', [ResidentAssignedRoomController::class, 'delete'])->name('rar.delete');
+    Route::DELETE('resAssRooms/delete/{id}', [ResidentAssignedRoomController::class, 'delete'])->name('rar.delete');
 
 
     Route::apiResource('medicines', MedicineController::class);
@@ -143,6 +143,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
 
     Route::apiResource('results', LabResultsController::class);
     Route::GET('results/patient/{patientId}', [LabResultsController::class, 'getPatientLabResultsById'])->name('results.getPatientLabResultsById');
+    Route::DELETE('results/delete/{result}', [LabResultsController::class, 'delete'])->name('results.delete');
 
     Route::apiResource('residents', ResidentController::class);
     Route::PUT('residents/updateResident{resident}', [ResidentController::class, 'update'])->name('residents.updateResident');

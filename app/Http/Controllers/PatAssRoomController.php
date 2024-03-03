@@ -203,6 +203,20 @@ class PatAssRoomController extends Controller
     }
 
     /**
+     * Retrieve the available rooms.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAvailableRooms()
+    {
+        $patAssRoom = new patAssRoom;
+        $occupiedRooms = $patAssRoom->where('room_id', '!=', null)->pluck('room_id');
+        $rooms = room::whereNotIn('room_id',  $occupiedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        return response()->json($rooms);
+    }
+
+
+    /**
      * Check if a patient is already assigned to a room.
      *
      * @param int $patientId The ID of the patient.
