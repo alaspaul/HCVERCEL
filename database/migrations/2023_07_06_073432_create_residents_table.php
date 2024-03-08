@@ -13,16 +13,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('residents', function (Blueprint $table) {
-            $table->string('resident_id')->primary();
-            $table->string('resident_userName')->unique();
-            $table->string('resident_fName');
-            $table->string('resident_lName');
-            $table->string('resident_mName');
-            $table->string('resident_gender');
-            $table->string('resident_password');
-            $table->string('role');
+            $table->string('resident_id',50)->primary();
+            $table->string('resident_userName', 100)->unique();
+            $table->string('resident_fName', 100);
+            $table->string('resident_lName', 100);
+            $table->string('resident_mName', 100);
+            $table->string('resident_gender', 25);
+            $table->string('resident_password', 255);
+            $table->string('role', 25);
             $table->rememberToken();
-            $table->string('department_id');
+            $table->string('department_id', 25);
             $table->boolean('isDeleted')->default(false);
             
             $table->timestamps();

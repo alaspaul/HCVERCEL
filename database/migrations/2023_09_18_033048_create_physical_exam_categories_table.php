@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('physical_exam_categories', function (Blueprint $table) {
-            $table->string('physicalExam_id')->primary();
-            $table->string('PE_name');
-            $table->string('PE_description')->nullable();
+            $table->string('physicalExam_id', 25)->primary();
+            $table->string('PE_name', 100);
+            $table->string('PE_description', 250)->nullable();
 
             
             $table->timestamps();

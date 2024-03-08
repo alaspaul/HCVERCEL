@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chat_group_messages', function (Blueprint $table) {
-            $table->string('chatGroupMessages_id')->primary();
-            $table->string('message', 1000);
+            $table->string('chatGroupMessages_id', 75)->primary();
+            $table->string('message', 255);
 
             $table->timestamps();
 
-            $table->string('chatGroup_id');
+            $table->string('chatGroup_id', 25);
             $table->foreign('chatGroup_id')->references('chatGroup_id')->on('chat_groups')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->string('resident_id');
+            $table->string('resident_id', 25);
             $table->foreign('resident_id')->references('resident_id')->on('residents')
             ->onDelete('cascade')
             ->onUpdate('cascade');

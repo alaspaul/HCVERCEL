@@ -12,25 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('patient_histories', function (Blueprint $table) {
-            $table->string('ph_id')->primary();
-            $table->string('ph_changes', 1000)->nullable();
+            $table->string('ph_id', 250)->primary();
+            $table->string('ph_changes', 255)->nullable();
             $table->timestamps();
 
 
 
 
 
-            $table->string('history_id');
+            $table->string('history_id', 25);
             $table->foreign('history_id')->references('history_id')->on('histories')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->string('attributeVal_id1');
+            $table->string('attributeVal_id1', 100);
             $table->foreign('attributeVal_id1')->references('attributeVal_id')->on('phr_attribute_values')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->string('attributeVal_id2');
+            $table->string('attributeVal_id2', 100);
             $table->foreign('attributeVal_id2')->references('attributeVal_id')->on('phr_attribute_values')
             ->onDelete('cascade')
             ->onUpdate('cascade');

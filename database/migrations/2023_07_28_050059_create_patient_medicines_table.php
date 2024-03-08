@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('patient_medicines', function (Blueprint $table) {
-            $table->string('patientMedicine_id')->primary();
+            $table->string('patientMedicine_id', 75)->primary();
             $table->datetime('patientMedicineDate');
-            $table->string('medicine_frequency');
-            $table->string('medicine_id');
-            $table->string('patient_id');
+            $table->string('medicine_frequency', 255);
+            $table->string('medicine_id',25);
+            $table->string('patient_id', 25);
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();
 

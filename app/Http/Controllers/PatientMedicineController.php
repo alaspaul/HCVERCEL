@@ -24,6 +24,7 @@ class PatientMedicineController extends Controller
         return $data;
     }
 
+
     /**
      * Store a new patient medicine record.
      *
@@ -74,9 +75,8 @@ class PatientMedicineController extends Controller
 
         patient_medicine::where('patientMedicine_id', $id)->where('isDeleted', false)->update(
             [
-                'patientMedicine_id' => $request['patientMedicine_id'],
                 'patientMedicineDate' => $request['patientMedicineDate'],
-                'patientMedicine_frequency' => $request['patientMedicine_frequency'],
+                'medicine_frequency' => $request['medicine_frequency'],
                 'patient_id' => $request['patient_id'],
                 'medicine_id' => $request['medicine_id'],
 

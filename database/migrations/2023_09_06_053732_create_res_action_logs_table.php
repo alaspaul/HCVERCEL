@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('res_action_logs', function (Blueprint $table) {
-            $table->string('RA_id')->primary();
+            $table->string('RA_id', 75)->primary();
             $table->string('action',1000);
-            $table->string('role');
+            $table->string('role', 100);
             $table->timestamps();
 
 
-            $table->string('user_id');
+            $table->string('user_id', 25);
             $table->foreign('user_id')->references('resident_id')->on('residents')
             ->onDelete('cascade')
             ->onUpdate('cascade');

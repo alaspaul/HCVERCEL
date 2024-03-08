@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->string('room_id')->primary();
-            $table->string('room_name');
-            $table->string('room_floor');
-            $table->string('room_type');
-            $table->string('floor_id');
+            $table->string('room_id', 50)->primary();
+            $table->string('room_name', 100);
+            $table->string('room_floor', 100);
+            $table->string('room_type', 100);
+            $table->string('floor_id', 25);
             $table->integer('room_price');
             $table->boolean('isDeleted')->default(false);
 

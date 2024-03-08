@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pat_ass_rooms', function (Blueprint $table) {
-            $table->string('par_id')->primary();
-            $table->string('patient_id');
-            $table->string('room_id');
-            $table->boolean('isDeleted');
+            $table->string('par_id', 100)->primary();
+            $table->string('patient_id', 25);
+            $table->string('room_id', 50);
+            $table->boolean('isDeleted')->default(false);
 
             $table->foreign('patient_id')->references('patient_id')->on('patients')
             ->onDelete('cascade')

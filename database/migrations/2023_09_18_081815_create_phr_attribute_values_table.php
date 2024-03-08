@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('phr_attribute_values', function (Blueprint $table) {
-            $table->string('attributeVal_id')->primary();
-            $table->string('attributeVal_values');
+            $table->string('attributeVal_id', 100)->primary();
+            $table->string('attributeVal_values', 100);
 
-            $table->string('patient_id');
-            $table->string('categoryAtt_id');
+            $table->string('patient_id', 25);
+            $table->string('categoryAtt_id', 50);
 
             $table->foreign('patient_id')->references('patient_id')->on('patients')
             ->onDelete('cascade')

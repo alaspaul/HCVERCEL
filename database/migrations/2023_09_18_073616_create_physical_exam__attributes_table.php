@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('physical_exam_attributes', function (Blueprint $table) {
-            $table->string('PEA_id')->primary();
-            $table->string('PEA_name');
-            $table->string('PEA_dataType');
+            $table->string('PEA_id', 50)->primary();
+            $table->string('PEA_name', 100);
+            $table->string('PEA_dataType', 50);
 
             $table->timestamps();
-            $table->string('physicalExam_id');
+            $table->string('physicalExam_id', 25);
 
             $table->foreign('physicalExam_id')->references('physicalExam_id')->on('physical_exam_categories')
             ->onDelete('cascade')

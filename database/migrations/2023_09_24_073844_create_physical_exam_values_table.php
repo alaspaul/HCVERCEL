@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('physical_exam_values', function (Blueprint $table) {
-            $table->string('PAV_id')->primary();
-            $table->string('PAV_value', 1000);
+            $table->string('PAV_id', 100)->primary();
+            $table->string('PAV_value', 100);
 
             $table->timestamps();
 
-            $table->string('PEA_id');
-            $table->string('patient_id');
+            $table->string('PEA_id', 50);
+            $table->string('patient_id', 25);
 
             $table->foreign('PEA_id')->references('PEA_id')->on('physical_exam_attributes')
             ->onDelete('cascade')

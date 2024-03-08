@@ -21,7 +21,10 @@ class LabResultsController extends Controller
         $data = lab_results::where('isDeleted', false)->get();
         return $data;
     }
-
+    public function show(lab_results $lab_results)
+    {
+        //
+    }
     /**
      * Store a new lab result.
      *
@@ -77,7 +80,6 @@ class LabResultsController extends Controller
 
         lab_results::where('labResults_id', $id)->update(
             [
-                'labResults_id' => $request['labResults_id'],
                 'labResultDate' => $request['labResultDate'],
                 'results' => $request['results'],
 

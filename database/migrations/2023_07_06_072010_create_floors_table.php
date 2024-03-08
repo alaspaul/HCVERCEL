@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('floors', function (Blueprint $table) {
-            $table->string('floor_id')->primary();
-            $table->string('floor_name');
+            $table->string('floor_id', 25)->primary();
+            $table->string('floor_name', 100);
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });

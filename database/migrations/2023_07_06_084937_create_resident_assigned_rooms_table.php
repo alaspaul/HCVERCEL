@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('resident_assigned_rooms', function (Blueprint $table) {
             
-            $table->string('resAssRoom_id')->primary();
+            $table->string('resAssRoom_id',125)->primary();
             
-            $table->string('room_id');
-            $table->string('resident_id');
-            $table->boolean('isFinished');
+            $table->string('room_id', 50);
+            $table->string('resident_id', 50);
+            $table->boolean('isFinished')->default(false);
             $table->boolean('isDeleted')->default(false);
             $table->timestamps();
             

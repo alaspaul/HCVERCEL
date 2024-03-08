@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chat_groups', function (Blueprint $table) {
-            $table->string('chatGroup_id')->primary();
+            $table->string('chatGroup_id', 25)->primary();
             $table->timestamps();
         });
     }

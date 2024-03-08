@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('phr_form_categories', function (Blueprint $table) {
-            $table->string('formCat_id')->primary();
-            $table->string('formCat_name');
-            $table->string('formCat_description');
+            $table->string('formCat_id', 25)->primary();
+            $table->string('formCat_name', 100);
+            $table->string('formCat_description', 250)->nullable();
             $table->timestamps();
         });
     }
