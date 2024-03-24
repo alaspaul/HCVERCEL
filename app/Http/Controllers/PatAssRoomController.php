@@ -73,7 +73,7 @@ class PatAssRoomController extends Controller
      * Destroy a patAssRoom record.
      *
      * @param int $id The ID of the patAssRoom record to be destroyed.
-     * @return Response The JSON response indicating the result of the operation.
+     * @return response The JSON response indicating the result of the operation.
      */
     public function destroy($id)
     {   

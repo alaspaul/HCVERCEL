@@ -26,13 +26,10 @@ class PhrAttributeValuesController extends Controller
      */
     public static function store(Request $request, $patient_id)
     {
-
         $attributes = phr_categoryAttributes::all();
-
         foreach ($attributes as $attribute) {
             $exit = 0;
             $latestOrder = 0;
-
 
             while ($exit == 0) {
                 $thisId = $patient_id . '-' . $attribute['categoryAtt_id'] . '-' . $latestOrder;
@@ -52,8 +49,6 @@ class PhrAttributeValuesController extends Controller
                     'attributeVal_values' => $request[$attribute['categoryAtt_name']],
                     'patient_id' => $patient_id,
                     'categoryAtt_id' => $attribute['categoryAtt_id'],
-
-
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -69,15 +64,11 @@ class PhrAttributeValuesController extends Controller
                     $variable = 0;
                 }
 
-
                 phr_attributeValues::insert([
-
                     'attributeVal_id' => $id,
                     'attributeVal_values' => $variable,
                     'patient_id' => $patient_id,
                     'categoryAtt_id' => $attribute['categoryAtt_id'],
-
-
                     'created_at' => Carbon::today()->toDateString(),
                     'updated_at' => Carbon::today()->toDateString(),
                 ]);

@@ -284,7 +284,7 @@ class PatientController extends Controller
      * @return void
      */
     private function LogAction($action, $id){
-        $newAction = $action. ' medicine - '. $id;
+        $newAction = $action. ' Patient - '. $id;
         $user = Auth::user();
         if($user['role'] != 'admin'){
             $log = new ResActionLogController;

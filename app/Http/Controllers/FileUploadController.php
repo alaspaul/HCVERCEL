@@ -33,7 +33,6 @@ class FileUploadController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-
         $valid = $this->ValidateFile($request);
 
         if($valid == false){
@@ -50,7 +49,6 @@ class FileUploadController extends Controller
         }
 
         $newId = $this->createNewId($request);
-
         if($user['role'] == 'admin'){
             return response()->json('admins cannot add a file to a patient');
         }else{
@@ -62,16 +60,13 @@ class FileUploadController extends Controller
         'file_ext'=> $file->extension(),
         'patient_id' => $request['patient_id'],
         'resident_id'=> $user['resident_id'],
-
         'created_at' => now()
         ]);
-
         }
 
         $action = new AppConstants;
         $this->LogAction($action->add, $request['patient_id']);
         return response()->json($file->getClientOriginalName().' file uploaded');
-
     }
     /**
      * Delete a file by its ID.

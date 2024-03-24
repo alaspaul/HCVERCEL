@@ -211,8 +211,6 @@ class ResidentAssignedRoomController extends Controller
                         ->orderByRaw('LENGTH(room_id) ASC')
                         ->orderBy('room_id')
                         ->get();
-
-
         return response()->json($rooms);
     }
 
