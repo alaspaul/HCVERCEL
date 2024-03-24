@@ -24,6 +24,7 @@ class room extends Model
         'room_type',
         'room_price',
         'room_building',
+        'isDeleted'
     ];
 
 

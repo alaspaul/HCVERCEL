@@ -20,6 +20,7 @@ class patAssRoom extends Model
         'par_id',
         'patient_id',
         'room_id',
+        'isDeleted'
     ];
 
     public function patient(): HasOneOrMany

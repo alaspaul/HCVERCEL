@@ -21,6 +21,7 @@ class resident_assigned_room extends Model
         'resident_id',
         'room_id',
         'isFinished',
+        'isDeleted'
     ];
 
 

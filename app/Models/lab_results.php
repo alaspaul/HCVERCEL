@@ -20,6 +20,7 @@ class lab_results extends Model
         'labResultDate',
         'results',
         'patient_id',
+        'isDeleted'
     ];
 
     public function patient(): HasOneOrMany

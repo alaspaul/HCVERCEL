@@ -22,6 +22,7 @@ class fileUpload extends Model
         'file_ext',
         'patient_id',
         'resident_id',
+        'isDeleted'
     ];
 
     public function patient(): HasOneOrMany

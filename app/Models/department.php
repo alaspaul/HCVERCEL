@@ -15,7 +15,8 @@ class department extends Model
     protected $keyType = 'string';
     protected $fillable = [
         'department_id',
-        'department_name'
+        'department_name',
+        'isDeleted'
     ];
 
 }

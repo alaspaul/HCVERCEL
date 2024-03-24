@@ -21,6 +21,7 @@ class medicine extends Model
         'medicine_dosage',
         'medicine_price',
         'medicine_type',
+        'isDeleted'
     ];
     
 }

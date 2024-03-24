@@ -51,7 +51,7 @@ class PatientMedicineController extends Controller
         ]);
 
         $action = new AppConstants;
-        $this->LogAction($action->add, $$request['medicine_id'], $request['patient_id']);
+        $this->LogAction($action->add, $request['medicine_id'], $request['patient_id']);
         return response('stored');
     }
 
@@ -206,7 +206,7 @@ class PatientMedicineController extends Controller
         $user = Auth::user();
         if($user['role'] != 'admin'){
             $log = new ResActionLogController;
-            $log->store(Auth::user(), $action);
+            $log->store(Auth::user(), $newAction);
         }
     }
 

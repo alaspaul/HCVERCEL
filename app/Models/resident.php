@@ -29,6 +29,7 @@ class resident extends Model implements Authenticatable
         'resident_gender',
         'role',
         'department_id',
+        'isDeleted'
     ];
 
     protected $hidden = [

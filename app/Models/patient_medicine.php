@@ -21,6 +21,7 @@ class patient_medicine extends Model
         'medicine_frequency',
         'patient_id',
         'medicine_id',
+        'isDeleted'
     ];
 
     public function patient(): HasOneOrMany
