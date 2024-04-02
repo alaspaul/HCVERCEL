@@ -148,6 +148,25 @@ class PhrAttributeValuesController extends Controller
         return response()->json('phr updated');
     }
 
+    public function updateField($patient_id, $attributeVal_id, Request $request)
+    {
+        // Validate request data
+        $request->validate([
+            'attributeVal_values' => 'required', // Assuming the field to update is 'attributeVal_values'
+        ]);
+    
+        // Update the specified field
+        phr_attributeValues::where('attributeVal_id', $attributeVal_id)
+            ->where('patient_id', $patient_id)
+            ->update([
+                'attributeVal_values' => $request->input('attributeVal_values'),
+                'updated_at' => now(),
+            ]);
+    
+        // Return a response
+        return response()->json('Field updated successfully');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

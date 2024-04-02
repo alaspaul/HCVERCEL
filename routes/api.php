@@ -185,7 +185,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('attributeValues/getPhrbyDate/{patient_id}', [PhrAttributeValuesController::class, 'getPhrbyDate'])->name('attributeValues.getPhrbyDate');
     Route::GET('attributeValues/getPHRM/{patient_id}', [PhrAttributeValuesController::class, 'getPHRM'])->name('attributeValues.getPHRM');
     Route::GET('attributeValues/getFormCategoryName/{formCat_id}', [PhrAttributeValuesController::class, 'getFormCategoryName'])->name('attributeValues.getFormCategoryName');
-
+    Route::PUT('attributeValues/{patient_id}/updateField/{attributeVal_id}', [PhrAttributeValuesController::class, 'updateField'])->name('attributeValues.updateField');
 
     Route::apiResource('patAssRooms', PatAssRoomController::class);
     Route::POST('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
