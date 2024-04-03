@@ -93,13 +93,13 @@ class PatAssRoomController extends Controller
         $patAssRoom = patAssRoom::where('par_id', $id)->where('isDischarged', false)->first();
 
         if ($patAssRoom == null) {
-            return response('Record Does not Exists');
+            return response()->json('Record Does not Exists');
         }
 
         $action = new AppConstants;
         $this->LogAction($action->delete, $patAssRoom['patient_id'], $patAssRoom['room_id']);
 
-        return response('deleted');
+        return response()->json('deleted');
     }
 
     /**
