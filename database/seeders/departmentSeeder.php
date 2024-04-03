@@ -18,31 +18,31 @@ class departmentSeeder extends Seeder
         $department = [   
             
             [
-                'department_id' => 'D1', 'department_name' => 'dept of Internal Medicine'
+                'department_id' => 'D1', 'department_name' => 'Department of Internal Medicine'
                 
 
                 , 'created_at' => now(), 'updated_at' => now(),
             ],
             [
-                'department_id' => 'D2', 'department_name' => 'dept of Family and Community Medicine'
+                'department_id' => 'D2', 'department_name' => 'Department of Family and Community Medicine'
                 
 
                 , 'created_at' => now(), 'updated_at' => now(),
             ],
             [
-                'department_id' => 'D3', 'department_name' => 'Dept of Obstetrics and Gynecology'
+                'department_id' => 'D3', 'department_name' => 'Department of Obstetrics and Gynecology'
                 
 
                 , 'created_at' => now(), 'updated_at' => now(),
             ],
             [
-                'department_id' => 'D4', 'department_name' => 'Dept of Pediatrics'
+                'department_id' => 'D4', 'department_name' => 'Department of Pediatrics'
                 
 
                 , 'created_at' => now(), 'updated_at' => now(),
             ],
             [
-                'department_id' => 'D5', 'department_name' => 'Dept of General Surgery'
+                'department_id' => 'D5', 'department_name' => 'Department of General Surgery'
                 
 
                 , 'created_at' => now(), 'updated_at' => now(),

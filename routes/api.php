@@ -105,7 +105,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
 
 
     Route::apiResource('rooms', RoomController::class);
-    Route::POST('rooms/updateRoom{room}', [RoomController::class, 'update'])->name('rooms.updateRoom');
+    Route::PUT('rooms/updateRoom/{room}', [RoomController::class, 'update'])->name('rooms.updateRoom');
     Route::GET('rooms/getRooms{roomId}', [RoomController::class, 'getRoom'])->name('rooms.getRoom');
     Route::GET('rooms/getRoomsByfloor/{floor_id}', [RoomController::class, 'getRoomByFloor'])->name('room.getRoomByFloor');
     Route::DELETE('rooms/delete/{room}', [RoomController::class, 'deleteRoom'])->name('rooms.deleteRoom');
@@ -183,9 +183,11 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('attributeValues/getAttributeName/{id}', [PhrAttributeValuesController::class, 'getAttributeName'])->name('attributeValues.getAttributeName');
     Route::GET('attributeValues/getPhrDates/{patient_id}', [PhrAttributeValuesController::class, 'getPhrDates'])->name('attributeValues.getPhrDates');
     Route::GET('attributeValues/getPhrbyDate/{patient_id}', [PhrAttributeValuesController::class, 'getPhrbyDate'])->name('attributeValues.getPhrbyDate');
+    Route::GET('attributeValues/comparePhr/{patient_id}', [PhrAttributeValuesController::class, 'comparePhr'])->name('attributeValues.comparePhr');
     Route::GET('attributeValues/getPHRM/{patient_id}', [PhrAttributeValuesController::class, 'getPHRM'])->name('attributeValues.getPHRM');
     Route::GET('attributeValues/getFormCategoryName/{formCat_id}', [PhrAttributeValuesController::class, 'getFormCategoryName'])->name('attributeValues.getFormCategoryName');
-    Route::PUT('attributeValues/{patient_id}/updateField/{attributeVal_id}', [PhrAttributeValuesController::class, 'updateField'])->name('attributeValues.updateField');
+    Route::put('attributeValues/{patient_id}/updateField/{attributeVal_id}', [PhrAttributeValuesController::class, 'updateField'])->name('attributeValues.updateField');
+
 
     Route::apiResource('patAssRooms', PatAssRoomController::class);
     Route::POST('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
@@ -221,11 +223,10 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('chatGroupUsers/get/firstAddResidents', [ChatGroupUsersController::class, 'firstAddResidents'])->name('chatGroupUsers.firstAddResidents');
 
     Route::apiResource('histories', HistoryController::class);
-
+    
     Route::apiResource('patientHistories', PatientHistoryController::class);
     Route::GET('patientHistories/get/historyByPatientId/{patient_id}', [PatientHistoryController::class, 'getPatientHistorybyPatientID'])->name('patientHistories.gethistoryByPatientId');
 
-    
 });
 
 Route::GET('fileUpload/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUpload.viewFile');

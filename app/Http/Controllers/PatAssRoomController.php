@@ -53,8 +53,11 @@ class PatAssRoomController extends Controller
         if ($this->roomAlreadyUsed($room_id)){
             return response()->json('room already has a patient');
         }
-
-        patAssRoom::insert([
+        
+        $patAssRoomDetail = patAssRoom::where('patient_id', $patient_id)->where('room_id', $room_id)->first();
+        
+        if (empty($patAssRoomDetail)){
+            patAssRoom::insert([
             'par_id' => 'PAR-' . $patient_id . $room_id,
             'patient_id' => $patient_id,
             'room_id' => $room_id,
@@ -62,6 +65,16 @@ class PatAssRoomController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        
+        }else{
+                $dataToUpdate = [
+                'isDeleted' => false,
+                'updated_at' => now()
+                ];
+            
+            patAssRoom::where('patient_id', $patient_id)->where('room_id', $room_id)->update($dataToUpdate);
+        }
+        
 
         $action = new AppConstants;
         $this->LogAction($action->add, $patient_id, $room_id);

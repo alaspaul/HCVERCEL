@@ -183,11 +183,12 @@ class PhrAttributeValuesController extends Controller
 
     public function getPHR($patient_id)
     {
-        $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
-        $date = new Carbon($dates[0]);
-        $formattedDate = $date->format('Y-m-d');
-    
-        $PAV = phr_attributeValues::where('patient_id', $patient_id)->where('created_at', 'LIKE', $formattedDate . '%')->get();
+        $maxSequence = phr_attributeValues::where('patient_id', $patient_id)->max('sequence');
+
+        // Fetch PHR entries for the maximum sequence value
+        $PAV = phr_attributeValues::where('patient_id', $patient_id)
+            ->where('sequence', $maxSequence)
+            ->get();
     
         $result = $PAV->map(function ($item) {
             $categoryAtt_id = $item['categoryAtt_id'];
@@ -200,6 +201,7 @@ class PhrAttributeValuesController extends Controller
                 'formCat_name' => $formCategoryName,
                 'categoryAtt_name' => $attributeName,
                 'attributeVal_values' => $item['attributeVal_values'],
+                'attributeVal_id' => $item['attributeVal_id'],
             ];
         });
     
@@ -288,11 +290,12 @@ class PhrAttributeValuesController extends Controller
 
     public function getPHRM($patient_id)
     {
-        $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
-        $date = new Carbon($dates[0]);
-        $formattedDate = $date->format('Y-m-d');
-    
-        $PAV = phr_attributeValues::where('patient_id', $patient_id)->where('created_at', 'LIKE', $formattedDate . '%')->get();
+        $maxSequence = phr_attributeValues::where('patient_id', $patient_id)->max('sequence');
+
+        // Fetch PHR entries for the maximum sequence value
+        $PAV = phr_attributeValues::where('patient_id', $patient_id)
+            ->where('sequence', $maxSequence)
+            ->get();
     
     
         return response()->json($PAV);

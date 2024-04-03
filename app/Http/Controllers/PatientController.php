@@ -65,10 +65,11 @@ class PatientController extends Controller
                 'patient_age' => $request['patient_age'],
             ]);
         }
-
-        $PatAssRoomController = new PatAssRoomController;
-        $PatAssRoomController->store($newId, $request['room_id']);
-
+        
+        if($request['room_id'] != null){
+            $PatAssRoomController = new PatAssRoomController;
+            $PatAssRoomController->store($newId, $request['room_id']);
+        }
         $PhrAttributeValuesController = new PhrAttributeValuesController;
         $PhrAttributeValuesController->store($request, $newId);
         

@@ -53,7 +53,7 @@ class loginController extends Controller
                     'resident_lName' => $resident['resident_lName'],
                     'resident_gender' => $resident['resident_gender'],
                     'department_id' => $department->department_id,
-                    'department_Name' => $department->department_name,
+                    'department_name' => $department->department_name,
                 ], 200);
             }
         } catch (ValidationException $e) {

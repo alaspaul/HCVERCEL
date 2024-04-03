@@ -26,9 +26,9 @@ class residentSeeder extends Seeder
             [
                 'resident_id' =>  $date->year . 'D1' . 'R1' ,
                 'resident_userName' => 'userTests',
-                'resident_fName' => 'fnameTest',
-                'resident_lName' => 'lnameTest',
-                'resident_mName' => 'mnameTest',
+                'resident_fName' => 'Paul Irvin',
+                'resident_lName' => 'Alas',
+                'resident_mName' => 'Estremos',
                 'resident_gender' => 'Male',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
@@ -40,9 +40,9 @@ class residentSeeder extends Seeder
             [
                 'resident_id' =>  $date->year . 'D1' . 'R2' ,
                 'resident_userName' => 'userTest2s',
-                'resident_fName' => 'fnameTest',
-                'resident_lName' => 'lnameTest',
-                'resident_mName' => 'mnameTest',
+                'resident_fName' => 'Gabriel',
+                'resident_lName' => 'Tejana',
+                'resident_mName' => 'Magallo',
                 'resident_gender' => 'Male',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
@@ -54,9 +54,9 @@ class residentSeeder extends Seeder
             [
                 'resident_id' =>  $date->year . 'D1' . 'R3' ,
                 'resident_userName' => 'userTest3s',
-                'resident_fName' => 'fnameTest',
-                'resident_lName' => 'lnameTest',
-                'resident_mName' => 'mnameTest',
+                'resident_fName' => 'Angelo Louis',
+                'resident_lName' => 'Baricuatro',
+                'resident_mName' => 'camomot',
                 'resident_gender' => 'Male',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
@@ -68,9 +68,9 @@ class residentSeeder extends Seeder
             [
                 'resident_id' =>  $date->year . 'D1' . 'R4' ,
                 'resident_userName' => 'userTest4s',
-                'resident_fName' => 'fnameTest',
-                'resident_lName' => 'lnameTest',
-                'resident_mName' => 'mnameTest',
+                'resident_fName' => 'Christian paul',
+                'resident_lName' => 'Mandawe',
+                'resident_mName' => 'talis',
                 'resident_gender' => 'Male',
                 'resident_password' => bcrypt(123),
                 'department_id' => 'D1',
@@ -85,3 +85,4 @@ class residentSeeder extends Seeder
 
     }
 }
+

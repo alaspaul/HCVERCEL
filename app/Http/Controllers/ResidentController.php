@@ -110,6 +110,7 @@ class ResidentController extends Controller
             'resident_fName' => $request['resident_fName'],
             'resident_lName' => $request['resident_lName'],
             'resident_mName' => $request['resident_mName'],
+            'resident_gender' => $request['resident_gender'],
             'department_id' => $request['department_id'],
             'role' => $request['role'],
             'updated_at' => now(),

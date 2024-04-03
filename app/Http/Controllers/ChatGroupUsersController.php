@@ -17,6 +17,7 @@ class ChatGroupUsersController extends Controller
     public function index()
     {
         $data = chatGroupUsers::all();
+        
         return $data;
     }
 
@@ -35,7 +36,7 @@ class ChatGroupUsersController extends Controller
 
         $chatGroupId = $this->ifNew($request['chatGroup_id']);
         
-        $chatGroupUsers = $this->allUsersinGroup($request['chatGroup_id'])->toArray();
+        $chatGroupUsers = $this->allUsersinGroup($chatGroupId)->toArray();
 
        
         if(!in_array($request['resident_id'],  $chatGroupUsers) ){
@@ -144,6 +145,7 @@ class ChatGroupUsersController extends Controller
                     'chatGroup_id' => $group->chatGroup_id,
                     'other_resident_fName' => $otherResidentDetails->resident_fName,
                     'other_resident_lName' => $otherResidentDetails->resident_lName,
+                    'resident_id' => $otherResidentDetails->resident_id
                 ];
             }
         }
@@ -156,7 +158,7 @@ class ChatGroupUsersController extends Controller
      * Retrieve all users in a chat group.
      *
      * @param int $chatGroup_id The ID of the chat group.
-     * @return \Illuminate\Support\Collection|array|string|null The collection of resident IDs in the chat group, or a string indicating that the chat group does not exist.
+     * @return \Illuminate\Support\Collection The collection of resident IDs in the chat group, or a string indicating that the chat group does not exist.
      */
     public function allUsersinGroup($chatGroup_id){
         // Retrieve the chat group by ID
@@ -231,7 +233,6 @@ class ChatGroupUsersController extends Controller
         // Return the unassigned residents as a JSON response
         return response()->json($unassignedResidents);
     }
-
     /**
      * Retrieves the unassigned residents for the first time adding residents to a chat group.
      *
@@ -242,22 +243,21 @@ class ChatGroupUsersController extends Controller
     {
         // Get the authenticated user
         $user = Auth::user();
-
-        // Retrieve the chat group IDs where there are exactly 2 distinct resident IDs and 2 resident IDs in total
-        $chatGroupIds = ChatGroupUsers::select('chatGroup_id')
-            ->groupBy('chatGroup_id')
-            ->havingRaw('COUNT(DISTINCT resident_id) = 2')
-            ->havingRaw('COUNT(resident_id) = 2')
+    
+        // Retrieve the chat group IDs where the current user is present
+        $userChatGroupIds = ChatGroupUsers::select('chatGroup_id')
+            ->where('resident_id', $user->resident_id)
             ->pluck('chatGroup_id');
-
-        // Get the assigned residents (residents already in chat groups) excluding the current user
-        $assignedResidents = ChatGroupUsers::whereIn('chatGroup_id', $chatGroupIds)
-            ->where('resident_id', '!=', $user['resident_id'])
+    
+        // Get the resident IDs of the users in the current user's chat groups
+        $residentIdsInUserChatGroups = ChatGroupUsers::whereIn('chatGroup_id', $userChatGroupIds)
             ->pluck('resident_id');
-
-        // Get the unassigned residents (residents not in any chat group)
-        $unassignedResidents = Resident::whereNotIn('resident_id', $assignedResidents)->get();
-
+    
+        // Get the residents who are not part of the current user's chat groups
+        $unassignedResidents = Resident::whereNotIn('resident_id', $residentIdsInUserChatGroups)
+            ->where('resident_id', '<>', $user->resident_id) // Exclude the current user
+            ->get();
+    
         // Return the unassigned residents as a JSON response
         return response()->json($unassignedResidents);
     }
@@ -270,7 +270,7 @@ class ChatGroupUsersController extends Controller
     private function ValidateChatGroupMessages(Request $request){
         // Validation rules for the request parameters
         $validator = Validator::make($request->all(), [
-            'chatGroup_id' => 'required',
+            'resident_id' => 'required',
         ]);
 
         if ($validator->fails()) {

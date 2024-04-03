@@ -72,10 +72,12 @@ class PatientMedicineController extends Controller
         if (!$patientMed) {
             return response('not found');
         }
-
+        
+        $formattedDate = Carbon::parse($request['patientMedicineDate'])->format('Y-m-d H:i:s');
+        
         patient_medicine::where('patientMedicine_id', $id)->where('isDeleted', false)->update(
             [
-                'patientMedicineDate' => $request['patientMedicineDate'],
+                'patientMedicineDate' => $formattedDate,
                 'medicine_frequency' => $request['medicine_frequency'],
                 'patient_id' => $request['patient_id'],
                 'medicine_id' => $request['medicine_id'],
