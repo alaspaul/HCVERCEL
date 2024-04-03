@@ -35,7 +35,7 @@ class loginController extends Controller
 
 
             if (Auth::guard('custom')->attempt($credentials)) {
-                $resident = resident::where('resident_userName', $request['resident_userName'])->where('isDeleted', false)->first();
+                $resident = resident::where('resident_userName', $request['resident_userName'])->first();
                 
                 if ($resident == null) {
                     return response()->json(['error' => 'invalid credentials'], 401);

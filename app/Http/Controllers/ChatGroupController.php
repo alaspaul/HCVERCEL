@@ -46,7 +46,7 @@ class ChatGroupController extends Controller
     public function destroy($id)
     {
         // Mark the chat group as deleted in the database
-        chatGroup::where('chatGroup_id', $id)->update(['isDeleted' => true]);
+        chatGroup::destroy($id);
 
         return response()->json('chatGroup deleted');
     }

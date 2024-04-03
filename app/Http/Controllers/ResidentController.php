@@ -50,7 +50,6 @@ class ResidentController extends Controller
             'resident_gender' => $request['resident_gender'],
             'resident_password' => bcrypt($request['resident_password']),
             'department_id' => $request['department_id'],
-            'isDeleted' => false,
             'role' => $request['role'],
             
             'created_at' => now(),

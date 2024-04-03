@@ -52,7 +52,6 @@ class ResidentAssignedRoomController extends Controller
             'resident_id' => $request['resident_id'],
             'room_id' => $request['room_id'],
             'isFinished' => 0,
-            'isDeleted' => false,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

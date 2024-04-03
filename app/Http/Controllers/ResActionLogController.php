@@ -73,7 +73,7 @@ class ResActionLogController extends Controller
     public function residentName($resident_id)
     {
         try {
-            $resident = resident::where('resident_id', $resident_id)->where('isDeleted', false)->first();
+            $resident = resident::where('resident_id', $resident_id)->first();
         
             if ($resident) {
                 $lname = $resident->resident_lName;

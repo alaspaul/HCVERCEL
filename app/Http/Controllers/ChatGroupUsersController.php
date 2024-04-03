@@ -76,7 +76,7 @@ class ChatGroupUsersController extends Controller
             return response('invalid input');
         }
 
-        $resident = resident::where('resident_id', $request['residsent_id'])->where('isDeleted', false)->first();
+        $resident = resident::where('resident_id', $request['residsent_id'])->first();
         if($resident == null){
             return response('resident does not exist');
         }
