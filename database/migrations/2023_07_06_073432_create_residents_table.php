@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('role', 25);
             $table->rememberToken();
             $table->string('department_id', 25);
-            $table->boolean('isDeleted')->default(false);
             
             $table->timestamps();
 

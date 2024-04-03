@@ -16,7 +16,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $data = department::where('isDeleted', false)->get();
+        $data = department::all();
         return $data;
     }
 
@@ -64,7 +64,7 @@ class DepartmentController extends Controller
             return response('invalid input');
         }
 
-        $department = department::where('department_id', $id)->where('isDeleted', false)->first();
+        $department = department::where('department_id', $id)->first();
         if($department == null){
             return response('department does not exist');
         }
@@ -85,7 +85,7 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        $department = department::where('department_id', $id)->where('isDeleted', false)->first();
+        $department = department::where('department_id', $id)->first();
         if($department == null){
             return response('department does not exist');
         }
@@ -107,7 +107,7 @@ class DepartmentController extends Controller
      */
     public function getDepNamebyId($department_id){
 
-        $department = department::where('department_id', $department_id)->where('isDeleted', false)->first();
+        $department = department::where('department_id', $department_id)->first();
         if($department == null){
             return response('department does not exist');
         }
@@ -116,28 +116,7 @@ class DepartmentController extends Controller
         return $name;
     }
 
-    /**
-     * Delete a department by its ID.
-     *
-     * @param int $id The ID of the department to be deleted.
-     * @return \Illuminate\Http\Response The response indicating the result of the deletion.
-     */
-    public function deleteDepartment($id){
-        $department = department::where('department_id', $id)->where('isDeleted', false)->first();
-        if($department == null){
-            return response('department does not exist');
-        }
-        
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $id);
 
-        department::where('department_id', $id)->update(
-            ['isDeleted' => true, 
-             'updated_at' => now()]);
-
-       
-       return response('deleted');
-    }
 
     /**
      * Validates the department data from the request.

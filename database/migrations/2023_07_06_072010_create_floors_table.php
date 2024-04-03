@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('floors', function (Blueprint $table) {
             $table->string('floor_id', 25)->primary();
             $table->string('floor_name', 100);
-            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }

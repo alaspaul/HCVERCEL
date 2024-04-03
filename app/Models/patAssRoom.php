@@ -20,17 +20,17 @@ class patAssRoom extends Model
         'par_id',
         'patient_id',
         'room_id',
-        'isDeleted'
+        'isDischarged'
     ];
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOneOrMany(patient::class, 'patient_id', 'patient_id');
     }
 
     public function room(): HasOneOrMany
     {
-        return $this->hasOne(room::class, 'foreign_key', 'room_id');
+        return $this->hasOneOrMany(room::class, 'room_id', 'room_id');
     }
 
 }

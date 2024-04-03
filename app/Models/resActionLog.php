@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 class resActionLog extends Model
@@ -24,7 +26,7 @@ class resActionLog extends Model
 
     public function resident(): HasOneOrMany
     {
-        return $this->hasOne(resident::class, 'foreign_key', 'resident_id');
+        return $this->hasOneOrMany(resident::class, 'user_id', 'resident_id');
     }
 
 }

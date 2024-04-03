@@ -23,7 +23,7 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        $data = resident::where('isDeleted', false)->get();
+        $data = resident::all();
         return $data;
     }
 
@@ -72,7 +72,7 @@ class ResidentController extends Controller
     public function show($residentId)
     {
         try{
-            $resident = resident::where('isDeleted', false)->findOrFail($residentId);
+            $resident = resident::findOrFail($residentId);
 
             if ($resident->isEmpty()) {
                 return response('resident not found');
@@ -99,7 +99,7 @@ class ResidentController extends Controller
         }
 
         // Check if the resident exists
-        $res = resident::where('resident_id', $id)->where('isDeleted', false)->first();
+        $res = resident::where('resident_id', $id)->first();
         if (empty($res)) {
             return response('resident not found');
         }
@@ -139,7 +139,7 @@ class ResidentController extends Controller
      */
     public function destroy($id)
     {
-        $res = resident::where('resident_id', $id)->where('isDeleted', false)->first();
+        $res = resident::where('resident_id', $id)->first();
         if (empty($res)) {
             return response('resident not found');
         }
@@ -161,7 +161,7 @@ class ResidentController extends Controller
     public function residentName($resident_id)
     {
         // Check if the resident exists
-        $res = resident::where('resident_id', $resident_id)->where('isDeleted', false)->first();
+        $res = resident::where('resident_id', $resident_id)->first();
         if (empty($res)) {
             return response('resident not found');
         }
@@ -187,41 +187,15 @@ class ResidentController extends Controller
         // Check if the user is an admin
         if ($user['role'] != 'admin') {
             $userid = $user->resident_id;
-            $residents = resident::where('resident_id','!=', $userid)->where('isDeleted', false)->get();
+            $residents = resident::where('resident_id','!=', $userid)->get();
             return response()->json($residents);
         }
 
         // If the user is an admin, get all residents
-        $residents = resident::where('isDeleted', false)->get();
+        $residents = resident::all();
         return response()->json($residents);
     }
 
-    /**
-     * Delete a resident.
-     *
-     * @param int $residentId The ID of the resident to be deleted.
-     * @return \Illuminate\Http\Response The HTTP response.
-     */
-    public function deleteResident($residentId)
-    {
-        // Check if the resident exists
-        $res = resident::where('resident_id', $residentId)->where('isDeleted', false)->first();
-        if (empty($res)) {
-            return response('resident not found');
-        }
-
-        // Log the action
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $residentId);
-
-        // Soft delete the resident
-        resident::where('resident_id', $residentId)->where('isDeleted', false)->update(
-            [
-                'isDeleted' => true,
-                'updated_at' => now()]);
-
-        return response('deleted');
-    }
     /**
      * Validates the resident data from the request.
      *

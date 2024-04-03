@@ -18,7 +18,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $data = room::where('isDeleted', false)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        $data = room::orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
         return $data;
     }
 
@@ -34,7 +34,7 @@ class RoomController extends Controller
             return response('invalid input');
         }
 
-        $floor = floor::where('floor_id', $request['floor_id'])->where('isDeleted', false)->first();
+        $floor = floor::where('floor_id', $request['floor_id'])->first();
 
         if ($floor == null) {
             return response()->json('floor Does not Exists');
@@ -75,13 +75,13 @@ class RoomController extends Controller
             return response('invalid input');
         }
 
-        $floor = floor::where('floor_id', $request['floor_id'])->where('isDeleted', false)->first();
+        $floor = floor::where('floor_id', $request['floor_id'])->first();
 
         if ($floor == null) {
             return response()->json('floor Does not Exists');
         }
 
-        $room = room::where('room_id', $id)->where('isDeleted', false)->first();
+        $room = room::where('room_id', $id)->first();
 
         if ($room == null) {
             return response()->json('room Does not Exists');
@@ -111,7 +111,7 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {   
-        $room = room::where('room_id', $id)->where('isDeleted', false)->first();
+        $room = room::where('room_id', $id)->first();
         if($room == null){
             return response('room does not exist');
         }
@@ -131,7 +131,7 @@ class RoomController extends Controller
      * @return \Illuminate\Http\JsonResponse The JSON response containing the room data.
      */
     public function getRoom($room_id){
-        $room = room::where('room_id', $room_id)->where('isDeleted', false)->first();
+        $room = room::where('room_id', $room_id)->first();
 
         if ($room == null) {
             return response()->json('room Does not Exists');
@@ -148,7 +148,7 @@ class RoomController extends Controller
      * @return \Illuminate\Http\JsonResponse The JSON response containing the floor rooms data.
      */
     public function getRoomByFloor($floorId){
-        $floorRooms = room::where('floor_Id', $floorId)->where('isDeleted', false)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
+        $floorRooms = room::where('floor_Id', $floorId)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
         return response()->json($floorRooms);
     }
@@ -160,7 +160,7 @@ class RoomController extends Controller
      * @return string|Illuminate\Http\JsonResponse The room name or a JSON response if the room does not exist.
      */
     public function getRoomNamebyId($room_id){
-        $roomName = room::select('room_name')->where('room_id', $room_id)->where('isDeleted', false)->first()->room_name;
+        $roomName = room::select('room_name')->where('room_id', $room_id)->first()->room_name;
 
         if ($roomName == null) {
             return response()->json('room Does not Exists');
@@ -184,25 +184,6 @@ class RoomController extends Controller
         return 'R' . $abbreviation;
     }
 
-    /**
-     * Delete a room by its ID.
-     *
-     * @param int $id The ID of the room to be deleted.
-     * @return \Illuminate\Http\Response The response indicating the result of the deletion.
-     */
-    public function deleteRoom($id){
-        $room = room::where('room_id', $id)->where('isDeleted', false)->first();
-        if($room == null){
-            return response('room does not exist');
-        }
-
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $id);
-
-        room::where('room_id', $id)->update(['isDeleted' => true, 'updated_at' => now()]);
-
-        return response('deleted');
-    }
 
     /**
      * Validates the room data from the request.
@@ -249,7 +230,7 @@ class RoomController extends Controller
      */
 
     private function createNewId(Request $request){
-        $floor = floor::where('floor_id', $request['floor_id'])->where('isDeleted', false)->first();
+        $floor = floor::where('floor_id', $request['floor_id'])->first();
 
         $floorName = $floor->floor_name;
         $abbreviations = $this->getAbbreviation($floorName);

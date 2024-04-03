@@ -20,7 +20,7 @@ class PatientMedicineController extends Controller
      */
     public function index()
     {
-        $data = patient_medicine::where('isDeleted', false)->get;
+        $data = patient_medicine::all();
         return $data;
     }
 
@@ -68,14 +68,14 @@ class PatientMedicineController extends Controller
             return response('invalid input');
         }
 
-        $patientMed = patient_medicine::where('patientMedicine_id', $id)->where('isDeleted', false)->first();
+        $patientMed = patient_medicine::where('patientMedicine_id', $id)->first();
         if (!$patientMed) {
             return response('not found');
         }
         
         $formattedDate = Carbon::parse($request['patientMedicineDate'])->format('Y-m-d H:i:s');
         
-        patient_medicine::where('patientMedicine_id', $id)->where('isDeleted', false)->update(
+        patient_medicine::where('patientMedicine_id', $id)->update(
             [
                 'patientMedicineDate' => $formattedDate,
                 'medicine_frequency' => $request['medicine_frequency'],
@@ -98,7 +98,7 @@ class PatientMedicineController extends Controller
      */
     public function destroy($id)
     {
-        $patientMed = patient_medicine::where('patientMedicine_id', $id)->where('isDeleted', false)->first();
+        $patientMed = patient_medicine::where('patientMedicine_id', $id)->first();
         if (!$patientMed) {
             return response('not found');
         }
@@ -120,11 +120,11 @@ class PatientMedicineController extends Controller
     {
         try {
             // Retrieve patient medicines from the database
-            $patientMedicines = patient_medicine::where('patient_id', $patientId)->where('isDeleted', false)->get();
+            $patientMedicines = patient_medicine::where('patient_id', $patientId)->get();
 
             // Fetch medicine details for each patient medicine
             foreach ($patientMedicines as $medication) {
-                $medicine = medicine::where('isDeleted', false)->find($medication->medicine_id); 
+                $medicine = medicine::find($medication->medicine_id); 
                 if ($medicine) {
                     $medication->medicine_name = $medicine->medicine_name;
                     $medication->medicine_dosage = $medicine->medicine_dosage;
@@ -142,35 +142,6 @@ class PatientMedicineController extends Controller
             // Return an error response if an exception occurs
             return response()->json(['error' => 'Error fetching patient medicines.'], 500);
         }
-    }
-
-    /**
-     * Deletes a patient medicine by ID.
-     *
-     * @param int $id The ID of the patient medicine.
-     * @return \Illuminate\Http\Response The response indicating the success of the deletion.
-     */
-    public function delete($id)
-    {
-        // Check if the patient medicine exists
-        $patientMed = patient_medicine::where('patientMedicine_id', $id)->where('isDeleted', false)->first();
-        if (!$patientMed) {
-            return response('not found');
-        }
-
-        // Update the patient medicine to mark it as deleted
-        patient_medicine::where('patientMedicine_id', $id)->update(
-            [
-                'isDeleted' => true,
-                'updated_at' => now()
-            ]);
-
-        // Log the deletion action
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $id, $patientMed->patient_id);
-
-        // Return a response indicating the successful deletion
-        return response('deleted');
     }
 
     /**

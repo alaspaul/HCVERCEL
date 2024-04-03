@@ -22,7 +22,6 @@ class patient extends Model
         'patient_lName',
         'patient_mName',
         'patient_age',
-        'patient_sex',
-        'isDeleted'
+        'patient_sex'
     ];
 }

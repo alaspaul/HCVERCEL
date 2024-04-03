@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('par_id', 100)->primary();
             $table->string('patient_id', 25);
             $table->string('room_id', 50);
-            $table->boolean('isDeleted')->default(false);
+            $table->boolean('isDischarged')->default(false);
+            $table->dateTime('dischargeDate')->nullable();
 
             $table->foreign('patient_id')->references('patient_id')->on('patients')
             ->onDelete('cascade')

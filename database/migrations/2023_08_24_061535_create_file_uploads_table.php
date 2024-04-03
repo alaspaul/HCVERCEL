@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('file_name', 255)->unique();
             $table->string('file_size', 100);
             $table->string('file_ext', 50);
-            $table->boolean('isDeleted')->default(false);
 
             $table->string('patient_id', 25);
             $table->string('resident_id', 50);

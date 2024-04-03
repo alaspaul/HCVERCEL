@@ -17,7 +17,6 @@ class floor extends Model
 
     protected $fillable = [
         'floor_id',
-        'floor_name',
-        'isDeleted'
+        'floor_name'
     ];
 }

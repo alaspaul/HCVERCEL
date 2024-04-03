@@ -21,7 +21,7 @@ class MedicineController extends Controller
      */
     public function index()
     {
-        $data = medicine::where('isDeleted', false)->get();
+        $data = medicine::all();
 
         return response()->json($data);
     }
@@ -72,12 +72,12 @@ class MedicineController extends Controller
             return response('invalid input');
         }
 
-        $med = medicine::where('medicine_id', $id)->where('isDeleted', false)->first();
+        $med = medicine::where('medicine_id', $id)->first();
         if(empty($med)){
             return response('medicine not found');
         }
         
-        medicine::where('medicine_id', $id)->where('isDeleted', false)->update(
+        medicine::where('medicine_id', $id)->update(
             [        
                 'medicine_id' => $request['medicine_id'],
                 'medicine_name' => $request['medicine_name'],
@@ -100,7 +100,7 @@ class MedicineController extends Controller
      */
     public function destroy($id)
     {
-        $med = medicine::where('medicine_id', $id)->where('isDeleted', false)->first();
+        $med = medicine::where('medicine_id', $id)->first();
         if(empty($med)){
             return response('medicine not found');
         }
@@ -122,7 +122,7 @@ class MedicineController extends Controller
      */
     public static function getMedNamebyId($medicine_id){
 
-        $med = medicine::where('medicine_id', $medicine_id)->where('isDeleted', false)->first();
+        $med = medicine::where('medicine_id', $medicine_id)->first();
         if(empty($med)){
             return response('medicine not found');
         }
@@ -131,30 +131,6 @@ class MedicineController extends Controller
 
 
         return $name;
-    }
-
-    /**
-     * Soft delete a medicine by its ID.
-     *
-     * @param int $id The ID of the medicine to delete.
-     * @return \Illuminate\Http\Response The response indicating the result of the deletion.
-     */
-    public function deleteMedicine($id){
-        $med = medicine::where('medicine_id', $id)->where('isDeleted', false)->first();
-        if(empty($med)){
-            return response('medicine not found');
-        }
-
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $id);
-
-        medicine::where('medicine_id', $id)->where('isDeleted', false)->update(
-            [
-                'isDeleted' => true,
-                'updated_at' => now()
-            ]);
-
-        return response('deleted');
     }
 
     /**

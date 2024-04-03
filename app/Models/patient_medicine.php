@@ -21,16 +21,15 @@ class patient_medicine extends Model
         'medicine_frequency',
         'patient_id',
         'medicine_id',
-        'isDeleted'
     ];
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOneOrMany(patient::class, 'patient_id', 'patient_id');
     }
 
     public function medicine(): HasOneOrMany
     {
-        return $this->hasOne(medicine::class, 'foreign_key', 'medicine_id');
+        return $this->hasOneOrMany(medicine::class, 'medicine_id', 'medicine_id');
     }
 }

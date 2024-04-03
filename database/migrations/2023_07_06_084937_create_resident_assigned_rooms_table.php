@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('room_id', 50);
             $table->string('resident_id', 50);
             $table->boolean('isFinished')->default(false);
-            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
             
             $table->foreign('room_id')->references('room_id')->on('rooms')

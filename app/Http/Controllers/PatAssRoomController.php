@@ -20,7 +20,7 @@ class PatAssRoomController extends Controller
      */
     public function index()
     {
-        $data = patAssRoom::where('isDeleted', false)->Get();
+        $data = patAssRoom::where('isDischarged', false)->Get();
 
         return response()->json($data);
     }
@@ -34,13 +34,13 @@ class PatAssRoomController extends Controller
      */
     public function store($patient_id, $room_id)
     {
-        $patient = patient::where('patient_id', $patient_id)->where('isDeleted', false)->first();
+        $patient = patient::where('patient_id', $patient_id)->where('isDischarged', false)->first();
 
         if ($patient == null) {
             return response()->json('patient Does not Exists');
         }
 
-        $room = room::where('room_id', $room_id)->where('isDeleted', false)->first();
+        $room = room::where('room_id', $room_id)->where('isDischarged', false)->first();
 
         if ($room == null) {
             return response()->json('room Does not Exists');
@@ -61,14 +61,14 @@ class PatAssRoomController extends Controller
             'par_id' => 'PAR-' . $patient_id . $room_id,
             'patient_id' => $patient_id,
             'room_id' => $room_id,
-            'isDeleted' => false,
+            'isDischarged' => false,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         
         }else{
-                $dataToUpdate = [
-                'isDeleted' => false,
+                $dataToUpdate = [ // change ID naming for this
+                'isDischarged' => false,
                 'updated_at' => now()
                 ];
             
@@ -90,7 +90,7 @@ class PatAssRoomController extends Controller
      */
     public function destroy($id)
     {   
-        $patAssRoom = patAssRoom::where('par_id', $id)->where('isDeleted', false)->first();
+        $patAssRoom = patAssRoom::where('par_id', $id)->where('isDischarged', false)->first();
 
         if ($patAssRoom == null) {
             return response('Record Does not Exists');
@@ -111,7 +111,7 @@ class PatAssRoomController extends Controller
      */
     public function transferPatient($patient_id, request $request)
     {
-        $patAssRoom = patAssRoom::where('patient_id', $patient_id)->where('isDeleted', false)->first();
+        $patAssRoom = patAssRoom::where('patient_id', $patient_id)->where('isDischarged', false)->first();
 
         if ($patAssRoom == null) {
             return response()->json('patient Does not Exists');
@@ -134,7 +134,7 @@ class PatAssRoomController extends Controller
         $log = new ResActionLogController;
         $log->store(Auth::user(), $action);
 
-        patAssRoom::where('patient_id', $patient_id)->where('isDeleted', false)->update($dataToUpdate);
+        patAssRoom::where('patient_id', $patient_id)->where('isDischarged', false)->update($dataToUpdate);
 
         return response()->json('patient Transfered');
     }
@@ -148,7 +148,7 @@ class PatAssRoomController extends Controller
     public function getPatientbyRoom($room_id)
     {
         // Get the patient_id from the patAssRooms table
-        $patAssRoom = patAssRoom::where('room_id', $room_id)->where('isDeleted', false)->first();
+        $patAssRoom = patAssRoom::where('room_id', $room_id)->where('isDischarged', false)->first();
 
         if ($patAssRoom) {
             // If a record is found in patAssRooms, get the patient_id
@@ -177,11 +177,11 @@ class PatAssRoomController extends Controller
         $log->store(Auth::user(), $action);
 
         $dataToUpdate = [
-            'isDeleted' => true,
+            'isDischarged' => true,
             'updated_at' => now()
         ];
         
-        patAssRoom::where('patient_id', $patient_id)->where('isDeleted', false)->update($dataToUpdate);
+        patAssRoom::where('patient_id', $patient_id)->where('isDischarged', false)->update($dataToUpdate);
         return response('checked out');
     }
 
@@ -193,7 +193,7 @@ class PatAssRoomController extends Controller
      */
     public function getRoombyPatient($patient_id)
     {
-        $patAssRoom = patAssRoom::where('patient_id', $patient_id)->where('isDeleted', false)->first();
+        $patAssRoom = patAssRoom::where('patient_id', $patient_id)->where('isDischarged', false)->first();
         if($patAssRoom){
             $room = room::where('room_id', $patAssRoom->room_id)->first();
 
@@ -209,7 +209,7 @@ class PatAssRoomController extends Controller
      * @return \Illuminate\Http\JsonResponse The list of unassigned rooms.
      */
     public function unassignedRooms(){
-        $assignedRooms = patAssRoom::select('room_id')->where('isDeleted', false)->get();
+        $assignedRooms = patAssRoom::select('room_id')->where('isDischarged', false)->get();
         $rooms = room::select('room_id')->whereNotIn('room_id', $assignedRooms)->orderByRaw('LENGTH(room_id) ASC')->orderBy('room_id')->get();
 
         return response()->json($rooms);
@@ -236,7 +236,7 @@ class PatAssRoomController extends Controller
      * @return bool Returns true if the patient is already assigned to a room, false otherwise.
      */
     private function patientAssignedRoomExists($patientId){
-        $par = patAssRoom::where('patient_id', $patientId)->where('isDeleted', false)->first();
+        $par = patAssRoom::where('patient_id', $patientId)->where('isDischarged', false)->first();
 
         if ($par == null){
             return false;
@@ -252,7 +252,7 @@ class PatAssRoomController extends Controller
      * @return bool Returns true if the room is already being used, false otherwise.
      */
     private function roomAlreadyUsed($roomId){
-        $par = patAssRoom::where('room_id', $roomId)->where('isDeleted', false)->first();
+        $par = patAssRoom::where('room_id', $roomId)->where('isDischarged', false)->first();
 
         if ($par == null){
             return false;

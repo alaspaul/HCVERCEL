@@ -19,7 +19,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $data = patient::where('isDeleted', false)->get();
+        $data = patient::all();
 
         return response()->json($data);
     }
@@ -41,7 +41,6 @@ class PatientController extends Controller
         $patient = patient::where('patient_fName', $request['patient_fName'])
                             ->where('patient_lName', $request['patient_lName'])
                             ->where('patient_mName', $request['patient_mName'])
-                            ->where('isDeleted', false)
                             ->first();
         if(empty($patient)){
         
@@ -89,7 +88,7 @@ class PatientController extends Controller
     {
         $patientRoom = $this->getPatientRoom($patient_id);
         try{
-            $patient = patient::where('patient_id',$patient_id)->where('isDeleted', false)->first();
+            $patient = patient::where('patient_id',$patient_id)->first();
             if($patient == null){
                 return response()->json('no matches');
             }
@@ -114,7 +113,7 @@ class PatientController extends Controller
             return response('invalid input');
         }
 
-        $patient = patient::where('patient_id', $patient_id)->where('isDeleted', false)->first();
+        $patient = patient::where('patient_id', $patient_id)->first();
 
         if($patient == null){
             return response('patient not found');
@@ -144,7 +143,7 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        $patient = patient::where('patient_id', $id)->where('isDeleted', false)->first();
+        $patient = patient::where('patient_id', $id)->first();
 
         if($patient == null){
             return response('patient not found');
@@ -167,7 +166,7 @@ class PatientController extends Controller
     public function getPatientName($patient_id)
     {
         try{
-            $patient = patient::where('patient_id',$patient_id)->where('isDeleted', false)->first();
+            $patient = patient::where('patient_id',$patient_id)->first();
             if($patient == null){
                 return 'no matches';
             }
@@ -184,7 +183,7 @@ class PatientController extends Controller
      * @return \Illuminate\Http\Response The response containing the patient and their associated room.
      */
     public function getPatientbyId($patient_id) {
-        $patient = patient::where('patient_id', $patient_id)->where('isDeleted', false)->first();
+        $patient = patient::where('patient_id', $patient_id)->first();
         if($patient == null){
             return response('patient not found');
         }
@@ -220,7 +219,7 @@ class PatientController extends Controller
      */
     public function addPhr(request $request, $patient_id)
     {
-        $patient = patient::where('patient_id', $patient_id)->where('isDeleted', false)->first();
+        $patient = patient::where('patient_id', $patient_id)->first();
 
         if($patient == null){
             return response('patient not found');
@@ -232,27 +231,6 @@ class PatientController extends Controller
         return response('phr added');
     }
 
-    /**
-     * Deletes a patient.
-     *
-     * @param int $patient_id The ID of the patient.
-     * @return \Illuminate\Http\Response The response indicating the patient has been deleted.
-     */
-    public function deletePatient($patient_id)
-    {
-        $patient = patient::where('patient_id', $patient_id)->where('isDeleted', false)->first();
-
-        if($patient == null){
-            return response('patient not found');
-        }
-
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $patient_id);
-
-        patient::where('patient_id', $patient_id)->update(['isDeleted' => true, 'updated_at' => now()]);
-
-        return response('deleted');
-    }
 
     /**
      * Validates the patient data from the request.

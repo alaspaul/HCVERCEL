@@ -22,17 +22,16 @@ class fileUpload extends Model
         'file_ext',
         'patient_id',
         'resident_id',
-        'isDeleted'
     ];
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOneOrMany(patient::class, 'patient_id', 'patient_id');
     }
 
     public function residents(): HasOneOrMany
     {
-        return $this->hasOne(resident::class, 'foreign_key', 'resident_id');
+        return $this->hasOneOrMany(resident::class, 'resident_id', 'resident_id');
     }
 
 

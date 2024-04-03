@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\room;
 use App\Models\resident;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
+
 class resident_assigned_room extends Model
 {
     use HasFactory;
@@ -21,18 +24,17 @@ class resident_assigned_room extends Model
         'resident_id',
         'room_id',
         'isFinished',
-        'isDeleted'
     ];
 
 
-
+    
     public function resident(): HasOneOrMany
     {
-        return $this->hasOne(resident::class, 'foreign_key', 'resident_id');
+        return $this->hasOneOrMany(resident::class, 'resident_id', 'resident_id');
     }
 
     public function room(): HasOneOrMany
     {
-        return $this->hasOne(room::class, 'foreign_key', 'room_id');
+        return $this->hasOneOrMany(Room::class, 'room_id', 'room_id');
     }
 }

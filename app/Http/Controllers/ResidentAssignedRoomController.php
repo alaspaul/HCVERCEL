@@ -18,7 +18,7 @@ class ResidentAssignedRoomController extends Controller
      */
     public function index()
     {
-        $data = resident_assigned_room::where('isDeleted', false)->get();
+        $data = resident_assigned_room::all();
         return $data;
     }
 
@@ -38,7 +38,6 @@ class ResidentAssignedRoomController extends Controller
 
         $existingAssignment = resident_assigned_room::where('resident_id', $request['resident_id'])
             ->where('room_id', $request['room_id'])
-            ->where('isDeleted', false)
             ->first();
 
         if ($existingAssignment) {
@@ -68,7 +67,7 @@ class ResidentAssignedRoomController extends Controller
      */
     public function show($resident_id)
     {
-        $assignedRooms = resident_assigned_room::where('resident_id', $resident_id)->where('isDeleted', false)->get();
+        $assignedRooms = resident_assigned_room::where('resident_id', $resident_id)->get();
 
         return response()->json($assignedRooms);
     }
@@ -93,30 +92,6 @@ class ResidentAssignedRoomController extends Controller
        return response('deleted');
     }
 
-    /**
-     * Delete a resident assigned room by its ID.
-     *
-     * @param int $id The ID of the resident assigned room to delete.
-     * @return \Illuminate\Http\Response The response indicating the deletion.
-     */
-    public function delete($id)
-    {
-        $RAR = resident_assigned_room::where('resAssRoom_id', $id)->first();
-        if ($RAR == null) {
-            return response('resident assigned room does not exist');
-        }
-
-        resident_assigned_room::where('resAssRoom_id', $id)->update(
-            [
-            'isDeleted' => true,
-            'updated_at' => now()
-        ]);
-
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $RAR['room_id'], $RAR['resident_id']);
-        
-        return response('deleted');
-    }
 
     /**
      * Get all resident assigned rooms for a specific resident.
@@ -132,7 +107,6 @@ class ResidentAssignedRoomController extends Controller
         }
 
         $rooms = resident_assigned_room::where('resident_id', $resident_id)
-                                            ->where('isDeleted', false)
                                             ->get();
 
 
@@ -204,7 +178,6 @@ class ResidentAssignedRoomController extends Controller
      */
     public function unassignedRooms(){
         $assignedRooms = resident_assigned_room::select('room_id')
-                                                    ->where('isDeleted', false)
                                                     ->get();
         $rooms = room::select('room_id')
                         ->whereNotIn('room_id', $assignedRooms)
@@ -227,7 +200,7 @@ class ResidentAssignedRoomController extends Controller
             if ($user) {
                 $residentId = $user->resident_id;
 
-                $assignedRooms = resident_assigned_room::where('resident_id', $residentId)->where('isDeleted', false)->get();
+                $assignedRooms = resident_assigned_room::where('resident_id', $residentId)->get();
 
                 // Fetch room names based on room_ids
                 $roomIds = $assignedRooms->pluck('room_id')->toArray();
@@ -265,7 +238,6 @@ class ResidentAssignedRoomController extends Controller
 
                 $assignedRoom = resident_assigned_room::where('resAssRoom_id', $resAssRoom_id)
                     ->where('resident_id', $residentId)
-                    ->where('isDeleted', false)
                     ->first();
 
                 if ($assignedRoom) {

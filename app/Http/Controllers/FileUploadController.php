@@ -19,7 +19,7 @@ class FileUploadController extends Controller
      */
     public function index()
     {
-        $files = fileUpload::where('isDeleted', false)->get();
+        $files = fileUpload::all();
 
         return response()->json($files);
     }
@@ -76,7 +76,7 @@ class FileUploadController extends Controller
      */
     public function destroy($id)
     {
-        $file = fileUpload::select('file_name')->where('file_id', $id)->where('isDeleted', false)->first()->file_name;
+        $file = fileUpload::select('file_name')->where('file_id', $id)->first()->file_name;
 
         if (empty($file)) {
             return response()->json('file not found');
@@ -101,7 +101,7 @@ class FileUploadController extends Controller
      */
     public function download($file_id)
     {
-        $file = fileUpload::where('file_id', $file_id)->where('isDeleted', false)->first();
+        $file = fileUpload::where('file_id', $file_id)->first();
 
         // Check if the file record exists
         if (!$file) {
@@ -136,7 +136,6 @@ class FileUploadController extends Controller
         // Query the fileUpload table to get files matching the resident ID and patient ID
         $data = fileUpload::where('resident_id', $resId)
             ->where('patient_id', $patId)
-            ->where('isDeleted', false)
             ->get();
 
         // Return the files as a JSON response
@@ -153,7 +152,6 @@ class FileUploadController extends Controller
     {
         // Query the fileUpload table to get files matching the patient ID
         $data = fileUpload::where('patient_id', $patient_id)
-            ->where('isDeleted', false)
             ->get();
 
         // Return the files as a JSON response
@@ -170,7 +168,6 @@ class FileUploadController extends Controller
     {
         // Query the fileUpload table to get the file matching the ID
         $file = fileUpload::where('file_id', $id)
-            ->where('isDeleted', false)
             ->first();
 
         // Make sure the file record is found
@@ -191,41 +188,6 @@ class FileUploadController extends Controller
         }
     }
 
-    /**
-     * Deletes a file based on its ID.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function delete($id)
-    {
-        // Query the fileUpload table to get the file matching the ID
-        $file = fileUpload::where('file_id', $id)
-            ->where('isDeleted', false)
-            ->first();
-
-        // Check if the file record exists
-        if (!$file) {
-            // Return a JSON response indicating that the file was not found
-            return response()->json('File not found');
-        }
-
-        // Create an instance of the AppConstants class
-        $action = new AppConstants;
-
-        // Log the delete action
-        $this->LogAction($action->delete, $file['patient_id']);
-
-        // Soft delete the file by updating the 'isDeleted' flag and 'updated_at' timestamp
-        fileUpload::where('file_id', $id)
-            ->update([
-                'isDeleted' => true,
-                'updated_at' => now()
-            ]);
-
-        // Return a JSON response indicating that the file was deleted
-        return response()->json('File deleted');
-    }
 
     /**
      * Validates the file and the patient ID in the request.

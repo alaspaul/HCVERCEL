@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 class vital extends Model
@@ -28,8 +29,8 @@ class vital extends Model
 
 
     
-    public function patient(): HasOneOrMany
+    public function patient(): BelongsTo
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->belongsTo(patient::class, 'patient_id', 'patient_id');
     }
 }

@@ -17,7 +17,7 @@ class FloorController extends Controller
      */
     public function index()
     {
-        $data = floor::where('isDeleted', false)->get();
+        $data = floor::all();
         return $data;
     }
 
@@ -65,7 +65,7 @@ class FloorController extends Controller
             return response('invalid input');
         }
 
-        $floor = floor::where('floor_id', $id)->where('isDeleted', false)->first();
+        $floor = floor::where('floor_id', $id)->first();
         if($floor == null){
             return response('floor does not exist');
         }
@@ -108,7 +108,7 @@ class FloorController extends Controller
      */
     public function getFloorNamebyId($floor_id){
 
-        $floor = floor::where('floor_id', $floor_id)->where('isDeleted', false)->first();
+        $floor = floor::where('floor_id', $floor_id)->first();
         if($floor == null){
             return response('floor does not exist');
         }
@@ -118,30 +118,6 @@ class FloorController extends Controller
         return $name;
     }
 
-    /**
-     * Delete a floor by its ID.
-     *
-     * @param int $id The ID of the floor to delete.
-     * @return Response A response indicating that the floor has been deleted or that the floor does not exist.
-     */
-    public function deleteFloor($id){
-        
-        $floor = floor::where('floor_id', $id)->where('isDeleted', false)->first();
-        if($floor == null){
-            return response('floor does not exist');
-        }
-
-        floor::where('floor_id', $id)->update(
-            [
-                'isDeleted' => true,
-                'updated_at' => now(),
-            ]);
-
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $id);
-
-        return response('deleted');
-    }
 
     /**
      * Validates the floor data from the request.

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 class patientHistory extends Model
 {
@@ -23,23 +24,23 @@ class patientHistory extends Model
         'sequence',
     ];
 
-    public function history(): HasMany
+    public function history(): HasOneOrMany
     {
-        return $this->hasMany(History::class, 'history_id', 'history_id');
+        return $this->hasOneOrMany(History::class, 'history_id', 'history_id');
     }
 
-    public function phr_attributeValues1(): HasMany
+    public function phr_attributeValues1(): HasOneOrMany
     {
-        return $this->hasMany(phr_attributeValues::class, 'phr_attributeValues_id', 'attributeVal_id1');
+        return $this->hasOneOrMany(phr_attributeValues::class, 'phr_attributeValues_id', 'attributeVal_id1');
     }
 
-    public function phr_attributeValues2(): HasMany
+    public function phr_attributeValues2(): HasOneOrMany
     {
-        return $this->hasMany(phr_attributeValues::class, 'phr_attributeValues_id', 'attributeVal_id2');
+        return $this->hasOneOrMany(phr_attributeValues::class, 'phr_attributeValues_id', 'attributeVal_id2');
     }
 
-    public function patient(): HasMany
+    public function patient(): HasOneOrMany
     {
-        return $this->hasMany(Patient::class, 'patient_id', 'patient_id');
+        return $this->hasOneOrMany(Patient::class, 'patient_id', 'patient_id');
     }
 }

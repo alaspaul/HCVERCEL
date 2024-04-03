@@ -20,12 +20,11 @@ class lab_results extends Model
         'labResultDate',
         'results',
         'patient_id',
-        'isDeleted'
     ];
 
     public function patient(): HasOneOrMany
     {
-        return $this->hasOne(patient::class, 'foreign_key', 'patient_id');
+        return $this->hasOneOrMany(patient::class, 'patient_id', 'patient_id');
     }
 
 }

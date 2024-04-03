@@ -16,7 +16,6 @@ return new class extends Migration
             $table->dateTime('labResultDate');
             $table->string('results', 1000);
             $table->string('patient_id', 25);
-            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
 
             $table->foreign('patient_id')->references('patient_id')->on('patients')

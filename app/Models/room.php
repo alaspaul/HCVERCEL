@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\floor;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 class room extends Model
 {
@@ -24,15 +26,15 @@ class room extends Model
         'room_type',
         'room_price',
         'room_building',
-        'isDeleted'
     ];
 
 
     
-    public function floor(): HasOneOrMany
+    public function floor(): HasOne
     {
-        return $this->hasOne(floor::class, 'foreign_key', 'floor_id');
+        return $this->hasOne(floor::class, 'floor_id', 'floor_id');
     }
+
 
 
 

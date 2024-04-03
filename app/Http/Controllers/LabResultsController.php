@@ -18,7 +18,7 @@ class LabResultsController extends Controller
      */
     public function index()
     {
-        $data = lab_results::where('isDeleted', false)->get();
+        $data = lab_results::all();
         return $data;
     }
     public function show(lab_results $lab_results)
@@ -72,7 +72,7 @@ class LabResultsController extends Controller
             return response('invalid input');
         }
 
-        $lab = lab_results::where('labResults_id', $id)->where('isDeleted', false)->first();
+        $lab = lab_results::where('labResults_id', $id)->first();
 
         if(empty($lab)){
             return response('lab result not found');
@@ -98,7 +98,7 @@ class LabResultsController extends Controller
      */
     public function destroy($id)
     {
-        $lab = lab_results::where('labResults_id', $id)->where('isDeleted', false)->first();
+        $lab = lab_results::where('labResults_id', $id)->first();
         if(empty($lab)){
             return response('lab result not found');
         }
@@ -112,30 +112,6 @@ class LabResultsController extends Controller
     }
 
     /**
-     * Soft delete a lab result by its ID.
-     *
-     * @param  int  $id  The ID of the lab result to soft delete.
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($id)
-    {
-        $lab = lab_results::where('labResults_id', $id)->where('isDeleted', false)->first();
-        if(empty($lab)){
-            return response('lab result not found');
-        }
-
-        lab_results::where('labResults_id', $id)->update(
-            [
-                'isDeleted' => true,
-                'updated_at' => now()
-            ]);
-
-        $action = new AppConstants;
-        $this->LogAction($action->delete, $id, $lab['patient_id']);
-        return response('deleted');
-    }
-
-    /**
      * Retrieve lab results for the specified patient ID.
      *
      * @param int $patientId The ID of the patient.
@@ -144,7 +120,7 @@ class LabResultsController extends Controller
     public function getPatientLabResultsById($patientId)
     {
         // Retrieve lab results for the specified patient ID
-        $labResults = lab_results::where('patient_id', $patientId)->where('isDeleted', false)->get();
+        $labResults = lab_results::where('patient_id', $patientId)->get();
 
         return $labResults;
     }

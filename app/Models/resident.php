@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use App\Models\department;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; 
@@ -29,7 +31,6 @@ class resident extends Model implements Authenticatable
         'resident_gender',
         'role',
         'department_id',
-        'isDeleted'
     ];
 
     protected $hidden = [
@@ -37,9 +38,9 @@ class resident extends Model implements Authenticatable
         'remember_token',
     ];
 
-    public function department(): HasOneOrMany
+    public function department(): HasOne
     {
-        return $this->hasOne(department::class, 'foreign_key', 'department_id');
+        return $this->hasOne(department::class, 'department_id', 'department_id');
     }
 
     public function getAuthIdentifierName()

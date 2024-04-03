@@ -22,11 +22,11 @@ class chatGroupUsers extends Model
 
     public function chatgroup(): HasOneOrMany
     {
-        return $this->hasOne(chatGroup::class, 'foreign_key', 'chatGroup_id');
+        return $this->hasOneOrMany(chatGroup::class, 'chatGroup_id', 'chatGroup_id');
     }
 
     public function resident(): HasOneOrMany
     {
-        return $this->hasOne(resident::class, 'foreign_key', 'resident_id');
+        return $this->hasOneOrMany(resident::class, 'resident_id', 'resident_id');
     }
 }
