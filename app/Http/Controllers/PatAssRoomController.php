@@ -34,13 +34,13 @@ class PatAssRoomController extends Controller
      */
     public function store($patient_id, $room_id)
     {
-        $patient = patient::where('patient_id', $patient_id)->where('isDischarged', false)->first();
+        $patient = patient::where('patient_id', $patient_id)->first();
 
         if ($patient == null) {
             return response()->json('patient Does not Exists');
         }
 
-        $room = room::where('room_id', $room_id)->where('isDischarged', false)->first();
+        $room = room::where('room_id', $room_id)->first();
 
         if ($room == null) {
             return response()->json('room Does not Exists');
@@ -53,29 +53,20 @@ class PatAssRoomController extends Controller
         if ($this->roomAlreadyUsed($room_id)){
             return response()->json('room already has a patient');
         }
+
+        $newId = $this->createNewId($patient_id, $room_id);
         
         $patAssRoomDetail = patAssRoom::where('patient_id', $patient_id)->where('room_id', $room_id)->first();
         
-        if (empty($patAssRoomDetail)){
             patAssRoom::insert([
-            'par_id' => 'PAR-' . $patient_id . $room_id,
+            'par_id' => $newId,
             'patient_id' => $patient_id,
             'room_id' => $room_id,
             'isDischarged' => false,
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
-        
-        }else{
-                $dataToUpdate = [ // change ID naming for this
-                'isDischarged' => false,
-                'updated_at' => now()
-                ];
+            ]);
             
-            patAssRoom::where('patient_id', $patient_id)->where('room_id', $room_id)->update($dataToUpdate);
-        }
-        
-
         $action = new AppConstants;
         $this->LogAction($action->add, $patient_id, $room_id);
 
@@ -115,10 +106,6 @@ class PatAssRoomController extends Controller
 
         if ($patAssRoom == null) {
             return response()->json('patient Does not Exists');
-        }
-
-        if (!$this->patientAssignedRoomExists($patient_id)) {
-            return response()->json('patient is not in a Room');
         }
 
         if ($this->roomAlreadyUsed($request['room_id'])) {
@@ -178,11 +165,22 @@ class PatAssRoomController extends Controller
 
         $dataToUpdate = [
             'isDischarged' => true,
+            'dischargeDate' => now(),
             'updated_at' => now()
         ];
         
         patAssRoom::where('patient_id', $patient_id)->where('isDischarged', false)->update($dataToUpdate);
         return response('checked out');
+    }
+
+    public function getNumberOfAdmissions($patient_id){
+        $patientAdmissions = patAssRoom::where('patient_id', $patient_id)->where('isDischarged', true)->get();
+
+        if(empty($patientAdmissions)){
+            return response()->json('patient not admitted yet');
+        }
+
+        return response()->json($patientAdmissions);
     }
 
     /**
@@ -278,4 +276,32 @@ class PatAssRoomController extends Controller
             $log->store(Auth::user(), $newAction);
         }
     }
+
+        /**
+     * Creates a new ID for the patient Assigned Room.
+     *
+     * @param Request $request The request object.
+     * @return string The newly created ID.
+     */
+    private function createNewId($patient_id, $room_id){
+        // Get the latest order count for the patient and Room combination
+        $latestorder = patAssRoom::where('patient_id', $patient_id)->where('room_id', $room_id)->count();
+       
+        $currentId =  'PAR-' . $patient_id . $room_id .'-'. $latestorder;
+
+        // Check if the current ID already exists in the database
+        if( !empty( patAssRoom::select('par_id')->where('par_id', $currentId)->first()->par_id )){
+            // If it exists, generate a new ID by incrementing the order count
+            do{
+                $latestorder++;
+                $depId = 'PAR-' . $patient_id . $room_id .'-'. $latestorder;
+                $id = patAssRoom::select('par_id')->where('par_id', $depId)->first();
+             
+            }while(!empty($id));
+        }
+
+        $newId =  'PAR-' . $patient_id . $room_id .'-'. $latestorder;
+        return $newId;
+    }
+
 }

@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 class lab_results extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'labResult_id';
+    protected $primaryKey = 'labResults_id';
 
     public $incrementing = false;
     protected $keyType = 'string';
 
 
     protected $fillable = [
-        'labResult_id',
+        'labResults_id',
         'labResultDate',
         'results',
         'patient_id',

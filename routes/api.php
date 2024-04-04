@@ -174,10 +174,12 @@ Route::group(['middleware' => 'auth:customApi'], function () {
 
 
     Route::apiResource('patAssRooms', PatAssRoomController::class);
+    Route::POST('patAssRooms/{patient_id}/{room_id}', [PatAssRoomController::class, 'store'])->name('patAssRooms.secondStore');
     Route::POST('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
     Route::GET('patAssRooms/get/AvailableRooms', [PatAssRoomController::class, 'getAvailableRooms'])->name('patAssRooms.getAvailableRooms');
     Route::GET('patAssRooms/getPatientbyRoom/{room_id}', [PatAssRoomController::class, 'getPatientbyRoom'])->name('patAssRooms.getPatientbyRoom');
     Route::GET('patAssRooms/checkout/{patient_id}', [PatAssRoomController::class, 'checkout'])->name('patAssRooms.checkout');
+    Route::GET('patAssRooms/getNumberOfAdmissions/{patient_id}', [PatAssRoomController::class, 'getNumberOfAdmissions'])->name('getNumberOfAdmissions');
     Route::GET('patAssRooms/getPatient/{patient_id}', [PatAssRoomController::class, 'getPatient'])->name('patAssRooms.getPatient');
     Route::GET('patAssRooms/getRoombyPatient/{patient_id}', [PatAssRoomController::class, 'getRoombyPatient'])->name('patAssRooms.getRoombyPatient');
     Route::GET('patAssRooms/get/unassignedRooms', [PatAssRoomController::class, 'unassignedRooms'])->name('patAssRooms.unassignedRooms');
