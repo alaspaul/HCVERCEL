@@ -62,7 +62,7 @@ class categoryAttributeSeeder extends Seeder
             [
                 'categoryAtt_id' => 'FC0CA4',
                 'categoryAtt_name' => 'phr_hrIrregular',
-                'categoryAtt_returnName' => 'BHeart Rate (Irregular)',
+                'categoryAtt_returnName' => 'Heart Rate (Irregular)',
                 'categoryAtt_dataType' => 'integer',
                 'formCat_id' => 'FC0'
                 
