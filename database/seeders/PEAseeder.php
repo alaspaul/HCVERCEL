@@ -108,7 +108,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA10', 
                 'PEA_name' => 'specify_patient_head',  
-                'PEA_returnName' => "Specify Head",
+                'PEA_returnName' => "Head Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -117,7 +117,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA11', 
                 'PEA_name' => 'specify_patient_forehead',  
-                'PEA_returnName' => "Specify Forehead",
+                'PEA_returnName' => "Forehead Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -126,7 +126,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA12', 
                 'PEA_name' => 'specify_patient_nose',  
-                'PEA_returnName' => "Specify Nose",
+                'PEA_returnName' => "Nose Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -135,7 +135,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA13', 
                 'PEA_name' => 'specify_patient_mouth',  
-                'PEA_returnName' => "Specify Mouth",
+                'PEA_returnName' => "Mouth Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -144,7 +144,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA14', 
                 'PEA_name' => 'specify_patient_neck',  
-                'PEA_returnName' => "Specify Neck",
+                'PEA_returnName' => "Neck Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -153,7 +153,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA15', 
                 'PEA_name' => 'specify_patient_rightEye',  
-                'PEA_returnName' => "Specify Right Eye",
+                'PEA_returnName' => "Right Eye Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -162,7 +162,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA16', 
                 'PEA_name' => 'specify_patient_leftEye',  
-                'PEA_returnName' => "Specify Left Eye",
+                'PEA_returnName' => "Left Eye Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -171,7 +171,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA17', 
                 'PEA_name' => 'specify_patient_rightEar',  
-                'PEA_returnName' => "Specify Right Ear",
+                'PEA_returnName' => "Right Ear Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -180,7 +180,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA18', 
                 'PEA_name' => 'specify_patient_leftEar',  
-                'PEA_returnName' => "Specify Left Eye",
+                'PEA_returnName' => "Left Eye Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -189,7 +189,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE0PEA19', 
                 'PEA_name' => 'specify_patient_nape',  
-                'PEA_returnName' => "Specify Nape",
+                'PEA_returnName' => "Nape Note",
                 'PEA_dataType' => 'string', 
                 
                 'physicalExam_id' => 'PE0',
@@ -286,7 +286,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA9', 
                 'PEA_name' => 'specify_patient_rightBreast',  
-                'PEA_returnName' => "Specify Patient Right Breast",
+                'PEA_returnName' => "Patient Right Breast Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -295,7 +295,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA10', 
                 'PEA_name' => 'specify_patient_leftBreast',  
-                'PEA_returnName' => "Specify Patient Left Breast",
+                'PEA_returnName' => "Patient Left Breast Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -304,7 +304,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA11', 
                 'PEA_name' => 'specify_patient_rightLung',  
-                'PEA_returnName' => "Specify Patient Right Lung",
+                'PEA_returnName' => "Patient Right Lung Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -313,7 +313,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA12', 
                 'PEA_name' => 'specify_patient_leftLung',  
-                'PEA_returnName' => "Specify Patient Left Lung",
+                'PEA_returnName' => "Patient Left Lung Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -322,7 +322,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA13', 
                 'PEA_name' => 'specify_patient_rightShoulderBlade',  
-                'PEA_returnName' => "Specify Patient Right Shoulder Blade",
+                'PEA_returnName' => "Patient Right Shoulder Blade Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -331,7 +331,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA14', 
                 'PEA_name' => 'specify_patient_leftShoulderBlade',  
-                'PEA_returnName' => "Specify Patient Left Shoulder Blade",
+                'PEA_returnName' => "Patient Left Shoulder Blade Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -340,7 +340,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA15', 
                 'PEA_name' => 'specify_patient_stomach',  
-                'PEA_returnName' => "Specify Patient Stomach",
+                'PEA_returnName' => "Patient Stomach Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -349,7 +349,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA16', 
                 'PEA_name' => 'specify_patient_abdomen',  
-                'PEA_returnName' => "Specify Patient Abdomen",
+                'PEA_returnName' => "Patient Abdomen Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -358,7 +358,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE1PEA17', 
                 'PEA_name' => 'specify_patient_waist',  
-                'PEA_returnName' => "Specify Patient Waist",
+                'PEA_returnName' => "Patient Waist Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE1',
                 'created_at' => now(), 
@@ -484,7 +484,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA12', 
                 'PEA_name' => 'specify_patient_rightThigh',  
-                'PEA_returnName' => "Specify Patient Right Thigh",
+                'PEA_returnName' => "Patient Right Thigh Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -493,7 +493,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA13', 
                 'PEA_name' => 'specify_patient_leftThigh',  
-                'PEA_returnName' => "Specify Patient Left Thigh",
+                'PEA_returnName' => "Patient Left Thigh Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -502,7 +502,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA14', 
                 'PEA_name' => 'specify_patient_rightKnee',  
-                'PEA_returnName' => "Specify Patient Right Knee",
+                'PEA_returnName' => "Patient Right Knee Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -511,7 +511,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA15', 
                 'PEA_name' => 'specify_patient_leftKnee',  
-                'PEA_returnName' => "Specify Patient Left Knee",
+                'PEA_returnName' => "Patient Left Knee Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -520,7 +520,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA16', 
                 'PEA_name' => 'specify_patient_rightLeg',  
-                'PEA_returnName' => "Specify Patient Right Leg",
+                'PEA_returnName' => "Patient Right Leg Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -529,7 +529,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA17', 
                 'PEA_name' => 'specify_patient_leftLeg',  
-                'PEA_returnName' => "Specify Patient Left Leg",
+                'PEA_returnName' => "Patient Left Leg Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -538,7 +538,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA18', 
                 'PEA_name' => 'specify_patient_rightAnkle',  
-                'PEA_returnName' => "Specify Patient Right Ankle",
+                'PEA_returnName' => "Patient Right Ankle Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -547,7 +547,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA19', 
                 'PEA_name' => 'specify_patient_leftAnkle',  
-                'PEA_returnName' => "Specify Patient Left Ankle",
+                'PEA_returnName' => "Patient Left Ankle Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -556,7 +556,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA20', 
                 'PEA_name' => 'specify_patient_rightCalf',  
-                'PEA_returnName' => "Specify Patient Right Calf",
+                'PEA_returnName' => "Patient Right Calf Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -565,7 +565,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA21', 
                 'PEA_name' => 'specify_patient_leftCalf',  
-                'PEA_returnName' => "Specify Patient Left Calf",
+                'PEA_returnName' => "Patient Left Calf Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -574,7 +574,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA22', 
                 'PEA_name' => 'specify_patient_rightFoot',  
-                'PEA_returnName' => "Specify Patient Right Foot",
+                'PEA_returnName' => "Patient Right Foot Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -583,7 +583,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE2PEA23', 
                 'PEA_name' => 'specify_patient_leftFoot',  
-                'PEA_returnName' => "Specify Patient Left Foot",
+                'PEA_returnName' => "Patient Left Foot Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE2',
                 'created_at' => now(), 
@@ -691,7 +691,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA10', 
                 'PEA_name' => 'specify_patient_rightShoudler', 
-                'PEA_returnName' => "Specify Patient Right Shoulder",
+                'PEA_returnName' => "Patient Right Shoulder Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -700,7 +700,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA11', 
                 'PEA_name' => 'specify_patient_leftShoudler', 
-                'PEA_returnName' => "Specify Patient Left Shoulder",
+                'PEA_returnName' => "Patient Left Shoulder Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -709,7 +709,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA12', 
                 'PEA_name' => 'specify_patient_rightArm', 
-                'PEA_returnName' => "Specify Patient Right Arm",
+                'PEA_returnName' => "Patient Right Arm Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -718,7 +718,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA13', 
                 'PEA_name' => 'specify_patient_leftArm', 
-                'PEA_returnName' => "Specify Patient Left Arm",
+                'PEA_returnName' => "Patient Left Arm Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -727,7 +727,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA14', 
                 'PEA_name' => 'specify_patient_rightForearm', 
-                'PEA_returnName' => "Specify Patient Right Forearm",
+                'PEA_returnName' => "Patient Right Forearm Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -736,7 +736,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA15', 
                 'PEA_name' => 'specify_patient_leftForearm', 
-                'PEA_returnName' => "Specify Patient Left Forearm",
+                'PEA_returnName' => "Patient Left Forearm Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -745,7 +745,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA16', 
                 'PEA_name' => 'specify_patient_rightWrist', 
-                'PEA_returnName' => "Specify Patient Right Wrist",
+                'PEA_returnName' => "Patient Right Wrist Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -754,7 +754,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA17', 
                 'PEA_name' => 'specify_patient_leftWrist', 
-                'PEA_returnName' => "Specify Patient Left Wrist",
+                'PEA_returnName' => "Patient Left Wrist Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -763,7 +763,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA18', 
                 'PEA_name' => 'specify_patient_rightHand', 
-                'PEA_returnName' => "Specify Patient Right Hand",
+                'PEA_returnName' => "Patient Right Hand Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
@@ -772,7 +772,7 @@ class PEAseeder extends Seeder
             [
                 'PEA_id' => 'PE3PEA19', 
                 'PEA_name' => 'specify_patient_leftHand', 
-                'PEA_returnName' => "Specify Patient Left Hand",
+                'PEA_returnName' => "Patient Left Hand Note",
                 'PEA_dataType' => 'string', 
                 'physicalExam_id' => 'PE3',
                 'created_at' => now(), 
