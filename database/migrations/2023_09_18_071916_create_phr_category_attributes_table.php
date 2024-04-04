@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('phr_category_attributes', function (Blueprint $table) {
             $table->string('categoryAtt_id', 50)->primary();
             $table->string('categoryAtt_name', 100);
+            $table->string('categoryAtt_returnName', 100);
             $table->string('categoryAtt_dataType', 50);
 
             $table->string('formCat_id', 25);

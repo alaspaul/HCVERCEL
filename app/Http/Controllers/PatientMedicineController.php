@@ -40,7 +40,7 @@ class PatientMedicineController extends Controller
         $patientMedicine = patient_medicine::where('patient_id', $request['patient_id'])->where('medicine_id', $request['medicine_id'])->where('isFinished', false)->first();
 
         if(!empty($patientMedicine)){
-            return response('medicine for patient already exists');
+            return response('error', 'medicine for patient already exists');
         }
         $newId = $this->createNewId($request);
         $formattedDate = Carbon::parse($request['patientMedicineDate'])->format('Y-m-d H:i:s');
@@ -124,7 +124,7 @@ class PatientMedicineController extends Controller
     public function getPatientMedicinesByPatientId($patientId)
     {
             // Retrieve patient medicines from the database
-            $UpdatePatientMedicines = patient_medicine::where('patient_id', $patientId)->get();
+            $UpdatePatientMedicines = patient_medicine::where('patient_id', $patientId)->where('isFinished', false)->get();
             foreach ($UpdatePatientMedicines as $medication) {
                 
                 patient_medicine::where('patientMedicine_id', $medication['patientMedicine_id'])->update([
