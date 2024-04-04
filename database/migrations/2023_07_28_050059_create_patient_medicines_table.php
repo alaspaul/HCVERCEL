@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('medicine_frequency', 255);
             $table->string('medicine_id',25);
             $table->string('patient_id', 25);
+            $table->boolean('isFinished')->default(false);
             $table->timestamps();
 
             $table->foreign('patient_id')->references('patient_id')->on('patients')

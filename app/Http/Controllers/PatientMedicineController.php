@@ -37,6 +37,11 @@ class PatientMedicineController extends Controller
             return response('invalid input');
         }
 
+        $patientMedicine = patient_medicine::where('patient_id', $request['patient_id'])->where('medicine_id', $request['medicine_id'])->where('isFinished', false)->first();
+
+        if(!empty($patientMedicine)){
+            return response('medicine for patient already exists');
+        }
         $newId = $this->createNewId($request);
         $formattedDate = Carbon::parse($request['patientMedicineDate'])->format('Y-m-d H:i:s');
 
@@ -118,12 +123,23 @@ class PatientMedicineController extends Controller
      */
     public function getPatientMedicinesByPatientId($patientId)
     {
-        try {
             // Retrieve patient medicines from the database
-            $patientMedicines = patient_medicine::where('patient_id', $patientId)->get();
+            $UpdatePatientMedicines = patient_medicine::where('patient_id', $patientId)->get();
+            foreach ($UpdatePatientMedicines as $medication) {
+                
+                patient_medicine::where('patientMedicine_id', $medication['patientMedicine_id'])->update([
+                    'isFinished' => $this->checkMedicineDate($medication)
+                ]);
+            }
 
+            $patientMedicines = patient_medicine::where('patient_id', $patientId)
+            ->orderByDesc('patientMedicineDate')
+            ->orderBy('isFinished')
+            ->get();
+    
             // Fetch medicine details for each patient medicine
             foreach ($patientMedicines as $medication) {
+                
                 $medicine = medicine::find($medication->medicine_id); 
                 if ($medicine) {
                     $medication->medicine_name = $medicine->medicine_name;
@@ -135,12 +151,16 @@ class PatientMedicineController extends Controller
                     $medication->medicine_type = null;
                 }
             }
-
             // Return the patient medicines as a JSON response
             return response()->json($patientMedicines);
-        } catch (\Exception $e) {
-            // Return an error response if an exception occurs
-            return response()->json(['error' => 'Error fetching patient medicines.'], 500);
+
+    }
+
+    private function checkMedicineDate(patient_medicine $patientMedicine ){
+        if($patientMedicine['patientMedicineDate'] <= now()){
+            return true;
+        }else{
+            return false;
         }
     }
 
