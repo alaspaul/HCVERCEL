@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('physical_exam_attributes', function (Blueprint $table) {
             $table->string('PEA_id', 50)->primary();
             $table->string('PEA_name', 100);
+            $table->string('PEA_returnName', 100);
             $table->string('PEA_dataType', 50);
 
             $table->timestamps();
