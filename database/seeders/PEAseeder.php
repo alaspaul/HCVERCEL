@@ -17,7 +17,7 @@ class PEAseeder extends Seeder
 
             [
                 'PEA_id' => 'PE0PEA0', 
-                'PEA_name' => 'patient_head',  
+                'PEA_name' => 'patient_head', 
                 'PEA_dataType' => 'integer', 
                 
                 'physicalExam_id' => 'PE0',
