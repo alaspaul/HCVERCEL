@@ -17,10 +17,11 @@ class patient_medicine extends Model
 
     protected $fillable = [
         'patientMedicine_id',
-        'patientMedicinedate',
+        'patientMedicineDate',
         'medicine_frequency',
         'patient_id',
         'medicine_id',
+        'isFinished',
     ];
 
     public function patient(): HasOneOrMany
