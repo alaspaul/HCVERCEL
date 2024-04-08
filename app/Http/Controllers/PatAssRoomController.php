@@ -105,7 +105,7 @@ class PatAssRoomController extends Controller
         $patAssRoom = patAssRoom::where('patient_id', $patient_id)->where('isDischarged', false)->first();
 
         if (empty($patAssRoom)) {
-            return response()->json('patient Does not Exists');
+            return response()->json($patAssRoom);
         }
 
         if ($this->roomAlreadyUsed($request['room_id'])) {
