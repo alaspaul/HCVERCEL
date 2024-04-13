@@ -29,6 +29,7 @@ use App\Http\Controllers\loginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VitalController;
 use App\Http\Controllers\PatientHistoryController;
+use App\Http\Controllers\ResidentAssignedPatientController; 
 use Illuminate\Support\Facades\Route;
 
 
@@ -175,7 +176,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
 
     Route::apiResource('patAssRooms', PatAssRoomController::class);
     Route::POST('patAssRooms/{patient_id}/{room_id}', [PatAssRoomController::class, 'store'])->name('patAssRooms.secondStore');
-    Route::POST('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
+    Route::PUT('patAssRooms/transferPatient/{patient_id}', [PatAssRoomController::class, 'transferPatient'])->name('patAssRooms.transferPatient');
     Route::GET('patAssRooms/get/AvailableRooms', [PatAssRoomController::class, 'getAvailableRooms'])->name('patAssRooms.getAvailableRooms');
     Route::GET('patAssRooms/getPatientbyRoom/{room_id}', [PatAssRoomController::class, 'getPatientbyRoom'])->name('patAssRooms.getPatientbyRoom');
     Route::GET('patAssRooms/checkout/{patient_id}', [PatAssRoomController::class, 'checkout'])->name('patAssRooms.checkout');
@@ -213,6 +214,11 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::apiResource('patientHistories', PatientHistoryController::class);
     Route::GET('patientHistories/get/historyByPatientId/{patient_id}', [PatientHistoryController::class, 'getPatientHistorybyPatientID'])->name('patientHistories.gethistoryByPatientId');
 
+    Route::apiResource('residentAssignedPatients', ResidentAssignedPatientController::class);
+    Route::GET('residentAssignedPatients/get/PatientsByResident', [ResidentAssignedPatientController::class, 'getPatientsByResident'])->name('residentAssignedPatients.getPatientsByResident');
+    Route::GET('residentAssignedPatients/get/AvailablePatients', [ResidentAssignedPatientController::class, 'getAvailablePatients'])->name('residentAssignedPatients.getAvailablePatients');
+    Route::POST('residentAssignedPatients/sharePatient/{patient_id}', [ResidentAssignedPatientController::class, 'sharePatient'])->name('residentAssignedPatients.sharePatient');
+    Route::GET('residentAssignedPatients/get/PatientsAssignedToResident', [ResidentAssignedPatientController::class, 'getPatientsAssignedToResident'])->name('residentAssignedPatients.getPatientsAssignedToResident');
 });
 
 Route::GET('fileUpload/viewFile/{file_id}', [FileUploadController::class, 'viewFile'])->name('fileUpload.viewFile');

@@ -56,8 +56,6 @@ class PatAssRoomController extends Controller
 
         $newId = $this->createNewId($patient_id, $room_id);
         
-        $patAssRoomDetail = patAssRoom::where('patient_id', $patient_id)->where('room_id', $room_id)->first();
-        
             patAssRoom::insert([
             'par_id' => $newId,
             'patient_id' => $patient_id,
@@ -86,7 +84,7 @@ class PatAssRoomController extends Controller
         if ($patAssRoom == null) {
             return response()->json('Record Does not Exists');
         }
-
+        patAssRoom::destroy($id);
         $action = new AppConstants;
         $this->LogAction($action->delete, $patAssRoom['patient_id'], $patAssRoom['room_id']);
 

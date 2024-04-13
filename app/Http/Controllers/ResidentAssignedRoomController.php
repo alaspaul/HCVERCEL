@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\AppConstants;
+use App\Models\residentAssignedPatient;
+
 class ResidentAssignedRoomController extends Controller
 {
     /**
@@ -44,9 +46,8 @@ class ResidentAssignedRoomController extends Controller
             return response()->json(['error' => 'Assignment already exists.'], 400);
         }
 
-        $time = now();
-        $date = new Carbon($time);
-        $id = $date->year . $request['resident_id'] . $request['room_id'];
+
+        $id = $request['resident_id'] . $request['room_id'];
         resident_assigned_room::insert([
             'resAssRoom_id' => $id,
             'resident_id' => $request['resident_id'],
@@ -56,6 +57,14 @@ class ResidentAssignedRoomController extends Controller
             'updated_at' => now(),
         ]);
 
+        $PAR = new PatAssRoomController;
+        $responseData = $PAR->getPatientByRoom($request['room_id']);
+        if (!empty($responseData->getData())) {
+            $data = $responseData->getData();
+            $patient = $data[0];
+            $RAP = new ResidentAssignedPatientController;
+            $RAP->store($patient->patient_id, $request['resident_id']);
+        }
         
         $action = new AppConstants;
         $this->LogAction($action->add, $request['room_id'], $request['resident_id']);
@@ -84,6 +93,18 @@ class ResidentAssignedRoomController extends Controller
         $action = new AppConstants;
         $this->LogAction($action->delete, $RAR['room_id'], $RAR['resident_id']);
 
+        $PAR = new PatAssRoomController;
+        $responseData = $PAR->getPatientByRoom($RAR['room_id']);
+        if (!empty($responseData->getData())) {
+            $data = $responseData->getData();
+            $patient = $data[0];
+            $RAPController = new ResidentAssignedPatientController;
+            $RAP = residentAssignedPatient::where('patient_id', $patient->patient_id)->where('resident_id', $RAR['resident_id'])->first();
+            if ($RAP != null) {
+                $RAPController->destroy($RAP['RAP_id']);
+            }
+        }
+        
         resident_assigned_room::destroy($id);
 
 

@@ -69,6 +69,15 @@ class PatientController extends Controller
             $PatAssRoomController = new PatAssRoomController;
             $PatAssRoomController->store($newId, $request['room_id']);
         }
+
+        
+        $user = Auth::user();
+        if($user['role'] != 'admin'){
+            $rap = new ResidentAssignedPatientController;
+            $rap->store($newId, $user['resident_id']);
+
+        }
+        
         $PhrAttributeValuesController = new PhrAttributeValuesController;
         $PhrAttributeValuesController->store($request, $newId);
         
