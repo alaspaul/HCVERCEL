@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\patientHistory;
 use App\Models\phr_attributeValues;
 use App\Models\phr_categoryAttributes;
 use App\Models\phr_formCategories;
@@ -77,10 +78,8 @@ class PhrAttributeValuesController extends Controller
 
     
         $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
-
         if(count($dates) > 1){
             $PAVC = new PhrAttributeValuesController;
-
             $PAVC->comparePhr($patient_id, $dates[1], $dates[0]);
         }
 
@@ -206,11 +205,11 @@ class PhrAttributeValuesController extends Controller
     public function comparePhr($patient_id, $date1, $date2){
         $date = new Carbon( $date1);
         $formattedDate1 = $date->format('Y-m-d');
-        $phr1 = phr_attributeValues::where('created_at', 'LIKE',  $formattedDate1 . '%')->where('patient_id', $patient_id)->get();
+        $phr1 = phr_attributeValues::where('created_at', 'LIKE',  $formattedDate1 . '%')->where('patient_id', $patient_id)->orderBy('attributeVal_id')->get();
 
         $date = new Carbon( $date2);
         $formattedDate2 = $date->format('Y-m-d');
-        $phr2 = phr_attributeValues::where('created_at', 'LIKE',  $formattedDate2 . '%')->where('patient_id', $patient_id)->get();
+        $phr2 = phr_attributeValues::where('created_at', 'LIKE',  $formattedDate2 . '%')->where('patient_id', $patient_id)->orderBy('attributeVal_id')->get();
 
         $array = [];
 
@@ -220,6 +219,17 @@ class PhrAttributeValuesController extends Controller
         $history = new HistoryController;
 
         $history_id = $history->store();
+        $latestSequenceRecord = patientHistory::where('patient_id', $patient_id)
+        ->orderBy('sequence', 'desc')
+        ->first();
+    
+    if ($latestSequenceRecord) {
+        // If a record is found, increment the sequence number
+        $sequenceNum = $latestSequenceRecord->sequence + 1;
+    } else {
+        // If no record is found, set the sequence number to 0
+        $sequenceNum = 0;
+    }
         
         for($i = 0; $i <= $length-1; $i++){
             if(isset($phr1[$i]) && isset($phr2[$i]) && $phr1[$i]['attributeVal_values'] != $phr2[$i]['attributeVal_values']){
@@ -228,7 +238,7 @@ class PhrAttributeValuesController extends Controller
                              $phr2[$i]['attributeVal_values']. ' on ' . $phr2[$i]['created_at'];
         
                 $ph = new PatientHistoryController;
-                $ph->store($array[$i], $history_id, $phr1[$i]['attributeVal_id'], $phr2[$i]['attributeVal_id']);
+                $ph->store($array[$i], $history_id, $sequenceNum, $phr1[$i]['attributeVal_id'], $phr2[$i]['attributeVal_id'], $patient_id);
             }
         }
     

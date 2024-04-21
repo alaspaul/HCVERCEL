@@ -26,18 +26,18 @@ class HistoryController extends Controller
         $date = new Carbon( $time ); 
 
         $latestOrder = history::all()->count();
-        $currentId = 'H' . $date->year . '-' . $latestOrder;
+        $currentId = 'H' . $latestOrder;
 
         if( !empty(history::select('history_id')->where('history_id', $currentId)->first()->history_id)){
             do{
                 $latestOrder++;
-                $histId = 'H' . $date->year . '-' . $latestOrder;
+                $histId ='H' . $latestOrder;
                 $id = history::select('history_id')->where('history_id',$histId)->first();
              
             }while(!empty($id));
         }
 
-        $newId = 'H' . $date->year . '-' . $latestOrder;
+        $newId = 'H' . $latestOrder;
 
         history::insert([ 
             'history_id' => $newId,

@@ -27,8 +27,8 @@ return new class extends Migration
             ->onUpdate('cascade');
 
 
-
-            $table->timestamps();
+            $table->date('created_at'); 
+            $table->date('updated_at'); 
         });
     }
 

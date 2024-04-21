@@ -18,22 +18,23 @@ class PatientHistoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store($changes, $history_id, $AV_id1, $AV_id2)
+    public function store($changes, $history_id, $sequenceNum, $AV_id1, $AV_id2, $patient_id)
     {
 
-        $latestOrder = patientHistory::where('history_id', $history_id)->count();
-        $currentId = $history_id . '|'.'PH' . '-' . $latestOrder;
+        $latestOrder = patientHistory::where('history_id', $history_id)->where('patient_id', $patient_id)->count();
+        $currentId = $patient_id. $history_id  . '|'.'PH' . '-' . $latestOrder;
+
 
         if( !empty(patientHistory::select('ph_id')->where('ph_id', $currentId)->first()->ph_id)){
             do{
                 $latestOrder++;
-                $histId = $history_id . '|'.'PH' . '-' . $latestOrder;
-                $id = patientHistory::select('ph_id')->where('ph_id', $currentId)->first();
+                $histId = $patient_id. $history_id  . '|'.'PH' . '-' . $latestOrder;
+                $id = patientHistory::select('ph_id')->where('ph_id', $histId)->first();
              
             }while(!empty($id));
         }
 
-        $newId = $history_id . '|'.'PH' . '-' . $latestOrder;
+        $newId = $patient_id. $history_id  . '|'.'PH' . '-' . $latestOrder;
 
         patientHistory::insert([
             'ph_id' => $newId, 
@@ -41,33 +42,28 @@ class PatientHistoryController extends Controller
             'attributeVal_id1' => $AV_id1,
             'attributeVal_id2' => $AV_id2,
             'history_id' => $history_id,
+            'patient_id' => $patient_id,
+            'sequence' => $sequenceNum,
             
             'created_at' => now(),
             'updated_at' => now()
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(patientHistory $patientHistory)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
+     * Retrieve patient history by patient ID.
      */
-    public function update(Request $request, patientHistory $patientHistory)
+    public function getPatientHistorybyPatientID($patient_id)
     {
-        //
-    }
+        // Fetch patient history records by patient ID
+        $patientHistory = patientHistory::where('patient_id', $patient_id)->orderBy('sequence')->get();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(patientHistory $patientHistory)
-    {
-        //
+        // Check if any records were found
+        if ($patientHistory->isEmpty()) {
+            return response()->json(['message' => 'No patient history found for the given patient ID'], 404);
+        }
+
+        return response()->json($patientHistory);
     }
 }

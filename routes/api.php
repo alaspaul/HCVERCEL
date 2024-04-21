@@ -28,6 +28,7 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\VitalController;
+use App\Http\Controllers\PatientHistoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -182,7 +183,7 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('attributeValues/getAttributeName/{id}', [PhrAttributeValuesController::class, 'getAttributeName'])->name('attributeValues.getAttributeName');
     Route::GET('attributeValues/getPhrDates/{patient_id}', [PhrAttributeValuesController::class, 'getPhrDates'])->name('attributeValues.getPhrDates');
     Route::GET('attributeValues/getPhrbyDate/{patient_id}', [PhrAttributeValuesController::class, 'getPhrbyDate'])->name('attributeValues.getPhrbyDate');
-    Route::GET('attributeValues/comparePhr/{patient_id}', [PhrAttributeValuesController::class, 'comparePhr'])->name('attributeValues.comparePhr');
+    Route::GET('attributeValues/comparePhr/{patient_id}/{date1}/{date2}', [PhrAttributeValuesController::class, 'comparePhr'])->name('attributeValues.comparePhr');
     Route::GET('attributeValues/getPHRM/{patient_id}', [PhrAttributeValuesController::class, 'getPHRM'])->name('attributeValues.getPHRM');
     Route::GET('attributeValues/getFormCategoryName/{formCat_id}', [PhrAttributeValuesController::class, 'getFormCategoryName'])->name('attributeValues.getFormCategoryName');
 
@@ -221,6 +222,10 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('chatGroupUsers/get/firstAddResidents', [ChatGroupUsersController::class, 'firstAddResidents'])->name('chatGroupUsers.firstAddResidents');
 
     Route::apiResource('histories', HistoryController::class);
+
+    Route::apiResource('patientHistories', PatientHistoryController::class);
+    Route::GET('patientHistories/get/historyByPatientId/{patient_id}', [PatientHistoryController::class, 'getPatientHistorybyPatientID'])->name('patientHistories.gethistoryByPatientId');
+
     
 });
 

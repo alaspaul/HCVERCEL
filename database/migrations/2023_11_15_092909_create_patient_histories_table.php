@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('patient_histories', function (Blueprint $table) {
             $table->string('ph_id', 250)->primary();
             $table->string('ph_changes', 255)->nullable();
+            $table->integer('sequence');
             $table->timestamps();
 
 
@@ -32,6 +33,11 @@ return new class extends Migration
 
             $table->string('attributeVal_id2', 100);
             $table->foreign('attributeVal_id2')->references('attributeVal_id')->on('phr_attribute_values')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            $table->string('patient_id', 25);
+            $table->foreign('patient_id')->references('patient_id')->on('patients')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
