@@ -21,7 +21,7 @@ class phr_attributeValues extends Model
         'attributeVal_values',
         'patient_id',
         'categoryAtt_id',
-
+        'sequence',
     ];
 
     public function patient(): HasOneOrMany

@@ -183,7 +183,6 @@ Route::group(['middleware' => 'auth:customApi'], function () {
     Route::GET('attributeValues/getAttributeName/{id}', [PhrAttributeValuesController::class, 'getAttributeName'])->name('attributeValues.getAttributeName');
     Route::GET('attributeValues/getPhrDates/{patient_id}', [PhrAttributeValuesController::class, 'getPhrDates'])->name('attributeValues.getPhrDates');
     Route::GET('attributeValues/getPhrbyDate/{patient_id}', [PhrAttributeValuesController::class, 'getPhrbyDate'])->name('attributeValues.getPhrbyDate');
-    Route::GET('attributeValues/comparePhr/{patient_id}/{date1}/{date2}', [PhrAttributeValuesController::class, 'comparePhr'])->name('attributeValues.comparePhr');
     Route::GET('attributeValues/getPHRM/{patient_id}', [PhrAttributeValuesController::class, 'getPHRM'])->name('attributeValues.getPHRM');
     Route::GET('attributeValues/getFormCategoryName/{formCat_id}', [PhrAttributeValuesController::class, 'getFormCategoryName'])->name('attributeValues.getFormCategoryName');
 

@@ -28,6 +28,18 @@ class PhrAttributeValuesController extends Controller
     public static function store(Request $request, $patient_id)
     {
         $attributes = phr_categoryAttributes::all();
+        $latestSequenceNum = phr_attributeValues::where('patient_id', $patient_id)
+        ->distinct('sequence') // Ensure distinct sequences
+        ->max('sequence'); // Get the maximum sequence number
+        
+        if ($latestSequenceNum !== null) {
+            // If a record is found, increment the sequence number
+            $sequenceNum = $latestSequenceNum + 1;
+        } else {
+            // If no record is found, set the sequence number to 0
+            $sequenceNum = 0;
+        }
+
         foreach ($attributes as $attribute) {
             $exit = 0;
             $latestOrder = 0;
@@ -50,6 +62,7 @@ class PhrAttributeValuesController extends Controller
                     'attributeVal_values' => $request[$attribute['categoryAtt_name']],
                     'patient_id' => $patient_id,
                     'categoryAtt_id' => $attribute['categoryAtt_id'],
+                    'sequence' => $sequenceNum,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -70,6 +83,7 @@ class PhrAttributeValuesController extends Controller
                     'attributeVal_values' => $variable,
                     'patient_id' => $patient_id,
                     'categoryAtt_id' => $attribute['categoryAtt_id'],
+                    'sequence' => $sequenceNum,
                     'created_at' => Carbon::today()->toDateString(),
                     'updated_at' => Carbon::today()->toDateString(),
                 ]);
@@ -77,10 +91,16 @@ class PhrAttributeValuesController extends Controller
         }
 
     
-        $dates = phr_attributeValues::select('created_at')->distinct()->orderBy('created_at', 'desc')->pluck('created_at');
-        if(count($dates) > 1){
+        $sequences = phr_attributeValues::select('sequence')
+        ->where('patient_id', $patient_id)
+        ->distinct() // Ensure distinct sequences
+        ->orderBy('sequence', 'desc')
+        ->limit(2) // Limit to the two latest sequences
+        ->pluck('sequence');
+    
+        if ($sequences->count() >= 2) {
             $PAVC = new PhrAttributeValuesController;
-            $PAVC->comparePhr($patient_id, $dates[1], $dates[0]);
+            $PAVC->comparePhr($patient_id, $sequences[1], $sequences[0]);
         }
 
         $action ='added a new categoryAttribute';
@@ -201,48 +221,49 @@ class PhrAttributeValuesController extends Controller
         return $phr;
     }
 
-
-    public function comparePhr($patient_id, $date1, $date2){
-        $date = new Carbon( $date1);
-        $formattedDate1 = $date->format('Y-m-d');
-        $phr1 = phr_attributeValues::where('created_at', 'LIKE',  $formattedDate1 . '%')->where('patient_id', $patient_id)->orderBy('attributeVal_id')->get();
-
-        $date = new Carbon( $date2);
-        $formattedDate2 = $date->format('Y-m-d');
-        $phr2 = phr_attributeValues::where('created_at', 'LIKE',  $formattedDate2 . '%')->where('patient_id', $patient_id)->orderBy('attributeVal_id')->get();
-
+    public function comparePhr($patient_id, $sequence1, $sequence2){
+        $phr1 = phr_attributeValues::where('sequence', $sequence1)
+            ->where('patient_id', $patient_id)
+            ->orderBy('attributeVal_id')
+            ->get();
+    
+        $phr2 = phr_attributeValues::where('sequence', $sequence2)
+            ->where('patient_id', $patient_id)
+            ->orderBy('attributeVal_id')
+            ->get();
+    
         $array = [];
-
+    
         $PCA = new phr_categoryAttributes;
-
+    
         $length = $PCA->count(); 
         $history = new HistoryController;
-
+    
         $history_id = $history->store();
-        $latestSequenceRecord = patientHistory::where('patient_id', $patient_id)
+
+        $latestAttVAlSequenceRecord = patientHistory::where('patient_id', $patient_id)
         ->orderBy('sequence', 'desc')
         ->first();
     
-    if ($latestSequenceRecord) {
-        // If a record is found, increment the sequence number
-        $sequenceNum = $latestSequenceRecord->sequence + 1;
-    } else {
-        // If no record is found, set the sequence number to 0
-        $sequenceNum = 0;
-    }
-        
+        if ($latestAttVAlSequenceRecord) {
+            // If a record is found, increment the sequence number
+            $sequenceAttValNum = $latestAttVAlSequenceRecord->sequence + 1;
+        } else {
+            // If no record is found, set the sequence number to 0
+            $sequenceAttValNum = 0;
+        }
+    
         for($i = 0; $i <= $length-1; $i++){
             if(isset($phr1[$i]) && isset($phr2[$i]) && $phr1[$i]['attributeVal_values'] != $phr2[$i]['attributeVal_values']){
                 $array[$i] = $this->getAttributeName($phr1[$i]['categoryAtt_id']) . 
-                             ' is changed from ' . $phr1[$i]['attributeVal_values'] . ' to ' . 
-                             $phr2[$i]['attributeVal_values']. ' on ' . $phr2[$i]['created_at'];
-        
+                            ' is changed from ' . $phr1[$i]['attributeVal_values'] . ' to ' . 
+                            $phr2[$i]['attributeVal_values']. ' on ' . $phr2[$i]['created_at'];
+    
                 $ph = new PatientHistoryController;
-                $ph->store($array[$i], $history_id, $sequenceNum, $phr1[$i]['attributeVal_id'], $phr2[$i]['attributeVal_id'], $patient_id);
+                $ph->store($array[$i], $history_id, $sequenceAttValNum, $phr1[$i]['attributeVal_id'], $phr2[$i]['attributeVal_id'], $patient_id);
             }
         }
     
-        
         return $array; 
     }
 

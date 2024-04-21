@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('phr_attribute_values', function (Blueprint $table) {
             $table->string('attributeVal_id', 100)->primary();
             $table->string('attributeVal_values', 100);
+            $table->integer('sequence');
 
             $table->string('patient_id', 25);
             $table->string('categoryAtt_id', 50);
